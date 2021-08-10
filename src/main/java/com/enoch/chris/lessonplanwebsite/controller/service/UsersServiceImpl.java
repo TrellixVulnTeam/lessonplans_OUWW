@@ -21,6 +21,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.enoch.chris.lessonplanwebsite.controller.entity.Role;
 import com.enoch.chris.lessonplanwebsite.controller.entity.User;
 import com.enoch.chris.lessonplanwebsite.dao.RoleDao;
+import com.enoch.chris.lessonplanwebsite.dao.RoleRepository;
+import com.enoch.chris.lessonplanwebsite.dao.UserRepository;
 import com.enoch.chris.lessonplanwebsite.dao.UsersDao;
 import com.enoch.chris.lessonplanwebsite.registration.user.RegistrationUser;
 
@@ -28,43 +30,20 @@ import com.enoch.chris.lessonplanwebsite.registration.user.RegistrationUser;
 @Service
 public class UsersServiceImpl implements UsersService{
 	
-private UsersDao usersDAO;
-private RoleDao roleDao;
+private RoleRepository roleRepository;
+private UserRepository userRepository;
+
 
 @Autowired
 private BCryptPasswordEncoder passwordEncoder;
-	
+
+
 	@Autowired
-	public UsersServiceImpl(UsersDao usersDAO, RoleDao roleDao) {
-		this.usersDAO = usersDAO;
-		this.roleDao = roleDao;
+	public UsersServiceImpl(UserRepository userRepository, RoleRepository roleRepository) {
+		this.userRepository = userRepository;
+		this.roleRepository = roleRepository;
 	}
 	
-	
-	
-	@Override
-	@Transactional
-	public List<User> getMembers(int pageStart, int recordsPerPage) {
-
-		return usersDAO.getMembers(pageStart, recordsPerPage);
-	}
-
-
-
-	@Override
-	@Transactional
-	public int getTotalMembers() {
-
-		return usersDAO.getTotalMembers();
-	}
-
-	@Override
-	@Transactional
-	public User getUserByUsername(String username) {
-		return usersDAO.getUserByUsername(username);
-	}
-
-
 	
 	@Override
 	@Transactional
@@ -79,15 +58,16 @@ private BCryptPasswordEncoder passwordEncoder;
 		user.setEnabled((byte)1);
 
 		// give user default role of "employee"
-		user.setRoles(Arrays.asList(roleDao.findRoleByName("ROLE_EMPLOYEE")));
+		user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_EMPLOYEE")));
+		
+		userRepository.save(user);
 
-		usersDAO.save(user);
 	}
 
 	@Override
 	@Transactional
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user = usersDAO.getUserByUsername(username);
+		User user = userRepository.findByUsername(username);
 		if (user == null) {
 			throw new UsernameNotFoundException("Invalid username or password."); 
 		}
@@ -100,17 +80,42 @@ private BCryptPasswordEncoder passwordEncoder;
 		return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
 	}
 	
-	@Override
-	@Transactional
-	public void delete(User theUser) {
-		usersDAO.delete(theUser);
-	}
-
-	@Override
-	@Transactional
-	public User getUserByEmail(String email) {
-		return usersDAO.getUserByEmail(email);
-	}
+	
+	
+	
+//	@Override
+//	@Transactional
+//	public void delete(User theUser) {
+//		usersDAO.delete(theUser);
+//	}
+//
+//	@Override
+//	@Transactional
+//	public User getUserByEmail(String email) {
+//		return usersDAO.getUserByEmail(email);
+//	}
+//	
+//	@Override
+//	@Transactional
+//	public List<User> getMembers(int pageStart, int recordsPerPage) {
+//
+//		return usersDAO.getMembers(pageStart, recordsPerPage);
+//	}
+//
+//
+//
+//	@Override
+//	@Transactional
+//	public int getTotalMembers() {
+//
+//		return usersDAO.getTotalMembers();
+//	}
+//
+//	@Override
+//	@Transactional
+//	public User getUserByUsername(String username) {
+//		return usersDAO.getUserByUsername(username);
+//	}
 	
 
 }

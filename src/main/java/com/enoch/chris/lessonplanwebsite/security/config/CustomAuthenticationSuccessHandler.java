@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import com.enoch.chris.lessonplanwebsite.controller.entity.User;
 import com.enoch.chris.lessonplanwebsite.controller.service.UsersService;
+import com.enoch.chris.lessonplanwebsite.dao.UserRepository;
 
 
 
@@ -23,7 +24,8 @@ import com.enoch.chris.lessonplanwebsite.controller.service.UsersService;
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler{
 	
 	@Autowired
-    private UsersService usersService;
+    //private UsersService usersService;
+	private UserRepository userRepository;
 
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
@@ -31,7 +33,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 
 		String userName = authentication.getName();
 
-		User theUser = usersService.getUserByUsername(userName);
+		User theUser = userRepository.findByUsername(userName);
 		
 		// now place in the session
 		HttpSession session = request.getSession();

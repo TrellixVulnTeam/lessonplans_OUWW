@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.enoch.chris.lessonplanwebsite.controller.entity.User;
 import com.enoch.chris.lessonplanwebsite.controller.service.UsersService;
+import com.enoch.chris.lessonplanwebsite.dao.UserRepository;
 import com.enoch.chris.lessonplanwebsite.registration.user.RegistrationUser;
 
 
@@ -28,11 +29,13 @@ import com.enoch.chris.lessonplanwebsite.registration.user.RegistrationUser;
 @RequestMapping("/register")
 public class RegistrationController {
 	
-    private UsersService userService;
+    private UsersService usersService;
+	private UserRepository userRepository;
     
     @Autowired
-    public RegistrationController(UsersService userService) {
-		this.userService = userService;
+    public RegistrationController(UserRepository userRepository, UsersService userService) {
+		this.userRepository = userRepository;
+		this.usersService = userService;
 	}
 
 	private Logger logger = Logger.getLogger(getClass().getName());
@@ -78,7 +81,7 @@ public class RegistrationController {
 		 boolean errorExists = false;
 		 User existing;
 		 try {
-			   existing = userService.getUserByUsername(username);
+			   existing = userRepository.findByUsername(username);
 		 } catch(Exception exc){
 			 existing = null;
 		 }
@@ -93,7 +96,7 @@ public class RegistrationController {
         
         String email = regUser.getEmail();
         try {
-        	existing = userService.getUserByEmail(email);
+        	existing = userRepository.findByEmail(email);
         	registrationErrors.add("*Email already exists"); //If get to here, email already exists so an error is added.
         } catch (Exception exc) {
         	existing = null;
@@ -111,7 +114,7 @@ public class RegistrationController {
         
         
      // create user account        						
-        userService.save(regUser);
+        usersService.save(regUser);
         
         logger.info("Successfully created user: " + username);
         

@@ -13,11 +13,13 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 
 import com.enoch.chris.lessonplanwebsite.controller.entity.User;
 import com.enoch.chris.lessonplanwebsite.controller.service.UsersService;
+import com.enoch.chris.lessonplanwebsite.dao.UserRepository;
 
 public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
 	
 	@Autowired
-	private UsersService usersService;
+	//private UsersService usersService;
+	private UserRepository userRepository;
 	
 
 	@Override
@@ -27,7 +29,7 @@ public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
 		
 		//get user from session
 		String userName = authentication.getName();
-		User user = usersService.getUserByUsername(userName);
+		User user = userRepository.findByUsername(userName);
 	
 		
 		response.sendRedirect(request.getContextPath() + "/showProfilePage");

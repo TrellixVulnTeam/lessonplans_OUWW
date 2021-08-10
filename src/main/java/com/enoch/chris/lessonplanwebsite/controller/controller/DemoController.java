@@ -19,8 +19,10 @@ public class DemoController {
 	public String sayHello(Model theModel) {	
 		theModel.addAttribute("theDate", new java.util.Date());
 		
-		int totalMembers = usersService.getTotalMembers();
-		System.out.println("totalMembers: " + totalMembers);
+//		int totalMembers = usersService.getTotalMembers();
+//		System.out.println("totalMembers: " + totalMembers);
+		
+		System.out.println("In DemoController");
 		
 		
 		return "helloworld";
