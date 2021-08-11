@@ -1,6 +1,7 @@
 package com.enoch.chris.lessonplanwebsite.controller.entity;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class LessonPlan {
 
@@ -8,11 +9,13 @@ public class LessonPlan {
     private String title; // required
     private LocalDate dateAdded; //required
     private Level level; // required
-    private LessonTime lessonTime; // required
     private Type type; // required
     private int age; // required  
     private SpeakingAmount speakingAmount; // required  
+    private List<Topic> topics;
+    private Picture picture;
     
+    private LessonTime lessonTime; //default is 60 minutes
     private boolean listening;
     private boolean vocabulary;
     private boolean reading;
@@ -23,7 +26,7 @@ public class LessonPlan {
     private boolean games;
     private boolean jigsaw;
     private boolean translation;
-    private short preparationTime;
+    private short preparationTime; //default is 5 minutes
     private boolean printedMaterialsNeeded;
     
     
@@ -32,10 +35,13 @@ public class LessonPlan {
 		this.title = lessonPlanBuilder.title;
 		this.dateAdded = lessonPlanBuilder.dateAdded;
 		this.level = lessonPlanBuilder.level;
-		this.lessonTime = lessonPlanBuilder.lessonTime;
 		this.type = lessonPlanBuilder.type;
 		this.age = lessonPlanBuilder.age;
 		this.speakingAmount = lessonPlanBuilder.speakingAmount;
+		this.topics =lessonPlanBuilder.topics;
+		
+		this.lessonTime = lessonPlanBuilder.lessonTime;
+		this.picture = lessonPlanBuilder.picture;
 		this.listening = lessonPlanBuilder.listening;
 		this.vocabulary = lessonPlanBuilder.vocabulary;
 		this.reading = lessonPlanBuilder.reading;
@@ -194,14 +200,6 @@ public class LessonPlan {
 		this.translation = translation;
 	}
 
-	public short isPreparationTime() {
-		return preparationTime;
-	}
-
-	public void setPreparationTime(short preparationTime) {
-		this.preparationTime = preparationTime;
-	}
-
 	public boolean isPrintedMaterialsNeeded() {
 		return printedMaterialsNeeded;
 	}
@@ -210,17 +208,47 @@ public class LessonPlan {
 		this.printedMaterialsNeeded = printedMaterialsNeeded;
 	}
 
+	public List<Topic> getTopics() {
+		return topics;
+	}
+
+	public void setTopics(List<Topic> topics) {
+		this.topics = topics;
+	}
+
+	public Picture getPicture() {
+		return picture;
+	}
+
+	public void setPicture(Picture picture) {
+		this.picture = picture;
+	}
+
+	public short getPreparationTime() {
+		return preparationTime;
+	}
+
+	public void setPreparationTime(short preparationTime) {
+		this.preparationTime = preparationTime;
+	}
+
+
+
+
+
+
 
 	public static class LessonPlanBuilder {
-		private int id; // database automatically generates so it is optional
+		private int id; // database automatically generates so id is optional
 	    private String title; // required
 	    private LocalDate dateAdded; //required
-	    private Level level; // required
-	    private LessonTime lessonTime; // required
+	    private Level level; // required    
 	    private Type type; // required
 	    private int age; // required  
 	    private SpeakingAmount speakingAmount; // required  
+		public List<Topic> topics; // required 
 	    
+		private LessonTime lessonTime = LessonTime.SIXTY;
 	    private boolean listening;
 	    private boolean vocabulary;
 	    private boolean reading;
@@ -231,19 +259,20 @@ public class LessonPlan {
 	    private boolean games;
 	    private boolean jigsaw;
 	    private boolean translation;
-	    private short preparationTime;
+	    private short preparationTime = 5; //5 is default value
 	    private boolean printedMaterialsNeeded;
+	    private Picture picture;
  
 	    
-        public LessonPlanBuilder(String title, LocalDate dateAdded,Level level,LessonTime lessonTime, Type type
-        		,int age,SpeakingAmount speakingAmount) {
+        public LessonPlanBuilder(String title, LocalDate dateAdded,Level level, Type type
+        		,int age,SpeakingAmount speakingAmount, List<Topic> topics) {
             this.title = title;
             this.dateAdded = dateAdded;
             this.level = level;
-            this.lessonTime = lessonTime;
             this.type = type;
             this.age = age;
             this.speakingAmount = speakingAmount;
+            this.topics = topics;
         }
                 
         public LessonPlanBuilder isListening(boolean isListening) {
@@ -263,11 +292,11 @@ public class LessonPlan {
             this.writing = isWriting;
             return this;
         }
-        public LessonPlanBuilder isReadinVideo(boolean isVideo) {
+        public LessonPlanBuilder isVideo(boolean isVideo) {
             this.video = isVideo;
             return this;
         }
-        public LessonPlanBuilder isReadinSong(boolean isSong) {
+        public LessonPlanBuilder isSong(boolean isSong) {
             this.song = isSong;
             return this;
         }
@@ -276,7 +305,7 @@ public class LessonPlan {
             return this;
         }
         
-        public LessonPlanBuilder isReadinGames(boolean isGames) {
+        public LessonPlanBuilder isGames(boolean isGames) {
             this.games = isGames;
             return this;
         }
@@ -293,6 +322,16 @@ public class LessonPlan {
         
         public LessonPlanBuilder isPrintedMaterialsNeeded(boolean isPrintedMaterialsNeeded) {
             this.printedMaterialsNeeded= isPrintedMaterialsNeeded;
+            return this;
+        }
+        
+        public LessonPlanBuilder lessonTime(LessonTime lessonTime) {
+            this.lessonTime = lessonTime;
+            return this;
+        }
+        
+        public LessonPlanBuilder picture (Picture picture) {
+            this.picture = picture;
             return this;
         }
   
