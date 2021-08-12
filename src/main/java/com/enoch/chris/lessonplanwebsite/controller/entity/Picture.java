@@ -1,5 +1,6 @@
 package com.enoch.chris.lessonplanwebsite.controller.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -12,7 +13,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity(name="Picture")
-@Table(name="picture")public class Picture {
+@Table(name="picture")
+public class Picture {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -25,7 +27,7 @@ import javax.persistence.Table;
 		        mappedBy = "picture",
 		        cascade= {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}        
 			  )
-	private List<LessonPlan> lessonPlans;
+	private List<LessonPlan> lessonPlans = new ArrayList<>();
 	
 	public Picture(String fileLocation) {
 		this.fileLocation = fileLocation;
@@ -48,6 +50,9 @@ import javax.persistence.Table;
 	}
 	
 	public void addLessonPlan(LessonPlan lessonPlan) {
+		if (lessonPlans == null){
+			lessonPlans = new ArrayList<>();
+		}
 		lessonPlans.add(lessonPlan);
 		lessonPlan.setPicture(this);
 	}

@@ -95,7 +95,7 @@ public class LessonPlan {
     
 	@ManyToMany(fetch = FetchType.LAZY,cascade= {CascadeType.DETACH, 
 			CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-	@JoinTable(name = "lesson_plan_topic", 
+	@JoinTable(name = "lesson_plan_grammar", 
 	joinColumns = @JoinColumn(name = "lesson_plan_id"), 
 	inverseJoinColumns = @JoinColumn(name = "grammar_id"))
     private List<Grammar> grammar;
@@ -463,6 +463,11 @@ public class LessonPlan {
         
         public LessonPlanBuilder grammar (List<Grammar> grammar) {
             this.grammar = grammar;
+            return this;
+        }
+        
+        public LessonPlanBuilder topics (List<Topic> topics) {
+            this.topics = topics;
             return this;
         }
   
