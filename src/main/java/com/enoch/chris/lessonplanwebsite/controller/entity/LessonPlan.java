@@ -93,41 +93,45 @@ public class LessonPlan {
 	@Column(name="printed_materials_needed")
     private boolean printedMaterialsNeeded;
     
-	@OneToMany(cascade= {CascadeType.DETACH, 
+	@ManyToMany(fetch = FetchType.LAZY,cascade= {CascadeType.DETACH, 
 			CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-	@JoinColumn(name = "id")
+	@JoinTable(name = "lesson_plan_topic", 
+	joinColumns = @JoinColumn(name = "lesson_plan_id"), 
+	inverseJoinColumns = @JoinColumn(name = "grammar_id"))
     private List<Grammar> grammar;
     
     
     
     private LessonPlan(LessonPlanBuilder lessonPlanBuilder) {
-    	//Using setters ensures appropriate validation and synchronisation is performed in LessonPlan class. For instance, when a picture is added to LessonPlan, setPicture ensures that LessonPlan is in turn added to Picture. 
+    	//Using setters ensures appropriate validation is performed.
     	
-    	this.setId(lessonPlanBuilder.id);
-    	this.setTitle(lessonPlanBuilder.title);	
-		this.setDateAdded(lessonPlanBuilder.dateAdded);
-		this.setLevel(lessonPlanBuilder.level);
-		this.setType( lessonPlanBuilder.type);
-		this.setAge(lessonPlanBuilder.age);
-		this.setSpeakingAmount(lessonPlanBuilder.speakingAmount);
-		this.setTopics(lessonPlanBuilder.topics);
-
-		this.setLessonTime(lessonPlanBuilder.lessonTime);	
+    	this.id = lessonPlanBuilder.id;
+		this.title = lessonPlanBuilder.title;
+		this.dateAdded = lessonPlanBuilder.dateAdded;
+		this.level = lessonPlanBuilder.level;
+		this.type = lessonPlanBuilder.type;
+		this.age = lessonPlanBuilder.age;
+		this.speakingAmount = lessonPlanBuilder.speakingAmount;
+		this.topics =lessonPlanBuilder.topics;
+		
+		this.lessonTime = lessonPlanBuilder.lessonTime;
+		
 		this.setPicture(lessonPlanBuilder.picture);
-		this.setListening(lessonPlanBuilder.listening);
-		this.setVocabulary(lessonPlanBuilder.vocabulary);
-		this.setReading(lessonPlanBuilder.reading);
-		this.setWriting(lessonPlanBuilder.writing);
-		this.setVideo(lessonPlanBuilder.video);
-		this.setSong(lessonPlanBuilder.song);
-		this.setFunClass(lessonPlanBuilder.funClass);
-		this.setGames(lessonPlanBuilder.games);
-		this.setJigsaw(lessonPlanBuilder.jigsaw);
-		this.setTranslation(lessonPlanBuilder.translation);
-		this.setPreparationTime(lessonPlanBuilder.preparationTime);
-		this.setPrintedMaterialsNeeded(lessonPlanBuilder.printedMaterialsNeeded);
-		this.setGrammar(lessonPlanBuilder.grammar);
-
+		
+		this.picture = lessonPlanBuilder.picture;
+		this.listening = lessonPlanBuilder.listening;
+		this.vocabulary = lessonPlanBuilder.vocabulary;
+		this.reading = lessonPlanBuilder.reading;
+		this.writing = lessonPlanBuilder.writing;
+		this.video = lessonPlanBuilder.video;
+		this.song = lessonPlanBuilder.song;
+		this.funClass = lessonPlanBuilder.funClass;
+		this.games = lessonPlanBuilder.games;
+		this.jigsaw = lessonPlanBuilder.jigsaw;
+		this.translation = lessonPlanBuilder.translation;
+		this.preparationTime = lessonPlanBuilder.preparationTime;
+		this.printedMaterialsNeeded = lessonPlanBuilder.printedMaterialsNeeded;
+		this.grammar = lessonPlanBuilder.grammar;
 	}
 
     public int getId() {
@@ -434,7 +438,13 @@ public class LessonPlan {
         //Return the finally constructed LessonPlan object
         public LessonPlan build() {
             LessonPlan lessonPlan =  new LessonPlan(this);
+            synchroniseLessonPlanAndPicture(lessonPlan);
             return lessonPlan;
+        }
+        
+        private void synchroniseLessonPlanAndPicture(LessonPlan lessonPlan) {
+        	 lessonPlan.getPicture().addLessonPlan(lessonPlan);
+        	
         }
 
     }

@@ -32,11 +32,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 			
 					auth.jdbcAuthentication().dataSource(securityDataSource).usersByUsernameQuery(
-							"select username, password, enabled from Users " +
+							"select username, password, enabled from User " +
 							"where username=?")
 							.authoritiesByUsernameQuery(
-							"SELECT users.username, authority from users INNER JOIN user_roles"
-							+ " ON users.id=user_id INNER JOIN role ON role_id=role.id WHERE users.username=?");
+							"SELECT user.username, authority from user INNER JOIN user_roles"
+							+ " ON user.id=user_id INNER JOIN role ON role_id=role.id WHERE user.username=?");
 
 			/*
 			 * // add users for in memory authentication
