@@ -3,57 +3,131 @@ package com.enoch.chris.lessonplanwebsite.controller.entity;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity(name="LessonPlan")
+@Table(name="lesson_plan")
 public class LessonPlan {
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="id")
 	private int id; // database generates id so this field is not required
+	
+	@Column(name="title")
     private String title; // required
+	
+	@Column(name="dateAdded")
     private LocalDate dateAdded; //required
+	
+	@Column(name="level")
     private Level level; // required
+	
+	@Column(name="type")
     private Type type; // required
+	
+	@Column(name="age")
     private int age; // required  
+	
+	@Column(name="speaking_amount")
     private SpeakingAmount speakingAmount; // required  
+	
+	@ManyToMany(fetch = FetchType.LAZY,cascade= {CascadeType.DETACH, 
+			CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+	@JoinTable(name = "lesson_plan_topic", 
+	joinColumns = @JoinColumn(name = "lesson_plan_id"), 
+	inverseJoinColumns = @JoinColumn(name = "topic_id"))
     private List<Topic> topics;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
     private Picture picture;
     
+	@Column(name="lesson_time")
     private LessonTime lessonTime; //default is 60 minutes
+	
+	@Column(name="listening")
     private boolean listening;
+    
+	@Column(name="vocabulary")
     private boolean vocabulary;
+    
+	@Column(name="reading")
     private boolean reading;
+    
+	@Column(name="writing")
     private boolean writing;
+    
+	@Column(name="video")
     private boolean video;
+    
+	@Column(name="song")
     private boolean song;
+    
+	@Column(name="fun_class")
     private boolean funClass;
+    
+	@Column(name="games")
     private boolean games;
+    
+	@Column(name="jigsaw")
     private boolean jigsaw;
+    
+	@Column(name="translation")
     private boolean translation;
+    
+	@Column(name="preparation_time")
     private short preparationTime; //default is 5 minutes
+    
+	@Column(name="printed_materials_needed")
     private boolean printedMaterialsNeeded;
+    
+	@OneToMany(cascade= {CascadeType.DETACH, 
+			CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+	@JoinColumn(name = "id")
+    private List<Grammar> grammar;
+    
     
     
     private LessonPlan(LessonPlanBuilder lessonPlanBuilder) {
-    	this.id = lessonPlanBuilder.id;
-		this.title = lessonPlanBuilder.title;
-		this.dateAdded = lessonPlanBuilder.dateAdded;
-		this.level = lessonPlanBuilder.level;
-		this.type = lessonPlanBuilder.type;
-		this.age = lessonPlanBuilder.age;
-		this.speakingAmount = lessonPlanBuilder.speakingAmount;
-		this.topics =lessonPlanBuilder.topics;
-		
-		this.lessonTime = lessonPlanBuilder.lessonTime;
-		this.picture = lessonPlanBuilder.picture;
-		this.listening = lessonPlanBuilder.listening;
-		this.vocabulary = lessonPlanBuilder.vocabulary;
-		this.reading = lessonPlanBuilder.reading;
-		this.writing = lessonPlanBuilder.writing;
-		this.video = lessonPlanBuilder.video;
-		this.song = lessonPlanBuilder.song;
-		this.funClass = lessonPlanBuilder.funClass;
-		this.games = lessonPlanBuilder.games;
-		this.jigsaw = lessonPlanBuilder.jigsaw;
-		this.translation = lessonPlanBuilder.translation;
-		this.preparationTime = lessonPlanBuilder.preparationTime;
-		this.printedMaterialsNeeded = lessonPlanBuilder.printedMaterialsNeeded;
+    	//Using setters ensures appropriate validation and synchronisation is performed in LessonPlan class. For instance, when a picture is added to LessonPlan, setPicture ensures that LessonPlan is in turn added to Picture. 
+    	
+    	this.setId(lessonPlanBuilder.id);
+    	this.setTitle(lessonPlanBuilder.title);	
+		this.setDateAdded(lessonPlanBuilder.dateAdded);
+		this.setLevel(lessonPlanBuilder.level);
+		this.setType( lessonPlanBuilder.type);
+		this.setAge(lessonPlanBuilder.age);
+		this.setSpeakingAmount(lessonPlanBuilder.speakingAmount);
+		this.setTopics(lessonPlanBuilder.topics);
+
+		this.setLessonTime(lessonPlanBuilder.lessonTime);	
+		this.setPicture(lessonPlanBuilder.picture);
+		this.setListening(lessonPlanBuilder.listening);
+		this.setVocabulary(lessonPlanBuilder.vocabulary);
+		this.setReading(lessonPlanBuilder.reading);
+		this.setWriting(lessonPlanBuilder.writing);
+		this.setVideo(lessonPlanBuilder.video);
+		this.setSong(lessonPlanBuilder.song);
+		this.setFunClass(lessonPlanBuilder.funClass);
+		this.setGames(lessonPlanBuilder.games);
+		this.setJigsaw(lessonPlanBuilder.jigsaw);
+		this.setTranslation(lessonPlanBuilder.translation);
+		this.setPreparationTime(lessonPlanBuilder.preparationTime);
+		this.setPrintedMaterialsNeeded(lessonPlanBuilder.printedMaterialsNeeded);
+		this.setGrammar(lessonPlanBuilder.grammar);
+
 	}
 
     public int getId() {
@@ -216,13 +290,26 @@ public class LessonPlan {
 		this.topics = topics;
 	}
 
+	/**
+	 * gets the picture associated with this lesson plan. Do not use this method to remove a picture from the Lesson Plan object.
+	 * Use {@link com.enoch.chris.entity.LessonPlan#removePicture} so that both the picture and the LessonPlan objects remain correctly 
+	 * synchronised.
+	 * @return
+	 */
 	public Picture getPicture() {
 		return picture;
 	}
 
 	public void setPicture(Picture picture) {
 		this.picture = picture;
+		picture.addLessonPlan(this);
 	}
+	
+	public void removePicture(Picture picture) {
+		picture.removeLessonPlan(this);
+		this.picture = null;		
+	}
+	
 
 	public short getPreparationTime() {
 		return preparationTime;
@@ -232,11 +319,13 @@ public class LessonPlan {
 		this.preparationTime = preparationTime;
 	}
 
+	public List<Grammar> getGrammar() {
+		return grammar;
+	}
 
-
-
-
-
+	public void setGrammar(List<Grammar> grammar) {
+		this.grammar = grammar;
+	}
 
 	public static class LessonPlanBuilder {
 		private int id; // database automatically generates so id is optional
@@ -262,6 +351,7 @@ public class LessonPlan {
 	    private short preparationTime = 5; //5 is default value
 	    private boolean printedMaterialsNeeded;
 	    private Picture picture;
+	    private List<Grammar> grammar;
  
 	    
         public LessonPlanBuilder(String title, LocalDate dateAdded,Level level, Type type
@@ -332,6 +422,11 @@ public class LessonPlan {
         
         public LessonPlanBuilder picture (Picture picture) {
             this.picture = picture;
+            return this;
+        }
+        
+        public LessonPlanBuilder grammar (List<Grammar> grammar) {
+            this.grammar = grammar;
             return this;
         }
   
