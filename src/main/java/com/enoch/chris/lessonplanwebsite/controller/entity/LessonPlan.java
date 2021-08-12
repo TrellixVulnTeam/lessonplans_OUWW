@@ -107,6 +107,9 @@ public class LessonPlan {
     private List<Grammar> grammar;
     
     
+	private LessonPlan() {
+		
+	}
     
     private LessonPlan(LessonPlanBuilder lessonPlanBuilder) {
     	//Using setters ensures appropriate validation is performed.
@@ -371,7 +374,7 @@ public class LessonPlan {
 	    private SpeakingAmount speakingAmount; // required  
 		public List<Topic> topics; // required 
 	    
-		private LessonTime lessonTime; // = LessonTime.SIXTY;
+		private LessonTime lessonTime = LessonTime.SIXTY;
 	    private boolean listening;
 	    private boolean vocabulary;
 	    private boolean reading;
@@ -382,7 +385,7 @@ public class LessonPlan {
 	    private boolean games;
 	    private boolean jigsaw;
 	    private boolean translation;
-	    private short preparationTime; // = 5; //5 is default value
+	    private short preparationTime = 5;
 	    private boolean printedMaterialsNeeded;
 	    private Picture picture;
 	    private List<Grammar> grammar;

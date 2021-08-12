@@ -29,6 +29,9 @@ public class Picture {
 			  )
 	private List<LessonPlan> lessonPlans = new ArrayList<>();
 	
+	  protected Picture() {
+		}
+	  
 	public Picture(String fileLocation) {
 		this.fileLocation = fileLocation;
 	}

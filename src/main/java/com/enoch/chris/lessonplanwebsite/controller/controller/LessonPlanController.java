@@ -58,22 +58,29 @@ public class LessonPlanController {
 //		System.out.println("Lesson plan : " + lp);
 //		lessonPlanRepository.save(lp);
 
-		Picture p2 = new Picture("P4");
-		Picture p2New = pictureRepository.save(p2);
+		//works
+//		Picture p2 = new Picture("P5");
+//		Picture p2New = pictureRepository.save(p2);
+//		
+//		List<Topic> topics = new ArrayList<>();
+//		Topic technology = new Topic("Technology", Arrays.asList(new Tag("Driverless"), new Tag("social media")));
+//		topics.add(technology);	
+//		
+//		LessonPlan lp = new LessonPlan.LessonPlanBuilder("My LP9", LocalDate.now(), Level.A1, Type.BUSINESS
+//				, 10, SpeakingAmount.LOTS, topics).grammar(Arrays.asList(new Grammar("First Conditional")))
+//				.picture(p2New).build();
+//		
+//		System.out.println("Lesson plan : " + lp);
+//		lessonPlanRepository.save(lp);
+//		
+//		
+//		System.out.println("In LessonPlanController");
 		
-		List<Topic> topics = new ArrayList<>();
-		Topic technology = new Topic("Technology", Arrays.asList(new Tag("Driverless"), new Tag("social media")));
-		topics.add(technology);	
 		
-		LessonPlan lp = new LessonPlan.LessonPlanBuilder("My LP4", LocalDate.now(), Level.A1, Type.BUSINESS
-				, 10, SpeakingAmount.LOTS, topics).grammar(Arrays.asList(new Grammar("First Conditional")))
-				.picture(p2New).build();
+		SpeakingAmount speakingAmount = SpeakingAmount.LOTS;
+		System.out.println("Enum value of: " + speakingAmount);
 		
-		System.out.println("Lesson plan : " + lp);
-		lessonPlanRepository.save(lp);
-		
-		
-		System.out.println("In DemoController");
+		lessonPlanRepository.deleteAll();
 		
 		
 		return "helloworld";
