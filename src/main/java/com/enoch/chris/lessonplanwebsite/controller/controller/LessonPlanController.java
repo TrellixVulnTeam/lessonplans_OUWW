@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.hibernate.cache.spi.SecondLevelCacheLogger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,21 +43,34 @@ public class LessonPlanController {
 //		LessonPlan lp = new LessonPlan.LessonPlanBuilder("My LP", LocalDate.now()
 //				, 10, null).build();
 		
-		Picture p2 = new Picture("P2");
+		//works
+//		Picture p2 = new Picture("P3");
+//		Picture p2New = pictureRepository.save(p2);
+//		
+//		List<Topic> topics = new ArrayList<>();
+//		Topic technology = new Topic("Technology", Arrays.asList(new Tag("Driverless"), new Tag("social media")));
+//		topics.add(technology);	
+//		
+//		LessonPlan lp = new LessonPlan.LessonPlanBuilder("My LP3", LocalDate.now()
+//				, 10, null).topics(topics).grammar(Arrays.asList(new Grammar("First Conditional")))
+//				.picture(p2New).build();
+//		
+//		System.out.println("Lesson plan : " + lp);
+//		lessonPlanRepository.save(lp);
+
+		Picture p2 = new Picture("P4");
 		Picture p2New = pictureRepository.save(p2);
 		
 		List<Topic> topics = new ArrayList<>();
 		Topic technology = new Topic("Technology", Arrays.asList(new Tag("Driverless"), new Tag("social media")));
 		topics.add(technology);	
 		
-		LessonPlan lp = new LessonPlan.LessonPlanBuilder("My LP2", LocalDate.now()
-				, 10, null).topics(topics).grammar(Arrays.asList(new Grammar("First Conditional")))
+		LessonPlan lp = new LessonPlan.LessonPlanBuilder("My LP4", LocalDate.now(), Level.A1, Type.BUSINESS
+				, 10, SpeakingAmount.LOTS, topics).grammar(Arrays.asList(new Grammar("First Conditional")))
 				.picture(p2New).build();
 		
 		System.out.println("Lesson plan : " + lp);
 		lessonPlanRepository.save(lp);
-
-		
 		
 		
 		System.out.println("In DemoController");

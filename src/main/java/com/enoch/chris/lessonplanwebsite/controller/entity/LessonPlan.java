@@ -6,6 +6,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -33,15 +35,18 @@ public class LessonPlan {
     private LocalDate dateAdded; //required
 	
 	@Column(name="level")
+	@Enumerated(EnumType.STRING)
     private Level level; // required
 	
 	@Column(name="type")
+	@Enumerated(EnumType.STRING)
     private Type type; // required
 	
 	@Column(name="age")
     private int age; // required  
 	
 	@Column(name="speaking_amount")
+	@Enumerated(EnumType.STRING)
     private SpeakingAmount speakingAmount; // required  
 	
 	@ManyToMany(fetch = FetchType.LAZY,cascade= {CascadeType.DETACH, 
@@ -55,6 +60,7 @@ public class LessonPlan {
     private Picture picture;
     
 	@Column(name="lesson_time")
+	@Enumerated(EnumType.STRING)
     private LessonTime lessonTime; //default is 60 minutes
 	
 	@Column(name="listening")
