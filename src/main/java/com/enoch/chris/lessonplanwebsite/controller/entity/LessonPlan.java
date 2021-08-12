@@ -116,7 +116,8 @@ public class LessonPlan {
 		
 		this.lessonTime = lessonPlanBuilder.lessonTime;
 		
-		this.setPicture(lessonPlanBuilder.picture);
+		this.picture = lessonPlanBuilder.picture;
+
 		
 		this.picture = lessonPlanBuilder.picture;
 		this.listening = lessonPlanBuilder.listening;
@@ -306,7 +307,6 @@ public class LessonPlan {
 
 	public void setPicture(Picture picture) {
 		this.picture = picture;
-		picture.addLessonPlan(this);
 	}
 	
 	public void removePicture(Picture picture) {
@@ -330,6 +330,30 @@ public class LessonPlan {
 	public void setGrammar(List<Grammar> grammar) {
 		this.grammar = grammar;
 	}
+	
+	
+
+	@Override
+	public String toString() {
+		return "LessonPlan [id=" + id + ", title=" + title + ", dateAdded=" + dateAdded + ", level=" + level + ", type="
+				+ type + ", age=" + age + ", speakingAmount=" + speakingAmount + ", topics=" + topics + ", picture="
+				+ picture + ", lessonTime=" + lessonTime + ", listening=" + listening + ", vocabulary=" + vocabulary
+				+ ", reading=" + reading + ", writing=" + writing + ", video=" + video + ", song=" + song
+				+ ", funClass=" + funClass + ", games=" + games + ", jigsaw=" + jigsaw + ", translation=" + translation
+				+ ", preparationTime=" + preparationTime + ", printedMaterialsNeeded=" + printedMaterialsNeeded
+				+ ", grammar=" + grammar + ", getId()=" + getId() + ", getTitle()=" + getTitle() + ", getDateAdded()="
+				+ getDateAdded() + ", getLevel()=" + getLevel() + ", getLessonTime()=" + getLessonTime()
+				+ ", getType()=" + getType() + ", getAge()=" + getAge() + ", getSpeakingAmount()=" + getSpeakingAmount()
+				+ ", isListening()=" + isListening() + ", isVocabulary()=" + isVocabulary() + ", isReading()="
+				+ isReading() + ", isWriting()=" + isWriting() + ", isVideo()=" + isVideo() + ", isSong()=" + isSong()
+				+ ", isFunClass()=" + isFunClass() + ", isGames()=" + isGames() + ", isJigsaw()=" + isJigsaw()
+				+ ", isTranslation()=" + isTranslation() + ", isPrintedMaterialsNeeded()=" + isPrintedMaterialsNeeded()
+				+ ", getTopics()=" + getTopics() + ", getPicture()=" + getPicture() + ", getPreparationTime()="
+				+ getPreparationTime() + ", getGrammar()=" + getGrammar() + ", getClass()=" + getClass()
+				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
+	}
+
+
 
 	public static class LessonPlanBuilder {
 		private int id; // database automatically generates so id is optional
@@ -341,7 +365,7 @@ public class LessonPlan {
 	    private SpeakingAmount speakingAmount; // required  
 		public List<Topic> topics; // required 
 	    
-		private LessonTime lessonTime = LessonTime.SIXTY;
+		private LessonTime lessonTime; // = LessonTime.SIXTY;
 	    private boolean listening;
 	    private boolean vocabulary;
 	    private boolean reading;
@@ -352,11 +376,19 @@ public class LessonPlan {
 	    private boolean games;
 	    private boolean jigsaw;
 	    private boolean translation;
-	    private short preparationTime = 5; //5 is default value
+	    private short preparationTime; // = 5; //5 is default value
 	    private boolean printedMaterialsNeeded;
 	    private Picture picture;
 	    private List<Grammar> grammar;
  
+	    
+	    public LessonPlanBuilder(String title, LocalDate dateAdded
+        		,int age, List<Topic> topics) {
+            this.title = title;
+            this.dateAdded = dateAdded;
+            this.age = age;
+            this.topics = topics;
+        }
 	    
         public LessonPlanBuilder(String title, LocalDate dateAdded,Level level, Type type
         		,int age,SpeakingAmount speakingAmount, List<Topic> topics) {
@@ -443,7 +475,10 @@ public class LessonPlan {
         }
         
         private void synchroniseLessonPlanAndPicture(LessonPlan lessonPlan) {
-        	 lessonPlan.getPicture().addLessonPlan(lessonPlan);
+        	Picture picture = lessonPlan.getPicture();
+        	if (picture != null) {
+        		picture.addLessonPlan(lessonPlan);
+        	}        	 
         	
         }
 
