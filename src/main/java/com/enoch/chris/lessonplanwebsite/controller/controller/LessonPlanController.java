@@ -28,62 +28,18 @@ public class LessonPlanController {
 	
 	@Autowired
 	private LessonPlanRepository lessonPlanRepository;
-
-	@Autowired
-	private PictureRepository pictureRepository;
-	// create a mapping for "/hello"
 	
 	@GetMapping("/lessonplans")
 	public String saveLessonPlan(Model theModel) {	
 		
-//		LessonPlan lp = new LessonPlan.LessonPlanBuilder("My LP", LocalDate.now(), Level.A1
-//				, Type.BUSINESS, 10, SpeakingAmount.NONE, null).build();
+		//get lesson plans
+		List<LessonPlan> lessonPlans = lessonPlanRepository.findAll();
 		
-		//works
-//		LessonPlan lp = new LessonPlan.LessonPlanBuilder("My LP", LocalDate.now()
-//				, 10, null).build();
-		
-		//works
-//		Picture p2 = new Picture("P3");
-//		Picture p2New = pictureRepository.save(p2);
-//		
-//		List<Topic> topics = new ArrayList<>();
-//		Topic technology = new Topic("Technology", Arrays.asList(new Tag("Driverless"), new Tag("social media")));
-//		topics.add(technology);	
-//		
-//		LessonPlan lp = new LessonPlan.LessonPlanBuilder("My LP3", LocalDate.now()
-//				, 10, null).topics(topics).grammar(Arrays.asList(new Grammar("First Conditional")))
-//				.picture(p2New).build();
-//		
-//		System.out.println("Lesson plan : " + lp);
-//		lessonPlanRepository.save(lp);
-
-		//works
-//		Picture p2 = new Picture("P5");
-//		Picture p2New = pictureRepository.save(p2);
-//		
-//		List<Topic> topics = new ArrayList<>();
-//		Topic technology = new Topic("Technology", Arrays.asList(new Tag("Driverless"), new Tag("social media")));
-//		topics.add(technology);	
-//		
-//		LessonPlan lp = new LessonPlan.LessonPlanBuilder("My LP9", LocalDate.now(), Level.A1, Type.BUSINESS
-//				, 10, SpeakingAmount.LOTS, topics).grammar(Arrays.asList(new Grammar("First Conditional")))
-//				.picture(p2New).build();
-//		
-//		System.out.println("Lesson plan : " + lp);
-//		lessonPlanRepository.save(lp);
-//		
-//		
-//		System.out.println("In LessonPlanController");
+		//add to model
+		theModel.addAttribute("lessonPlans", lessonPlans);
 		
 		
-		SpeakingAmount speakingAmount = SpeakingAmount.LOTS;
-		System.out.println("Enum value of: " + speakingAmount);
-		
-		lessonPlanRepository.deleteAll();
-		
-		
-		return "helloworld";
+		return "lessonplans";
 	}
 }
 
