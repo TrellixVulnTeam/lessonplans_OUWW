@@ -2,22 +2,42 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="../css/styles_principal.css">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="../css/styles_principal.css">
 
-	<title>Lesson Plans</title>
+<title>Lesson Plans</title>
 </head>
 
 <body>
+	<div th:insert="navbar.html :: nav"></div>
+	<div class="main-content">
+		<div class="main-content-inner ml-5 mr-5">
 
-<p id="large-header">CSS test</p>
+			<h1 id="large-header" class="mt-5 ml-5 mb-5">Lesson Plans</h1>
 
 
-	
+
+			<div class="book-container mt-3">
+
+				<div class="mr-7 mb-1" th:each="lp : ${lessonPlans}">
+					<!-- <c:forEach var="libro" varStatus="status" items="${libros}"> -->
+					<h2 th:text="${lp.title}">Example H2</h2>
+					<ul class="display-list">
+						<li th:text="${lp.id}">Example id</li>
+						<li th:text="${lp.level}">Example level</li>
+						<li th:text="${lp.type}">Example type</li>
+					</ul>
+					<a class="btn btn-small btn-secondary" href='#'>Add to basket</a> <a
+						class="btn btn-small btn-primary" href='#'>Buy</a> <br> <br>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>
 

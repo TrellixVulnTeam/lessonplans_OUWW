@@ -35,14 +35,14 @@ public class AdminController {
 	public String displayAdmin(Model theModel) {		
 
 		//works
-		Picture p2 = new Picture("P5");
+		Picture p2 = new Picture("P7");
 		Picture p2New = pictureRepository.save(p2);
 	
 		List<Topic> topics = new ArrayList<>();
 		Topic technology = new Topic("Technology", Arrays.asList(new Tag("Driverless"), new Tag("social media")));
 		topics.add(technology);	
 		
-		LessonPlan lp = new LessonPlan.LessonPlanBuilder("My LP9", LocalDate.now(), Level.A1, Type.BUSINESS
+		LessonPlan lp = new LessonPlan.LessonPlanBuilder("My LP11", LocalDate.now(), Level.A1, Type.BUSINESS
 				, 10, SpeakingAmount.LOTS, topics).grammar(Arrays.asList(new Grammar("First Conditional")))
 			.picture(p2New).build();
 		

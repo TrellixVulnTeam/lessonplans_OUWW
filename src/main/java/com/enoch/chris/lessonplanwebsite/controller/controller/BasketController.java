@@ -25,23 +25,28 @@ import com.enoch.chris.lessonplanwebsite.dao.LessonPlanRepository;
 import com.enoch.chris.lessonplanwebsite.dao.PictureRepository;
 
 @Controller
-@RequestMapping("/lessonplans")
-public class LessonPlanController {
+@RequestMapping("/basket")
+public class BasketController {
 	
 	@Autowired
-	private LessonPlanRepository lessonPlanRepository;
+	private BasketRepository basketRepository;
 	
 	@GetMapping
-	public String saveLessonPlan(Model theModel) {	
+	public String displayBasket(Model theModel) {	
 		
-		//get lesson plans
-		List<LessonPlan> lessonPlans = lessonPlanRepository.findAll();
+		//get basket contents
+		List<Level> lessonPlans = basketRepository.findAll();
+		
+		//calculate total cost of basket
+		//add total price to model
+		
+		
 		
 		//add to model
 		theModel.addAttribute("lessonPlans", lessonPlans);
 		
 		
-		return "lessonplans";
+		return "basket";
 	}
 }
 
