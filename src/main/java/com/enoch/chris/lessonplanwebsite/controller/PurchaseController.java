@@ -42,10 +42,10 @@ public class PurchaseController {
 
 		//get User
 		
-		User user = userRepository.findByUsername("lessonplantest");
+		User user = userRepository.findByUsername("lessonplantest1");
 		
 		//get susbcription
-		Subscription subscription = subscriptionRepository.findById(1).get();
+		Subscription subscription = subscriptionRepository.findById(2).get();
 		
 		//create
 		Purchase purchase = new Purchase(LocalDateTime.now(), LocalDateTime.now()
@@ -68,6 +68,26 @@ public class PurchaseController {
 		purchases.forEach(p -> System.out.println(p.getSubscription().getName()));
 		
 		return "admin";
+	}
+	
+	@GetMapping("/subscriptionsByUserAtQuery")
+	public String subscriptionsByUserAtQuery(Model theModel) {
+		
+		User user = userRepository.findByUsername("lessonplantest");
+
+		List<Subscription> susbcriptions = subscriptionRepository.findActiveSubscriptions(user, LocalDateTime.now());
+		
+		System.out.println("Print susbcription name");
+		susbcriptions.forEach(s -> System.out.println(s.getName()));
+		
+		
+		List<Subscription> susbcriptionsToDate = subscriptionRepository.findAllSubscriptionsToDate(user);
+		System.out.println("All subscriptions ever");
+		susbcriptionsToDate.forEach(s -> System.out.println(s.getName()));
+
+		
+		
+		return "lessonplans";
 	}
 	
 }
