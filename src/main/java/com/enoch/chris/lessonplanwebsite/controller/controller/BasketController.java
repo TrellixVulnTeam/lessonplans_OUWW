@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.enoch.chris.lessonplanwebsite.controller.entity.Grammar;
 import com.enoch.chris.lessonplanwebsite.controller.entity.LessonPlan;
-import com.enoch.chris.lessonplanwebsite.controller.entity.Level;
 import com.enoch.chris.lessonplanwebsite.controller.entity.Picture;
 import com.enoch.chris.lessonplanwebsite.controller.entity.SpeakingAmount;
 import com.enoch.chris.lessonplanwebsite.controller.entity.Tag;
@@ -28,14 +27,14 @@ import com.enoch.chris.lessonplanwebsite.dao.PictureRepository;
 @RequestMapping("/basket")
 public class BasketController {
 	
-	@Autowired
-	private BasketRepository basketRepository;
+	//@Autowired
+	//private BasketRepository basketRepository;
 	
 	@GetMapping
 	public String displayBasket(Model theModel) {	
 		
 		//get basket contents
-		List<Level> lessonPlans = basketRepository.findAll();
+		//List<Level> lessonPlans = basketRepository.findAll();
 		
 		//calculate total cost of basket
 		//add total price to model
@@ -43,7 +42,7 @@ public class BasketController {
 		
 		
 		//add to model
-		theModel.addAttribute("lessonPlans", lessonPlans);
+		//theModel.addAttribute("lessonPlans", lessonPlans);
 		
 		
 		return "basket";

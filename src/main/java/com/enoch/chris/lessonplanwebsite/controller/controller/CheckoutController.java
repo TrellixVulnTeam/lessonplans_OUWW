@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.enoch.chris.lessonplanwebsite.controller.entity.Grammar;
 import com.enoch.chris.lessonplanwebsite.controller.entity.LessonPlan;
-import com.enoch.chris.lessonplanwebsite.controller.entity.Level;
 import com.enoch.chris.lessonplanwebsite.controller.entity.Picture;
 import com.enoch.chris.lessonplanwebsite.controller.entity.SpeakingAmount;
 import com.enoch.chris.lessonplanwebsite.controller.entity.Tag;

@@ -33,9 +33,9 @@ public class LessonPlan {
 	@Column(name="dateAdded")
     private LocalDate dateAdded; //required
 	
-	@Column(name="level")
-	@Enumerated(EnumType.STRING)
-    private Level level; // required
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="subscription_id")
+    private Subscription assignedSubscription; // required
 	
 	@Column(name="type")
 	@Enumerated(EnumType.STRING)
@@ -116,7 +116,7 @@ public class LessonPlan {
     	this.id = lessonPlanBuilder.id;
 		this.title = lessonPlanBuilder.title;
 		this.dateAdded = lessonPlanBuilder.dateAdded;
-		this.level = lessonPlanBuilder.level;
+		this.assignedSubscription = lessonPlanBuilder.assignedSubscription;
 		this.type = lessonPlanBuilder.type;
 		this.age = lessonPlanBuilder.age;
 		this.speakingAmount = lessonPlanBuilder.speakingAmount;
@@ -167,12 +167,12 @@ public class LessonPlan {
 		this.dateAdded = dateAdded;
 	}
 
-	public Level getLevel() {
-		return level;
+	public Subscription getSubscription() {
+		return assignedSubscription;
 	}
 
-	public void setLevel(Level level) {
-		this.level = level;
+	public void setLevel(Subscription assignedSubscription) {
+		this.assignedSubscription = assignedSubscription;
 	}
 
 	public LessonTime getLessonTime() {
@@ -341,25 +341,7 @@ public class LessonPlan {
 	
 	
 
-	@Override
-	public String toString() {
-		return "LessonPlan [id=" + id + ", title=" + title + ", dateAdded=" + dateAdded + ", level=" + level + ", type="
-				+ type + ", age=" + age + ", speakingAmount=" + speakingAmount + ", topics=" + topics + ", picture="
-				+ picture + ", lessonTime=" + lessonTime + ", listening=" + listening + ", vocabulary=" + vocabulary
-				+ ", reading=" + reading + ", writing=" + writing + ", video=" + video + ", song=" + song
-				+ ", funClass=" + funClass + ", games=" + games + ", jigsaw=" + jigsaw + ", translation=" + translation
-				+ ", preparationTime=" + preparationTime + ", printedMaterialsNeeded=" + printedMaterialsNeeded
-				+ ", grammar=" + grammar + ", getId()=" + getId() + ", getTitle()=" + getTitle() + ", getDateAdded()="
-				+ getDateAdded() + ", getLevel()=" + getLevel() + ", getLessonTime()=" + getLessonTime()
-				+ ", getType()=" + getType() + ", getAge()=" + getAge() + ", getSpeakingAmount()=" + getSpeakingAmount()
-				+ ", isListening()=" + isListening() + ", isVocabulary()=" + isVocabulary() + ", isReading()="
-				+ isReading() + ", isWriting()=" + isWriting() + ", isVideo()=" + isVideo() + ", isSong()=" + isSong()
-				+ ", isFunClass()=" + isFunClass() + ", isGames()=" + isGames() + ", isJigsaw()=" + isJigsaw()
-				+ ", isTranslation()=" + isTranslation() + ", isPrintedMaterialsNeeded()=" + isPrintedMaterialsNeeded()
-				+ ", getTopics()=" + getTopics() + ", getPicture()=" + getPicture() + ", getPreparationTime()="
-				+ getPreparationTime() + ", getGrammar()=" + getGrammar() + ", getClass()=" + getClass()
-				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
-	}
+
 
 
 
@@ -367,7 +349,7 @@ public class LessonPlan {
 		private int id; // database automatically generates so id is optional
 	    private String title; // required
 	    private LocalDate dateAdded; //required
-	    private Level level; // required    
+	    private Subscription assignedSubscription; // required    
 	    private Type type; // required
 	    private int age; // required  
 	    private SpeakingAmount speakingAmount; // required  
@@ -398,11 +380,11 @@ public class LessonPlan {
             this.topics = topics;
         }
 	    
-        public LessonPlanBuilder(String title, LocalDate dateAdded,Level level, Type type
+        public LessonPlanBuilder(String title, LocalDate dateAdded,Subscription assignedSubscription, Type type
         		,int age,SpeakingAmount speakingAmount, List<Topic> topics) {
             this.title = title;
             this.dateAdded = dateAdded;
-            this.level = level;
+            this.assignedSubscription = assignedSubscription;
             this.type = type;
             this.age = age;
             this.speakingAmount = speakingAmount;

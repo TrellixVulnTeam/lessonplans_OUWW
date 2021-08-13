@@ -50,9 +50,30 @@ public class User {
 	inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Collection<Role> roles;
 	
+	@ManyToMany(fetch = FetchType.LAZY,cascade= {CascadeType.DETACH, 
+			CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}) //Was @JoinTable(name = "subscription_user",
+	@JoinTable(name = "purchase_information", 
+	joinColumns = @JoinColumn(name = "user_id"), 
+	inverseJoinColumns = @JoinColumn(name = "subcription_id"))
+	private List<Subscription> subscriptions;
 
 	public User() {
 	}
+
+	public User(String firstName, String lastName, String username, String password, String email, byte enabled,
+			Collection<Role> roles, List<Subscription> subscriptions) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		this.enabled = enabled;
+		this.roles = roles;
+		this.subscriptions = subscriptions;
+	}
+
+
 
 	public User(String firstName, String lastName, String username, String password, String email, byte enabled, 
 			Collection<Role> roles) {
@@ -142,6 +163,14 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public List<Subscription> getSubscriptions() {
+		return subscriptions;
+	}
+
+	public void setPackages(List<Subscription> subscriptions) {
+		this.subscriptions = subscriptions;
 	}
 
 	@Override
