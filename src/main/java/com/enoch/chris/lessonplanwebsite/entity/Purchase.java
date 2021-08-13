@@ -42,6 +42,9 @@ public class Purchase {
 	@JoinColumn(name = "user_id")
 	private User user;
 	
+	protected Purchase() {
+	}
+	
 	public Purchase(LocalDateTime datePurchased, LocalDateTime dateSubscriptionStarts,
 			LocalDateTime dateSubscriptionEnds, int pricePaidInCents, Subscription subscription, User user) {
 		super();

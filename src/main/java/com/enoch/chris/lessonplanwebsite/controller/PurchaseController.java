@@ -57,6 +57,19 @@ public class PurchaseController {
 		return "admin";
 	}
 	
+	@GetMapping("/subscriptionsByUser")
+	public String subscriptionsByUser(Model theModel) {
+		
+		User user = userRepository.findByUsername("lessonplantest");
+
+		List<Purchase> purchases = purchaseRepository.findByUser(user);
+		
+		System.out.println("Print susbcription name");
+		purchases.forEach(p -> System.out.println(p.getSubscription().getName()));
+		
+		return "admin";
+	}
+	
 }
 
 
