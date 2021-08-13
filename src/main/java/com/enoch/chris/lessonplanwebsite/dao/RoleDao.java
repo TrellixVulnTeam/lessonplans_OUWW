@@ -1,6 +1,6 @@
 package com.enoch.chris.lessonplanwebsite.dao;
 
-import com.enoch.chris.lessonplanwebsite.controller.entity.Role;
+import com.enoch.chris.lessonplanwebsite.entity.Role;
 
 public interface RoleDao {
 

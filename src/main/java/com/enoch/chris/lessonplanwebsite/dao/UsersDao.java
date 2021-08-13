@@ -2,7 +2,7 @@ package com.enoch.chris.lessonplanwebsite.dao;
 
 import java.util.List;
 
-import com.enoch.chris.lessonplanwebsite.controller.entity.User;
+import com.enoch.chris.lessonplanwebsite.entity.User;
 
 
  public interface UsersDao {

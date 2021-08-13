@@ -1,4 +1,4 @@
-package com.enoch.chris.lessonplanwebsite.controller.entity;
+package com.enoch.chris.lessonplanwebsite.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,23 +7,26 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity(name="Tag")
-@Table(name="tag")
-public class Tag {
-	
+@Entity
+@Table(name="role")
+public class Role {
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
 	private int id;
-	
-	@Column(name="name")
+
+	@Column(name="authority")
 	private String name;
 
-	public Tag(String name) {
-		super();
+	
+	public Role() {
+	}
+	
+	public Role(String name) {
 		this.name = name;
 	}
-
+	
 	public int getId() {
 		return id;
 	}
@@ -36,9 +39,15 @@ public class Tag {
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setName(String role) {
+		this.name = role;
 	}
+
+	@Override
+	public String toString() {
+		return "Role [id=" + id + ", role=" + name + "]";
+	}
+	
 	
 	
 

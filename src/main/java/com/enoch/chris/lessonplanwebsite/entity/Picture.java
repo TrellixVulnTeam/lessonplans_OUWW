@@ -1,4 +1,4 @@
-package com.enoch.chris.lessonplanwebsite.controller.entity;
+package com.enoch.chris.lessonplanwebsite.entity;
 
 import java.util.ArrayList;
 import java.util.List;

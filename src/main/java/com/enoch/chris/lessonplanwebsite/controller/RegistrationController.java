@@ -1,4 +1,4 @@
-package com.enoch.chris.lessonplanwebsite.controller.controller;
+package com.enoch.chris.lessonplanwebsite.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,10 +19,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.enoch.chris.lessonplanwebsite.controller.entity.User;
-import com.enoch.chris.lessonplanwebsite.controller.service.UsersService;
 import com.enoch.chris.lessonplanwebsite.dao.UserRepository;
+import com.enoch.chris.lessonplanwebsite.entity.User;
 import com.enoch.chris.lessonplanwebsite.registration.user.RegistrationUser;
+import com.enoch.chris.lessonplanwebsite.service.UsersService;
 
 
 @Controller

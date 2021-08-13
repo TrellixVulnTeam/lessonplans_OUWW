@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
-import com.enoch.chris.lessonplanwebsite.controller.entity.Role;
+import com.enoch.chris.lessonplanwebsite.entity.Role;
 
 
 @Repository

@@ -1,4 +1,4 @@
-package com.enoch.chris.lessonplanwebsite.controller.controller;
+package com.enoch.chris.lessonplanwebsite.controller;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -12,16 +12,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.enoch.chris.lessonplanwebsite.controller.entity.Grammar;
-import com.enoch.chris.lessonplanwebsite.controller.entity.LessonPlan;
-import com.enoch.chris.lessonplanwebsite.controller.entity.Picture;
-import com.enoch.chris.lessonplanwebsite.controller.entity.SpeakingAmount;
-import com.enoch.chris.lessonplanwebsite.controller.entity.Tag;
-import com.enoch.chris.lessonplanwebsite.controller.entity.Topic;
-import com.enoch.chris.lessonplanwebsite.controller.entity.Type;
-import com.enoch.chris.lessonplanwebsite.controller.service.UsersService;
 import com.enoch.chris.lessonplanwebsite.dao.LessonPlanRepository;
 import com.enoch.chris.lessonplanwebsite.dao.PictureRepository;
+import com.enoch.chris.lessonplanwebsite.entity.Grammar;
+import com.enoch.chris.lessonplanwebsite.entity.LessonPlan;
+import com.enoch.chris.lessonplanwebsite.entity.Picture;
+import com.enoch.chris.lessonplanwebsite.entity.SpeakingAmount;
+import com.enoch.chris.lessonplanwebsite.entity.Tag;
+import com.enoch.chris.lessonplanwebsite.entity.Topic;
+import com.enoch.chris.lessonplanwebsite.entity.Type;
+import com.enoch.chris.lessonplanwebsite.service.UsersService;
 
 @Controller
 @RequestMapping("/checkout")

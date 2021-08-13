@@ -1,11 +1,11 @@
-package com.enoch.chris.lessonplanwebsite.controller.controller;
+package com.enoch.chris.lessonplanwebsite.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.enoch.chris.lessonplanwebsite.controller.service.UsersService;
+import com.enoch.chris.lessonplanwebsite.service.UsersService;
 
 @Controller
 public class DemoController {

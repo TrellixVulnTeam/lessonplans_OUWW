@@ -1,4 +1,4 @@
-package com.enoch.chris.lessonplanwebsite.controller.entity;
+package com.enoch.chris.lessonplanwebsite.entity;
 
 import java.util.Collection;
 import java.util.List;
@@ -52,7 +52,7 @@ public class User {
 	
 	@ManyToMany(fetch = FetchType.LAZY,cascade= {CascadeType.DETACH, 
 			CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}) //Was @JoinTable(name = "subscription_user",
-	@JoinTable(name = "purchase_information", 
+	@JoinTable(name = "purchase", 
 	joinColumns = @JoinColumn(name = "user_id"), 
 	inverseJoinColumns = @JoinColumn(name = "subcription_id"))
 	private List<Subscription> subscriptions;

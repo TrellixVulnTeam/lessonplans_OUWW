@@ -1,4 +1,4 @@
-package com.enoch.chris.lessonplanwebsite.controller.controller;
+package com.enoch.chris.lessonplanwebsite.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

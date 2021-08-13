@@ -1,4 +1,4 @@
-package com.enoch.chris.lessonplanwebsite.controller.entity;
+package com.enoch.chris.lessonplanwebsite.entity;
 
 import java.util.List;
 
@@ -14,9 +14,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-@Entity(name="Subscription")
-@Table(name="subscription")
-public class Subscription {
+@Entity(name="Topic")
+@Table(name="topic")
+public class Topic {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -26,17 +26,17 @@ public class Subscription {
 	@Column(name="name")
 	private String name;
 	
-	@Column(name="price")
-	private int price;
+	@ManyToMany(fetch = FetchType.LAZY, cascade= {CascadeType.DETACH, CascadeType.MERGE
+			, CascadeType.PERSIST, CascadeType.REFRESH}  )
+	@JoinTable(name = "topic_tag", 
+	joinColumns = @JoinColumn(name = "topic_id"), 
+	inverseJoinColumns = @JoinColumn(name = "tag_id"))
+	List<Tag> tags;
 	
-	protected Subscription() {
-		
-	}
-	
-	public Subscription(String name, int price) {
+	public Topic(String name, List<Tag> tags) {
 		super();
 		this.name = name;
-		this.price = price;
+		this.tags = tags;
 	}
 
 	public int getId() {
@@ -55,12 +55,16 @@ public class Subscription {
 		this.name = name;
 	}
 
-	public int getPrice() {
-		return price;
+	public List<Tag> getTags() {
+		return tags;
 	}
 
-	public void setPrice(int price) {
-		this.price = price;
+	public void setTags(List<Tag> tags) {
+		this.tags = tags;
 	}
+	
+	
+	
+	
 
 }

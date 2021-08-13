@@ -1,4 +1,4 @@
-package com.enoch.chris.lessonplanwebsite.controller.controller;
+package com.enoch.chris.lessonplanwebsite.controller;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -10,17 +10,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.enoch.chris.lessonplanwebsite.controller.entity.Grammar;
-import com.enoch.chris.lessonplanwebsite.controller.entity.LessonPlan;
-import com.enoch.chris.lessonplanwebsite.controller.entity.Picture;
-import com.enoch.chris.lessonplanwebsite.controller.entity.SpeakingAmount;
-import com.enoch.chris.lessonplanwebsite.controller.entity.Subscription;
-import com.enoch.chris.lessonplanwebsite.controller.entity.Tag;
-import com.enoch.chris.lessonplanwebsite.controller.entity.Topic;
-import com.enoch.chris.lessonplanwebsite.controller.entity.Type;
 import com.enoch.chris.lessonplanwebsite.dao.LessonPlanRepository;
 import com.enoch.chris.lessonplanwebsite.dao.PictureRepository;
 import com.enoch.chris.lessonplanwebsite.dao.SubscriptionRepository;
+import com.enoch.chris.lessonplanwebsite.entity.Grammar;
+import com.enoch.chris.lessonplanwebsite.entity.LessonPlan;
+import com.enoch.chris.lessonplanwebsite.entity.Picture;
+import com.enoch.chris.lessonplanwebsite.entity.SpeakingAmount;
+import com.enoch.chris.lessonplanwebsite.entity.Subscription;
+import com.enoch.chris.lessonplanwebsite.entity.Tag;
+import com.enoch.chris.lessonplanwebsite.entity.Topic;
+import com.enoch.chris.lessonplanwebsite.entity.Type;
 
 @Controller
 public class AdminController {
@@ -48,8 +48,8 @@ public class AdminController {
 		Topic technology = new Topic("Technology", Arrays.asList(new Tag("Driverless"), new Tag("social media")));
 		topics.add(technology);	
 		
-		LessonPlan lp = new LessonPlan.LessonPlanBuilder("My LP11", LocalDate.now(), a1, Type.BUSINESS
-				, 10, SpeakingAmount.LOTS, topics).grammar(Arrays.asList(new Grammar("Second Conditional")))
+		LessonPlan lp = new LessonPlan.LessonPlanBuilder("My LP12", LocalDate.now(), a1, Type.BUSINESS
+				, 10, SpeakingAmount.LOTS, topics).grammar(Arrays.asList(new Grammar("Adverbs")))
 			.picture(p2New).build();
 		
 		lessonPlanRepository.save(lp);

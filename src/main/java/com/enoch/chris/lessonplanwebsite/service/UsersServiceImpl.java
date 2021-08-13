@@ -1,4 +1,4 @@
-package com.enoch.chris.lessonplanwebsite.controller.service;
+package com.enoch.chris.lessonplanwebsite.service;
 
 import java.io.File;
 import java.util.Arrays;
@@ -18,12 +18,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.enoch.chris.lessonplanwebsite.controller.entity.Role;
-import com.enoch.chris.lessonplanwebsite.controller.entity.User;
 import com.enoch.chris.lessonplanwebsite.dao.RoleDao;
 import com.enoch.chris.lessonplanwebsite.dao.RoleRepository;
 import com.enoch.chris.lessonplanwebsite.dao.UserRepository;
 import com.enoch.chris.lessonplanwebsite.dao.UsersDao;
+import com.enoch.chris.lessonplanwebsite.entity.Role;
+import com.enoch.chris.lessonplanwebsite.entity.User;
 import com.enoch.chris.lessonplanwebsite.registration.user.RegistrationUser;
 
 

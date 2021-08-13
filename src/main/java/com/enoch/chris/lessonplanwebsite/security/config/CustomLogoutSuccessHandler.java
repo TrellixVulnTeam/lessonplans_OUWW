@@ -11,9 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
-import com.enoch.chris.lessonplanwebsite.controller.entity.User;
-import com.enoch.chris.lessonplanwebsite.controller.service.UsersService;
 import com.enoch.chris.lessonplanwebsite.dao.UserRepository;
+import com.enoch.chris.lessonplanwebsite.entity.User;
+import com.enoch.chris.lessonplanwebsite.service.UsersService;
 
 public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
 	
