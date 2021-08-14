@@ -1,5 +1,7 @@
 <!DOCTYPE HTML>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" 
+		xmlns:th="http://www.thymeleaf.org"
+		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
 <!-- Required meta tags -->
@@ -29,7 +31,7 @@
 					<h2 th:text="${lp.title}">Example H2</h2>
 					<ul class="display-list">
 						<li th:text="${lp.id}">Example id</li>
-						<li th:text="${lp.level}">Example level</li>
+						<li th:text="${lp.subscription}">Example subscription</li>
 						<li th:text="${lp.type}">Example type</li>
 					</ul>
 					<a class="btn btn-small btn-secondary" href='#'>Add to basket</a> <a

@@ -24,8 +24,8 @@ import com.enoch.chris.lessonplanwebsite.entity.Type;
 import com.enoch.chris.lessonplanwebsite.service.UsersService;
 
 @Controller
-@RequestMapping("/basket")
-public class BasketController {
+@RequestMapping("/upgrade")
+public class UpgradeController {
 	
 	//@Autowired
 	//private BasketRepository basketRepository;
@@ -45,7 +45,7 @@ public class BasketController {
 		//theModel.addAttribute("lessonPlans", lessonPlans);
 		
 		
-		return "basket";
+		return "upgrade";
 	}
 }
 

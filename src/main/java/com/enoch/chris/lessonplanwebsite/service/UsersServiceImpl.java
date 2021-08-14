@@ -58,7 +58,7 @@ private BCryptPasswordEncoder passwordEncoder;
 		user.setEnabled((byte)1);
 
 		// give user default role of "employee"
-		user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_EMPLOYEE")));
+		user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_CUSTOMER")));
 		
 		userRepository.save(user);
 

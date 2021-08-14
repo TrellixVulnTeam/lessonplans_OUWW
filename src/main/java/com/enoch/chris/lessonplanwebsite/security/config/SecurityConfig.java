@@ -44,9 +44,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			UserBuilder users = User.withDefaultPasswordEncoder();
 			
 			auth.inMemoryAuthentication()
-				.withUser(users.username("john").password("test123").roles("EMPLOYEE"))
-				.withUser(users.username("mary").password("test123").roles("EMPLOYEE", "MANAGER"))
-				.withUser(users.username("susan").password("test123").roles("EMPLOYEE", "ADMIN"));
+				.withUser(users.username("john").password("test123").roles("CUSTOMER"))
+				.withUser(users.username("mary").password("test123").roles("CUSTOMER", "MANAGER"))
+				.withUser(users.username("susan").password("test123").roles("CUSTOMER", "ADMIN"));
 			 */
 		}
 
@@ -54,10 +54,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		protected void configure(HttpSecurity http) throws Exception {
 
 			http.authorizeRequests()
-				.antMatchers("/").hasAnyRole("EMPLOYEE", "MANAGER", "ADMIN")
+				.antMatchers("/").hasAnyRole("CUSTOMER", "MANAGER", "ADMIN")
 				.antMatchers("/leaders/**").hasRole("MANAGER")
 				.antMatchers("/systems/**", "/members/**").hasRole("ADMIN")
-				.antMatchers("/showProfilePage/**","/shop/**").hasAnyRole("EMPLOYEE", "MANAGER", "ADMIN")
+				.antMatchers("/showProfilePage/**","/shop/**").hasAnyRole("CUSTOMER", "MANAGER", "ADMIN")
 				.and()
 				.formLogin()
 					.loginPage("/showMyLoginPage")

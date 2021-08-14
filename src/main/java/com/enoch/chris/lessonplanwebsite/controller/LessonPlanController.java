@@ -31,7 +31,7 @@ public class LessonPlanController {
 	private LessonPlanRepository lessonPlanRepository;
 	
 	@GetMapping
-	public String saveLessonPlan(Model theModel) {	
+	public String displayLessonPlans(Model theModel) {	
 		
 		//get lesson plans
 		List<LessonPlan> lessonPlans = lessonPlanRepository.findAll();

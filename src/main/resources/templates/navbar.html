@@ -4,9 +4,11 @@
     </ul>
    
     <ul class="nav-links-right">
-      <li class="nav-item-right"><a href="index.jsp">Admin</a></li>
-      <li class="nav-item-right"><a href="libros.jsp">Lesson Plans</a></li>
-      <li class="nav-item-right"><a href="carrito.jsp">Basket</a></li>
+    
+      <li class="nav-item-right" sec:authorize="hasAnyRole('ROLE_MANAGER', 'ROLE_ADMIN')"><a href="index.jsp">Admin</a></li>
+      <li class="nav-item-right"><a href="libros.jsp">Lesson plans</a></li>
+      <li class="nav-item-right"><a href="index.jsp">Account</a></li>
+      <li class="nav-item-right"><a href="carrito.jsp">Upgrade</a></li>
     </ul>
     
   </nav>
