@@ -1,5 +1,6 @@
 package com.enoch.chris.lessonplanwebsite.entity;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -56,10 +57,34 @@ public class User {
 	joinColumns = @JoinColumn(name = "user_id"), 
 	inverseJoinColumns = @JoinColumn(name = "subcription_id"))
 	private List<Subscription> subscriptions;
+	
+	@ManyToMany(fetch = FetchType.LAZY,cascade= {CascadeType.DETACH, 
+			CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}) //Was @JoinTable(name = "subscription_user",
+	@JoinTable(name = "basket", 
+	joinColumns = @JoinColumn(name = "user_id"), 
+	inverseJoinColumns = @JoinColumn(name = "subscription_id"))
+	private List<Subscription> basket = new ArrayList<>();
+	
+
 
 	public User() {
 	}
 
+	public User(String firstName, String lastName, String username, String password, String email, byte enabled,
+			Collection<Role> roles, List<Subscription> subscriptions, List<Subscription> basket) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		this.enabled = enabled;
+		this.roles = roles;
+		this.subscriptions = subscriptions;
+		this.basket = basket;
+	}
+	
+	
 	public User(String firstName, String lastName, String username, String password, String email, byte enabled,
 			Collection<Role> roles, List<Subscription> subscriptions) {
 		super();
@@ -170,6 +195,18 @@ public class User {
 	}
 
 	public void setPackages(List<Subscription> subscriptions) {
+		this.subscriptions = subscriptions;
+	}
+
+	public List<Subscription> getBasket() {
+		return basket;
+	}
+
+	public void setBasket(List<Subscription> basket) {
+		this.basket = basket;
+	}
+
+	public void setSubscriptions(List<Subscription> subscriptions) {
 		this.subscriptions = subscriptions;
 	}
 

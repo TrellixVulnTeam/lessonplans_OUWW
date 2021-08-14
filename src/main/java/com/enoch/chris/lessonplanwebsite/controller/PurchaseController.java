@@ -90,6 +90,35 @@ public class PurchaseController {
 		return "lessonplans";
 	}
 	
+	@GetMapping("/testsavesusbcriptions")
+	public String testsavesusbcriptions(Model theModel) {
+		
+		User user = userRepository.findByUsername("lessonplantest");
+		
+		Subscription subscription = subscriptionRepository.findById(4).get();
+		
+		user.getBasket().add(subscription);
+		
+		userRepository.save(user);
+
+		return "lessonplans";
+	}
+	
+	@GetMapping("/testgetbasket")
+	public String testbetbasket(Model theModel) {
+		
+		User user = userRepository.findByUsername("lessonplantest");
+		
+		//Subscription subscription = subscriptionRepository.findById(4).get();
+		
+		System.out.println("Basket contents");
+		user.getBasket().stream().forEach(s-> System.out.println(s.getName()));
+		
+
+
+		return "lessonplans";
+	}
+	
 }
 
 

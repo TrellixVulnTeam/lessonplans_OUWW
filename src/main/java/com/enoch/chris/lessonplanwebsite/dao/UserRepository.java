@@ -1,6 +1,8 @@
 package com.enoch.chris.lessonplanwebsite.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.enoch.chris.lessonplanwebsite.entity.Subscription;
@@ -10,4 +12,5 @@ import com.enoch.chris.lessonplanwebsite.entity.User;
 public interface UserRepository extends JpaRepository<User, Integer> {
 	User findByUsername(String username);
 	User findByEmail(String email);
+	
 }
