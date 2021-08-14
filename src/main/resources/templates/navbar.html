@@ -10,8 +10,8 @@
 		<li class="nav-item-right"
 			sec:authorize="hasAnyRole('ROLE_MANAGER', 'ROLE_ADMIN')"><a
 			href="index.jsp">Admin</a></li>
-		<li class="nav-item-right"><a href="libros.jsp">Lesson plans</a></li>
-		<li class="nav-item-right"><a href="index.jsp">Account</a></li>
+		<li class="nav-item-right"><a href="/lessonplans">Lesson plans</a></li>
+		<li class="nav-item-right"><a href="#">Account</a></li>
 
 
 		<li th:if="${user != null }" class="nav-item-right"><a
@@ -23,7 +23,7 @@
 		class="nav-item-right"> Login</a></li>
 
 
-		<li class="nav-item-right"><a href="carrito.jsp">Upgrade</a></li>
+		<li class="nav-item-right"><a href="#">Upgrade</a></li>
 	</ul>
 
 	<form th:if="${session.user != null}" name="logoutForm" style="display: none"
