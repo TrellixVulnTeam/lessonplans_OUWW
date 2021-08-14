@@ -30,7 +30,10 @@ public class LessonPlanController {
 	private SubscriptionRepository subscriptionRepository;
 	
 	@GetMapping
-	public String displayLessonPlans(Model theModel) {	
+	public String displayLessonPlans(Model theModel, HttpSession session) {	
+		
+		User theUser = (User)session.getAttribute("user");
+		theModel.addAttribute("user",theUser);
 		
 		//get lesson plans
 		List<LessonPlan> lessonPlans = lessonPlanRepository.findAll();
@@ -66,6 +69,8 @@ public class LessonPlanController {
 						User theUser = (User)session.getAttribute("user");
 						
 						System.out.println("User name: " + theUser.getFirstName());
+						
+						theModel.addAttribute("user", theUser);
 						
 						List<Subscription> activeSubscriptions = subscriptionRepository
 								.findActiveSubscriptions(theUser, LocalDateTime.now());

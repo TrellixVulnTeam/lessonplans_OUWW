@@ -1,14 +1,31 @@
-   <nav>
-   <ul class="nav-links-left">
-      <li class="nav-item-logo"><a href="index.jsp">Lesson Plans Online</a></li>
-    </ul>
-   
-    <ul class="nav-links-right">
-    
-      <li class="nav-item-right" sec:authorize="hasAnyRole('ROLE_MANAGER', 'ROLE_ADMIN')"><a href="index.jsp">Admin</a></li>
-      <li class="nav-item-right"><a href="libros.jsp">Lesson plans</a></li>
-      <li class="nav-item-right"><a href="index.jsp">Account</a></li>
-      <li class="nav-item-right"><a href="carrito.jsp">Upgrade</a></li>
-    </ul>
-    
-  </nav>
+
+<nav>
+	<ul class="nav-links-left">
+		<li class="nav-item-logo"><a href="index.jsp">Lesson Plans
+				Online</a></li>
+	</ul>
+
+	<ul class="nav-links-right">
+
+		<li class="nav-item-right"
+			sec:authorize="hasAnyRole('ROLE_MANAGER', 'ROLE_ADMIN')"><a
+			href="index.jsp">Admin</a></li>
+		<li class="nav-item-right"><a href="libros.jsp">Lesson plans</a></li>
+		<li class="nav-item-right"><a href="index.jsp">Account</a></li>
+
+
+		<li th:if="${user != null }" class="nav-item-right"><a
+			href="javascript: document.logoutForm.submit()" role="menuitem"
+			class="nav-link"> Logout</a></li>
+
+
+		<li class="nav-item-right"><a href="carrito.jsp">Upgrade</a></li>
+	</ul>
+
+	<form th:if="${user != null}" name="logoutForm" style="display: none"
+		method="POST" th:action="@{/logout}">
+		<input hidden="true" type="submit" value="Logout" />
+	</form>
+
+</nav>
+
