@@ -2,6 +2,7 @@ package com.enoch.chris.lessonplanwebsite.dao;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -26,6 +27,8 @@ public interface SubscriptionRepository extends JpaRepository<Subscription, Inte
 	@Query("SELECT s FROM Purchase as p inner join p.subscription as s where p.user = :user "
 			+ "and p.dateSubscriptionEnds > :date")
 	List<Subscription> findActiveSubscriptions(@Param("user") User user, @Param("date") LocalDateTime date);
+	
+	Optional<Subscription> findByName(String name);
 
 
 }

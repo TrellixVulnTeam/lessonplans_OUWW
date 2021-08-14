@@ -38,7 +38,7 @@
 						<li th:text="${lp.type}">Example type</li>
 					</ul>
 					<a class="btn btn-small btn-secondary" href='#'>Add to basket</a> 
-					<a class="btn btn-small btn-primary" th:href="@{/../checkout(id=${lp.id})}">Buy</a> <br> <br>
+					<a class="btn btn-small btn-primary" th:href="@{/../checkout(id=${lp.subscription.name})}">Buy</a> <br> <br>
 			
 						
 				</div>

@@ -23,6 +23,12 @@
 		</dependency>
 		
 		<dependency>
+			  <groupId>com.stripe</groupId>
+			  <artifactId>stripe-java</artifactId>
+			  <version>20.1.0</version>
+		</dependency>
+		
+		<dependency>
 			<groupId>org.thymeleaf.extras</groupId>
 			<artifactId>thymeleaf-extras-springsecurity5</artifactId>
 		</dependency>

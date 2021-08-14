@@ -14,11 +14,11 @@
 		<li class="nav-item-right"><a href="#">Account</a></li>
 
 
-		<li th:if="${user != null }" class="nav-item-right"><a
+		<li th:if="${session.user != null }" class="nav-item-right"><a
 			href="javascript: document.logoutForm.submit()" role="menuitem"
 			class="nav-item-right"> Logout</a></li>
 			
-		<li th:if="${user == null }" class="nav-item-right"><a
+		<li th:if="${session.user == null }" class="nav-item-right"><a
 		href="/showMyLoginPage" role="menuitem"
 		class="nav-item-right"> Login</a></li>
 
