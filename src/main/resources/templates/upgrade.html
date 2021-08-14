@@ -1,7 +1,6 @@
 <!DOCTYPE HTML>
-<html lang="en" 
-		xmlns:th="http://www.thymeleaf.org"
-		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
 <!-- Required meta tags -->
@@ -20,39 +19,85 @@
 
 	<div class="main-content">
 		<div class="main-content-inner ml-5 mr-5">
-			<h1 id="large-header" th:if="${lessonPlans.size() > 0}">Basket</h1>
 
-			<div th:if="${order.size() < 0}">
-				<p class="mt-5 ml-5 mb-5 message-large">Your basket is empty</p>
-				<a class="btn btn-big btn-secondary-action ml-5"
-					href="lessonplans.html" th:href="@{/lessonplans}">View
-					lesson plans</a>
-			
-			</div>
+			<h1 id="large-header" class="mt-5 mb-4 ml-5">Upgrade</h1>
 
-			<div class="book-container mt-3" th:each="o : ${order}">
-				<div class="mr-7 mb-1">
-					<h2 th:text="${o.lessonPlan.title}">Example H2</h2>
+			<div class="form-container mt-1">
+				<div class="form-vertical-blocks">
+					<div class="form-header">Get one level</div>
 
-					<ul class="display-list">
-							<li th:text="${o.lessonPlan.id}">Example id</li>
-							<li th:text="${o.lessonPlan.level}">Example level</li>
-							<li th:text="${o.lessonPlan.type}">Example type</li>			
-					</ul>
-					
-					<a class="btn btn-small btn-tertiary" href="checkout.html" th:href="@{/remove(o.lessonId=${o.lessonPlan.id})}">Remove</a>
-					<br> <br>
+					<form id="libro-form">
+
+						<div>
+							<a class="btn btn-small btn-tertiary mb-2"
+								href="javascript:anadirNuevoAutor()">Añadir nuevo autor</a>
+						</div>
+						<div id="anadirAutor"></div>
+
+
+						<div>
+							<a class="btn btn-small btn-tertiary"
+								href="javascript:seleccionarAutorExistente()">Seleccionar
+								autor</a>
+						</div>
+
+						<label for="ISBN" class="mt-2">ISBN</label> <input type="text"
+							id="ISBN" name="ISBN"><br>
+						<br> <label for="titulo">Titulo</label> <input type="text"
+							id="titulo" name="titulo"><br>
+						<br> <label for="precio">Precio en céntimos</label> <input
+							type="number" id="precio" name="precio"><br>
+						<br>
+
+
+
+
+						<div class="form-center">
+							<a class="btn btn-med btn-secondary mb-2"
+								href="javascript:anadirLibro()">Añadir</a>
+						</div>
+
+
+						<p id="resultado"></p>
+					</form>
 
 				</div>
-			</div>
 
-			<div th:if="${order.size() > 0}">
-				<hr>
-				<br>
-				<h2 class="mt-1" th:text="%{order.totalPrice}"></h2>
-					<a class="mt-1 ml-auto btn btn-med btn-primary" href="checkout.html" th:href="@{../checkout(orderId=${order.id})}">Buy All</a>
-			</div>
+				<div class="form-vertical-blocks">
+					<div class="form-header">Get multiple levels</div>
+					<form>
+						<label for="modificarId">Libro Id</label> <input type="number"
+							id="modificarId" name="modificarId"><br>
+						<br> <label for="precioModificado">Precio:</label> <input
+							type="number" id="precioModificado" name="precioModificado"><br>
+						<br>
+						<div class="form-center">
+							<a class="btn btn-med btn-secondary mb-2"
+								href="javascript:modificarPrecioDelLibro()">Modificar</a>
+						</div>
+						<p id="resultadoPrecioModificado"></p>
+					</form>
+				</div>
 
+				<div class="form-vertical-blocks">
+					<div class="form-header">Get all levels </div>
+					<form>
+						<label for="eliminarId">Libro Id</label> <input type="text"
+							id="eliminarId" name="eliminarId"><br>
+						<br>
+						<div class="form-center">
+							<a class="btn btn-med btn-secondary mb-2"
+								href="javascript:eliminarLibro()">Eliminar</a>
+							<!-- <input type="submit" value="Submit">  -->
+						</div>
+						<p id="resultadoEliminarLibro"></p>
+					</form>
+				</div>
+
+
+
+			</div>
+			<!-- form-container termina -->
 		</div>
 	</div>
 </body>
