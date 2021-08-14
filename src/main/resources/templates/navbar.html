@@ -16,13 +16,17 @@
 
 		<li th:if="${user != null }" class="nav-item-right"><a
 			href="javascript: document.logoutForm.submit()" role="menuitem"
-			class="nav-link"> Logout</a></li>
+			class="nav-item-right"> Logout</a></li>
+			
+		<li th:if="${user == null }" class="nav-item-right"><a
+		href="/showMyLoginPage" role="menuitem"
+		class="nav-item-right"> Login</a></li>
 
 
 		<li class="nav-item-right"><a href="carrito.jsp">Upgrade</a></li>
 	</ul>
 
-	<form th:if="${user != null}" name="logoutForm" style="display: none"
+	<form th:if="${session.user != null}" name="logoutForm" style="display: none"
 		method="POST" th:action="@{/logout}">
 		<input hidden="true" type="submit" value="Logout" />
 	</form>
