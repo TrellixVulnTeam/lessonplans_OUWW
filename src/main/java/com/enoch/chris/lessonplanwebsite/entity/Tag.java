@@ -19,6 +19,10 @@ public class Tag {
 	@Column(name="name")
 	private String name;
 
+	
+	protected Tag() {	
+	}
+
 	public Tag(String name) {
 		super();
 		this.name = name;

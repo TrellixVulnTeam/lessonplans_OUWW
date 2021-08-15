@@ -33,6 +33,9 @@ public class Topic {
 	inverseJoinColumns = @JoinColumn(name = "tag_id"))
 	List<Tag> tags;
 	
+	protected Topic() {	
+	}
+	
 	public Topic(String name, List<Tag> tags) {
 		super();
 		this.name = name;

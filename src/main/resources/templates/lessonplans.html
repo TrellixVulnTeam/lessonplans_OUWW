@@ -26,12 +26,25 @@
 <p th:text="${session.usesr}"></p>
 
 <form action="/lessonplans/checkboxtest" method="post">
+
   <input type="checkbox" id="vehicle1" name="checkboxName" value="Bike">
   <label for="vehicle1"> I have a bike</label><br>
+  
   <input type="checkbox" id="vehicle2" name="checkboxName" value="Car">
   <label for="vehicle2"> I have a car</label><br>
+  
   <input type="checkbox" id="vehicle3" name="checkboxName" value="Boat">
   <label for="vehicle3"> I have a boat</label>  
+  
+  <input type="checkbox" id="vehicle4" name="checkboxName" value="Train">
+  <label for="vehicle1"> I have a bike</label><br>
+  
+  <input type="checkbox" id="vehicle4" name="checkboxName" value="Rickshaw">
+  <label for="vehicle2"> I have a car</label><br>
+  
+  <input type="checkbox" id="vehicle4" name="checkboxName" value="Horse">
+  <label for="vehicle3"> I have a boat</label>  
+  
   
   <input type="hidden" th:name="${_csrf.parameterName}"
 					th:value="${_csrf.token}" />

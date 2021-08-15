@@ -23,17 +23,20 @@ public class Picture {
 	@Column(name="file_location")
 	private String fileLocation;
 	
-	  @OneToMany(
+	 @OneToMany(
 		        mappedBy = "picture",
 		        cascade= {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}        
 			  )
 	private List<LessonPlan> lessonPlans = new ArrayList<>();
-	
-	  protected Picture() {
-		}
 	  
-	public Picture(String fileLocation) {
+	@Column(name="picture_name")
+	private String name;
+	
+	protected Picture() {}
+	  
+	public Picture(String fileLocation, String name) {
 		this.fileLocation = fileLocation;
+		this.name = name;
 	}
 
 	public int getId() {
@@ -51,7 +54,23 @@ public class Picture {
 	public void setFileLocation(String fileLocation) {
 		this.fileLocation = fileLocation;
 	}
-	
+
+	public List<LessonPlan> getLessonPlans() {
+		return lessonPlans;
+	}
+
+	public void setLessonPlans(List<LessonPlan> lessonPlans) {
+		this.lessonPlans = lessonPlans;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public void addLessonPlan(LessonPlan lessonPlan) {
 		if (lessonPlans == null){
 			lessonPlans = new ArrayList<>();

@@ -372,14 +372,6 @@ public class LessonPlan {
 	    private List<Grammar> grammar;
  
 	    
-	    public LessonPlanBuilder(String title, LocalDate dateAdded
-        		,int age, List<Topic> topics) {
-            this.title = title;
-            this.dateAdded = dateAdded;
-            this.age = age;
-            this.topics = topics;
-        }
-	    
         public LessonPlanBuilder(String title, LocalDate dateAdded,Subscription assignedSubscription, Type type
         		,int age,SpeakingAmount speakingAmount, List<Topic> topics) {
             this.title = title;

@@ -19,6 +19,10 @@ public class Grammar {
 	@Column(name="grammar_point")
 	private String grammarPoint;
 	
+	protected Grammar() {
+		
+	}
+	
 	public Grammar(String grammarPoint) {
 		super();
 		this.grammarPoint = grammarPoint;

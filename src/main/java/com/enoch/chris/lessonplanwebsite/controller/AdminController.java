@@ -4,17 +4,22 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.enoch.chris.lessonplanwebsite.dao.GrammarRepository;
 import com.enoch.chris.lessonplanwebsite.dao.LessonPlanRepository;
 import com.enoch.chris.lessonplanwebsite.dao.PictureRepository;
 import com.enoch.chris.lessonplanwebsite.dao.SubscriptionRepository;
+import com.enoch.chris.lessonplanwebsite.dao.TagRepository;
+import com.enoch.chris.lessonplanwebsite.dao.TopicRepository;
 import com.enoch.chris.lessonplanwebsite.entity.Grammar;
 import com.enoch.chris.lessonplanwebsite.entity.LessonPlan;
+import com.enoch.chris.lessonplanwebsite.entity.LessonTime;
 import com.enoch.chris.lessonplanwebsite.entity.Picture;
 import com.enoch.chris.lessonplanwebsite.entity.SpeakingAmount;
 import com.enoch.chris.lessonplanwebsite.entity.Subscription;
@@ -32,58 +37,126 @@ public class AdminController {
 	private PictureRepository pictureRepository;
 	
 	@Autowired
+	private GrammarRepository grammarRepository;
+	
+	@Autowired
+	private TopicRepository topicRepository;
+	
+	@Autowired
+	private TagRepository tagRepository;
+	
+	@Autowired
 	private SubscriptionRepository subscriptionRepository;
 
 	
-	@GetMapping("/admin")
-	public String displayAdmin(Model theModel) {		
-
-		//works
-		Picture p2 = new Picture("P7");
-		Picture p2New = pictureRepository.save(p2);
-		
-		Subscription a1 = subscriptionRepository.findById(1).get();
+//	@GetMapping("/admin")
+//	public String displayAdmin(Model theModel) {		
+//
+//		//works
+//		Picture p2 = new Picture("P7", "some_name");
+//		Picture p2New = pictureRepository.save(p2);
+//		
+//		Subscription a1 = subscriptionRepository.findById(1).get();
+//	
+//		List<Topic> topics = new ArrayList<>();
+//		Topic technology = new Topic("Technology", Arrays.asList(new Tag("Driverless"), new Tag("social media")));
+//		topics.add(technology);	
+//		
+//		LessonPlan lp = new LessonPlan.LessonPlanBuilder("My LP12", LocalDate.now(), a1, Type.BUSINESS
+//				, 10, SpeakingAmount.LOTS, topics).grammar(Arrays.asList(new Grammar("Adverbs")))
+//			.picture(p2New).build();
+//		
+//		lessonPlanRepository.save(lp);
+//
+//		return "admin";
+//	}
 	
-		List<Topic> topics = new ArrayList<>();
-		Topic technology = new Topic("Technology", Arrays.asList(new Tag("Driverless"), new Tag("social media")));
-		topics.add(technology);	
-		
-		LessonPlan lp = new LessonPlan.LessonPlanBuilder("My LP12", LocalDate.now(), a1, Type.BUSINESS
-				, 10, SpeakingAmount.LOTS, topics).grammar(Arrays.asList(new Grammar("Adverbs")))
-			.picture(p2New).build();
-		
-		lessonPlanRepository.save(lp);
-
-		return "admin";
-	}
-	
-	@GetMapping("/admin/add")
+	@GetMapping("/admin/addlp")
 	public String addLessonPlan(Model theModel) {		
 
 		//works
-		Picture p2 = new Picture("P5");
-		Picture p2New = pictureRepository.save(p2);
+		Picture picture = pictureRepository.findById(48).get(); //celebrities collage
+		Grammar g = grammarRepository.findByGrammarPoint("adverbs").get();
+		Grammar g2 = grammarRepository.findByGrammarPoint("first conditional").get();
+		Topic t = topicRepository.findByName("sport").get();
+		Subscription s = subscriptionRepository.findByName("B1").get();
 	
 		List<Topic> topics = new ArrayList<>();
-		Topic technology = new Topic("Technology", Arrays.asList(new Tag("Driverless"), new Tag("social media")));
-		topics.add(technology);	
+		topics.add(t);	
 		
-		LessonPlan lp = new LessonPlan.LessonPlanBuilder("My LP9", LocalDate.now(), new Subscription("A1", 2000), Type.BUSINESS
-				, 10, SpeakingAmount.LOTS, topics).grammar(Arrays.asList(new Grammar("First Conditional")))
-			.picture(p2New).build();
+		LessonPlan lp = new LessonPlan.LessonPlanBuilder("Olympic Village", LocalDate.now(), s,
+				Type.GENERAL, 10, SpeakingAmount.SPEAKING_ONLY, topics)
+				.isVocabulary(true)
+			.picture(picture).build();
 		
 		lessonPlanRepository.save(lp);
 
 		return "admin";
 	}
 	
-	@GetMapping("/admin/delete")
+	@GetMapping("/admin/deletelp")
 	public String deleteLessonPlan(Model theModel) {		
 
 		lessonPlanRepository.deleteAll();
 
 		return "admin";
 	}
+	
+	@GetMapping("/admin/addtags")
+	public String addTags(Model theModel) {		
+
+		//save tags
+		List<Tag> tags = Arrays.asList(new Tag("driverless"), new Tag("social media"), new Tag("celebrities")
+				, new Tag("media"), new Tag("electric cars"), new Tag("protest"), new Tag("extreme sports")
+				, new Tag("olympics"), new Tag("dangerous sports"), new Tag("camping"), new Tag("beach")
+				, new Tag("biography"), new Tag("busienss tips"));
+		
+		//tagRepository.sav
+		tagRepository.saveAll(tags);
+
+		return "admin";
+	}
+	
+	@GetMapping("/admin/addtopic")
+	public String addTopic(Model theModel) {		
+
+		//get tags by tagname
+		Tag tag = tagRepository.findByName("biography").get();
+		Tag tag2 = tagRepository.findByName("business tips").get();
+		
+		//add them to topic
+		Topic topic = new Topic("entrepreneur", Arrays.asList(tag, tag2));
+		
+		//save topic
+		topicRepository.save(topic);
+
+		return "admin";
+	}
+	
+	@GetMapping("/admin/addgrammar")
+	public String addGrammar(Model theModel) {		
+
+		//save Grammar
+		List<Grammar> grammarPointsGrammars = Arrays.asList(new Grammar("First conditional"), new Grammar("Second conditional")
+				, new Grammar("Third conditional"), new Grammar("Adverbs"), new Grammar("Adjectives"));
+
+		grammarRepository.saveAll(grammarPointsGrammars);
+		
+		return "admin";
+	}
+	
+	@GetMapping("/admin/addpicture")
+	public String addPicture(Model theModel) {		
+
+//		Picture p2 = new Picture("C:\\Users\\chris\\OneDrive\\Imágenes\\Profile pictures\\IMG-20180306-WA0000.jpg ");
+//		Picture p2New = pictureRepository.save(p2);
+//		
+//		Picture p3 = new Picture("C:\\Users\\chris\\OneDrive\\Imágenes\\Profile pictures\\IMG-20180306-WA0001.jpg ");
+//		Picture p3New = pictureRepository.save(p3);
+		
+		return "admin";
+	}
+	
 	
 	
 	
