@@ -1,6 +1,7 @@
 package com.enoch.chris.lessonplanwebsite.controller;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,14 +11,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.enoch.chris.lessonplanwebsite.dao.LessonPlanRepository;
 import com.enoch.chris.lessonplanwebsite.dao.SubscriptionRepository;
 import com.enoch.chris.lessonplanwebsite.entity.LessonPlan;
-import com.enoch.chris.lessonplanwebsite.entity.User;
 import com.enoch.chris.lessonplanwebsite.entity.Subscription;
+import com.enoch.chris.lessonplanwebsite.entity.User;
 
 @Controller
 @RequestMapping("/lessonplans")
@@ -92,6 +94,23 @@ public class LessonPlanController {
 			}	
 		
 	}
+	
+	@PostMapping("checkboxtest")
+	public String checkboxTest(Model theModel, @RequestParam(name = "checkboxName", required = false)String[] checkboxValue) {
+		 if(checkboxValue != null) {
+		    System.out.println("checkbox is checked");
+		    
+		    System.out.println(Arrays.toString(checkboxValue));
+		    
+		  }
+		  else {
+		    System.out.println("checkbox is not checked");
+
+		  }
+		
+		return "redirect:/lessonplans";
+	}
+	
 	
 }
 
