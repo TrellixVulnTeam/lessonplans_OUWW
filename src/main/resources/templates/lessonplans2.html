@@ -25,27 +25,34 @@
 <div th:if="${session.user != null }" class="nav-item-right"><p>User session active</p></div>
 <p th:text="${session.usesr}"></p>
 
-		
+			<form action="#" th:action="@{/lessonplans/test}" th:object="${testObject}" method="post">
+				<div>
+					<label th:for="${#ids.next('funny')}"th:text="Hello">IsFunny</label>
+					 <input type="checkbox" th:field="*{funny}" />
+				</div>
+
+  <input type="submit" value="Submit">
+			</form>
 
 
-	<form action="/lessonplans" method="post">
+			<form action="/lessonplans" method="post">
 
-  <input type="checkbox" id="vehicle1" name="topics" value="technology">
-  <label for="vehicle1"> Technology</label><br>
-  
-  <input type="checkbox" id="vehicle2" name="topics" value="environment">
-  <label for="vehicle2"> Environment</label><br>
-  
-  <input type="checkbox" id="vehicle3" name="topics" value="travel">
-  <label for="vehicle3"> Travel</label>  
-  
-  <input type="checkbox" id="vehicle4" name="topics" value="Train">
+  <input type="checkbox" id="vehicle1" name="checkboxName" value="Bike">
   <label for="vehicle1"> I have a bike</label><br>
   
-  <input type="checkbox" id="vehicle4" name="topics" value="Rickshaw">
+  <input type="checkbox" id="vehicle2" name="checkboxName" value="Car">
   <label for="vehicle2"> I have a car</label><br>
   
-  <input type="checkbox" id="vehicle4" name="topics" value="Horse">
+  <input type="checkbox" id="vehicle3" name="checkboxName" value="Boat">
+  <label for="vehicle3"> I have a boat</label>  
+  
+  <input type="checkbox" id="vehicle4" name="checkboxName" value="Train">
+  <label for="vehicle1"> I have a bike</label><br>
+  
+  <input type="checkbox" id="vehicle4" name="checkboxName" value="Rickshaw">
+  <label for="vehicle2"> I have a car</label><br>
+  
+  <input type="checkbox" id="vehicle4" name="checkboxName" value="Horse">
   <label for="vehicle3"> I have a boat</label>  
   
   

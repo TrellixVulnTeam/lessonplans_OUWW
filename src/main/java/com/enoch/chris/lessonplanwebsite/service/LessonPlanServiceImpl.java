@@ -59,79 +59,96 @@ public class LessonPlanServiceImpl implements LessonPlanService {
 
 				.filter(lp -> searchParameters.getDateAdded() == null ? true
 						: searchParameters.getDateAdded().isBefore(lp.getDateAdded()) ? true : false)
-
+//
 				.filter(lp -> searchParameters.getAssignedSubscription() == null ? true
 						: searchParameters.getAssignedSubscription() == lp.getAssignedSubscription())
-
-				.filter(lp -> searchParameters.getLessonTime() == null ? true
+//
+			.filter(lp -> searchParameters.getLessonTime() == null ? true
 						: searchParameters.getLessonTime() == lp.getLessonTime())
-
-				.filter(lp -> searchParameters.getType() == null ? true : searchParameters.getType() == lp.getType())
-
+//
+			.filter(lp -> searchParameters.getType() == null ? true : searchParameters.getType() == lp.getType())
+//
 				.filter(lp -> searchParameters.getAge() <= lp.getAge())
-
+//
 				.filter(lp -> searchParameters.getSpeakingAmount() == null ? true
-						: searchParameters.getSpeakingAmount() == lp.getSpeakingAmount())
-
-				.filter(lp -> searchParameters.isListening() == lp.isListening())
+					: searchParameters.getSpeakingAmount() == lp.getSpeakingAmount())
+//
+			.filter(lp -> searchParameters.isListening() == lp.isListening())
 
 				.filter(lp -> searchParameters.isVocabulary() == lp.isVocabulary())
 
 				.filter(lp -> searchParameters.isReading() == lp.isReading())
 
 				.filter(lp -> searchParameters.isWriting() == lp.isWriting())
-
-				.filter(lp -> searchParameters.isFunClass() == lp.isFunClass())
-
+//
+			.filter(lp -> searchParameters.isFunClass() == lp.isFunClass())
+//
 				.filter(lp -> searchParameters.isGames() == lp.isGames())
-
 				.filter(lp -> searchParameters.isJigsaw() == lp.isJigsaw())
 
 				.filter(lp -> searchParameters.isTranslation() == lp.isTranslation())
 
 				.filter(lp -> searchParameters.isSong() == lp.isSong())
-
+//
 				.filter(lp -> searchParameters.getPreparationTime() <= lp.getPreparationTime())
 
-				.filter(lp -> searchParameters.isPrintedMaterialsNeeded() == lp.isPrintedMaterialsNeeded())
-
-				.filter(lp -> searchParameters.getPicture() == lp.getPicture())
+			.filter(lp -> searchParameters.isPrintedMaterialsNeeded() == lp.isPrintedMaterialsNeeded())
+//			
+		.filter(lp -> searchParameters.getType() == null ? true :searchParameters.getPicture() == lp.getPicture())
 
 				// Check grammar points. Return true, if anymatch
 				.filter(lp -> {
-					for (Grammar gpSearchParameter : searchParameters.getGrammar()) {
-						for (Grammar lpGrammar : lp.getGrammar()) {
-							if (gpSearchParameter == lpGrammar) {
-								return true;
+					
+					if (searchParameters.getGrammar() != null) {
+						for (Grammar gpSearchParameter : searchParameters.getGrammar()) {
+							for (Grammar lpGrammar : lp.getGrammar()) {
+								if (gpSearchParameter == lpGrammar) {
+									return true;
+								}
 							}
 						}
+						return false;
 					}
-					return false;
+					
+					return true;
+					
+					
 				})
-				
+//				
 				// Check topics. Return true, if anymatch
 				.filter(lp -> {
-					for (Topic topicSearchParameter : searchParameters.getTopics()) {
-						for (Topic lpTopic : lp.getTopics()) {
-							if (topicSearchParameter == lpTopic ) {
-								return true;
+					if (searchParameters.getTopics() != null) {
+						for (Topic topicSearchParameter : searchParameters.getTopics()) {
+							for (Topic lpTopic : lp.getTopics()) {
+								if (topicSearchParameter == lpTopic ) {
+									return true;
+								}
 							}
 						}
+						return false;
 					}
-					return false;
+					
+					return true;
+					
 				})
-		
-				// check tags
+//		
+//				// check tags
 				// Check topics.Return true, if anymatch
 				.filter(lp -> {
-					for (Tag tagSearchParameter : searchParameters.getTags()) {
-						for (Tag lpTag : lp.getTags()) {
-							if (tagSearchParameter == lpTag ) {
-								return true;
+					if (searchParameters.getTags() != null) {
+						for (Tag tagSearchParameter : searchParameters.getTags()) {
+							for (Tag lpTag : lp.getTags()) {
+								if (tagSearchParameter == lpTag ) {
+									return true;
+								}
 							}
 						}
+						return false;				
 					}
-					return false;
+					
+					return true;
+					
+					
 				})
 				.collect(Collectors.toList());
 		

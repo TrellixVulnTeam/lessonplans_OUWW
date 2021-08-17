@@ -2,6 +2,7 @@ package com.enoch.chris.lessonplanwebsite.controller;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -29,6 +30,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.enoch.chris.lessonplanwebsite.dao.LessonPlanRepository;
 import com.enoch.chris.lessonplanwebsite.dao.SubscriptionRepository;
+import com.enoch.chris.lessonplanwebsite.dao.TopicRepository;
 import com.enoch.chris.lessonplanwebsite.entity.Grammar;
 import com.enoch.chris.lessonplanwebsite.entity.LessonPlan;
 import com.enoch.chris.lessonplanwebsite.entity.LessonTime;
@@ -40,6 +42,7 @@ import com.enoch.chris.lessonplanwebsite.entity.TestObject;
 import com.enoch.chris.lessonplanwebsite.entity.Topic;
 import com.enoch.chris.lessonplanwebsite.entity.Type;
 import com.enoch.chris.lessonplanwebsite.entity.User;
+import com.enoch.chris.lessonplanwebsite.service.LessonPlanService;
 
 @Controller
 @RequestMapping("/lessonplans")
@@ -50,6 +53,12 @@ public class LessonPlanController {
 	
 	@Autowired
 	private SubscriptionRepository subscriptionRepository;
+	
+	@Autowired
+	private LessonPlanService lessonPlanService;
+	
+	@Autowired
+	private TopicRepository topicRepository;
 	
 	@GetMapping
 	public String displayLessonPlans(Model theModel, HttpSession session) {	
@@ -141,49 +150,72 @@ public class LessonPlanController {
 		return "lessonplans";
 	}
 	
+	@GetMapping("/checkmethod")
+	public String checkMethod() {
+		Topic fame = topicRepository.findByName("fame").get();
+		List<Topic> topics = new ArrayList<>();
+		topics.add(fame);
+		
+		
+		LessonPlan lPlan = new LessonPlan.LessonPlanBuilder(null, null, null, null, 10, null, topics, null).build();
+		List<LessonPlan> lessonPlans = lessonPlanService.findSearchedLessonPlans(lPlan, null, (short)5);
+		
+		System.out.println("check method");
+		lessonPlans.stream().forEach(a -> System.out.println(a.getTitle()));
+		System.out.println("check method END");
+		
+
+		return "lessonplans";		
+	}
+	
 	
 	@PostMapping()
 	public String checkboxTest(Model theModel, 
 			@RequestParam(name = "topics", required = false)List<String> topics,
 			RedirectAttributes redirectAttributes) {
 		
-//		List<LessonPlan>lessonPlans = null; 
-//		
-//		//params that are never used?
-//		//get params and add them
-//	     String title = null;
-//	     LocalDate dateAdded = null;
-//	     Subscription assignedSubscription = null;
-//	     LessonTime lessonTime = null;
-//	     Type type = null;
-//	     int age; // required  
-//	     SpeakingAmount speakingAmount; // required  
-//	     Picture picture;
-//	  
-//	     boolean listening;
-//	     boolean vocabulary;
-//	     boolean reading;
-//	     boolean writing;
-//	     boolean video;
-//	     boolean song;
-//	     boolean funClass;
-//	     boolean games;
-//	     boolean jigsaw;
-//	     boolean translation;
-//	     short preparationTime; //default is 5 minutes
-//	     boolean printedMaterialsNeeded;
-//	     
-//	     List<Topic> topicsList = null;
-//	     List<Grammar> grammar = null;
-//		 List<Tag> tags = null;
-//		
-//
-//		//create lessonPlan object
-//		 LessonPlan searchParameters = new LessonPlan.LessonPlanBuilder(title, dateAdded, assignedSubscription, type, age, speakingAmount
-//				 , topicsList, tags).isFunClass(funClass).isGames(games).isJigsaw(jigsaw).isListening(listening).isPrintedMaterialsNeeded(printedMaterialsNeeded)
-//				 .isReading(reading).isSong(song).isVideo(video).isVocabulary(vocabulary).isWriting(writing).build();
+		//params that are never used?
+		//get params and add them
+	     String title = null;
+	     LocalDate dateAdded = null;
+	     Subscription assignedSubscription = subscriptionRepository.findByName("a1").get();
+	     LessonTime lessonTime = null;
+	     Type type = Type.GENERAL;  
+	     int age = 10;
+	     SpeakingAmount speakingAmount = SpeakingAmount.LOTS;
+	     Picture picture;
+	  
+	     boolean listening = true;
+	     boolean vocabulary = true;
+	     boolean reading = false;
+	     boolean writing = false;
+	     boolean video = true;
+	     boolean song = false;
+	     boolean funClass = false;
+	     boolean games = false;
+	     boolean jigsaw = false;
+	     boolean translation = false;
+	     short preparationTime = 10;
+	     boolean printedMaterialsNeeded = false;
+	     
+	     Optional<Topic> topic = topicRepository.findByName(topics.get(0));
+	     
+	     List<Topic> topicsList = new ArrayList<>();
+	     topicsList.add(topic.get());
+	     
+	     List<Grammar> grammar = null;
+		 List<Tag> tags = null;
+		
+
+		//create lessonPlan object
+		 LessonPlan searchParameters = new LessonPlan.LessonPlanBuilder(title, dateAdded, assignedSubscription, type, age, speakingAmount
+				 , topicsList, tags).isFunClass(funClass).isGames(games).isJigsaw(jigsaw).isListening(listening).isPrintedMaterialsNeeded(printedMaterialsNeeded)
+				 .isReading(reading).isSong(song).isVideo(video).isVocabulary(vocabulary).isWriting(writing).build();
 		
 		
+		 List<LessonPlan> lessonPlansFiltered = lessonPlanService.findSearchedLessonPlans(searchParameters, LessonTime.SIXTY, (short) 10);
+		 
+		 
 		 if(topics != null) {
 		    System.out.println("checkbox is checked");
 		    
@@ -195,7 +227,8 @@ public class LessonPlanController {
 
 		  }
 		
-		// redirectAttributes.addFlashAttribute("lessonPlans", lessonPlans);
+		 System.out.println("lesson plans filtered " + lessonPlansFiltered);
+		redirectAttributes.addFlashAttribute("lessonPlans", lessonPlansFiltered);
 		 
 		return "redirect:/lessonplans/search";
 	}

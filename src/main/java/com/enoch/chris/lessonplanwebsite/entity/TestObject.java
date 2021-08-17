@@ -5,6 +5,8 @@ public class TestObject {
 	private Boolean funny;
 	private String reallyFunny;
 	
+
+	
 	public Boolean getFunny() {
 		return funny;
 	}
