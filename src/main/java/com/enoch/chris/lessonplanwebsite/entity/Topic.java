@@ -31,15 +31,15 @@ public class Topic {
 	@JoinTable(name = "topic_tag", 
 	joinColumns = @JoinColumn(name = "topic_id"), 
 	inverseJoinColumns = @JoinColumn(name = "tag_id"))
-	List<Tag> tags;
+	List<Tag> relatedTags;
 	
 	protected Topic() {	
 	}
 	
-	public Topic(String name, List<Tag> tags) {
+	public Topic(String name, List<Tag> relatedTags) {
 		super();
 		this.name = name;
-		this.tags = tags;
+		this.relatedTags = relatedTags;
 	}
 
 	public int getId() {
@@ -58,12 +58,12 @@ public class Topic {
 		this.name = name;
 	}
 
-	public List<Tag> getTags() {
-		return tags;
+	public List<Tag> getRelatedTags() {
+		return relatedTags;
 	}
 
-	public void setTags(List<Tag> tags) {
-		this.tags = tags;
+	public void setTags(List<Tag> relatedTags) {
+		this.relatedTags = relatedTags;
 	}
 	
 	

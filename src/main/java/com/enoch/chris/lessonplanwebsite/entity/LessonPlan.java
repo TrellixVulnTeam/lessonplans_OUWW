@@ -104,8 +104,16 @@ public class LessonPlan {
 	joinColumns = @JoinColumn(name = "lesson_plan_id"), 
 	inverseJoinColumns = @JoinColumn(name = "grammar_id"))
     private List<Grammar> grammar;
+	
+	@ManyToMany(fetch = FetchType.LAZY,cascade= {CascadeType.DETACH, 
+			CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+	@JoinTable(name = "lesson_plan_tag", 
+	joinColumns = @JoinColumn(name = "lesson_plan_id"), 
+	inverseJoinColumns = @JoinColumn(name = "tag_id"))
+	private List<Tag> tags;
     
-    
+ 
+	
 	private LessonPlan() {
 		
 	}
@@ -121,6 +129,7 @@ public class LessonPlan {
 		this.age = lessonPlanBuilder.age;
 		this.speakingAmount = lessonPlanBuilder.speakingAmount;
 		this.topics =lessonPlanBuilder.topics;
+		this.tags = lessonPlanBuilder.tags;
 		
 		this.lessonTime = lessonPlanBuilder.lessonTime;
 		
@@ -141,6 +150,7 @@ public class LessonPlan {
 		this.preparationTime = lessonPlanBuilder.preparationTime;
 		this.printedMaterialsNeeded = lessonPlanBuilder.printedMaterialsNeeded;
 		this.grammar = lessonPlanBuilder.grammar;
+	
 	}
 
     public int getId() {
@@ -165,14 +175,6 @@ public class LessonPlan {
 
 	public void setDateAdded(LocalDate dateAdded) {
 		this.dateAdded = dateAdded;
-	}
-
-	public Subscription getSubscription() {
-		return assignedSubscription;
-	}
-
-	public void setLevel(Subscription assignedSubscription) {
-		this.assignedSubscription = assignedSubscription;
 	}
 
 	public LessonTime getLessonTime() {
@@ -338,14 +340,25 @@ public class LessonPlan {
 	public void setGrammar(List<Grammar> grammar) {
 		this.grammar = grammar;
 	}
-	
-	
 
+	public Subscription getAssignedSubscription() {
+		return assignedSubscription;
+	}
 
+	public void setAssignedSubscription(Subscription assignedSubscription) {
+		this.assignedSubscription = assignedSubscription;
+	}
 
+	public List<Tag> getTags() {
+		return tags;
+	}
 
+	public void setTags(List<Tag> tags) {
+		this.tags = tags;
+	}
 
 	public static class LessonPlanBuilder {
+		
 		private int id; // database automatically generates so id is optional
 	    private String title; // required
 	    private LocalDate dateAdded; //required
@@ -354,6 +367,7 @@ public class LessonPlan {
 	    private int age; // required  
 	    private SpeakingAmount speakingAmount; // required  
 		public List<Topic> topics; // required 
+		public List<Tag> tags; //required
 	    
 		private LessonTime lessonTime = LessonTime.SIXTY;
 	    private boolean listening;
@@ -373,7 +387,7 @@ public class LessonPlan {
  
 	    
         public LessonPlanBuilder(String title, LocalDate dateAdded,Subscription assignedSubscription, Type type
-        		,int age,SpeakingAmount speakingAmount, List<Topic> topics) {
+        		,int age,SpeakingAmount speakingAmount, List<Topic> topics, List<Tag> tags) {
             this.title = title;
             this.dateAdded = dateAdded;
             this.assignedSubscription = assignedSubscription;
@@ -381,6 +395,7 @@ public class LessonPlan {
             this.age = age;
             this.speakingAmount = speakingAmount;
             this.topics = topics;
+            this.tags = tags;
         }
                 
         public LessonPlanBuilder isListening(boolean isListening) {

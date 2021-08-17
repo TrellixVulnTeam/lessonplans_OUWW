@@ -75,21 +75,21 @@ public class AdminController {
 	public String addLessonPlan(Model theModel) {		
 
 		//works
-		Picture picture = pictureRepository.findById(48).get(); //celebrities collage
-		Grammar g = grammarRepository.findByGrammarPoint("adverbs").get();
-		Grammar g2 = grammarRepository.findByGrammarPoint("first conditional").get();
-		Topic t = topicRepository.findByName("sport").get();
-		Subscription s = subscriptionRepository.findByName("B1").get();
-	
-		List<Topic> topics = new ArrayList<>();
-		topics.add(t);	
-		
-		LessonPlan lp = new LessonPlan.LessonPlanBuilder("Olympic Village", LocalDate.now(), s,
-				Type.GENERAL, 10, SpeakingAmount.SPEAKING_ONLY, topics)
-				.isVocabulary(true)
-			.picture(picture).build();
-		
-		lessonPlanRepository.save(lp);
+//		Picture picture = pictureRepository.findById(48).get(); //celebrities collage
+//		Grammar g = grammarRepository.findByGrammarPoint("adverbs").get();
+//		Grammar g2 = grammarRepository.findByGrammarPoint("first conditional").get();
+//		Topic t = topicRepository.findByName("sport").get();
+//		Subscription s = subscriptionRepository.findByName("B1").get();
+//	
+//		List<Topic> topics = new ArrayList<>();
+//		topics.add(t);	
+//		
+//		LessonPlan lp = new LessonPlan.LessonPlanBuilder("Olympic Village", LocalDate.now(), s,
+//				Type.GENERAL, 10, SpeakingAmount.SPEAKING_ONLY, topics)
+//				.isVocabulary(true)
+//			.picture(picture).build();
+//		
+//		lessonPlanRepository.save(lp);
 
 		return "admin";
 	}
@@ -116,6 +116,22 @@ public class AdminController {
 
 		return "admin";
 	}
+	
+	@GetMapping("/admin/gettags")
+	public String getTags(Model theModel) {		
+
+		LessonPlan lessonPlan = lessonPlanRepository.findById(45).get();
+		
+		System.out.println("Print associated tags " + lessonPlan.getTags().size());
+		lessonPlan.getTags().stream().forEach(t -> System.out.println(t.getName()));
+	
+		System.out.println("end of associated tags ");
+
+		return "admin";
+	}
+	
+	 
+	
 	
 	@GetMapping("/admin/addtopic")
 	public String addTopic(Model theModel) {		

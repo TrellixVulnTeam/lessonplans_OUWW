@@ -25,7 +25,17 @@
 <div th:if="${session.user != null }" class="nav-item-right"><p>User session active</p></div>
 <p th:text="${session.usesr}"></p>
 
-<form action="/lessonplans/checkboxtest" method="post">
+			<form action="#" th:action="@{/lessonplans/test}" th:object="${testObject}" method="post">
+				<div>
+					<label th:for="${#ids.next('funny')}"th:text="Hello">IsFunny</label>
+					 <input type="checkbox" th:field="*{funny}" />
+				</div>
+
+  <input type="submit" value="Submit">
+			</form>
+
+
+			<form action="/lessonplans" method="post">
 
   <input type="checkbox" id="vehicle1" name="checkboxName" value="Bike">
   <label for="vehicle1"> I have a bike</label><br>
@@ -61,11 +71,11 @@
 					<h2 th:text="${lp.title}">Example H2</h2>
 					<ul class="display-list">
 						<li th:text="${lp.id}">Example id</li>
-						<li th:text="${lp.subscription}">Example subscription</li>
+						<li th:text="${lp.assignedSubscription}">Example subscription</li>
 						<li th:text="${lp.type}">Example type</li>
 					</ul>
 					<a class="btn btn-small btn-secondary" href='#'>Add to basket</a> 
-					<a class="btn btn-small btn-primary" th:href="@{/../checkout(id=${lp.subscription.name})}">Buy</a> <br> <br>
+					<a class="btn btn-small btn-primary" th:href="@{/../checkout(id=${lp.assignedSubscription.name})}">Buy</a> <br> <br>
 			
 						
 				</div>
