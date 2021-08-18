@@ -152,12 +152,16 @@ public class LessonPlanController {
 	
 	@GetMapping("/checkmethod")
 	public String checkMethod() {
-		Topic fame = topicRepository.findByName("fame").get();
+		Topic fame = new Topic("fame", null);
 		List<Topic> topics = new ArrayList<>();
 		topics.add(fame);
 		
 		
-		LessonPlan lPlan = new LessonPlan.LessonPlanBuilder(null, null, null, null, 10, null, topics, null).build();
+		LessonPlan lPlan = new LessonPlan.LessonPlanBuilder(null, null, null, null, 10, null, topics
+				, Arrays.asList(new Tag("celebrities"), new Tag("privacy")))
+				.grammar(Arrays.asList(new Grammar("first conditional")))
+				.topics(Arrays.asList(new Topic("fame", null)))
+				.build();
 		List<LessonPlan> lessonPlans = lessonPlanService.findSearchedLessonPlans(lPlan, null, (short)5);
 		
 		System.out.println("check method");
@@ -177,11 +181,11 @@ public class LessonPlanController {
 		//params that are never used?
 		//get params and add them
 	     String title = null;
-	     LocalDate dateAdded = null;
-	     Subscription assignedSubscription = subscriptionRepository.findByName("a1").get();
+	     LocalDate dateAdded = null;  //OMIT THE DATE FOR NOW
+	     Subscription assignedSubscription = null;
 	     LessonTime lessonTime = null;
 	     Type type = Type.GENERAL;  
-	     int age = 10;
+	     int age = 10; //OMIT THE AGE FOR NOW
 	     SpeakingAmount speakingAmount = SpeakingAmount.LOTS;
 	     Picture picture;
 	  

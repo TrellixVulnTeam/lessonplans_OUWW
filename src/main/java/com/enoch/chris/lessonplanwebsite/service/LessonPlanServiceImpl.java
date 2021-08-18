@@ -31,8 +31,6 @@ import com.enoch.chris.lessonplanwebsite.entity.Topic;
 import com.enoch.chris.lessonplanwebsite.entity.User;
 import com.enoch.chris.lessonplanwebsite.registration.user.RegistrationUser;
 
-
-
 @Service
 public class LessonPlanServiceImpl implements LessonPlanService {
 
@@ -63,17 +61,17 @@ public class LessonPlanServiceImpl implements LessonPlanService {
 				.filter(lp -> searchParameters.getAssignedSubscription() == null ? true
 						: searchParameters.getAssignedSubscription() == lp.getAssignedSubscription())
 //
-			.filter(lp -> searchParameters.getLessonTime() == null ? true
+				.filter(lp -> searchParameters.getLessonTime() == null ? true
 						: searchParameters.getLessonTime() == lp.getLessonTime())
 //
-			.filter(lp -> searchParameters.getType() == null ? true : searchParameters.getType() == lp.getType())
+				.filter(lp -> searchParameters.getType() == null ? true : searchParameters.getType() == lp.getType())
 //
 				.filter(lp -> searchParameters.getAge() <= lp.getAge())
 //
 				.filter(lp -> searchParameters.getSpeakingAmount() == null ? true
-					: searchParameters.getSpeakingAmount() == lp.getSpeakingAmount())
+						: searchParameters.getSpeakingAmount() == lp.getSpeakingAmount())
 //
-			.filter(lp -> searchParameters.isListening() == lp.isListening())
+				.filter(lp -> searchParameters.isListening() == lp.isListening())
 
 				.filter(lp -> searchParameters.isVocabulary() == lp.isVocabulary())
 
@@ -81,7 +79,7 @@ public class LessonPlanServiceImpl implements LessonPlanService {
 
 				.filter(lp -> searchParameters.isWriting() == lp.isWriting())
 //
-			.filter(lp -> searchParameters.isFunClass() == lp.isFunClass())
+				.filter(lp -> searchParameters.isFunClass() == lp.isFunClass())
 //
 				.filter(lp -> searchParameters.isGames() == lp.isGames())
 				.filter(lp -> searchParameters.isJigsaw() == lp.isJigsaw())
@@ -92,66 +90,87 @@ public class LessonPlanServiceImpl implements LessonPlanService {
 //
 				.filter(lp -> searchParameters.getPreparationTime() <= lp.getPreparationTime())
 
-			.filter(lp -> searchParameters.isPrintedMaterialsNeeded() == lp.isPrintedMaterialsNeeded())
+				.filter(lp -> searchParameters.isPrintedMaterialsNeeded() == lp.isPrintedMaterialsNeeded())
 //			
-		.filter(lp -> searchParameters.getType() == null ? true :searchParameters.getPicture() == lp.getPicture())
+				.filter(lp -> searchParameters.getType() == null ? true
+						: searchParameters.getPicture() == lp.getPicture())
 
 				// Check grammar points. Return true, if anymatch
+				
 				.filter(lp -> {
-					
+					List<Grammar> searchParamGrammar = searchParameters.getGrammar();
+					List<Grammar> lpGrammar = lp.getGrammar();
+
+					if (searchParamGrammar != null) {
+						for (Grammar grammarSearchParameter : searchParamGrammar) {
+							if (!lpGrammar.contains(grammarSearchParameter)) {
+								return false;
+							}
+						}
+					}
+
+					System.out.println("before final true");
+					return true;
+
+				})
+
+				.filter(lp -> {
+
 					if (searchParameters.getGrammar() != null) {
 						for (Grammar gpSearchParameter : searchParameters.getGrammar()) {
 							for (Grammar lpGrammar : lp.getGrammar()) {
-								if (gpSearchParameter == lpGrammar) {
+								if (gpSearchParameter.getGrammarPoint().equals(lpGrammar.getGrammarPoint())) {
 									return true;
 								}
 							}
 						}
 						return false;
 					}
-					
+
 					return true;
-					
-					
+
 				})
 //				
 				// Check topics. Return true, if anymatch
+				// if all searchTopics inside list of lessonplantopics
+
 				.filter(lp -> {
-					if (searchParameters.getTopics() != null) {
-						for (Topic topicSearchParameter : searchParameters.getTopics()) {
-							for (Topic lpTopic : lp.getTopics()) {
-								if (topicSearchParameter == lpTopic ) {
-									return true;
-								}
+					List<Topic> searchParamTopics = searchParameters.getTopics();
+					List<Topic> lpTopics = lp.getTopics();
+
+					if (searchParamTopics != null) {
+						for (Topic topicSearchParameter : searchParamTopics) {
+							if (!lpTopics.contains(topicSearchParameter)) {
+								return false;
 							}
 						}
-						return false;
 					}
-					
+
+					System.out.println("before final true");
 					return true;
-					
+
 				})
+
 //		
 //				// check tags
-				// Check topics.Return true, if anymatch
+				// //if all searchTags inside list of lessonplantags
 				.filter(lp -> {
-					if (searchParameters.getTags() != null) {
-						for (Tag tagSearchParameter : searchParameters.getTags()) {
-							for (Tag lpTag : lp.getTags()) {
-								if (tagSearchParameter == lpTag ) {
-									return true;
-								}
+					List<Tag> searchParamTags = searchParameters.getTags();
+					List<Tag> lpTags = lp.getTags();
+
+					if (searchParamTags != null) {
+						for (Tag tagSearchParameter : searchParamTags) {
+							if (!lpTags.contains(tagSearchParameter)) {
+								return false;
 							}
 						}
-						return false;				
 					}
-					
+
+					System.out.println("before final true");
 					return true;
-					
-					
-				})
-				.collect(Collectors.toList());
-		
+
+				}).collect(Collectors.toList());
+
 		return filteredLessonPlans;
 
 	}

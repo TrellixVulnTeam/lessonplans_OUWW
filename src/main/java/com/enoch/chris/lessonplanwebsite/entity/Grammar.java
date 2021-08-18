@@ -43,6 +43,33 @@ public class Grammar {
 	public void setGrammarPoint(String grammarPoint) {
 		this.grammarPoint = grammarPoint;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((grammarPoint == null) ? 0 : grammarPoint.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Grammar other = (Grammar) obj;
+		if (grammarPoint == null) {
+			if (other.grammarPoint != null)
+				return false;
+		} else if (!grammarPoint.equals(other.grammarPoint))
+			return false;
+		return true;
+	}
+	
+	
 	
 	
 
