@@ -58,7 +58,7 @@ public class LessonPlanServiceImpl implements LessonPlanService {
 				.filter(lp -> searchParameters.getDateAdded() == null ? true
 						: searchParameters.getDateAdded().isBefore(lp.getDateAdded()) ? true : false)
 //
-				.filter(lp -> searchParameters.getAssignedSubscription() == null ? true
+				.filter(lp -> searchParameters.getAssignedSubscription() == null ? true	
 						: searchParameters.getAssignedSubscription() == lp.getAssignedSubscription())
 				
 //
@@ -93,7 +93,7 @@ public class LessonPlanServiceImpl implements LessonPlanService {
 
 				.filter(lp -> searchParameters.isPrintedMaterialsNeeded() == lp.isPrintedMaterialsNeeded())
 //			
-				.filter(lp -> searchParameters.getType() == null ? true
+				.filter(lp -> searchParameters.getPicture() == null ? true
 						: searchParameters.getPicture() == lp.getPicture())
 
 				// Check grammar points. Return true, if anymatch
@@ -113,24 +113,7 @@ public class LessonPlanServiceImpl implements LessonPlanService {
 					System.out.println("before final true");
 					return true;
 
-				})
-
-				.filter(lp -> {
-
-					if (searchParameters.getGrammar() != null) {
-						for (Grammar gpSearchParameter : searchParameters.getGrammar()) {
-							for (Grammar lpGrammar : lp.getGrammar()) {
-								if (gpSearchParameter.getGrammarPoint().equals(lpGrammar.getGrammarPoint())) {
-									return true;
-								}
-							}
-						}
-						return false;
-					}
-
-					return true;
-
-				})
+				})	
 //				
 				// Check topics. Return true, if anymatch
 				// if all searchTopics inside list of lessonplantopics

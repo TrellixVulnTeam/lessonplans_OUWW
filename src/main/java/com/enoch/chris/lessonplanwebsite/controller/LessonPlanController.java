@@ -159,12 +159,20 @@ public class LessonPlanController {
 		List<Topic> topics = new ArrayList<>();
 		topics.add(fame);
 		
+	//works	
+//		LessonPlan lPlan = new LessonPlan.LessonPlanBuilder(null, null, null, null, 10, null, topics
+//				, Arrays.asList(new Tag("celebrities"), new Tag("privacy")))
+//				.grammar(Arrays.asList(new Grammar("first conditional")))
+//				.topics(Arrays.asList(new Topic("fame", null)))
+//				.build();
 		
-		LessonPlan lPlan = new LessonPlan.LessonPlanBuilder(null, null, null, null, 10, null, topics
-				, Arrays.asList(new Tag("celebrities"), new Tag("privacy")))
-				.grammar(Arrays.asList(new Grammar("first conditional")))
+		
+		LessonPlan lPlan = new LessonPlan.LessonPlanBuilder(null, null, null, null, 10, null, null
+				, null)
+//				.grammar(Arrays.asList(new Grammar("first conditional")))
 				.topics(Arrays.asList(new Topic("fame", null)))
 				.build();
+		
 		List<LessonPlan> lessonPlans = lessonPlanService.findSearchedLessonPlans(lPlan, null, (short)5);
 		
 		System.out.println("check method");
@@ -256,7 +264,7 @@ public class LessonPlanController {
 	     SpeakingAmount speakingAmountInstantiated = speakingAmounts.get(speakingAmount);
 	     
 	     //instantiate Subscription
-	     Subscription subscriptionInstantiated = new Subscription(assignedSubscription);
+	     Subscription subscriptionInstantiated =  assignedSubscription == null? null : new Subscription(assignedSubscription);
 	     
 	     //LessonTime 
 	     Map<Integer, LessonTime> lessonTimes = new HashMap<>();
@@ -276,7 +284,7 @@ public class LessonPlanController {
 	     boolean videoIns = Boolean.valueOf(video);
 	     boolean vocabularyIns = Boolean.valueOf(vocabulary);
 	     boolean writingIns = Boolean.valueOf(writing);
-	     short preparationTimeIns = preparationTime == null? 10 : Short.parseShort(preparationTime);
+	     short preparationTimeIns = preparationTime == null? 5 : Short.parseShort(preparationTime);
 	     
 
 	     System.out.println("title " + title);
@@ -299,11 +307,24 @@ public class LessonPlanController {
 	     System.out.println("title " + picture);
 	     System.out.println("picture" + title);
 	     
-	     System.out.println("topic" + topicsInstantiated);
-	     System.out.println("tags" + tagsInstantiated);
+	     System.out.println("topic instantiated" + topicsInstantiated);
+	     System.out.println("tags instaniated" + tagsInstantiated);
+	     System.out.println("lessontime instantiated" + lessonTimeInstantiated);
+	     System.out.println("preparationtime" + preparationTimeIns);
 	     System.out.println("grammar" + grammarInstantiated);
 	     	     
 		//create lessonPlan object //trans //preptime //picture
+//	     LessonPlan searchParameters = new LessonPlan.LessonPlanBuilder(null, null, null
+//				 , null , 10,null, topicsInstantiated , null)
+////	    		 .isFunClass(funClassIns).isGames(gamesIns)
+////				 .isJigsaw(jigsawIns).isListening(listeningIns).isTranslation(translationIns)
+////				 .isPrintedMaterialsNeeded(printedMaterialsIns)
+//	    		 //.grammar(grammarInstantiated)
+////				 .isReading(readingIns).isSong(songIns).isVideo(videoIns).isVocabulary(vocabularyIns).isWriting(writingIns)
+////				 .picture(picture)
+//				 .build();
+	     
+	     
 		 LessonPlan searchParameters = new LessonPlan.LessonPlanBuilder(title, dateAdded, subscriptionInstantiated 
 				 , typeInstantiated , age,speakingAmountInstantiated, topicsInstantiated, 
 				 tagsInstantiated).isFunClass(funClassIns).isGames(gamesIns)
@@ -313,8 +334,10 @@ public class LessonPlanController {
 				 .picture(picture).build();
 		
 		
-		 List<LessonPlan> lessonPlansFiltered = lessonPlanService.findSearchedLessonPlans(searchParameters, 
-				 lessonTimeInstantiated, preparationTimeIns);
+//		 List<LessonPlan> lessonPlansFiltered = lessonPlanService.findSearchedLessonPlans(searchParameters, 
+//				 lessonTimeInstantiated, preparationTimeIns);
+		 
+		 List<LessonPlan> lessonPlansFiltered = lessonPlanService.findSearchedLessonPlans(searchParameters, lessonTimeInstantiated, (short)5);
 		 
 		 
 		 if(topics != null) {

@@ -33,7 +33,8 @@ public class LessonPlan {
 	@Column(name="dateAdded")
     private LocalDate dateAdded; //required
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	//@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name="subscription_id")
     private Subscription assignedSubscription; // required
 	
