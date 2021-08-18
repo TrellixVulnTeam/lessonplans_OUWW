@@ -4,7 +4,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.persistence.CascadeType;
@@ -18,6 +20,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.servlet.http.HttpSession;
 
+import org.hibernate.engine.jdbc.spi.TypeSearchability;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,6 +46,7 @@ import com.enoch.chris.lessonplanwebsite.entity.Topic;
 import com.enoch.chris.lessonplanwebsite.entity.Type;
 import com.enoch.chris.lessonplanwebsite.entity.User;
 import com.enoch.chris.lessonplanwebsite.service.LessonPlanService;
+import com.sun.org.apache.bcel.internal.generic.NEW;
 
 @Controller
 @RequestMapping("/lessonplans")
@@ -176,13 +180,13 @@ public class LessonPlanController {
 	@PostMapping()
 	public String checkboxTest(Model theModel		
 			,RedirectAttributes redirectAttributes
-			,@RequestParam(name = "type", required = false)List<String> type
-			,@RequestParam(name = "subscription", required = false)List<String> assignedSubscription
+			,@RequestParam(name = "type", required = false)String type
+			,@RequestParam(name = "subscription", required = false)String assignedSubscription
 			,@RequestParam(name = "topics", required = false)List<String> topics
 			,@RequestParam(name = "tags", required = false)List<String> tags
 			,@RequestParam(name = "grammar", required = false)List<String> grammar			
-			,@RequestParam(name = "lessontime", required = false)List<String> lessonTime		
-			,@RequestParam(name = "speakingamount", required = false)List<String> speakingAmount
+			,@RequestParam(name = "lessontime", required = false)String lessonTime		
+			,@RequestParam(name = "speakingamount", required = false)String speakingAmount
 			
 			,@RequestParam(name = "listening", required = false)String listening
 			,@RequestParam(name = "vocabulary", required = false)String vocabulary
@@ -199,16 +203,54 @@ public class LessonPlanController {
 			,@RequestParam(name = "printedmaterialsneeded", required = false)String printedMaterialsNeeded	
 			) {
 		
-		 int age = 10; //OMIT THE AGE FOR NOW
+		 
+		
+		int age = 10; //OMIT THE AGE FOR NOW
 	     Picture picture = null; //OMIT THE DATE FOR NOW
 	     LocalDate dateAdded = null;  //OMIT THE DATE FOR NOW	
 	     String title = null;  //OMIT THE DATE FOR NOW	
-	       
-	     //get params and add them
+	     
+	     //instantiate topics list from params (put in own method)
+	     List<Topic> topicsInstantiated;
+	     for (String t : topics) {
+	    	 topicsInstantiated.add(new Topic(t, null));    	 
+	     }
+	     
+	     //instantiate tags list from params (put in own method)
+	     List<Tag> tagsInstantiated;
+	     for (String tag : tags) {
+	    	 tagsInstantiated.add(new Tag(tag));    	 
+	     }
+	     
+	     //instantiate Type
+	     Map<String, Type> types = new HashMap<>();
+	     types.put("business", Type.BUSINESS);
+	     types.put("general", Type.GENERAL);    
+	     Type typeInstantiated = types.get(type);
+	     
+	   //instantiate Speaking Amount
+	     Map<String, SpeakingAmount> speakingAmounts = new HashMap<>();
+	     speakingAmounts.put("little", SpeakingAmount.LITTLE);
+	     speakingAmounts.put("medium", SpeakingAmount.MEDIUM);    
+	     speakingAmounts.put("lots", SpeakingAmount.LOTS);    
+	     speakingAmounts.put("speakingonly", SpeakingAmount.LITTLE);    
+	     SpeakingAmount speakingAmountInstantiated = speakingAmounts.get(speakingAmount);
+	     
+	     //instantiate Subscription
+	     Subscription subscriptionInstantiated = new Subscription(assignedSubscription);
+	     
+	     //LessonTime 
+	     Map<String, LessonTime> lessonTimes = new HashMap<>();
+	     speakingAmounts.put("little", SpeakingAmount.LITTLE);
+	     speakingAmounts.put("medium", SpeakingAmount.MEDIUM);    
+	     speakingAmounts.put("lots", SpeakingAmount.LOTS);    
+	     speakingAmounts.put("speakingonly", SpeakingAmount.LITTLE);    
+
+	    
 
 		//create lessonPlan object
-		 LessonPlan searchParameters = new LessonPlan.LessonPlanBuilder(title, dateAdded, assignedSubscription, type, age, speakingAmount
-				 , topicsList, tags).isFunClass(funClass).isGames(games).isJigsaw(jigsaw).isListening(listening).isPrintedMaterialsNeeded(printedMaterialsNeeded)
+		 LessonPlan searchParameters = new LessonPlan.LessonPlanBuilder(title, dateAdded, subscriptionInstantiated , typeInstantiated , age,speakingAmountInstantiated
+				 , topicsInstantiated, tagsInstantiated).lessonTime(null).isFunClass(funClass).isGames(games).isJigsaw(jigsaw).isListening(listening).isPrintedMaterialsNeeded(printedMaterialsNeeded)
 				 .isReading(reading).isSong(song).isVideo(video).isVocabulary(vocabulary).isWriting(writing).build();
 		
 		

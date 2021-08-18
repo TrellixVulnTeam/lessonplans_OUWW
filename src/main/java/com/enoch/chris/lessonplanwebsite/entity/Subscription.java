@@ -33,6 +33,11 @@ public class Subscription {
 		
 	}
 	
+	public Subscription(String name) {
+		super();
+		this.name = name;
+	}
+
 	public Subscription(String name, int price) {
 		super();
 		this.name = name;

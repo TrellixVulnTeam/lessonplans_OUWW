@@ -60,6 +60,7 @@ public class LessonPlanServiceImpl implements LessonPlanService {
 //
 				.filter(lp -> searchParameters.getAssignedSubscription() == null ? true
 						: searchParameters.getAssignedSubscription() == lp.getAssignedSubscription())
+				
 //
 				.filter(lp -> searchParameters.getLessonTime() == null ? true
 						: searchParameters.getLessonTime() == lp.getLessonTime())
