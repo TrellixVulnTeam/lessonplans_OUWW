@@ -174,42 +174,37 @@ public class LessonPlanController {
 	
 	
 	@PostMapping()
-	public String checkboxTest(Model theModel, 
-			@RequestParam(name = "topics", required = false)List<String> topics,
-			RedirectAttributes redirectAttributes) {
+	public String checkboxTest(Model theModel		
+			,RedirectAttributes redirectAttributes
+			,@RequestParam(name = "type", required = false)List<String> type
+			,@RequestParam(name = "subscription", required = false)List<String> assignedSubscription
+			,@RequestParam(name = "topics", required = false)List<String> topics
+			,@RequestParam(name = "tags", required = false)List<String> tags
+			,@RequestParam(name = "grammar", required = false)List<String> grammar			
+			,@RequestParam(name = "lessontime", required = false)List<String> lessonTime		
+			,@RequestParam(name = "speakingamount", required = false)List<String> speakingAmount
+			
+			,@RequestParam(name = "listening", required = false)String listening
+			,@RequestParam(name = "vocabulary", required = false)String vocabulary
+			,@RequestParam(name = "reading", required = false)String reading
+			,@RequestParam(name = "writing", required = false)String writing
+			,@RequestParam(name = "video", required = false)String video
+			
+			,@RequestParam(name = "song", required = false)String song
+			,@RequestParam(name = "funclass", required = false)String funClass
+			,@RequestParam(name = "games", required = false)String games
+			,@RequestParam(name = "jigsaw", required = false)String jigsaw
+			,@RequestParam(name = "translation", required = false)String translation
+			,@RequestParam(name = "preparationtime", required = false)String preparationTime
+			,@RequestParam(name = "printedmaterialsneeded", required = false)String printedMaterialsNeeded	
+			) {
 		
-		//params that are never used?
-		//get params and add them
-	     String title = null;
-	     LocalDate dateAdded = null;  //OMIT THE DATE FOR NOW
-	     Subscription assignedSubscription = null;
-	     LessonTime lessonTime = null;
-	     Type type = Type.GENERAL;  
-	     int age = 10; //OMIT THE AGE FOR NOW
-	     SpeakingAmount speakingAmount = SpeakingAmount.LOTS;
-	     Picture picture;
-	  
-	     boolean listening = true;
-	     boolean vocabulary = true;
-	     boolean reading = false;
-	     boolean writing = false;
-	     boolean video = true;
-	     boolean song = false;
-	     boolean funClass = false;
-	     boolean games = false;
-	     boolean jigsaw = false;
-	     boolean translation = false;
-	     short preparationTime = 10;
-	     boolean printedMaterialsNeeded = false;
-	     
-	     Optional<Topic> topic = topicRepository.findByName(topics.get(0));
-	     
-	     List<Topic> topicsList = new ArrayList<>();
-	     topicsList.add(topic.get());
-	     
-	     List<Grammar> grammar = null;
-		 List<Tag> tags = null;
-		
+		 int age = 10; //OMIT THE AGE FOR NOW
+	     Picture picture = null; //OMIT THE DATE FOR NOW
+	     LocalDate dateAdded = null;  //OMIT THE DATE FOR NOW	
+	     String title = null;  //OMIT THE DATE FOR NOW	
+	       
+	     //get params and add them
 
 		//create lessonPlan object
 		 LessonPlan searchParameters = new LessonPlan.LessonPlanBuilder(title, dateAdded, assignedSubscription, type, age, speakingAmount
@@ -232,7 +227,7 @@ public class LessonPlanController {
 		  }
 		
 		 System.out.println("lesson plans filtered " + lessonPlansFiltered);
-		redirectAttributes.addFlashAttribute("lessonPlans", lessonPlansFiltered);
+		 redirectAttributes.addFlashAttribute("lessonPlans", lessonPlansFiltered);
 		 
 		return "redirect:/lessonplans/search";
 	}

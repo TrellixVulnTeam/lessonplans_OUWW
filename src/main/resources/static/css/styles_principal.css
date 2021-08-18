@@ -142,9 +142,12 @@ form {
 	border-bottom: 2px solid rgb(255, 140, 0, 0.5);
 }
 
+
+/*
 label {
 	display: block;
 }
+*/
 
 input, select {
 	margin: .4rem;
