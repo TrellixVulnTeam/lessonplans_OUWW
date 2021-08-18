@@ -448,6 +448,11 @@ public class LessonPlan {
             return this;
         }
         
+        public LessonPlanBuilder isTranslation(boolean isTranslation) {
+            this.translation= isTranslation;
+            return this;
+        }
+        
         public LessonPlanBuilder lessonTime(LessonTime lessonTime) {
             this.lessonTime = lessonTime;
             return this;

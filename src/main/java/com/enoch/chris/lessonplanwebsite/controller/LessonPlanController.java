@@ -46,7 +46,6 @@ import com.enoch.chris.lessonplanwebsite.entity.Topic;
 import com.enoch.chris.lessonplanwebsite.entity.Type;
 import com.enoch.chris.lessonplanwebsite.entity.User;
 import com.enoch.chris.lessonplanwebsite.service.LessonPlanService;
-import com.sun.org.apache.bcel.internal.generic.NEW;
 
 @Controller
 @RequestMapping("/lessonplans")
@@ -185,7 +184,7 @@ public class LessonPlanController {
 			,@RequestParam(name = "topics", required = false)List<String> topics
 			,@RequestParam(name = "tags", required = false)List<String> tags
 			,@RequestParam(name = "grammar", required = false)List<String> grammar			
-			,@RequestParam(name = "lessontime", required = false)String lessonTime		
+			,@RequestParam(name = "lessontime", required = false)Integer lessonTime		
 			,@RequestParam(name = "speakingamount", required = false)String speakingAmount
 			
 			,@RequestParam(name = "listening", required = false)String listening
@@ -211,22 +210,42 @@ public class LessonPlanController {
 	     String title = null;  //OMIT THE DATE FOR NOW	
 	     
 	     //instantiate topics list from params (put in own method)
-	     List<Topic> topicsInstantiated;
-	     for (String t : topics) {
-	    	 topicsInstantiated.add(new Topic(t, null));    	 
+	     List<Topic> topicsInstantiated = new ArrayList<>();
+	     if (topics != null) {   	 
+		     for (String t : topics) {
+		    	 topicsInstantiated.add(new Topic(t, null));    	 
+		     }
+	     }
+	      
+	     //instantiate tags list from params (put in own method)
+	     List<Tag> tagsInstantiated = new ArrayList<>();
+	     if (tags != null) {
+	    	  for (String tag : tags) {
+	 	    	 tagsInstantiated.add(new Tag(tag));    	 
+	 	     }
 	     }
 	     
 	     //instantiate tags list from params (put in own method)
-	     List<Tag> tagsInstantiated;
-	     for (String tag : tags) {
-	    	 tagsInstantiated.add(new Tag(tag));    	 
+	     List<Grammar> grammarInstantiated = new ArrayList<>();
+	     if (grammar != null) {
+	    	  for (String grammarName : grammar) {
+	    		  grammarInstantiated.add(new Grammar(grammarName));    	 
+	 	     }
 	     }
-	     
+	   
 	     //instantiate Type
 	     Map<String, Type> types = new HashMap<>();
 	     types.put("business", Type.BUSINESS);
 	     types.put("general", Type.GENERAL);    
 	     Type typeInstantiated = types.get(type);
+	     
+//	     //instantiate preparationTime
+//	     Map<Integer, Short> preparationTimes = new HashMap<>();
+//	     preparationTimes.put("business", Type.BUSINESS);
+//	     preparationTimes.put("general", Type.GENERAL);    
+//	     Type typeInstantiated = types.get(type);
+	     
+	    
 	     
 	   //instantiate Speaking Amount
 	     Map<String, SpeakingAmount> speakingAmounts = new HashMap<>();
@@ -240,21 +259,62 @@ public class LessonPlanController {
 	     Subscription subscriptionInstantiated = new Subscription(assignedSubscription);
 	     
 	     //LessonTime 
-	     Map<String, LessonTime> lessonTimes = new HashMap<>();
-	     speakingAmounts.put("little", SpeakingAmount.LITTLE);
-	     speakingAmounts.put("medium", SpeakingAmount.MEDIUM);    
-	     speakingAmounts.put("lots", SpeakingAmount.LOTS);    
-	     speakingAmounts.put("speakingonly", SpeakingAmount.LITTLE);    
+	     Map<Integer, LessonTime> lessonTimes = new HashMap<>();
+	     lessonTimes.put(60, LessonTime.SIXTY);
+	     lessonTimes.put(90, LessonTime.NINETY);    
+	     lessonTimes.put(120, LessonTime.ONE_HUNDRED_TWENTY);    
+	     LessonTime lessonTimeInstantiated = lessonTimes.get(lessonTime);
+	     
+	     boolean funClassIns = Boolean.valueOf(funClass);
+	     boolean gamesIns = Boolean.valueOf(games);
+	     boolean jigsawIns = Boolean.valueOf(jigsaw);
+	     boolean translationIns = Boolean.valueOf(translation);
+	     boolean listeningIns = Boolean.valueOf(listening);
+	     boolean printedMaterialsIns = Boolean.valueOf(printedMaterialsNeeded);
+	     boolean readingIns = Boolean.valueOf(reading);
+	     boolean songIns = Boolean.valueOf(song);
+	     boolean videoIns = Boolean.valueOf(video);
+	     boolean vocabularyIns = Boolean.valueOf(vocabulary);
+	     boolean writingIns = Boolean.valueOf(writing);
+	     short preparationTimeIns = preparationTime == null? 10 : Short.parseShort(preparationTime);
+	     
 
-	    
-
-		//create lessonPlan object
-		 LessonPlan searchParameters = new LessonPlan.LessonPlanBuilder(title, dateAdded, subscriptionInstantiated , typeInstantiated , age,speakingAmountInstantiated
-				 , topicsInstantiated, tagsInstantiated).lessonTime(null).isFunClass(funClass).isGames(games).isJigsaw(jigsaw).isListening(listening).isPrintedMaterialsNeeded(printedMaterialsNeeded)
-				 .isReading(reading).isSong(song).isVideo(video).isVocabulary(vocabulary).isWriting(writing).build();
+	     System.out.println("title " + title);
+	     System.out.println("dateAdded " + dateAdded);
+	     System.out.println("subscriptionInstantiated  " + subscriptionInstantiated );
+	     System.out.println("typeInstantiated  " + typeInstantiated );
+	     System.out.println("age " + age );
+	     System.out.println("speakingAmountInstantiated" + speakingAmountInstantiated);
+	     System.out.println("tagsInstantiated " + tagsInstantiated);
+	     System.out.println("fun " + funClassIns);
+	     System.out.println("game " + gamesIns);
+	     System.out.println("jigsawIns " + jigsawIns);
+	     System.out.println("listeningIns " + listeningIns);
+	     System.out.println("isTranslation" + translationIns);
+	     System.out.println("printedMaterialsIns " + printedMaterialsIns);
+	     System.out.println("readingIns " + readingIns);
+	     System.out.println("songIns " + songIns);
+	     System.out.println("vocabularyIns" + vocabularyIns);
+	     System.out.println("writingIns" + writingIns);
+	     System.out.println("title " + picture);
+	     System.out.println("picture" + title);
+	     
+	     System.out.println("topic" + topicsInstantiated);
+	     System.out.println("tags" + tagsInstantiated);
+	     System.out.println("grammar" + grammarInstantiated);
+	     	     
+		//create lessonPlan object //trans //preptime //picture
+		 LessonPlan searchParameters = new LessonPlan.LessonPlanBuilder(title, dateAdded, subscriptionInstantiated 
+				 , typeInstantiated , age,speakingAmountInstantiated, topicsInstantiated, 
+				 tagsInstantiated).isFunClass(funClassIns).isGames(gamesIns)
+				 .isJigsaw(jigsawIns).isListening(listeningIns).isTranslation(translationIns)
+				 .isPrintedMaterialsNeeded(printedMaterialsIns).grammar(grammarInstantiated)
+				 .isReading(readingIns).isSong(songIns).isVideo(videoIns).isVocabulary(vocabularyIns).isWriting(writingIns)
+				 .picture(picture).build();
 		
 		
-		 List<LessonPlan> lessonPlansFiltered = lessonPlanService.findSearchedLessonPlans(searchParameters, LessonTime.SIXTY, (short) 10);
+		 List<LessonPlan> lessonPlansFiltered = lessonPlanService.findSearchedLessonPlans(searchParameters, 
+				 lessonTimeInstantiated, preparationTimeIns);
 		 
 		 
 		 if(topics != null) {
