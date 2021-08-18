@@ -210,7 +210,7 @@ public class LessonPlanController {
 			,@RequestParam(name = "printedmaterialsneeded", required = false)String printedMaterialsNeeded	
 			) {
 		
-		 
+		 System.out.println("test value of video: " + video);
 		
 		int age = 10; //OMIT THE AGE FOR NOW
 	     Picture picture = null; //OMIT THE DATE FOR NOW
@@ -233,7 +233,7 @@ public class LessonPlanController {
 	 	     }
 	     }
 	     
-	     //instantiate tags list from params (put in own method)
+	     //instantiate grammar list from params (put in own method)
 	     List<Grammar> grammarInstantiated = new ArrayList<>();
 	     if (grammar != null) {
 	    	  for (String grammarName : grammar) {
@@ -273,17 +273,17 @@ public class LessonPlanController {
 	     lessonTimes.put(120, LessonTime.ONE_HUNDRED_TWENTY);    
 	     LessonTime lessonTimeInstantiated = lessonTimes.get(lessonTime);
 	     
-	     boolean funClassIns = Boolean.valueOf(funClass);
-	     boolean gamesIns = Boolean.valueOf(games);
-	     boolean jigsawIns = Boolean.valueOf(jigsaw);
-	     boolean translationIns = Boolean.valueOf(translation);
-	     boolean listeningIns = Boolean.valueOf(listening);
-	     boolean printedMaterialsIns = Boolean.valueOf(printedMaterialsNeeded);
-	     boolean readingIns = Boolean.valueOf(reading);
-	     boolean songIns = Boolean.valueOf(song);
-	     boolean videoIns = Boolean.valueOf(video);
-	     boolean vocabularyIns = Boolean.valueOf(vocabulary);
-	     boolean writingIns = Boolean.valueOf(writing);
+	     Boolean funClassIns = funClass == null? null : Boolean.valueOf(funClass);
+	     Boolean gamesIns = games == null? null : Boolean.valueOf(games);
+	     Boolean jigsawIns = jigsaw == null? null : Boolean.valueOf(jigsaw);
+	     Boolean translationIns = translation == null? null : Boolean.valueOf(translation);
+	     Boolean listeningIns = listening == null? null : Boolean.valueOf(listening);
+	     Boolean printedMaterialsIns = printedMaterialsNeeded == null? null : Boolean.valueOf(printedMaterialsNeeded);
+	     Boolean readingIns = reading == null ? null : Boolean.valueOf(reading);
+	     Boolean songIns = song == null ? null : Boolean.valueOf(song);
+	     Boolean videoIns = video == null? null : Boolean.valueOf(video);
+	     Boolean vocabularyIns = vocabulary == null ? null: Boolean.valueOf(vocabulary);
+	     Boolean writingIns = writing == null ? null : Boolean.valueOf(writing);
 	     short preparationTimeIns = preparationTime == null? 5 : Short.parseShort(preparationTime);
 	     
 
@@ -337,7 +337,7 @@ public class LessonPlanController {
 //		 List<LessonPlan> lessonPlansFiltered = lessonPlanService.findSearchedLessonPlans(searchParameters, 
 //				 lessonTimeInstantiated, preparationTimeIns);
 		 
-		 List<LessonPlan> lessonPlansFiltered = lessonPlanService.findSearchedLessonPlans(searchParameters, lessonTimeInstantiated, (short)5);
+		 List<LessonPlan> lessonPlansFiltered = lessonPlanService.findSearchedLessonPlans(searchParameters, lessonTimeInstantiated, preparationTimeIns);
 		 
 		 
 		 if(topics != null) {

@@ -72,26 +72,37 @@ public class LessonPlanServiceImpl implements LessonPlanService {
 				.filter(lp -> searchParameters.getSpeakingAmount() == null ? true
 						: searchParameters.getSpeakingAmount() == lp.getSpeakingAmount())
 //
-				.filter(lp -> searchParameters.isListening() == lp.isListening())
+				.filter(lp -> searchParameters.isListening() == null? true			
+						:searchParameters.isListening() == lp.isListening())
 
-				.filter(lp -> searchParameters.isVocabulary() == lp.isVocabulary())
+				.filter(lp -> searchParameters.isVocabulary() == null? true
+						: searchParameters.isVocabulary() == lp.isVocabulary())
 
-				.filter(lp -> searchParameters.isReading() == lp.isReading())
+				.filter(lp -> searchParameters.isReading() == null? true
+						:searchParameters.isReading() == lp.isReading())
 
-				.filter(lp -> searchParameters.isWriting() == lp.isWriting())
+				.filter(lp -> searchParameters.isWriting() == null? true
+						:searchParameters.isWriting() == lp.isWriting())
 //
-				.filter(lp -> searchParameters.isFunClass() == lp.isFunClass())
+				.filter(lp -> searchParameters.isFunClass() == null? true
+						:searchParameters.isFunClass() == lp.isFunClass())				
 //
-				.filter(lp -> searchParameters.isGames() == lp.isGames())
-				.filter(lp -> searchParameters.isJigsaw() == lp.isJigsaw())
+				.filter(lp -> searchParameters.isGames() == null? true
+					:searchParameters.isGames() == lp.isGames())
+							
+				.filter(lp -> searchParameters.isJigsaw() == null? true
+					:searchParameters.isJigsaw() == lp.isJigsaw())
 
-				.filter(lp -> searchParameters.isTranslation() == lp.isTranslation())
+				.filter(lp -> searchParameters.isTranslation() == null? true
+					:searchParameters.isTranslation() == lp.isTranslation())
 
-				.filter(lp -> searchParameters.isSong() == lp.isSong())
+				.filter(lp -> searchParameters.isSong() == null? true
+					:searchParameters.isSong() == lp.isSong())
 //
 				.filter(lp -> searchParameters.getPreparationTime() <= lp.getPreparationTime())
 
-				.filter(lp -> searchParameters.isPrintedMaterialsNeeded() == lp.isPrintedMaterialsNeeded())
+				.filter(lp -> searchParameters.isPrintedMaterialsNeeded() == null? true
+					:searchParameters.isPrintedMaterialsNeeded() == lp.isPrintedMaterialsNeeded())
 //			
 				.filter(lp -> searchParameters.getPicture() == null ? true
 						: searchParameters.getPicture() == lp.getPicture())
