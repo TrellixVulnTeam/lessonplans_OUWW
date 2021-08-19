@@ -37,9 +37,15 @@ html {
 	margin: 0rem 7rem 0rem 7rem;
 	background-color: rgb(249, 244, 244);
 	background-color: white;
+	
+	/*
 	overflow: hidden;
+	*/
+	
 	min-height: 100vh;
+	
 }
+
 
 .display-list {
 	list-style-type: none;
@@ -57,6 +63,16 @@ html {
 .book-element {
 	border: 1px solid rgba(0, 0, 0, .125);
 	background-color: rgb(255, 255, 255);
+}
+
+#mega-menu {
+	display:none;
+}
+
+.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+   top: 0;
 }
 
 h2 {
@@ -132,17 +148,6 @@ a.styled-link:visited {
 }
 
 
-form {
-	border: 1px solid rgba(0, 0, 0, .125);
-	background-color: rgb(255, 255, 255);
-	width: 100%;
-	min-width: 230px;
-	margin: 0rem 4rem 1rem 0rem;
-	padding: 30px;
-	border-bottom: 2px solid rgb(255, 140, 0, 0.5);
-}
-
-
 /*
 label {
 	display: block;
@@ -150,9 +155,9 @@ label {
 */
 
 input, select {
-	margin: .4rem;
-	width: 70%;
-	height: 30px;
+	margin-right:2rem;
+	width: 5%;
+	height: 20px;
 	border: 1px solid #ced4da;
 	border-radius: .25rem;
 }
@@ -160,6 +165,26 @@ input, select {
 input:focus {
 	border: 1px solid rgba(255, 140, 0, 0.3);
 	outline-color: rgba(255, 140, 0, 0.3);
+}
+
+form {
+	border: 1px solid rgba(0, 0, 0, .125);
+	background-color: rgb(255, 255, 255);
+	width: 100%;
+	min-width: 230px;
+	margin: 0rem 4rem 1rem 0rem;
+	padding: 30px;
+	
+	/*     */
+	border-bottom: 2px solid rgb(255, 140, 0, 0.5);
+}
+
+form .form-group {
+
+	background-color: rgb(255, 255, 255);
+
+	margin: 0rem 1rem 1rem 0rem;
+	border-bottom: 2px solid rgb(255, 140, 0, 0.5);
 }
 
 .form-center {
@@ -170,23 +195,26 @@ input:focus {
 .form-header {
 	text-align: center;
 	background-color: rgba(255, 140, 0, 0.3);
-	font-size: 1.2rem;
+	font-size: 1.1rem;
 	height: 2.5rem;
 	display: flex;
 	align-items: center;
-	justify-content: center;
+	justify-content: flex-start;
 	color: rgb(3, 3, 3);
+	margin-right:1.5rem;
+	padding:5px;
 }
 
 .form-vertical-blocks {
 	display: flex;
-	flex-direction: column;
+	flex-wrap: wrap;
+	
 }
-
 
 .form-container {
 	display: flex;
 	flex-grow: 1;
+	align-items: flex-start;
 	justify-content: space-around;
 	flex-wrap: wrap;
 }
@@ -196,7 +224,10 @@ input:focus {
 	height: 25px;
 }
 
-
+.input-wrapper{
+	display:flex;
+	flex-wrap: wrap;
+}
 
 .btn {
 	color: white;
