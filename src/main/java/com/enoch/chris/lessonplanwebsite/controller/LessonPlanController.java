@@ -167,7 +167,7 @@ public class LessonPlanController {
 //				.build();
 		
 		
-		LessonPlan lPlan = new LessonPlan.LessonPlanBuilder(null, null, null, null, 10, null, null
+		LessonPlan lPlan = new LessonPlan.LessonPlanBuilder(null, null, new Subscription("a1"), null, 10, null, null
 				, null)
 //				.grammar(Arrays.asList(new Grammar("first conditional")))
 				.topics(Arrays.asList(new Topic("fame", null)))
@@ -253,8 +253,7 @@ public class LessonPlanController {
 //	     preparationTimes.put("general", Type.GENERAL);    
 //	     Type typeInstantiated = types.get(type);
 	     
-	    
-	     
+	      
 	   //instantiate Speaking Amount
 	     Map<String, SpeakingAmount> speakingAmounts = new HashMap<>();
 	     speakingAmounts.put("little", SpeakingAmount.LITTLE);
@@ -264,6 +263,7 @@ public class LessonPlanController {
 	     SpeakingAmount speakingAmountInstantiated = speakingAmounts.get(speakingAmount);
 	     
 	     //instantiate Subscription
+	     System.out.println("Debugging: assignedSubscription: " + assignedSubscription);
 	     Subscription subscriptionInstantiated =  assignedSubscription == null? null : new Subscription(assignedSubscription);
 	     
 	     //LessonTime 
