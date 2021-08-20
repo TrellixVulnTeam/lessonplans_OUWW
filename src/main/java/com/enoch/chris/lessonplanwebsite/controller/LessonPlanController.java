@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.enoch.chris.lessonplanwebsite.dao.GrammarRepository;
 import com.enoch.chris.lessonplanwebsite.dao.LessonPlanRepository;
 import com.enoch.chris.lessonplanwebsite.dao.SubscriptionRepository;
 import com.enoch.chris.lessonplanwebsite.dao.TopicRepository;
@@ -63,14 +64,21 @@ public class LessonPlanController {
 	@Autowired
 	private TopicRepository topicRepository;
 	
+	@Autowired
+	private GrammarRepository grammarRepository;
+	
 	@GetMapping
 	public String displayLessonPlans(Model theModel, HttpSession session) {	
+
+		List<LessonPlan> lessonPlans = lessonPlanRepository.findAll();	
+		List<Topic> topics = topicRepository.findAll();
+		List<Grammar> grammar = grammarRepository.findAll();
 		
-		//get lesson plans
-		List<LessonPlan> lessonPlans = lessonPlanRepository.findAll();
 		
 		//add to model
 		theModel.addAttribute("lessonPlans", lessonPlans);
+		theModel.addAttribute("topics", topics);
+		theModel.addAttribute("grammar", grammar);
 		
 		
 		return "lessonplans";

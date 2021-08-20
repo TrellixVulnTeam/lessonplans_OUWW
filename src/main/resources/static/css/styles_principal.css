@@ -65,7 +65,8 @@ html {
 
 #mega-menu {
 	display:none;
-	overflow: auto;  
+	overflow: auto;
+  
 }
 
 .sticky {
@@ -155,7 +156,7 @@ label {
 
 input, select {
 	margin-right:2rem;
-	width: 5%;
+	width: 30px;
 	height: 20px;
 	border: 1px solid #ced4da;
 	border-radius: .25rem;
@@ -205,7 +206,7 @@ form .form-group {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
-	height:50px;
+	height:60px;
 	
 }
 

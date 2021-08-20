@@ -66,32 +66,16 @@
                         <label for="tenminutespreparationtime"> 10 minutes </label>
                         <input type="radio" id="tenminutespreparationtime" name="preparationtime" value="10">
                     </div>
+                
                     
-     
-
-                    <div class="form-group form-vertical-blocks mt-30">
-                        <div class="form-header">Topics</div>
-
-                        <label for="technology">
-                            Technology</label>
-                        <input type="checkbox" id="technology" name="topics" value="technology">
-                        <label for="environment">
-                            Environment</label>
-                        <input type="checkbox" id="environment" name="topics" value="environment">
-
-                        <label for="travel"> Travel</label>
-                        <input type="checkbox" id="travel" name="topics" value="travel">
-
-                        <label for="entrepreneur">
-                            Entrepreneur</label>
-                        <input type="checkbox" id="entrepreneur" name="topics" value="entrepreneur">
-
-                        <label for="fame"> Fame</label>
-                        <input type="checkbox" id="fame" name="topics" value="fame">
-
-                        <label for="sport"> Sport</label>
-                        <input type="checkbox" id="sport" name="topics" value="sport">
-
+ 					<div class="form-header">Topics</div>
+                    <div class="form-group form-vertical-blocks">
+                        
+						<span th:each="t : ${topics}">
+                        <label th:text="${t.name}"></label>
+                        <input type="checkbox" th:id="${t.name}" name="topics" th:value=${t.name}>
+                        </span>
+             
 
                     </div>
 
@@ -124,28 +108,20 @@
 
 
                     </div>
+                    
 
                     <div class="form-group form-vertical-blocks">
                         <div class="form-header">Grammar</div>
-                        <label for="adjectives">
-                            Adjectives</label>
-                        <input type="checkbox" id="adjectives" name="grammar" value="adjectives">
+                        
+                        <span th:each="g : ${grammar}">
+                                             
+                        <label th:text="${g.grammarPoint}"></label>
+                        <input type="checkbox" th:id="${g.grammarPoint}"  name="grammar" th:value=${g.grammarPoint}>
+                        
+                        </span>
 
-                        <label for="adverbs"> Adverbs</label>
-                        <input type="checkbox" id="adverbs" name="grammar" value="adverbs">
-
-                        <label for="firstconditional">First
-                            conditional</label>
-                        <input type="checkbox" id="firstconditional" name="grammar" value="first conditional">
-
-                        <label for="secondconditional">
-                            Second conditional</label>
-                        <input type="checkbox" id="secondconditional" name="grammar" value="second conditional">
-
-                        <label for="thirdconditional">
-                            Third conditional</label>
-
-                        <input type="checkbox" id="thirdconditional" name="grammar" value="third conditional">
+                       
+                        
                     </div>
 
 
