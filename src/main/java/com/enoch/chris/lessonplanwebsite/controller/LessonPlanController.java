@@ -209,6 +209,7 @@ public class LessonPlanController {
 			)  {
 		
 		 System.out.println("test value of video: " + video);
+		 System.out.println("prep time " + preparationTime);
 		
 		 int age = 10; //OMIT THE AGE FOR NOW
 	     Picture picture = null; //OMIT THE DATE FOR NOW
@@ -257,7 +258,7 @@ public class LessonPlanController {
 	     speakingAmounts.put("LITTLE", SpeakingAmount.LITTLE);
 	     speakingAmounts.put("MEDIUM", SpeakingAmount.MEDIUM);    
 	     speakingAmounts.put("LOTS", SpeakingAmount.LOTS);    
-	     speakingAmounts.put("SPEAKING_ONLY", SpeakingAmount.SPEAKING_ONLY);    
+	     speakingAmounts.put("SPEAKING_ONLY", SpeakingAmount.SPEAKING_ONLY);
 	     SpeakingAmount speakingAmountInstantiated = speakingAmounts.get(speakingAmount);
 	     
 	     //instantiate Subscription
@@ -311,7 +312,7 @@ public class LessonPlanController {
 		 
 		 List<String> checkboxesToCheck = saveSelectedCheckboxes(type, assignedSubscription, tags, grammar, speakingAmount, listening, vocabulary,
 				reading, writing, video, song, funClass, games, jigsaw, translation, printedMaterialsNeeded,
-				topicsInstantiated, tagsInstantiated, grammarInstantiated);
+				topicsInstantiated, tagsInstantiated, grammarInstantiated, preparationTime, lessonTime);
 		 	 
 		 redirectAttributes.addFlashAttribute("checkboxesToCheck", checkboxesToCheck);
 
@@ -324,7 +325,7 @@ public class LessonPlanController {
 			List<String> grammar, String speakingAmount, String listening, String vocabulary, String reading,
 			String writing, String video, String song, String funClass, String games, String jigsaw, String translation,
 			String printedMaterialsNeeded, List<Topic> topicsInstantiated, List<Tag> tagsInstantiated,
-			List<Grammar> grammarInstantiated) {
+			List<Grammar> grammarInstantiated, String preparationtime, Integer lessontime) {
 		
 		 List<String> checkboxesToCheck = new ArrayList<>();
 		 
@@ -335,6 +336,8 @@ public class LessonPlanController {
 			 checkboxesToCheck.add(type);
 		 }
 		 if (speakingAmount!= null) {
+			 System.out.println("speakingAmount " + speakingAmount);
+			 
 			 checkboxesToCheck.add(speakingAmount);
 		 }
 		 
@@ -391,6 +394,14 @@ public class LessonPlanController {
 		 
 		 if (writing != null) {
 			 checkboxesToCheck.add(writing);
+		 }
+		 
+		 if (preparationtime != null) {
+			 checkboxesToCheck.add(preparationtime);
+		 }
+		 
+		 if (lessontime != null) {
+			 checkboxesToCheck.add(String.valueOf(lessontime));
 		 }
 		 
 		 return checkboxesToCheck;
