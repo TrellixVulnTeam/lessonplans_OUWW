@@ -91,10 +91,7 @@ public class LessonPlanController {
 		theModel.addAttribute("namesToSetAsChecked", namesToSetAsChecked );
 		
 		theModel.addAttribute("names", "fame,films");
-		
-		
-		
-		
+
 		return "lessonplans";
 	}
 	
@@ -274,21 +271,51 @@ public class LessonPlanController {
 	     lessonTimes.put(120, LessonTime.ONE_HUNDRED_TWENTY);    
 	     LessonTime lessonTimeInstantiated = lessonTimes.get(lessonTime);
 	     
-	     Boolean funClassIns = funClass == null? null : Boolean.valueOf(funClass);
-	     Boolean gamesIns = games == null? null : Boolean.valueOf(games);
-	     Boolean jigsawIns = jigsaw == null? null : Boolean.valueOf(jigsaw);
-	     Boolean translationIns = translation == null? null : Boolean.valueOf(translation);
-	     Boolean listeningIns = listening == null? null : Boolean.valueOf(listening);
+	     Boolean funClassIns = funClass == null? null : true;
+	     Boolean gamesIns = games == null? null : true;
+	     Boolean jigsawIns = jigsaw == null? null : true;
+	     Boolean translationIns = translation == null? null : true;
+	     Boolean listeningIns = listening == null? null : true;
+	     
 	     Boolean printedMaterialsIns = printedMaterialsNeeded == null? null : false;
-	     Boolean readingIns = reading == null ? null : Boolean.valueOf(reading);
-	     Boolean songIns = song == null ? null : Boolean.valueOf(song);
-	     Boolean videoIns = video == null? null : Boolean.valueOf(video);
-	     Boolean vocabularyIns = vocabulary == null ? null: Boolean.valueOf(vocabulary);
-	     Boolean writingIns = writing == null ? null : Boolean.valueOf(writing);
+	     
+	     Boolean readingIns = reading == null ? null : true;
+	     Boolean songIns = song == null ? null : true;
+	     Boolean videoIns = video == null? null : true;
+	     Boolean vocabularyIns = vocabulary == null ? null: true;
+	     Boolean writingIns = writing == null ? null : true;
 	     short preparationTimeIns = preparationTime == null? 5 : Short.parseShort(preparationTime);
 	     
+	     //debugging
+	     printRequestParamas(age, picture, dateAdded, title, topicsInstantiated, tagsInstantiated, grammarInstantiated,
+				typeInstantiated, speakingAmountInstantiated, subscriptionInstantiated, lessonTimeInstantiated,
+				funClassIns, gamesIns, jigsawIns, translationIns, listeningIns, printedMaterialsIns, readingIns,
+				songIns, vocabularyIns, writingIns, preparationTimeIns);
+     
+		 LessonPlan searchParameters = new LessonPlan.LessonPlanBuilder(title, dateAdded, subscriptionInstantiated 
+				 , typeInstantiated , age,speakingAmountInstantiated, topicsInstantiated, 
+				 tagsInstantiated).isFunClass(funClassIns).isGames(gamesIns)
+				 .isJigsaw(jigsawIns).isListening(listeningIns).isTranslation(translationIns)
+				 .isPrintedMaterialsNeeded(printedMaterialsIns).grammar(grammarInstantiated)
+				 .isReading(readingIns).isSong(songIns).isVideo(videoIns).isVocabulary(vocabularyIns).isWriting(writingIns)
+				 .picture(picture).build();
+				 
+		 List<LessonPlan> lessonPlansFiltered = lessonPlanService.findSearchedLessonPlans(searchParameters, lessonTimeInstantiated, preparationTimeIns);
 
-	     System.out.println("title " + title);
+		 System.out.println("lesson plans filtered " + lessonPlansFiltered);
+		 redirectAttributes.addFlashAttribute("lessonPlans", lessonPlansFiltered);
+		 
+		//return "redirect:/lessonplans/search";
+		 return "redirect:/lessonplans/search";
+	}
+
+	private void printRequestParamas(int age, Picture picture, LocalDate dateAdded, String title,
+			List<Topic> topicsInstantiated, List<Tag> tagsInstantiated, List<Grammar> grammarInstantiated,
+			Type typeInstantiated, SpeakingAmount speakingAmountInstantiated, Subscription subscriptionInstantiated,
+			LessonTime lessonTimeInstantiated, Boolean funClassIns, Boolean gamesIns, Boolean jigsawIns,
+			Boolean translationIns, Boolean listeningIns, Boolean printedMaterialsIns, Boolean readingIns,
+			Boolean songIns, Boolean vocabularyIns, Boolean writingIns, short preparationTimeIns) {
+		System.out.println("title " + title);
 	     System.out.println("dateAdded " + dateAdded);
 	     System.out.println("subscriptionInstantiated  " + subscriptionInstantiated );
 	     System.out.println("typeInstantiated  " + typeInstantiated );
@@ -313,31 +340,6 @@ public class LessonPlanController {
 	     System.out.println("lessontime instantiated" + lessonTimeInstantiated);
 	     System.out.println("preparationtime" + preparationTimeIns);
 	     System.out.println("grammar" + grammarInstantiated);
-     
-		 LessonPlan searchParameters = new LessonPlan.LessonPlanBuilder(title, dateAdded, subscriptionInstantiated 
-				 , typeInstantiated , age,speakingAmountInstantiated, topicsInstantiated, 
-				 tagsInstantiated).isFunClass(funClassIns).isGames(gamesIns)
-				 .isJigsaw(jigsawIns).isListening(listeningIns).isTranslation(translationIns)
-				 .isPrintedMaterialsNeeded(printedMaterialsIns).grammar(grammarInstantiated)
-				 .isReading(readingIns).isSong(songIns).isVideo(videoIns).isVocabulary(vocabularyIns).isWriting(writingIns)
-				 .picture(picture).build();
-				 
-		 List<LessonPlan> lessonPlansFiltered = lessonPlanService.findSearchedLessonPlans(searchParameters, lessonTimeInstantiated, preparationTimeIns);
-		 
-//		 ObjectMapper objectMapper = new ObjectMapper();
-//		 try {
-//			redirectAttributes.addFlashAttribute("envionment", objectMapper.writeValueAsString("environment"));
-//		} catch (JsonProcessingException e) {
-//			e.printStackTrace();
-//		}
-		 
-		
-		
-		 System.out.println("lesson plans filtered " + lessonPlansFiltered);
-		 redirectAttributes.addFlashAttribute("lessonPlans", lessonPlansFiltered);
-		 
-		//return "redirect:/lessonplans/search";
-		 return "redirect:/lessonplans/search";
 	}
 	
 	
