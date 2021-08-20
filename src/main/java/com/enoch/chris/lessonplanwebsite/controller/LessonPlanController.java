@@ -254,10 +254,10 @@ public class LessonPlanController {
 	      
 	   //instantiate Speaking Amount
 	     Map<String, SpeakingAmount> speakingAmounts = new HashMap<>();
-	     speakingAmounts.put("little", SpeakingAmount.LITTLE);
-	     speakingAmounts.put("medium", SpeakingAmount.MEDIUM);    
-	     speakingAmounts.put("lots", SpeakingAmount.LOTS);    
-	     speakingAmounts.put("speakingonly", SpeakingAmount.LITTLE);    
+	     speakingAmounts.put("LITTLE", SpeakingAmount.LITTLE);
+	     speakingAmounts.put("MEDIUM", SpeakingAmount.MEDIUM);    
+	     speakingAmounts.put("LOTS", SpeakingAmount.LOTS);    
+	     speakingAmounts.put("SPEAKING_ONLY", SpeakingAmount.SPEAKING_ONLY);    
 	     SpeakingAmount speakingAmountInstantiated = speakingAmounts.get(speakingAmount);
 	     
 	     //instantiate Subscription
@@ -305,8 +305,95 @@ public class LessonPlanController {
 		 System.out.println("lesson plans filtered " + lessonPlansFiltered);
 		 redirectAttributes.addFlashAttribute("lessonPlans", lessonPlansFiltered);
 		 
+		 //ensure checkboxes are maintained, later do this normal get request as well, so if user refreshes page, dont lose checkboxes
+		 //loop over all variables, if not null add the name to the list
+		 //if topics, grammar, tag not null, loop over these and add them too
+		 
+		 List<String> checkboxesToCheck = saveSelectedCheckboxes(type, assignedSubscription, tags, grammar, speakingAmount, listening, vocabulary,
+				reading, writing, video, song, funClass, games, jigsaw, translation, printedMaterialsNeeded,
+				topicsInstantiated, tagsInstantiated, grammarInstantiated);
+		 	 
+		 redirectAttributes.addFlashAttribute("checkboxesToCheck", checkboxesToCheck);
+
+		 
 		//return "redirect:/lessonplans/search";
 		 return "redirect:/lessonplans/search";
+	}
+
+	private List<String> saveSelectedCheckboxes(String type, String assignedSubscription, List<String> tags,
+			List<String> grammar, String speakingAmount, String listening, String vocabulary, String reading,
+			String writing, String video, String song, String funClass, String games, String jigsaw, String translation,
+			String printedMaterialsNeeded, List<Topic> topicsInstantiated, List<Tag> tagsInstantiated,
+			List<Grammar> grammarInstantiated) {
+		
+		 List<String> checkboxesToCheck = new ArrayList<>();
+		 
+		 if (assignedSubscription != null) {
+			 checkboxesToCheck.add(assignedSubscription);
+		 }
+		 if (type != null) {
+			 checkboxesToCheck.add(type);
+		 }
+		 if (speakingAmount!= null) {
+			 checkboxesToCheck.add(speakingAmount);
+		 }
+		 
+		 if (topicsInstantiated != null) {
+			 for (Topic topic : topicsInstantiated) {
+				 checkboxesToCheck.add(topic.getName());
+			 }	 
+		 } 
+		 
+		 if (tags != null) {
+			 for (Tag tag : tagsInstantiated) {
+				 checkboxesToCheck.add(tag.getName());
+			 }	
+		 } 
+		 
+		 if (funClass != null) {
+			 checkboxesToCheck.add(funClass);
+		 }
+		 if (games != null) {
+			 checkboxesToCheck.add(games);
+		 }
+		 if (jigsaw != null) {
+			 checkboxesToCheck.add(jigsaw);
+		 }
+		 if (listening != null) {
+			 checkboxesToCheck.add(listening);
+		 }
+		 if (translation != null) {
+			 checkboxesToCheck.add(translation);
+		 }
+		 if (printedMaterialsNeeded != null) {
+			 checkboxesToCheck.add(printedMaterialsNeeded);
+		 }
+		 if (grammar != null) {
+			 for (Grammar g : grammarInstantiated) {
+				 checkboxesToCheck.add(g.getGrammarPoint());
+			 }		 
+		 }
+		 if (reading != null) {
+			 checkboxesToCheck.add(reading);
+		 }
+		 
+		 if (song != null) {
+			 checkboxesToCheck.add(song);
+		 }
+		 
+		 if (video != null) {
+			 checkboxesToCheck.add(video);
+		 }
+		 
+		 if (vocabulary != null) {
+			 checkboxesToCheck.add(vocabulary);
+		 }
+		 
+		 if (writing != null) {
+			 checkboxesToCheck.add(writing);
+		 }
+		 
+		 return checkboxesToCheck;
 	}
 
 	private void printRequestParamas(int age, Picture picture, LocalDate dateAdded, String title,

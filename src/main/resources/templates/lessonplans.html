@@ -22,21 +22,31 @@
             document.getElementById('mega-menu').style.display = 'none';
         }
  
-        function addChecked() {
-        	//var env1 = "envionment"
-        	//get list
-        	//get string
-        	//string dot split to array
-        	//print array
+        function addChecked() {     	
+        	let checkboxesToCheck = "[[${checkboxesToCheck}]]";
+        	console.log(checkboxesToCheck);
         	
-        	var nameString = "[[${namesToSetAsChecked}]]";
-        	console.log(nameString);
+        	checkboxesToCheck = checkboxesToCheck.slice(1, checkboxesToCheck.length -1 );
+        	checkboxesToCheck = checkboxesToCheck.split(',');	
+        	checkboxesToCheck.forEach(element => console.log(element));
         	
-        	nameStringSliced = nameString.slice(1, nameString.length -1 );
-        	console.log(nameStringSliced);
+        	//loop over and add checkbox
+        	checkboxesToCheck.forEach(element => {	
+        		element = element.trim();
+        		document.getElementById(element).checked = true
+        		}
+        	);
+        	
+        	
+        	
+        	//var nameString = "[[${namesToSetAsChecked}]]";
+        	//console.log(nameString);
+        	
+        	//nameStringSliced = nameString.slice(1, nameString.length -1 );
+        	//console.log(nameStringSliced);
 	
-        	const words = nameStringSliced.split(',');	
-        	words.forEach(element => console.log(element));
+        	//const words = nameStringSliced.split(',');	
+        	//words.forEach(element => console.log(element));
         	//then trim
         	
         	//Loop get documents by id then set all as checked 
@@ -70,6 +80,7 @@
 
 
             <div id="mega-menu">
+            <small>*If you select nothing from a category, all from that category will be included.</small>
 
                 <form action="/lessonplans" method="post" >
 
@@ -206,9 +217,9 @@
 
                     <div class="form-group form-vertical-blocks">
                         <div class="form-header">Speaking</div>
-                        <label for="speakingonly">Speaking
+                        <label for="SPEAKING_ONLY">Speaking
                             Only</label>
-                        <input type="checkbox" id="speakingonly" name="speakingonly" value="speakingonly">
+                        <input type="checkbox" id="SPEAKING_ONLY" name="SPEAKING_ONLY" value="SPEAKING_ONLY">
                         
 
                         <div class="form-header ml-4">Resources</div>
