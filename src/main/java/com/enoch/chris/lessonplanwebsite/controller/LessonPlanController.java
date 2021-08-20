@@ -47,6 +47,8 @@ import com.enoch.chris.lessonplanwebsite.entity.Topic;
 import com.enoch.chris.lessonplanwebsite.entity.Type;
 import com.enoch.chris.lessonplanwebsite.entity.User;
 import com.enoch.chris.lessonplanwebsite.service.LessonPlanService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 @RequestMapping("/lessonplans")
@@ -80,13 +82,29 @@ public class LessonPlanController {
 		theModel.addAttribute("topics", topics);
 		theModel.addAttribute("grammar", grammar);
 		
+		theModel.addAttribute("environment", "environment");
+		
+		List<String> namesToSetAsChecked = new ArrayList<>();
+		namesToSetAsChecked.add("fame");
+		namesToSetAsChecked.add("films");
+		namesToSetAsChecked.add("music");
+		theModel.addAttribute("namesToSetAsChecked", namesToSetAsChecked );
+		
+		theModel.addAttribute("names", "fame,films");
+		
+		
+		
 		
 		return "lessonplans";
 	}
 	
 	@GetMapping("/search")
 	public String displayFilteredLessonPlans(Model theModel, HttpSession session) {	
+		List<Topic> topics = topicRepository.findAll();
+		List<Grammar> grammar = grammarRepository.findAll();
 		
+		theModel.addAttribute("topics", topics);
+		theModel.addAttribute("grammar", grammar);
 		
 		
 		return "lessonplans";
@@ -143,38 +161,13 @@ public class LessonPlanController {
 		
 	}
 	
-	@PostMapping("/test")
-	public String checkboxTestModel(@ModelAttribute("testObject")TestObject testObject) {
-		
-		
-		System.out.println("Test test test: " + testObject.getFunny());
-		
-		
-		return "lessonplans";
-	}
-	
-	@GetMapping("/test")
-	public String checkboxTestModelGet(Model model) {
-		TestObject tO= new TestObject();
-		model.addAttribute("testObject", tO);
-	
-		return "lessonplans";
-	}
 	
 	@GetMapping("/checkmethod")
 	public String checkMethod() {
 		Topic fame = new Topic("fame", null);
 		List<Topic> topics = new ArrayList<>();
 		topics.add(fame);
-		
-	//works	
-//		LessonPlan lPlan = new LessonPlan.LessonPlanBuilder(null, null, null, null, 10, null, topics
-//				, Arrays.asList(new Tag("celebrities"), new Tag("privacy")))
-//				.grammar(Arrays.asList(new Grammar("first conditional")))
-//				.topics(Arrays.asList(new Topic("fame", null)))
-//				.build();
-		
-		
+			
 		LessonPlan lPlan = new LessonPlan.LessonPlanBuilder(null, null, new Subscription("a1"), null, 10, null, null
 				, null)
 //				.grammar(Arrays.asList(new Grammar("first conditional")))
@@ -216,11 +209,11 @@ public class LessonPlanController {
 			,@RequestParam(name = "translation", required = false)String translation
 			,@RequestParam(name = "preparationtime", required = false)String preparationTime
 			,@RequestParam(name = "printedmaterialsneeded", required = false)String printedMaterialsNeeded	
-			) {
+			)  {
 		
 		 System.out.println("test value of video: " + video);
 		
-		int age = 10; //OMIT THE AGE FOR NOW
+		 int age = 10; //OMIT THE AGE FOR NOW
 	     Picture picture = null; //OMIT THE DATE FOR NOW
 	     LocalDate dateAdded = null;  //OMIT THE DATE FOR NOW	
 	     String title = null;  //OMIT THE DATE FOR NOW	
@@ -320,19 +313,7 @@ public class LessonPlanController {
 	     System.out.println("lessontime instantiated" + lessonTimeInstantiated);
 	     System.out.println("preparationtime" + preparationTimeIns);
 	     System.out.println("grammar" + grammarInstantiated);
-	     	     
-		//create lessonPlan object //trans //preptime //picture
-//	     LessonPlan searchParameters = new LessonPlan.LessonPlanBuilder(null, null, null
-//				 , null , 10,null, topicsInstantiated , null)
-////	    		 .isFunClass(funClassIns).isGames(gamesIns)
-////				 .isJigsaw(jigsawIns).isListening(listeningIns).isTranslation(translationIns)
-////				 .isPrintedMaterialsNeeded(printedMaterialsIns)
-//	    		 //.grammar(grammarInstantiated)
-////				 .isReading(readingIns).isSong(songIns).isVideo(videoIns).isVocabulary(vocabularyIns).isWriting(writingIns)
-////				 .picture(picture)
-//				 .build();
-	     
-	     
+     
 		 LessonPlan searchParameters = new LessonPlan.LessonPlanBuilder(title, dateAdded, subscriptionInstantiated 
 				 , typeInstantiated , age,speakingAmountInstantiated, topicsInstantiated, 
 				 tagsInstantiated).isFunClass(funClassIns).isGames(gamesIns)
@@ -340,29 +321,23 @@ public class LessonPlanController {
 				 .isPrintedMaterialsNeeded(printedMaterialsIns).grammar(grammarInstantiated)
 				 .isReading(readingIns).isSong(songIns).isVideo(videoIns).isVocabulary(vocabularyIns).isWriting(writingIns)
 				 .picture(picture).build();
-		
-		
-//		 List<LessonPlan> lessonPlansFiltered = lessonPlanService.findSearchedLessonPlans(searchParameters, 
-//				 lessonTimeInstantiated, preparationTimeIns);
-		 
+				 
 		 List<LessonPlan> lessonPlansFiltered = lessonPlanService.findSearchedLessonPlans(searchParameters, lessonTimeInstantiated, preparationTimeIns);
 		 
+//		 ObjectMapper objectMapper = new ObjectMapper();
+//		 try {
+//			redirectAttributes.addFlashAttribute("envionment", objectMapper.writeValueAsString("environment"));
+//		} catch (JsonProcessingException e) {
+//			e.printStackTrace();
+//		}
 		 
-		 if(topics != null) {
-		    System.out.println("checkbox is checked");
-		    
-		    System.out.println(topics);
-		    
-		  }
-		  else {
-		    System.out.println("checkbox is not checked");
-
-		  }
+		
 		
 		 System.out.println("lesson plans filtered " + lessonPlansFiltered);
 		 redirectAttributes.addFlashAttribute("lessonPlans", lessonPlansFiltered);
 		 
-		return "redirect:/lessonplans/search";
+		//return "redirect:/lessonplans/search";
+		 return "redirect:/lessonplans/search";
 	}
 	
 	

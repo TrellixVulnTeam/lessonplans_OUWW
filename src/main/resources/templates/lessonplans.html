@@ -13,22 +13,46 @@
     <script>
 
         function showMenu() {
+        	//addChecked();
             document.getElementById('mega-menu').style.display = 'block';
+            
         }
 
         function hideMenu() {
             document.getElementById('mega-menu').style.display = 'none';
         }
-
-
-
+ 
+        function addChecked() {
+        	//var env1 = "envionment"
+        	//get list
+        	//get string
+        	//string dot split to array
+        	//print array
+        	
+        	var nameString = "[[${namesToSetAsChecked}]]";
+        	console.log(nameString);
+        	
+        	nameStringSliced = nameString.slice(1, nameString.length -1 );
+        	console.log(nameStringSliced);
+	
+        	const words = nameStringSliced.split(',');	
+        	words.forEach(element => console.log(element));
+        	
+        	//Loop get documents by id then set all as checked 
+        	
+        	//var env = "[[${environment}]]";
+        	//console.log("yeah " + env);
+        	//document.getElementById(env).checked = true;
+        	
+            //document.getElementById('culture').checked = true;
+        }
 
     </script>
 
     <title>Lesson Plans</title>
 </head>
 
-<body>
+<body onload="addChecked()">
     <div th:insert="navbar.html :: nav"></div>
 
     <div class="main-content">
@@ -83,7 +107,7 @@
                         <div class="form-header">Level</div>
 
                         <label for="A1">A1</label>
-                        <input type="radio" id="A1" name="subscription" value="A1">
+                        <input type="radio" id="A1" name="subscription"  value="A1">
 
                         <label for="A2">A2</label>
                         <input type="radio" id="A2" name="subscription" value="A2">
@@ -105,8 +129,6 @@
 
                         <label for="C2">C2</label>
                         <input type="radio" id="C2" name="subscription" value="C2">
-
-
                     </div>
                     
 
@@ -119,12 +141,7 @@
                         <input type="checkbox" th:id="${g.grammarPoint}"  name="grammar" th:value=${g.grammarPoint}>
                         
                         </span>
-
-                       
-                        
-                    </div>
-
-
+            		</div>
 
                     <div class="form-group form-vertical-blocks">
                         <div class="form-header">Lesson Duration</div>
@@ -137,9 +154,6 @@
 
                         <label for="120">2 hours</label>
                         <input type="radio" id="120" name="lessontime" value="120">
-
-
-
                     </div>
 
                     <div class="form-group form-vertical-blocks">
@@ -147,7 +161,7 @@
 
                         <label for="vocabulary">
                             Vocabulary</label>
-                        <input type="checkbox" checked="checked" id="vocabulary" name="vocabulary" value="vocabulary">
+                        <input type="checkbox" id="vocabulary" name="vocabulary" value="vocabulary">
 
                         <label for="listening">
                             Listening</label>
