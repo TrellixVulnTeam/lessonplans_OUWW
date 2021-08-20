@@ -38,9 +38,7 @@ html {
 	background-color: rgb(249, 244, 244);
 	background-color: white;
 	
-	/*
 	overflow: hidden;
-	*/
 	
 	min-height: 100vh;
 	
@@ -67,6 +65,7 @@ html {
 
 #mega-menu {
 	display:none;
+	overflow: auto;  
 }
 
 .sticky {
@@ -167,7 +166,7 @@ input:focus {
 	outline-color: rgba(255, 140, 0, 0.3);
 }
 
-form {
+.form-outline {
 	border: 1px solid rgba(0, 0, 0, .125);
 	background-color: rgb(255, 255, 255);
 	width: 100%;
@@ -180,12 +179,10 @@ form {
 }
 
 form .form-group {
-
 	background-color: rgb(255, 255, 255);
-
-	margin: 0rem 1rem 1rem 0rem;
-	border-bottom: 2px solid rgb(255, 140, 0, 0.5);
+	margin: 0rem 1rem 1rem 0rem;	
 }
+
 
 .form-center {
 	width: 100%;
@@ -194,20 +191,21 @@ form .form-group {
 
 .form-header {
 	text-align: center;
+	vertical-align:center;
 	background-color: rgba(255, 140, 0, 0.3);
 	font-size: 1.1rem;
-	height: 2.5rem;
-	display: flex;
-	align-items: center;
 	justify-content: flex-start;
 	color: rgb(3, 3, 3);
 	margin-right:1.5rem;
 	padding:5px;
+	display:inline;
 }
 
 .form-vertical-blocks {
 	display: flex;
 	flex-wrap: wrap;
+	align-items: center;
+	height:50px;
 	
 }
 
@@ -312,6 +310,11 @@ form .form-group {
 .mt-5 {
 	margin-top: 5rem;
 }
+
+.mt-30{
+	margin-top: 30rem;
+}
+
 
 .mb-1 {
 	margin-bottom: 1rem;

@@ -58,12 +58,6 @@ public class LessonPlanServiceImpl implements LessonPlanService {
 				.filter(lp -> searchParameters.getDateAdded() == null ? true
 						: searchParameters.getDateAdded().isBefore(lp.getDateAdded()) ? true : false)
 //
-				.peek(a -> System.out.println("searchParameters.getAssignedSubscription()  " + 
-						searchParameters.getAssignedSubscription() + "\nlp.getAssignedSubscription()  " +
-						a.getAssignedSubscription() + "\nsearchSubName()  " + searchParameters.getAssignedSubscription().getName()
-						+ "\nlpName()  " + a.getAssignedSubscription().getName()
-						
-								))
 				
 				.filter(lp -> searchParameters.getAssignedSubscription() == null ? true	
 						: searchParameters.getAssignedSubscription().equals(lp.getAssignedSubscription()))

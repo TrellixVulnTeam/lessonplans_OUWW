@@ -46,8 +46,7 @@
 
             <div id="mega-menu">
 
-                <form action="/lessonplans" method="post">
-
+                <form action="/lessonplans" method="post" >
 
 
                     <div class="form-group form-vertical-blocks">
@@ -57,10 +56,20 @@
 
                         <label for="business">Business</label>
                         <input type="radio" id="business" name="type" value="business">
+                    
+                    
+                   		
+                        <div class="form-header ml-4	">Preparation time</div>
+                        <label for="fiveminutespreparationtime"> 5 minutes</label>
+                        <input type="radio" id="fiveminutespreparationtime" name="preparationtime" value="5">
 
+                        <label for="tenminutespreparationtime"> 10 minutes </label>
+                        <input type="radio" id="tenminutespreparationtime" name="preparationtime" value="10">
                     </div>
+                    
+     
 
-                    <div class="form-group form-vertical-blocks">
+                    <div class="form-group form-vertical-blocks mt-30">
                         <div class="form-header">Topics</div>
 
                         <label for="technology">
@@ -90,28 +99,28 @@
                         <div class="form-header">Level</div>
 
                         <label for="A1">A1</label>
-                        <input type="checkbox" id="A1" name="subscription" value="A1">
+                        <input type="radio" id="A1" name="subscription" value="A1">
 
                         <label for="A2">A2</label>
-                        <input type="checkbox" id="A2" name="subscription" value="A2">
+                        <input type="radio" id="A2" name="subscription" value="A2">
 
                         <label for="B1">B1</label>
-                        <input type="checkbox" id="B1" name="subscription" value="B1">
+                        <input type="radio" id="B1" name="subscription" value="B1">
 
                         <label for="B2">B2</label>
-                        <input type="checkbox" id="B2" name="subscription" value="B2">
+                        <input type="radio" id="B2" name="subscription" value="B2">
 
                         <label for="B2+">B2+</label>
-                        <input type="checkbox" id="B2+" name="subscription" value="B2+">
+                        <input type="radio" id="B2+" name="subscription" value="B2+">
 
                         <label for="C1">C1</label>
-                        <input type="checkbox" id="C1" name="subscription" value="C1">
+                        <input type="radio" id="C1" name="subscription" value="C1">
 
-                        <label for="C1+">C1</label>
-                        <input type="checkbox" id="C1+" name="subscription" value="C1+">
+                        <label for="C1+">C1+</label>
+                        <input type="radio" id="C1+" name="subscription" value="C1+">
 
                         <label for="C2">C2</label>
-                        <input type="checkbox" id="C2" name="subscription" value="C2">
+                        <input type="radio" id="C2" name="subscription" value="C2">
 
 
                     </div>
@@ -144,14 +153,14 @@
                     <div class="form-group form-vertical-blocks">
                         <div class="form-header">Lesson Duration</div>
                         <label for="60">60 minutes</label>
-                        <input type="checkbox" id="60" name="lessontime" value="60">
+                        <input type="radio" id="60" name="lessontime" value="60">
 
 
                         <label for="90">1 hour 30 minutes</label>
-                        <input type="checkbox" id="90" name="lessontime" value="90">
+                        <input type="radio" id="90" name="lessontime" value="90">
 
                         <label for="120">2 hours</label>
-                        <input type="checkbox" id="120" name="lessontime" value="120">
+                        <input type="radio" id="120" name="lessontime" value="120">
 
 
 
@@ -210,30 +219,13 @@
                         <label for="speakingonly">Speaking
                             Only</label>
                         <input type="checkbox" id="speakingonly" name="speakingonly" value="speakingonly">
+                        
 
-                    </div>
+                        <div class="form-header ml-4">Resources</div>
 
-                    <div class="form-group form-vertical-blocks">
-                        <div class="form-header">Preparation time</div>
-                        <label for="fiveminutespreparationtime"> 5 minutes</label>
-                        <input type="checkbox" id="fiveminutespreparationtime" name="preparationtime" value="5">
-
-                        <label for="tenminutespreparationtime"> 10 minutes </label>
-                        <input type="checkbox" id="tenminutespreparationtime" name="preparationtime" value="10">
-
-
-                    </div>
-
-                    <div class="form-group form-vertical-blocks">
-                        <div class="form-header">Resources</div>
-
-                        <label for="printedmaterialsneeded"> Printed materials
-                            needed</label>
+                        <label for="printedmaterialsneeded">No printed materials needed</label>
                         <input type="checkbox" id="printedmaterialsneeded" name="printedmaterialsneeded"
                             value="printedmaterialsneeded">
-
-                        <hr>
-
 
                     </div>
 

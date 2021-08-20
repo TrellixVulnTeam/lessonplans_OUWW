@@ -278,7 +278,7 @@ public class LessonPlanController {
 	     Boolean jigsawIns = jigsaw == null? null : Boolean.valueOf(jigsaw);
 	     Boolean translationIns = translation == null? null : Boolean.valueOf(translation);
 	     Boolean listeningIns = listening == null? null : Boolean.valueOf(listening);
-	     Boolean printedMaterialsIns = printedMaterialsNeeded == null? null : Boolean.valueOf(printedMaterialsNeeded);
+	     Boolean printedMaterialsIns = printedMaterialsNeeded == null? null : false;
 	     Boolean readingIns = reading == null ? null : Boolean.valueOf(reading);
 	     Boolean songIns = song == null ? null : Boolean.valueOf(song);
 	     Boolean videoIns = video == null? null : Boolean.valueOf(video);
