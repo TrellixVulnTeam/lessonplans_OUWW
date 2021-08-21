@@ -264,7 +264,7 @@ public class LessonPlanController {
 	     
 	     //instantiate Subscription
 	     System.out.println("Debugging: assignedSubscription: " + assignedSubscription);
-	     Subscription subscriptionInstantiated =  assignedSubscription == null? null : new Subscription(assignedSubscription);
+	     Subscription subscriptionInstantiated =  assignedSubscription == null? null : new Subscription(assignedSubscription); 
 	     
 	     //LessonTime 
 	     Map<Integer, LessonTime> lessonTimes = new HashMap<>();
@@ -273,19 +273,19 @@ public class LessonPlanController {
 	     lessonTimes.put(120, LessonTime.ONE_HUNDRED_TWENTY);    
 	     LessonTime lessonTimeInstantiated = lessonTimes.get(lessonTime);
 	     
-	     Boolean funClassIns = funClass == null? null : true;
-	     Boolean gamesIns = games == null? null : true;
-	     Boolean jigsawIns = jigsaw == null? null : true;
-	     Boolean translationIns = translation == null? null : true;
-	     Boolean listeningIns = listening == null? null : true;
+	     boolean funClassIns = funClass == null? false : true;
+	     boolean gamesIns = games == null? false : true;
+	     boolean jigsawIns = jigsaw == null? false : true;
+	     boolean translationIns = translation == null? false : true;
+	     boolean listeningIns = listening == null? false : true;
 	     
-	     Boolean printedMaterialsIns = printedMaterialsNeeded == null? null : false;
+	     boolean printedMaterialsIns = printedMaterialsNeeded == null? false : false;
 	     
-	     Boolean readingIns = reading == null ? null : true;
-	     Boolean songIns = song == null ? null : true;
-	     Boolean videoIns = video == null? null : true;
-	     Boolean vocabularyIns = vocabulary == null ? null: true;
-	     Boolean writingIns = writing == null ? null : true;
+	     boolean readingIns = reading == null ? false : true;
+	     boolean songIns = song == null ? false : true;
+	     boolean videoIns = video == null? false : true;
+	     boolean vocabularyIns = vocabulary == null ? false: true;
+	     boolean writingIns = writing == null ? false : true;
 	     short preparationTimeIns = preparationTime == null? 5 : Short.parseShort(preparationTime);
 	     
 	     //debugging
@@ -323,9 +323,9 @@ public class LessonPlanController {
 	private void printRequestParamas(int age, Picture picture, LocalDate dateAdded, String title,
 			List<Topic> topicsInstantiated, List<Tag> tagsInstantiated, List<Grammar> grammarInstantiated,
 			Type typeInstantiated, SpeakingAmount speakingAmountInstantiated, Subscription subscriptionInstantiated,
-			LessonTime lessonTimeInstantiated, Boolean funClassIns, Boolean gamesIns, Boolean jigsawIns,
-			Boolean translationIns, Boolean listeningIns, Boolean printedMaterialsIns, Boolean readingIns,
-			Boolean songIns, Boolean vocabularyIns, Boolean writingIns, short preparationTimeIns) {
+			LessonTime lessonTimeInstantiated, boolean funClassIns, boolean gamesIns, boolean jigsawIns,
+			boolean translationIns, boolean listeningIns, boolean printedMaterialsIns, boolean readingIns,
+			boolean songIns, boolean vocabularyIns, boolean writingIns, short preparationTimeIns) {
 		System.out.println("title " + title);
 	     System.out.println("dateAdded " + dateAdded);
 	     System.out.println("subscriptionInstantiated  " + subscriptionInstantiated );

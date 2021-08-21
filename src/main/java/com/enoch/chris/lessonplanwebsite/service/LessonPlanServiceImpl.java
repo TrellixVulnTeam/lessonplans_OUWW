@@ -74,36 +74,36 @@ public class LessonPlanServiceImpl implements LessonPlanService {
 				.filter(lp -> searchParameters.getSpeakingAmount() == null ? true
 						: searchParameters.getSpeakingAmount() == lp.getSpeakingAmount())
 //
-				.filter(lp -> searchParameters.getListening() == null? true			
+				.filter(lp -> searchParameters.getListening() == false? true			
 						:searchParameters.getListening() == lp.getListening())
 
-				.filter(lp -> searchParameters.getVocabulary() == null? true
+				.filter(lp -> searchParameters.getVocabulary() == false? true
 						: searchParameters.getVocabulary() == lp.getVocabulary())
 
-				.filter(lp -> searchParameters.getReading() == null? true
+				.filter(lp -> searchParameters.getReading() == false? true
 						:searchParameters.getReading() == lp.getReading())
 
-				.filter(lp -> searchParameters.getWriting() == null? true
+				.filter(lp -> searchParameters.getWriting() == false? true
 						:searchParameters.getWriting() == lp.getWriting())
 //
-				.filter(lp -> searchParameters.getFunClass() == null? true
+				.filter(lp -> searchParameters.getFunClass() == false? true
 						:searchParameters.getFunClass() == lp.getFunClass())				
 //
-				.filter(lp -> searchParameters.getGames() == null? true
+				.filter(lp -> searchParameters.getGames() == false? true
 					:searchParameters.getGames() == lp.getGames())
 							
-				.filter(lp -> searchParameters.getJigsaw() == null? true
+				.filter(lp -> searchParameters.getJigsaw() == false? true
 					:searchParameters.getJigsaw() == lp.getJigsaw())
 
-				.filter(lp -> searchParameters.getTranslation() == null? true
+				.filter(lp -> searchParameters.getTranslation() == false? true
 					:searchParameters.getTranslation() == lp.getTranslation())
 
-				.filter(lp -> searchParameters.getSong() == null? true
+				.filter(lp -> searchParameters.getSong() == false? true
 					:searchParameters.getSong() == lp.getSong())
 //
 				.filter(lp -> searchParameters.getPreparationTime() <= lp.getPreparationTime())
 
-				.filter(lp -> searchParameters.getPrintedMaterialsNeeded() == null? true
+				.filter(lp -> searchParameters.getPrintedMaterialsNeeded() == false? true
 					:searchParameters.getPrintedMaterialsNeeded() == lp.getPrintedMaterialsNeeded())
 //			
 				.filter(lp -> searchParameters.getPicture() == null ? true

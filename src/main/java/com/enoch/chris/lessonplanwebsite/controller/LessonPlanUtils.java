@@ -40,22 +40,22 @@ public class LessonPlanUtils {
 			 }	
 		 } 
 		 
-		 if (searchParams.getFunClass() != null && searchParams.getFunClass()) {
+		 if (searchParams.getFunClass()) {
 			 checkboxesToCheck.add("funClass");
 		 }
-		 if (searchParams.getGames() != null && searchParams.getGames()) {
+		 if (searchParams.getGames()) {
 			 checkboxesToCheck.add("games");
 		 }
-		 if (searchParams.getJigsaw()  != null && searchParams.getJigsaw()) {
+		 if (searchParams.getJigsaw()) {
 			 checkboxesToCheck.add("jigsaw");
 		 }
-		 if (searchParams.getListening() != null && searchParams.getListening()) {
+		 if (searchParams.getListening()) {
 			 checkboxesToCheck.add("listening");
 		 }
-		 if (searchParams.getTranslation() != null && searchParams.getTranslation()) {
+		 if (searchParams.getTranslation()) {
 			 checkboxesToCheck.add("translation");
 		 }
-		 if (searchParams.getPrintedMaterialsNeeded() != null && searchParams.getPrintedMaterialsNeeded()) {
+		 if (searchParams.getPrintedMaterialsNeeded()) {
 			 checkboxesToCheck.add("printedmaterialsneeded");
 		 }
 		 if (searchParams.getGrammar() != null) {
@@ -63,23 +63,23 @@ public class LessonPlanUtils {
 				 checkboxesToCheck.add(g.getGrammarPoint());
 			 }		 
 		 }
-		 if (searchParams.getReading() != null && searchParams.getReading()) {
+		 if (searchParams.getReading()) {
 			 checkboxesToCheck.add("reading");
 		 }
 		 
-		 if (searchParams.getSong() != null && searchParams.getSong()) {
+		 if (searchParams.getSong()) {
 			 checkboxesToCheck.add("song");
 		 }
 		 
-		 if (searchParams.getVideo() != null && searchParams.getVideo()) {
+		 if (searchParams.getVideo()) {
 			 checkboxesToCheck.add("video");
 		 }
 		 
-		 if (searchParams.getVocabulary()!= null && searchParams.getVocabulary()) {
+		 if (searchParams.getVocabulary()) {
 			 checkboxesToCheck.add("vocabulary");
 		 }
 		 
-		 if (searchParams.getWriting() != null && searchParams.getWriting()) {
+		 if (searchParams.getWriting()) {
 			 checkboxesToCheck.add("writing");
 		 }
 		 

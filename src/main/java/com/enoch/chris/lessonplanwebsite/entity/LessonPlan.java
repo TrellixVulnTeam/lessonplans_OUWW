@@ -64,40 +64,40 @@ public class LessonPlan {
     private LessonTime lessonTime; //default is 60 minutes
 	
 	@Column(name="listening")
-    private Boolean listening;
+    private boolean listening;
     
 	@Column(name="vocabulary")
-    private Boolean  vocabulary;
+    private boolean  vocabulary;
     
 	@Column(name="reading")
-    private Boolean  reading;
+    private boolean  reading;
     
 	@Column(name="writing")
-    private Boolean  writing;
+    private boolean  writing;
     
 	@Column(name="video")
-    private Boolean  video;
+    private boolean  video;
     
 	@Column(name="song")
-    private Boolean  song;
+    private boolean  song;
     
 	@Column(name="fun_class")
-    private Boolean  funClass;
+    private boolean  funClass;
     
 	@Column(name="games")
-    private Boolean  games;
+    private boolean  games;
     
 	@Column(name="jigsaw")
-    private Boolean  jigsaw;
+    private boolean  jigsaw;
     
 	@Column(name="translation")
-    private Boolean  translation;
+    private boolean  translation;
     
 	@Column(name="preparation_time")
     private short preparationTime; //default is 5 minutes
     
 	@Column(name="printed_materials_needed")
-    private Boolean  printedMaterialsNeeded;
+    private boolean  printedMaterialsNeeded;
     
 	@ManyToMany(fetch = FetchType.LAZY,cascade= {CascadeType.DETACH, 
 			CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
@@ -210,94 +210,94 @@ public class LessonPlan {
 		this.speakingAmount = speakingAmount;
 	}
 
-	public Boolean  getListening() {
+	public boolean  getListening() {
 		return listening;
 	}
 
-	public void setListening(Boolean  listening) {
+	public void setListening(boolean  listening) {
 		this.listening = listening;
 	}
 
 	
-	public Boolean  getVocabulary() {
+	public boolean  getVocabulary() {
 		return vocabulary;
 	}
 	
 	
 
-	public void setVocabulary(Boolean  vocabulary) {
+	public void setVocabulary(boolean  vocabulary) {
 		this.vocabulary = vocabulary;
 	}
 
-	public Boolean  getReading() {
+	public boolean  getReading() {
 		return reading;
 	}
 
-	public void setReading(Boolean  reading) {
+	public void setReading(boolean  reading) {
 		this.reading = reading;
 	}
 
-	public Boolean  getWriting() {
+	public boolean  getWriting() {
 		return writing;
 	}
 
-	public void setWriting(Boolean  writing) {
+	public void setWriting(boolean  writing) {
 		this.writing = writing;
 	}
 
-	public Boolean  getVideo() {
+	public boolean  getVideo() {
 		return video;
 	}
 
-	public void setVideo(Boolean  video) {
+	public void setVideo(boolean  video) {
 		this.video = video;
 	}
 
-	public Boolean  getSong() {
+	public boolean  getSong() {
 		return song;
 	}
 
-	public void setSong(Boolean  song) {
+	public void setSong(boolean  song) {
 		this.song = song;
 	}
 
-	public Boolean  getFunClass() {
+	public boolean  getFunClass() {
 		return funClass;
 	}
 
-	public void setFunClass(Boolean  funClass) {
+	public void setFunClass(boolean  funClass) {
 		this.funClass = funClass;
 	}
 
-	public Boolean  getGames() {
+	public boolean  getGames() {
 		return games;
 	}
 
-	public void setGames(Boolean  games) {
+	public void setGames(boolean  games) {
 		this.games = games;
 	}
 
-	public Boolean  getJigsaw() {
+	public boolean  getJigsaw() {
 		return jigsaw;
 	}
 
-	public void setJigsaw(Boolean  jigsaw) {
+	public void setJigsaw(boolean  jigsaw) {
 		this.jigsaw = jigsaw;
 	}
 
-	public Boolean  getTranslation() {
+	public boolean  getTranslation() {
 		return translation;
 	}
 
-	public void setTranslation(Boolean  translation) {
+	public void setTranslation(boolean  translation) {
 		this.translation = translation;
 	}
 
-	public Boolean  getPrintedMaterialsNeeded() {
+	public boolean  getPrintedMaterialsNeeded() {
 		return printedMaterialsNeeded;
 	}
 
-	public void setPrintedMaterialsNeeded(Boolean  printedMaterialsNeeded) {
+	public void setPrintedMaterialsNeeded(boolean  printedMaterialsNeeded) {
 		this.printedMaterialsNeeded = printedMaterialsNeeded;
 	}
 
@@ -374,18 +374,18 @@ public class LessonPlan {
 		public List<Tag> tags; //required
 	    
 		private LessonTime lessonTime = LessonTime.SIXTY;
-	    private Boolean  listening;
-	    private Boolean  vocabulary;
-	    private Boolean  reading;
-	    private Boolean  writing;
-	    private Boolean  video;
-	    private Boolean  song;
-	    private Boolean  funClass;
-	    private Boolean  games;
-	    private Boolean  jigsaw;
-	    private Boolean  translation;
+	    private boolean  listening;
+	    private boolean  vocabulary;
+	    private boolean  reading;
+	    private boolean  writing;
+	    private boolean  video;
+	    private boolean  song;
+	    private boolean  funClass;
+	    private boolean  games;
+	    private boolean  jigsaw;
+	    private boolean  translation;
 	    private short preparationTime = 5;
-	    private Boolean  printedMaterialsNeeded;
+	    private boolean  printedMaterialsNeeded;
 	    private Picture picture;
 	    private List<Grammar> grammar;
  
@@ -402,42 +402,42 @@ public class LessonPlan {
             this.tags = tags;
         }
                 
-        public LessonPlanBuilder isListening(Boolean  isListening) {
+        public LessonPlanBuilder isListening(boolean  isListening) {
             this.listening = isListening;
             return this;
         }
         
-        public LessonPlanBuilder isVocabulary(Boolean  isVocabulary) {
+        public LessonPlanBuilder isVocabulary(boolean  isVocabulary) {
             this.vocabulary = isVocabulary;
             return this;
         }
-        public LessonPlanBuilder isReading(Boolean  isReading) {
+        public LessonPlanBuilder isReading(boolean  isReading) {
             this.reading = isReading;
             return this;
         }
-        public LessonPlanBuilder isWriting(Boolean  isWriting) {
+        public LessonPlanBuilder isWriting(boolean  isWriting) {
             this.writing = isWriting;
             return this;
         }
-        public LessonPlanBuilder isVideo(Boolean  isVideo) {
+        public LessonPlanBuilder isVideo(boolean  isVideo) {
             this.video = isVideo;
             return this;
         }
-        public LessonPlanBuilder isSong(Boolean  isSong) {
+        public LessonPlanBuilder isSong(boolean  isSong) {
             this.song = isSong;
             return this;
         }
-        public LessonPlanBuilder isFunClass(Boolean  isFunClass) {
+        public LessonPlanBuilder isFunClass(boolean  isFunClass) {
             this.funClass = isFunClass;
             return this;
         }
         
-        public LessonPlanBuilder isGames(Boolean  isGames) {
+        public LessonPlanBuilder isGames(boolean  isGames) {
             this.games = isGames;
             return this;
         }
         
-        public LessonPlanBuilder isJigsaw(Boolean  isJigsaw) {
+        public LessonPlanBuilder isJigsaw(boolean  isJigsaw) {
             this.jigsaw = isJigsaw;
             return this;
         }
@@ -447,12 +447,12 @@ public class LessonPlan {
             return this;
         }
         
-        public LessonPlanBuilder isPrintedMaterialsNeeded(Boolean  isPrintedMaterialsNeeded) {
+        public LessonPlanBuilder isPrintedMaterialsNeeded(boolean  isPrintedMaterialsNeeded) {
             this.printedMaterialsNeeded= isPrintedMaterialsNeeded;
             return this;
         }
         
-        public LessonPlanBuilder isTranslation(Boolean  isTranslation) {
+        public LessonPlanBuilder isTranslation(boolean  isTranslation) {
             this.translation= isTranslation;
             return this;
         }
