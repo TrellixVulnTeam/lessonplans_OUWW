@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="../css/styles_principal.css">
 
     <script>
-
+    
         function showMenu() {
         	//addChecked();
             document.getElementById('mega-menu').style.display = 'block';
@@ -24,18 +24,24 @@
  
         function addChecked() {     	
         	let checkboxesToCheck = "[[${checkboxesToCheck}]]";
-        	console.log(checkboxesToCheck);
         	
-        	checkboxesToCheck = checkboxesToCheck.slice(1, checkboxesToCheck.length -1 );
-        	checkboxesToCheck = checkboxesToCheck.split(',');	
-        	checkboxesToCheck.forEach(element => console.log(element));
+        	if (checkboxesToCheck){
+        		checkboxesToCheck = checkboxesToCheck.slice(1, checkboxesToCheck.length -1 );
+            	checkboxesToCheck = checkboxesToCheck.split(',');	
+            	checkboxesToCheck.forEach(element => console.log(element));
+            	
+            	//loop over and add checkbox          	
+            		console.log(checkboxesToCheck.length)
+            		console.log("hello");
+            		checkboxesToCheck.forEach(element => {	
+                		element = element.trim();
+                		document.getElementById(element).checked = true
+                		}
+                	);
+        	}
         	
-        	//loop over and add checkbox
-        	checkboxesToCheck.forEach(element => {	
-        		element = element.trim();
-        		document.getElementById(element).checked = true
-        		}
-        	);
+            	
+        	
         	
         	
         	

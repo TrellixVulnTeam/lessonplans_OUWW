@@ -95,17 +95,6 @@ public class LessonPlanController {
 		return "lessonplans";
 	}
 	
-	@GetMapping("/search")
-	public String displayFilteredLessonPlans(Model theModel, HttpSession session) {	
-		List<Topic> topics = topicRepository.findAll();
-		List<Grammar> grammar = grammarRepository.findAll();
-		
-		theModel.addAttribute("topics", topics);
-		theModel.addAttribute("grammar", grammar);
-		
-		
-		return "lessonplans";
-	}
 	
 	@GetMapping("/B2")
 	public String displayB2(Model theModel,HttpSession session
@@ -181,6 +170,18 @@ public class LessonPlanController {
 		return "lessonplans";		
 	}
 	
+	
+	@GetMapping("/search")
+	public String displayFilteredLessonPlans(Model theModel, HttpSession session) {	
+		List<Topic> topics = topicRepository.findAll();
+		List<Grammar> grammar = grammarRepository.findAll();
+		
+		theModel.addAttribute("topics", topics);
+		theModel.addAttribute("grammar", grammar);
+		
+		
+		return "lessonplans";
+	}
 	
 	@PostMapping()
 	public String checkboxTest(Model theModel		
