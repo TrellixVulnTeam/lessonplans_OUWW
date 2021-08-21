@@ -11,11 +11,33 @@
 
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="../css/styles_principal.css">
+<script>
+function addChecked() {     	
+	let checkboxesToCheck = "[[${checkboxesToCheck}]]";
+	
+	if (checkboxesToCheck){
+		checkboxesToCheck = checkboxesToCheck.slice(1, checkboxesToCheck.length -1 );
+    	checkboxesToCheck = checkboxesToCheck.split(',');	
+    	checkboxesToCheck.forEach(element => console.log(element));
+    	
+    	//loop over and add checkbox          	
+    		console.log(checkboxesToCheck.length)
+    		console.log("hello");
+    		checkboxesToCheck.forEach(element => {	
+        		element = element.trim();
+        		if (document.getElementById(element)){	
+            		document.getElementById(element).checked = true
+        		}
+        	
+        	});
+	}
+}
+</script>
 
 <title>Admin page</title>
 </head>
 
-<body>
+<body onload="addChecked()">
 	<div th:insert="navbar.html :: nav"></div>
 	<div class="main-content">
 		<div class="main-content-inner ml-5 mr-5">
@@ -73,8 +95,15 @@
                         <label th:text="${t.name}"></label>
                         <input type="checkbox" th:id="${t.name}" name="topics" th:value="${t.name}">
                         </span>
-             
-
+                    </div>
+                    
+                    <div class="form-header">Tags</div>
+                    <div class="form-group form-vertical-blocks">
+                        
+						<span th:each="t : ${tags}">
+                        <label th:text="${t.name}"></label>
+                        <input type="checkbox" th:id="${t.name}" name="tags" th:value="${t.name}">
+                        </span>
                     </div>
 
                     <div class="form-group form-vertical-blocks">
@@ -159,9 +188,9 @@
                         <label for="song"> Song</label>
                         <input type="checkbox" id="song" name="song" value="song">
 
-                        <label for="funclass2"> Just for
+                        <label for="funClass"> Just for
                             fun</label>
-                        <input type="checkbox" id="funclass" name="funclass" value="funclass">
+                        <input type="checkbox" id="funClass" name="funclass" value="funclass">
 
                         <label for="games">Games</label>
                         <input type="checkbox" id="games" name="games" value="games">

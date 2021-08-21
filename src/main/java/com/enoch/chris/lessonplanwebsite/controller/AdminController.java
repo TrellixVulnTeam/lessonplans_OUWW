@@ -57,27 +57,51 @@ public class AdminController {
 		List<LessonPlan> lessonPlans = lessonPlanRepository.findAll();
 		theModel.addAttribute("lessonPlans", lessonPlans);
 		
-		//populate topics and grammar
+		//populate topics, tags and grammar
 		List<Topic> topics = topicRepository.findAll();
 		List<Grammar> grammar = grammarRepository.findAll();
+		List<Tag> tags = tagRepository.findAll();
 		
 		theModel.addAttribute("topics", topics);
 		theModel.addAttribute("grammar", grammar);
+		theModel.addAttribute("tags", tags);
 		
 		//populate checkboxes for first lesson plan in the list
+		LessonPlan firstLessonPlan = lessonPlans.get(0);
+		List<String> checkboxesToCheck = LessonPlanUtils.saveSelectedCheckboxes(firstLessonPlan);
+	
+		System.out.println("values of checkboxes");
+		System.out.println("Values tostring " + firstLessonPlan);
+		System.out.println("reading " + firstLessonPlan.isReading());
+		checkboxesToCheck.forEach(System.out::println);
 		
+		
+		
+		theModel.addAttribute("checkboxesToCheck", checkboxesToCheck);
 
 		return "admin";
 	}
 	
 	
 	@PostMapping("/admin")
-	public String displayLessonPlanInfo(Model theModel, @RequestParam(name = "lessonPlan", required = false)String lessonPlan) {
-		System.out.println("in post admin");
-		System.out.println(lessonPlan);
-			
-		//populate topics based on lesson plan selected
+	public String displayLessonPlanInfo(Model theModel, @RequestParam(name = "lessonPlan", required = false)String lessonPlanId) {
+		LessonPlan lessonPlan = lessonPlanRepository.findById(Integer.parseInt(lessonPlanId)).get();
 		
+		//save updated lesson to database
+		
+		
+		//populate topics, tags and grammar
+		List<Topic> topics = topicRepository.findAll();
+		List<Grammar> grammar = grammarRepository.findAll();
+		List<Tag> tags = tagRepository.findAll();
+		
+		theModel.addAttribute("topics", topics);
+		theModel.addAttribute("grammar", grammar);
+		theModel.addAttribute("tags", tags);
+	
+		//populate topics based on lesson plan selected
+		List<String> checkboxesToCheck = LessonPlanUtils.saveSelectedCheckboxes(lessonPlan);
+		theModel.addAttribute("checkboxesToCheck", checkboxesToCheck);
 		
 		
 		//send lessonplans

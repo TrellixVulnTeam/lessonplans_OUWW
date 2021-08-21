@@ -490,6 +490,20 @@ public class LessonPlan {
         	
         }
 
+		@Override
+		public String toString() {
+			return "LessonPlanBuilder [id=" + id + ", title=" + title + ", dateAdded=" + dateAdded
+					+ ", assignedSubscription=" + assignedSubscription + ", type=" + type + ", age=" + age
+					+ ", speakingAmount=" + speakingAmount + ", topics=" + topics + ", tags=" + tags + ", lessonTime="
+					+ lessonTime + ", listening=" + listening + ", vocabulary=" + vocabulary + ", reading=" + reading
+					+ ", writing=" + writing + ", video=" + video + ", song=" + song + ", funClass=" + funClass
+					+ ", games=" + games + ", jigsaw=" + jigsaw + ", translation=" + translation + ", preparationTime="
+					+ preparationTime + ", printedMaterialsNeeded=" + printedMaterialsNeeded + ", picture=" + picture
+					+ ", grammar=" + grammar + "]";
+		}
+        
+        
+
     }
     
 }

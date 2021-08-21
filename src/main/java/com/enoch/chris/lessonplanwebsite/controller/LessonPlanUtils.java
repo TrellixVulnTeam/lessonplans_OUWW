@@ -40,22 +40,22 @@ public class LessonPlanUtils {
 			 }	
 		 } 
 		 
-		 if (searchParams.isFunClass() != null) {
+		 if (searchParams.isFunClass() != null && searchParams.isFunClass()) {
 			 checkboxesToCheck.add("funClass");
 		 }
-		 if (searchParams.isGames() != null) {
+		 if (searchParams.isGames() != null && searchParams.isGames()) {
 			 checkboxesToCheck.add("games");
 		 }
-		 if (searchParams.isJigsaw()  != null) {
+		 if (searchParams.isJigsaw()  != null && searchParams.isJigsaw()) {
 			 checkboxesToCheck.add("jigsaw");
 		 }
-		 if (searchParams.isListening() != null) {
+		 if (searchParams.isListening() != null && searchParams.isListening()) {
 			 checkboxesToCheck.add("listening");
 		 }
-		 if (searchParams.isTranslation() != null) {
+		 if (searchParams.isTranslation() != null && searchParams.isTranslation()) {
 			 checkboxesToCheck.add("translation");
 		 }
-		 if (searchParams.isPrintedMaterialsNeeded() != null) {
+		 if (searchParams.isPrintedMaterialsNeeded() != null && searchParams.isPrintedMaterialsNeeded()) {
 			 checkboxesToCheck.add("printedmaterialsneeded");
 		 }
 		 if (searchParams.getGrammar() != null) {
@@ -63,23 +63,23 @@ public class LessonPlanUtils {
 				 checkboxesToCheck.add(g.getGrammarPoint());
 			 }		 
 		 }
-		 if (searchParams.isReading() != null) {
+		 if (searchParams.isReading() != null && searchParams.isReading()) {
 			 checkboxesToCheck.add("reading");
 		 }
 		 
-		 if (searchParams.isSong() != null) {
+		 if (searchParams.isSong() != null && searchParams.isSong()) {
 			 checkboxesToCheck.add("song");
 		 }
 		 
-		 if (searchParams.isVideo() != null) {
+		 if (searchParams.isVideo() != null && searchParams.isVideo()) {
 			 checkboxesToCheck.add("video");
 		 }
 		 
-		 if (searchParams.isVocabulary()!= null) {
+		 if (searchParams.isVocabulary()!= null && searchParams.isVocabulary()) {
 			 checkboxesToCheck.add("vocabulary");
 		 }
 		 
-		 if (searchParams.isWriting() != null) {
+		 if (searchParams.isWriting() != null && searchParams.isWriting()) {
 			 checkboxesToCheck.add("writing");
 		 }
 		 
