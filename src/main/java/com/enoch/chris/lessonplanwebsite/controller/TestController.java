@@ -82,7 +82,6 @@ public class TestController {
 		return "testform";
 	}
 	
-	
 
 	@PostMapping("/testform")
 	public String processForm(final LessonPlan lessonPlan, Model theModel) {
@@ -90,7 +89,7 @@ public class TestController {
 		System.out.println(lessonPlan.getTopics().get(0).getName());
 		System.out.println(lessonPlan.getTags().get(0).getName());
 		System.out.println("sub sub " + lessonPlan.getAssignedSubscription().getName());
-		System.out.println("g g g  " + lessonPlan.getGrammar().get(0).getGrammarPoint());
+		System.out.println("g g g  " + lessonPlan.getGrammar().size());
 		System.out.println("g g g  " + lessonPlan.getLessonTime());
 		System.out.println("printed needed  " + lessonPlan.getPrintedMaterialsNeeded());
 		System.out.println("lp id  " + lessonPlan.getId());

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -49,6 +50,26 @@ public class AdminController {
 	
 	@Autowired
 	private SubscriptionRepository subscriptionRepository;
+	
+	@ModelAttribute("allTopics")
+	public List<Topic> populateTopics() {
+		return topicRepository.findAll();
+	}
+
+	@ModelAttribute("allTags")
+	public List<Tag> populateTags() {
+		return tagRepository.findAll();
+	}
+
+	@ModelAttribute("allSubscriptions")
+	public List<Subscription> populateSubscriptions() {
+		return subscriptionRepository.findAll();
+	}
+
+	@ModelAttribute("allGrammar")
+	public List<Grammar> populateGrammar() {
+		return grammarRepository.findAll();
+	}
 
 	
 	@GetMapping("/admin")
@@ -62,22 +83,14 @@ public class AdminController {
 		List<Grammar> grammar = grammarRepository.findAll();
 		List<Tag> tags = tagRepository.findAll();
 		
-		theModel.addAttribute("topics", topics);
-		theModel.addAttribute("grammar", grammar);
-		theModel.addAttribute("tags", tags);
-		
 		//populate checkboxes for first lesson plan in the list
 		LessonPlan firstLessonPlan = lessonPlans.get(0);
-		List<String> checkboxesToCheck = LessonPlanUtils.saveSelectedCheckboxes(firstLessonPlan);
+		theModel.addAttribute("lessonPlan", firstLessonPlan);
+		theModel.addAttribute("lessonTitle", firstLessonPlan.getTitle());
 	
 		System.out.println("values of checkboxes");
 		System.out.println("Values tostring " + firstLessonPlan);
 		System.out.println("reading " + firstLessonPlan.getReading());
-		checkboxesToCheck.forEach(System.out::println);
-		
-		
-		
-		theModel.addAttribute("checkboxesToCheck", checkboxesToCheck);
 
 		return "admin";
 	}
@@ -86,22 +99,23 @@ public class AdminController {
 	@PostMapping("/admin")
 	public String displayLessonPlanInfo(Model theModel, @RequestParam(name = "lessonPlan", required = false)String lessonPlanId) {
 		LessonPlan lessonPlan = lessonPlanRepository.findById(Integer.parseInt(lessonPlanId)).get();
-		
+		theModel.addAttribute("lessonPlan", lessonPlan);
+		theModel.addAttribute("lessonTitle", lessonPlan.getTitle());
 		//save updated lesson to database
 		
 		
 		//populate topics, tags and grammar
-		List<Topic> topics = topicRepository.findAll();
-		List<Grammar> grammar = grammarRepository.findAll();
-		List<Tag> tags = tagRepository.findAll();
-		
-		theModel.addAttribute("topics", topics);
-		theModel.addAttribute("grammar", grammar);
-		theModel.addAttribute("tags", tags);
+//		List<Topic> topics = topicRepository.findAll();
+//		List<Grammar> grammar = grammarRepository.findAll();
+//		List<Tag> tags = tagRepository.findAll();
+//		
+//		theModel.addAttribute("topics", topics);
+//		theModel.addAttribute("grammar", grammar);
+//		theModel.addAttribute("tags", tags);
 	
 		//populate topics based on lesson plan selected
-		List<String> checkboxesToCheck = LessonPlanUtils.saveSelectedCheckboxes(lessonPlan);
-		theModel.addAttribute("checkboxesToCheck", checkboxesToCheck);
+		//List<String> checkboxesToCheck = LessonPlanUtils.saveSelectedCheckboxes(lessonPlan);
+		//theModel.addAttribute("checkboxesToCheck", checkboxesToCheck);
 		
 		
 		//send lessonplans

@@ -65,165 +65,132 @@ function addChecked() {
 			
 			
 			<div>
-			<h2 th:text="${lessonPlans.get(0).title}"></h2>
-			 <form action="/admin/edit" method="post" >
-
+			<h2 th:text="${lessonTitle}"></h2>
+			 <form th:action="@{/testform}" th:object="${lessonPlan}" method="post" >
 
                     <div class="form-group form-vertical-blocks">
                         <div class="form-header">Type</div>
-                        <label for="general">General</label>
-                        <input type="radio" id="GENERAL" name="type" value="general">
-
-                        <label for="business">Business</label>
-                        <input type="radio" id="BUSINESS" name="type" value="business">
-                    
-                    
-                   		
-                        <div class="form-header ml-4	">Preparation time</div>
-                        <label for="fiveminutespreparationtime"> 5 minutes</label>
-                        <input type="radio" id="5" name="preparationtime" value="5">
-
-                        <label for="tenminutespreparationtime"> 10 minutes </label>
-                        <input type="radio" id="10" name="preparationtime" value="10">
-                    </div>
-                
-                    
- 					<div class="form-header">Topics</div>
-                    <div class="form-group form-vertical-blocks">
                         
-						<span th:each="t : ${topics}">
-                        <label th:text="${t.name}"></label>
-                        <input type="checkbox" th:id="${t.name}" name="topics" th:value="${t.name}">
+                        <span th:each="typ : ${T(com.enoch.chris.lessonplanwebsite.entity.Type).values()}" th:field="*{type}">
+                        <label th:for="${#ids.next('type')}" th:text="${typ}">General</label>
+                        <input type="radio"  th:field="*{type}" th:value="${typ}">
                         </span>
-                    </div>
-                    
+  
+                    </div>       
+
+                    <div class="form-group form-vertical-blocks">
+                    <div class="form-header">Topics</div>
+					  <span th:each="top : ${allTopics}">
+					  	  <label th:for="${#ids.next('topics')}" 
+					           th:text="${top.name}">Heating</label>
+					    <input type="checkbox" th:field="*{topics}" th:value="${top.id}" /> 
+
+						</span>
+					</div>
+					
+					<div class="form-group form-vertical-blocks">
                     <div class="form-header">Tags</div>
-                    <div class="form-group form-vertical-blocks">
-                        
-						<span th:each="t : ${tags}">
-                        <label th:text="${t.name}"></label>
-                        <input type="checkbox" th:id="${t.name}" name="tags" th:value="${t.name}">
+					  <span th:each="tag : ${allTags}">
+					  	  <label th:for="${#ids.next('tags')}" 
+					           th:text="${tag.name}">Heating</label>
+					    <input type="checkbox" th:field="*{tags}" th:value="${tag.id}" /> 
+						</span>
+					</div>
+				
+                    <!--    <span th:each="tag : ${allSubscriptions}">
+					  	  <label th:for="${#ids.next('assignedSubscriptions')}" 
+					           th:text="${tag.name}">Heating</label>
+					    <input type="checkbox" th:field="*{assignedSubscription}" th:value="${tag.id}" /> 
+						</span>
+					</div>    -->
+					  
+						
+					<div class="form-group form-vertical-blocks">
+                    <div class="form-header">Levels</div>
+                     <span th:each="sub : ${allSubscriptions}" th:field="*{assignedSubscription}">
+                        <label th:for="${#ids.next('assignedSubscription')}" th:text="${sub.name}">General</label>
+                        <input type="radio"  th:field="*{assignedSubscription}" th:value="${sub.id}">
                         </span>
                     </div>
-
+                    
                     <div class="form-group form-vertical-blocks">
-                        <div class="form-header">Level</div>
-
-                        <label for="A1">A1</label>
-                        <input type="radio" id="A1" name="subscription"  value="A1">
-
-                        <label for="A2">A2</label>
-                        <input type="radio" id="A2" name="subscription" value="A2">
-
-                        <label for="B1">B1</label>
-                        <input type="radio" id="B1" name="subscription" value="B1">
-
-                        <label for="B2">B2</label>
-                        <input type="radio" id="B2" name="subscription" value="B2">
-
-                        <label for="B2+">B2+</label>
-                        <input type="radio" id="B2+" name="subscription" value="B2+">
-
-                        <label for="C1">C1</label>
-                        <input type="radio" id="C1" name="subscription" value="C1">
-
-                        <label for="C1+">C1+</label>
-                        <input type="radio" id="C1+" name="subscription" value="C1+">
-
-                        <label for="C2">C2</label>
-                        <input type="radio" id="C2" name="subscription" value="C2">
-                    </div>
-
-                    <div class="form-group form-vertical-blocks">
-                        <div class="form-header">Grammar</div>
+                    <div class="form-header">Grammar</div>
+					  <span th:each="g : ${allGrammar}">
+					  	  <label th:for="${#ids.next('grammar')}" 
+					           th:text="${g.grammarPoint}">Heating</label>
+					    <input type="checkbox" th:field="*{grammar}" th:value="${g.id}" /> 
+						</span>
+					</div>
+					
+					  <div class="form-group form-vertical-blocks">
+                        <div class="form-header">Type</div>
                         
-                        <span th:each="g : ${grammar}">
-                                             
-                        <label th:text="${g.grammarPoint}"></label>
-                        <input type="checkbox" th:id="${g.grammarPoint}"  name="grammar" th:value="${g.grammarPoint}">
-                        
+                        <span th:each="dur : ${T(com.enoch.chris.lessonplanwebsite.entity.LessonTime).values()}" th:field="*{lessonTime}">
+                        <label th:for="${#ids.next('lessonTime')}" th:text="${dur}">General</label>
+                        <input type="radio"  th:field="*{lessonTime}" th:value="${dur}">
                         </span>
-            		</div>
-
-                    <div class="form-group form-vertical-blocks">
-                        <div class="form-header">Lesson Duration</div>
-                        <label for="60">60 minutes</label>
-                        <input type="radio" id="SIXTY" name="lessontime" value="60">
-
-
-                        <label for="90">1 hour 30 minutes</label>
-                        <input type="radio" id="NINETY" name="lessontime" value="90">
-
-                        <label for="120">2 hours</label>
-                        <input type="radio" id="ONE_HUNDRED_TWENTY" name="lessontime" value="120">
-                    </div>
-
-                    <div class="form-group form-vertical-blocks">
+  
+                    </div>  
+                    
+                     <div class="form-group form-vertical-blocks">
                         <div class="form-header">Skill</div>
-
-                        <label for="vocabulary">
-                            Vocabulary</label>
-                        <input type="checkbox" id="vocabulary" name="vocabulary" value="vocabulary">
-
-                        <label for="listening">
-                            Listening</label>
-                        <input type="checkbox" id="listening" name="listening" value="listening">
-
-                        <label for="reading"> Reading</label>
-                        <input type="checkbox" id="reading" name="reading" value="reading">
-
-                        <label for="writing"> Writing</label>
-                        <input type="checkbox" id="writing" name="writing" value="writing">
-                        
-                                                    <small>[All lessons include speaking]</small>
+                                 
+                        <label th:for="${#ids.next('vocabulary')}" >Vocabulary</label>
+  						<input type="checkbox" th:field="*{vocabulary}" />
+  						
+  						<label th:for="${#ids.next('listening')}" >Listening</label>
+  						<input type="checkbox" th:field="*{listening}" />
+  						
+  						<label th:for="${#ids.next('reading')}" >Reading</label>
+  						<input type="checkbox" th:field="*{reading}" />
+  						
+  						<label th:for="${#ids.next('writing')}" >Writing</label>
+  						<input type="checkbox" th:field="*{writing}" />
 
                     </div>
-
-                    <div class="form-group form-vertical-blocks">
-                        <div class="form-header">Lesson Content</div>
-
-                        <label for="video"> Video</label>
-                        <input type="checkbox" id="video" name="video" value="video">
-
-                        <label for="song"> Song</label>
-                        <input type="checkbox" id="song" name="song" value="song">
-
-                        <label for="funClass"> Just for
-                            fun</label>
-                        <input type="checkbox" id="funClass" name="funclass" value="funclass">
-
-                        <label for="games">Games</label>
-                        <input type="checkbox" id="games" name="games" value="games">
-
-
-                        <label for="jigsaw"> Jigsaw</label>
-                        <input type="checkbox" id="jigsaw" name="jigsaw" value="jigsaw">
-
-                        <label for="translation">
-                            Translation</label>              
-
-                        <input type="checkbox" id="translation" name="translation" value="translation">
+                    
+                       <div class="form-group form-vertical-blocks">
+                        <div class="form-header">LessonContent</div>
+                                 
+                        <label th:for="${#ids.next('video')}" >Video</label>
+  						<input type="checkbox" th:field="*{video}" />
+  						
+  						<label th:for="${#ids.next('song')}" >Song</label>
+  						<input type="checkbox" th:field="*{song}" />
+  						
+  						<label th:for="${#ids.next('funClass')}" >Just for fun</label>
+  						<input type="checkbox" th:field="*{funClass}" />
+  						
+  						<label th:for="${#ids.next('games')}" >Games</label>
+  						<input type="checkbox" th:field="*{games}" />
+  							
+  						<label th:for="${#ids.next('jigsaw')}" >Jigsaw</label>
+  						<input type="checkbox" th:field="*{jigsaw}" />
+  						
+  						<label th:for="${#ids.next('translation')}" >Translation</label>
+  						<input type="checkbox" th:field="*{translation}" />
 
                     </div>
-
+                    
                     <div class="form-group form-vertical-blocks">
                         <div class="form-header">Speaking</div>
-                        <label for="SPEAKING_ONLY">Speaking
-                            Only</label>
-                        <input type="checkbox" id="SPEAKING_ONLY" name="speakingamount" value="SPEAKING_ONLY">
-                        
+                     
+                        <label th:for="${#ids.next('speakingAmount')}">Speaking Only</label>
+                        <input type="checkbox"  th:field="*{speakingAmount}" th:value="SPEAKING_ONLY">
+                   
+                    </div>
+                    
+                    <div class="form-group form-vertical-blocks">
+                        <div class="form-header">Resources</div>
 
-                        <div class="form-header ml-4">Resources</div>
-
-                        <label for="printedmaterialsneeded">No printed materials needed</label>
-                        <input type="checkbox" id="printedmaterialsneeded" name="printedmaterialsneeded"
-                            value="printedmaterialsneeded">
+                        <label th:for="${#ids.next('printedMaterialsNeeded')}" >No printed materials needed</label>
+  						<input type="checkbox" th:field="*{printedMaterialsNeeded}" />
 
                     </div>
-
-                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" /> <input
-                        type="submit" value="Submit">
-
+                    
+                    <input type="hidden" th:field="*{id}" id="id">               
+                    
+                    <button type="submit" name="save">Submit</button> 
 
                 </form>
               </div>
