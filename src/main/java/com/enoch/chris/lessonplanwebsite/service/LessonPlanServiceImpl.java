@@ -74,37 +74,37 @@ public class LessonPlanServiceImpl implements LessonPlanService {
 				.filter(lp -> searchParameters.getSpeakingAmount() == null ? true
 						: searchParameters.getSpeakingAmount() == lp.getSpeakingAmount())
 //
-				.filter(lp -> searchParameters.isListening() == null? true			
-						:searchParameters.isListening() == lp.isListening())
+				.filter(lp -> searchParameters.getListening() == null? true			
+						:searchParameters.getListening() == lp.getListening())
 
-				.filter(lp -> searchParameters.isVocabulary() == null? true
-						: searchParameters.isVocabulary() == lp.isVocabulary())
+				.filter(lp -> searchParameters.getVocabulary() == null? true
+						: searchParameters.getVocabulary() == lp.getVocabulary())
 
-				.filter(lp -> searchParameters.isReading() == null? true
-						:searchParameters.isReading() == lp.isReading())
+				.filter(lp -> searchParameters.getReading() == null? true
+						:searchParameters.getReading() == lp.getReading())
 
-				.filter(lp -> searchParameters.isWriting() == null? true
-						:searchParameters.isWriting() == lp.isWriting())
+				.filter(lp -> searchParameters.getWriting() == null? true
+						:searchParameters.getWriting() == lp.getWriting())
 //
-				.filter(lp -> searchParameters.isFunClass() == null? true
-						:searchParameters.isFunClass() == lp.isFunClass())				
+				.filter(lp -> searchParameters.getFunClass() == null? true
+						:searchParameters.getFunClass() == lp.getFunClass())				
 //
-				.filter(lp -> searchParameters.isGames() == null? true
-					:searchParameters.isGames() == lp.isGames())
+				.filter(lp -> searchParameters.getGames() == null? true
+					:searchParameters.getGames() == lp.getGames())
 							
-				.filter(lp -> searchParameters.isJigsaw() == null? true
-					:searchParameters.isJigsaw() == lp.isJigsaw())
+				.filter(lp -> searchParameters.getJigsaw() == null? true
+					:searchParameters.getJigsaw() == lp.getJigsaw())
 
-				.filter(lp -> searchParameters.isTranslation() == null? true
-					:searchParameters.isTranslation() == lp.isTranslation())
+				.filter(lp -> searchParameters.getTranslation() == null? true
+					:searchParameters.getTranslation() == lp.getTranslation())
 
-				.filter(lp -> searchParameters.isSong() == null? true
-					:searchParameters.isSong() == lp.isSong())
+				.filter(lp -> searchParameters.getSong() == null? true
+					:searchParameters.getSong() == lp.getSong())
 //
 				.filter(lp -> searchParameters.getPreparationTime() <= lp.getPreparationTime())
 
-				.filter(lp -> searchParameters.isPrintedMaterialsNeeded() == null? true
-					:searchParameters.isPrintedMaterialsNeeded() == lp.isPrintedMaterialsNeeded())
+				.filter(lp -> searchParameters.getPrintedMaterialsNeeded() == null? true
+					:searchParameters.getPrintedMaterialsNeeded() == lp.getPrintedMaterialsNeeded())
 //			
 				.filter(lp -> searchParameters.getPicture() == null ? true
 						: searchParameters.getPicture() == lp.getPicture())

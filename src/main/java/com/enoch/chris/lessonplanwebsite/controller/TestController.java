@@ -34,42 +34,45 @@ import com.enoch.chris.lessonplanwebsite.entity.User;
 
 @Controller
 public class TestController {
-	
+
 	@Autowired
 	private LessonPlanRepository lessonPlanRepository;
 
 	@Autowired
 	private PictureRepository pictureRepository;
-	
+
 	@Autowired
 	private GrammarRepository grammarRepository;
-	
+
 	@Autowired
 	private TopicRepository topicRepository;
-	
+
 	@Autowired
 	private TagRepository tagRepository;
-	
+
 	@Autowired
 	private SubscriptionRepository subscriptionRepository;
-	
-  @ModelAttribute("allTopics")
-    public List<Topic> populateTopics() {
-        return topicRepository.findAll();
-    }
-  
-  @ModelAttribute("allTags")
-  public List<Tag> populateTags() {
-      return tagRepository.findAll();
-  }
-  
-  @ModelAttribute("allSubscriptions")
-  public List<Subscription> populateSubscriptions() {
-      return subscriptionRepository.findAll();
-  }
 
+	@ModelAttribute("allTopics")
+	public List<Topic> populateTopics() {
+		return topicRepository.findAll();
+	}
 
-	
+	@ModelAttribute("allTags")
+	public List<Tag> populateTags() {
+		return tagRepository.findAll();
+	}
+
+	@ModelAttribute("allSubscriptions")
+	public List<Subscription> populateSubscriptions() {
+		return subscriptionRepository.findAll();
+	}
+
+	@ModelAttribute("allGrammar")
+	public List<Grammar> populateGrammar() {
+		return grammarRepository.findAll();
+	}
+
 	@GetMapping("/testform")
 	public String displayLessonPlans(Model theModel) {
 		LessonPlan lp = lessonPlanRepository.findAll().get(0);
@@ -79,25 +82,24 @@ public class TestController {
 		return "testform";
 	}
 	
+	
+
 	@PostMapping("/testform")
 	public String processForm(final LessonPlan lessonPlan, Model theModel) {
 		System.out.println("Post getType " + lessonPlan.getType());
 		System.out.println(lessonPlan.getTopics().get(0).getName());
 		System.out.println(lessonPlan.getTags().get(0).getName());
-		
-		
+		System.out.println("sub sub " + lessonPlan.getAssignedSubscription().getName());
+		System.out.println("g g g  " + lessonPlan.getGrammar().get(0).getGrammarPoint());
+		System.out.println("g g g  " + lessonPlan.getLessonTime());
+		System.out.println("printed needed  " + lessonPlan.getPrintedMaterialsNeeded());
+		System.out.println("lp id  " + lessonPlan.getId());
+		System.out.println("speaking only " + lessonPlan.getSpeakingAmount());
+
 		LessonPlan lp = lessonPlanRepository.findAll().get(0);
 		theModel.addAttribute("lessonPlan", lp);
 
 		return "testform";
 	}
-	
+
 }
-
-
-
-
-
-
-
-

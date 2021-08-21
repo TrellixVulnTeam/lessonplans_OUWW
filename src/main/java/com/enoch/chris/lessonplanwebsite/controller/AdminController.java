@@ -72,7 +72,7 @@ public class AdminController {
 	
 		System.out.println("values of checkboxes");
 		System.out.println("Values tostring " + firstLessonPlan);
-		System.out.println("reading " + firstLessonPlan.isReading());
+		System.out.println("reading " + firstLessonPlan.getReading());
 		checkboxesToCheck.forEach(System.out::println);
 		
 		

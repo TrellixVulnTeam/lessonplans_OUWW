@@ -40,22 +40,22 @@ public class LessonPlanUtils {
 			 }	
 		 } 
 		 
-		 if (searchParams.isFunClass() != null && searchParams.isFunClass()) {
+		 if (searchParams.getFunClass() != null && searchParams.getFunClass()) {
 			 checkboxesToCheck.add("funClass");
 		 }
-		 if (searchParams.isGames() != null && searchParams.isGames()) {
+		 if (searchParams.getGames() != null && searchParams.getGames()) {
 			 checkboxesToCheck.add("games");
 		 }
-		 if (searchParams.isJigsaw()  != null && searchParams.isJigsaw()) {
+		 if (searchParams.getJigsaw()  != null && searchParams.getJigsaw()) {
 			 checkboxesToCheck.add("jigsaw");
 		 }
-		 if (searchParams.isListening() != null && searchParams.isListening()) {
+		 if (searchParams.getListening() != null && searchParams.getListening()) {
 			 checkboxesToCheck.add("listening");
 		 }
-		 if (searchParams.isTranslation() != null && searchParams.isTranslation()) {
+		 if (searchParams.getTranslation() != null && searchParams.getTranslation()) {
 			 checkboxesToCheck.add("translation");
 		 }
-		 if (searchParams.isPrintedMaterialsNeeded() != null && searchParams.isPrintedMaterialsNeeded()) {
+		 if (searchParams.getPrintedMaterialsNeeded() != null && searchParams.getPrintedMaterialsNeeded()) {
 			 checkboxesToCheck.add("printedmaterialsneeded");
 		 }
 		 if (searchParams.getGrammar() != null) {
@@ -63,23 +63,23 @@ public class LessonPlanUtils {
 				 checkboxesToCheck.add(g.getGrammarPoint());
 			 }		 
 		 }
-		 if (searchParams.isReading() != null && searchParams.isReading()) {
+		 if (searchParams.getReading() != null && searchParams.getReading()) {
 			 checkboxesToCheck.add("reading");
 		 }
 		 
-		 if (searchParams.isSong() != null && searchParams.isSong()) {
+		 if (searchParams.getSong() != null && searchParams.getSong()) {
 			 checkboxesToCheck.add("song");
 		 }
 		 
-		 if (searchParams.isVideo() != null && searchParams.isVideo()) {
+		 if (searchParams.getVideo() != null && searchParams.getVideo()) {
 			 checkboxesToCheck.add("video");
 		 }
 		 
-		 if (searchParams.isVocabulary()!= null && searchParams.isVocabulary()) {
+		 if (searchParams.getVocabulary()!= null && searchParams.getVocabulary()) {
 			 checkboxesToCheck.add("vocabulary");
 		 }
 		 
-		 if (searchParams.isWriting() != null && searchParams.isWriting()) {
+		 if (searchParams.getWriting() != null && searchParams.getWriting()) {
 			 checkboxesToCheck.add("writing");
 		 }
 		 

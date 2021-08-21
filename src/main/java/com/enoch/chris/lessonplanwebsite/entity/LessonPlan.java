@@ -210,7 +210,7 @@ public class LessonPlan {
 		this.speakingAmount = speakingAmount;
 	}
 
-	public Boolean  isListening() {
+	public Boolean  getListening() {
 		return listening;
 	}
 
@@ -218,15 +218,18 @@ public class LessonPlan {
 		this.listening = listening;
 	}
 
-	public Boolean  isVocabulary() {
+	
+	public Boolean  getVocabulary() {
 		return vocabulary;
 	}
+	
+	
 
 	public void setVocabulary(Boolean  vocabulary) {
 		this.vocabulary = vocabulary;
 	}
 
-	public Boolean  isReading() {
+	public Boolean  getReading() {
 		return reading;
 	}
 
@@ -234,7 +237,7 @@ public class LessonPlan {
 		this.reading = reading;
 	}
 
-	public Boolean  isWriting() {
+	public Boolean  getWriting() {
 		return writing;
 	}
 
@@ -242,7 +245,7 @@ public class LessonPlan {
 		this.writing = writing;
 	}
 
-	public Boolean  isVideo() {
+	public Boolean  getVideo() {
 		return video;
 	}
 
@@ -250,7 +253,7 @@ public class LessonPlan {
 		this.video = video;
 	}
 
-	public Boolean  isSong() {
+	public Boolean  getSong() {
 		return song;
 	}
 
@@ -258,7 +261,7 @@ public class LessonPlan {
 		this.song = song;
 	}
 
-	public Boolean  isFunClass() {
+	public Boolean  getFunClass() {
 		return funClass;
 	}
 
@@ -266,7 +269,7 @@ public class LessonPlan {
 		this.funClass = funClass;
 	}
 
-	public Boolean  isGames() {
+	public Boolean  getGames() {
 		return games;
 	}
 
@@ -274,7 +277,7 @@ public class LessonPlan {
 		this.games = games;
 	}
 
-	public Boolean  isJigsaw() {
+	public Boolean  getJigsaw() {
 		return jigsaw;
 	}
 
@@ -282,7 +285,7 @@ public class LessonPlan {
 		this.jigsaw = jigsaw;
 	}
 
-	public Boolean  isTranslation() {
+	public Boolean  getTranslation() {
 		return translation;
 	}
 
@@ -290,7 +293,7 @@ public class LessonPlan {
 		this.translation = translation;
 	}
 
-	public Boolean  isPrintedMaterialsNeeded() {
+	public Boolean  getPrintedMaterialsNeeded() {
 		return printedMaterialsNeeded;
 	}
 
