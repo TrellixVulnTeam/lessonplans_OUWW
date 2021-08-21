@@ -311,9 +311,7 @@ public class LessonPlanController {
 		 //loop over all variables, if not null add the name to the list
 		 //if topics, grammar, tag not null, loop over these and add them too
 		 
-		 List<String> checkboxesToCheck = saveSelectedCheckboxes(type, assignedSubscription, tags, grammar, speakingAmount, listening, vocabulary,
-				reading, writing, video, song, funClass, games, jigsaw, translation, printedMaterialsNeeded,
-				topicsInstantiated, tagsInstantiated, grammarInstantiated, preparationTime, lessonTime);
+		 List<String> checkboxesToCheck = saveSelectedCheckboxes(searchParameters);
 		 	 
 		 redirectAttributes.addFlashAttribute("checkboxesToCheck", checkboxesToCheck);
 
@@ -322,88 +320,90 @@ public class LessonPlanController {
 		 return "redirect:/lessonplans/search";
 	}
 
-	private List<String> saveSelectedCheckboxes(String type, String assignedSubscription, List<String> tags,
-			List<String> grammar, String speakingAmount, String listening, String vocabulary, String reading,
-			String writing, String video, String song, String funClass, String games, String jigsaw, String translation,
-			String printedMaterialsNeeded, List<Topic> topicsInstantiated, List<Tag> tagsInstantiated,
-			List<Grammar> grammarInstantiated, String preparationtime, Integer lessontime) {
+	private List<String> saveSelectedCheckboxes(LessonPlan searchParams) {
 		
 		 List<String> checkboxesToCheck = new ArrayList<>();
 		 
-		 if (assignedSubscription != null) {
-			 checkboxesToCheck.add(assignedSubscription);
+		 if (searchParams.getAssignedSubscription() != null) {
+			 System.out.println("sub test " + searchParams.getAssignedSubscription().getName());
+			 checkboxesToCheck.add(searchParams.getAssignedSubscription().getName());
 		 }
-		 if (type != null) {
-			 checkboxesToCheck.add(type);
+		 if (searchParams.getType() != null) {
+			 System.out.println("type string " + searchParams.getType().toString());
+			 checkboxesToCheck.add(searchParams.getType().toString().toLowerCase());
 		 }
-		 if (speakingAmount!= null) {
-			 System.out.println("speakingAmount " + speakingAmount);
+		 if (searchParams.getSpeakingAmount() != null) {
+			 System.out.println("speakingAmount " + searchParams.getSpeakingAmount().toString());
 			 
-			 checkboxesToCheck.add(speakingAmount);
+			 checkboxesToCheck.add(searchParams.getSpeakingAmount().toString());
 		 }
 		 
-		 if (topicsInstantiated != null) {
-			 for (Topic topic : topicsInstantiated) {
+		 if (searchParams.getTopics() != null) {
+			 for (Topic topic : searchParams.getTopics()) {
 				 checkboxesToCheck.add(topic.getName());
 			 }	 
 		 } 
 		 
-		 if (tags != null) {
-			 for (Tag tag : tagsInstantiated) {
+		 if (searchParams.getTags() != null) {
+			 for (Tag tag : searchParams.getTags()) {
 				 checkboxesToCheck.add(tag.getName());
 			 }	
 		 } 
 		 
-		 if (funClass != null) {
-			 checkboxesToCheck.add(funClass);
+		 if (searchParams.isFunClass() != null) {
+			 checkboxesToCheck.add("funClass");
 		 }
-		 if (games != null) {
-			 checkboxesToCheck.add(games);
+		 if (searchParams.isGames() != null) {
+			 checkboxesToCheck.add("games");
 		 }
-		 if (jigsaw != null) {
-			 checkboxesToCheck.add(jigsaw);
+		 if (searchParams.isJigsaw()  != null) {
+			 checkboxesToCheck.add("jigsaw");
 		 }
-		 if (listening != null) {
-			 checkboxesToCheck.add(listening);
+		 if (searchParams.isListening() != null) {
+			 checkboxesToCheck.add("listening");
 		 }
-		 if (translation != null) {
-			 checkboxesToCheck.add(translation);
+		 if (searchParams.isTranslation() != null) {
+			 checkboxesToCheck.add("translation");
 		 }
-		 if (printedMaterialsNeeded != null) {
-			 checkboxesToCheck.add(printedMaterialsNeeded);
+		 if (searchParams.isPrintedMaterialsNeeded() != null) {
+			 checkboxesToCheck.add("printedmaterialsneeded");
 		 }
-		 if (grammar != null) {
-			 for (Grammar g : grammarInstantiated) {
+		 if (searchParams.getGrammar() != null) {
+			 for (Grammar g : searchParams.getGrammar()) {
 				 checkboxesToCheck.add(g.getGrammarPoint());
 			 }		 
 		 }
-		 if (reading != null) {
-			 checkboxesToCheck.add(reading);
+		 if (searchParams.isReading() != null) {
+			 checkboxesToCheck.add("reading");
 		 }
 		 
-		 if (song != null) {
-			 checkboxesToCheck.add(song);
+		 if (searchParams.isSong() != null) {
+			 checkboxesToCheck.add("song");
 		 }
 		 
-		 if (video != null) {
-			 checkboxesToCheck.add(video);
+		 if (searchParams.isVideo() != null) {
+			 checkboxesToCheck.add("video");
 		 }
 		 
-		 if (vocabulary != null) {
-			 checkboxesToCheck.add(vocabulary);
+		 if (searchParams.isVocabulary()!= null) {
+			 checkboxesToCheck.add("vocabulary");
 		 }
 		 
-		 if (writing != null) {
-			 checkboxesToCheck.add(writing);
+		 if (searchParams.isWriting() != null) {
+			 checkboxesToCheck.add("writing");
 		 }
 		 
-		 if (preparationtime != null) {
-			 checkboxesToCheck.add(preparationtime);
+		 checkboxesToCheck.add(String.valueOf(searchParams.getPreparationTime()));
+//		 if (searchParams != null) {
+//			 checkboxesToCheck.add(preparationtime);
+//		 }
+//		 
+		 if (searchParams.getLessonTime() != null) {
+			 checkboxesToCheck.add(String.valueOf(searchParams.getLessonTime().toString().toLowerCase()));
 		 }
-		 
-		 if (lessontime != null) {
-			 checkboxesToCheck.add(String.valueOf(lessontime));
-		 }
+		
+		 System.out.println("debug checkboxestocheck ");
+		 checkboxesToCheck.forEach(System.out::println);
 		 
 		 return checkboxesToCheck;
 	}
