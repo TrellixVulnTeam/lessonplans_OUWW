@@ -33,28 +33,50 @@
                         <input type="radio"  th:field="*{type}" th:value="${typ}">
                         </span>
   
-                    </div>
+                    </div>       
 
-                    
-                    <ul>
-					  <li th:each="top : ${allTopics}">
+                    <div class="form-group form-vertical-blocks">
+                    <div class="form-header">Topics</div>
+					  <span th:each="top : ${allTopics}">
 					  	  <label th:for="${#ids.next('topics')}" 
 					           th:text="${top.name}">Heating</label>
 					    <input type="checkbox" th:field="*{topics}" th:value="${top.id}" /> 
-					  
+
+						</span>
+					</div>
+					
+					<div class="form-group form-vertical-blocks">
+                    <div class="form-header">Tags</div>
+					  <span th:each="tag : ${allTags}">
+					  	  <label th:for="${#ids.next('tags')}" 
+					           th:text="${tag.name}">Heating</label>
+					    <input type="checkbox" th:field="*{tags}" th:value="${tag.id}" /> 
+						</span>
+					</div>
 				
-					    
-					  </li>
-					</ul>
-       
-                    <!--  <div class="form-header">Topics</div>
-                    <div class="form-group form-vertical-blocks">
-                        
-						<span th:each="t : ${topics}">
-                        <label th:text="${t.name}"></label>
-                        <input type="checkbox" th:id="${t.name}" name="topics" th:value="${t.name}">
+                    <!--    <span th:each="tag : ${allSubscriptions}">
+					  	  <label th:for="${#ids.next('assignedSubscriptions')}" 
+					           th:text="${tag.name}">Heating</label>
+					    <input type="checkbox" th:field="*{assignedSubscription}" th:value="${tag.id}" /> 
+						</span>
+					</div>    -->
+					  
+						
+					<div class="form-group form-vertical-blocks">
+                    <div class="form-header">Levels</div>
+                     <span th:each="sub : ${allSubscriptions}" th:field="*{assignedSubscription}">
+                        <label th:for="${#ids.next('assignedSubscription')}" th:text="${sub.name}">General</label>
+                        <input type="radio"  th:field="*{assignedSubscription}" th:value="${sub.id}">
                         </span>
-                    </div>-->
+                    
+				
+				
+					
+					
+       
+                 
+                 
+                 
                     
                     <button type="submit" name="save">Submit</button> 
 

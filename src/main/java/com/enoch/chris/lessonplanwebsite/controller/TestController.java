@@ -54,9 +54,20 @@ public class TestController {
 	private SubscriptionRepository subscriptionRepository;
 	
   @ModelAttribute("allTopics")
-    public List<Topic> populateFeatures() {
+    public List<Topic> populateTopics() {
         return topicRepository.findAll();
     }
+  
+  @ModelAttribute("allTags")
+  public List<Tag> populateTags() {
+      return tagRepository.findAll();
+  }
+  
+  @ModelAttribute("allSubscriptions")
+  public List<Subscription> populateSubscriptions() {
+      return subscriptionRepository.findAll();
+  }
+
 
 	
 	@GetMapping("/testform")
@@ -72,6 +83,7 @@ public class TestController {
 	public String processForm(final LessonPlan lessonPlan, Model theModel) {
 		System.out.println("Post getType " + lessonPlan.getType());
 		System.out.println(lessonPlan.getTopics().get(0).getName());
+		System.out.println(lessonPlan.getTags().get(0).getName());
 		
 		
 		LessonPlan lp = lessonPlanRepository.findAll().get(0);
