@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html lang="en" 
+		xmlns:th="http://www.thymeleaf.org"
+		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="../css/styles_principal.css">
+
+
+<title>Admin page</title>
+</head>
+
+<body onload="addChecked()">
+	<div th:insert="navbar.html :: nav"></div>
+	<div class="main-content">
+		<div class="main-content-inner ml-5 mr-5">
+
+			<h1 id="large-header" class="mt-5 ml-5 mb-5">Test form page</h1>
+		
+			 <form th:action="@{/test}" th:object="${lessonPlan}" method="post" >
+
+                    <div class="form-group form-vertical-blocks">
+                        <div class="form-header">Type</div>
+                        
+                        <span th:each="typ : ${T(com.enoch.chris.lessonplanwebsite.entity.Type).values()}" th:field="*{type}">
+                        <label th:for="${#ids.next('type')}">General</label>
+                        <input type="radio"  th:field="*{type}" th:value="${typ}">
+                        </span>
+  
+                    </div>
+                
+                    
+ 					<div class="form-header">Topics</div>
+                    <div class="form-group form-vertical-blocks">
+                        
+						<span th:each="t : ${topics}">
+                        <label th:text="${t.name}"></label>
+                        <input type="checkbox" th:id="${t.name}" name="topics" th:value="${t.name}">
+                        </span>
+                    </div>
+
+                </form>
+              </div>
+
+
+
+		</div>
+</body>
+</html>
+
+
+
