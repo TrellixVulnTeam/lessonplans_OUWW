@@ -101,22 +101,28 @@ public class AdminController {
 		LessonPlan lessonPlan = lessonPlanRepository.findById(Integer.parseInt(lessonPlanId)).get();
 		theModel.addAttribute("lessonPlan", lessonPlan);
 		theModel.addAttribute("lessonTitle", lessonPlan.getTitle());
-		//save updated lesson to database
-		
-		
-		//populate topics, tags and grammar
-//		List<Topic> topics = topicRepository.findAll();
-//		List<Grammar> grammar = grammarRepository.findAll();
-//		List<Tag> tags = tagRepository.findAll();
-//		
-//		theModel.addAttribute("topics", topics);
-//		theModel.addAttribute("grammar", grammar);
-//		theModel.addAttribute("tags", tags);
+
+		//send lessonplans
+		List<LessonPlan> lessonPlans = lessonPlanRepository.findAll();
+		theModel.addAttribute("lessonPlans", lessonPlans);
+
+		return "admin";
+	}
 	
-		//populate topics based on lesson plan selected
-		//List<String> checkboxesToCheck = LessonPlanUtils.saveSelectedCheckboxes(lessonPlan);
-		//theModel.addAttribute("checkboxesToCheck", checkboxesToCheck);
+	@PostMapping("/admin/edit")
+	public String editLessonPlan(final LessonPlan lessonPlan, Model theModel) {
+		theModel.addAttribute("lessonPlan", lessonPlan);
+		theModel.addAttribute("lessonTitle", lessonPlan.getTitle());
 		
+		System.out.println("test values");
+//		System.out.println(lessonPlan.getDateAdded());
+//		System.out.println(lessonPlan.getTitle());
+//		System.out.println(lessonPlan.getId());
+//		System.out.println(lessonPlan.getAge());
+		
+		
+		//save updated lesson to database
+		lessonPlanRepository.save(lessonPlan);
 		
 		//send lessonplans
 		List<LessonPlan> lessonPlans = lessonPlanRepository.findAll();

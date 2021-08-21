@@ -66,7 +66,7 @@ function addChecked() {
 			
 			<div>
 			<h2 th:text="${lessonTitle}"></h2>
-			 <form th:action="@{/testform}" th:object="${lessonPlan}" method="post" >
+			 <form th:action="@{/admin/edit}" th:object="${lessonPlan}" method="post" >
 
                     <div class="form-group form-vertical-blocks">
                         <div class="form-header">Type</div>
@@ -188,7 +188,10 @@ function addChecked() {
 
                     </div>
                     
-                    <input type="hidden" th:field="*{id}" id="id">               
+                    <input type="hidden" th:field="*{id}" id="id"> 
+                    <input type="hidden" th:field="*{title}" id="title">    
+                    <input type="hidden" th:field="*{dateAdded}" id="dateAdded">    
+                    <input type="hidden" th:field="*{age}" id="age">                  
                     
                     <button type="submit" name="save">Submit</button> 
 
