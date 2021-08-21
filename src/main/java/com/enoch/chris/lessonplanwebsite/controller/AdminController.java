@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.enoch.chris.lessonplanwebsite.dao.GrammarRepository;
 import com.enoch.chris.lessonplanwebsite.dao.LessonPlanRepository;
@@ -50,14 +52,37 @@ public class AdminController {
 
 	
 	@GetMapping("/admin")
-	public String displayAdmin(Model theModel) {
+	public String displayLessonPlans(Model theModel) {
 		//send lessonplans
 		List<LessonPlan> lessonPlans = lessonPlanRepository.findAll();
 		theModel.addAttribute("lessonPlans", lessonPlans);
 		
+		//populate topics and grammar
+		List<Topic> topics = topicRepository.findAll();
+		List<Grammar> grammar = grammarRepository.findAll();
 		
+		theModel.addAttribute("topics", topics);
+		theModel.addAttribute("grammar", grammar);
+		
+		//populate checkboxes for first lesson plan in the list
+		
+
+		return "admin";
+	}
+	
+	
+	@PostMapping("/admin")
+	public String displayLessonPlanInfo(Model theModel, @RequestParam(name = "lessonPlan", required = false)String lessonPlan) {
+		System.out.println("in post admin");
+		System.out.println(lessonPlan);
+			
 		//populate topics based on lesson plan selected
 		
+		
+		
+		//send lessonplans
+		List<LessonPlan> lessonPlans = lessonPlanRepository.findAll();
+		theModel.addAttribute("lessonPlans", lessonPlans);
 
 		return "admin";
 	}
