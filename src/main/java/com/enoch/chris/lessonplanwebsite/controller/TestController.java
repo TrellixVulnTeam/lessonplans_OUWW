@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.enoch.chris.lessonplanwebsite.dao.GrammarRepository;
 import com.enoch.chris.lessonplanwebsite.dao.LessonPlanRepository;
@@ -50,12 +52,29 @@ public class TestController {
 	
 	@Autowired
 	private SubscriptionRepository subscriptionRepository;
+	
+  @ModelAttribute("allTopics")
+    public List<Topic> populateFeatures() {
+        return topicRepository.findAll();
+    }
 
 	
 	@GetMapping("/testform")
 	public String displayLessonPlans(Model theModel) {
 		LessonPlan lp = lessonPlanRepository.findAll().get(0);
 
+		theModel.addAttribute("lessonPlan", lp);
+
+		return "testform";
+	}
+	
+	@PostMapping("/testform")
+	public String processForm(final LessonPlan lessonPlan, Model theModel) {
+		System.out.println("Post getType " + lessonPlan.getType());
+		System.out.println(lessonPlan.getTopics().get(0).getName());
+		
+		
+		LessonPlan lp = lessonPlanRepository.findAll().get(0);
 		theModel.addAttribute("lessonPlan", lp);
 
 		return "testform";

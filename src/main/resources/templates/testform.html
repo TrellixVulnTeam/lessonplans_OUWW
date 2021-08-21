@@ -23,7 +23,7 @@
 
 			<h1 id="large-header" class="mt-5 ml-5 mb-5">Test form page</h1>
 		
-			 <form th:action="@{/test}" th:object="${lessonPlan}" method="post" >
+			 <form th:action="@{/testform}" th:object="${lessonPlan}" method="post" >
 
                     <div class="form-group form-vertical-blocks">
                         <div class="form-header">Type</div>
@@ -34,16 +34,29 @@
                         </span>
   
                     </div>
-                
+
                     
- 					<div class="form-header">Topics</div>
+                    <ul>
+					  <li th:each="top : ${allTopics}">
+					  	  <label th:for="${#ids.next('topics')}" 
+					           th:text="${top.name}">Heating</label>
+					    <input type="checkbox" th:field="*{topics}" th:value="${top.id}" /> 
+					  
+				
+					    
+					  </li>
+					</ul>
+       
+                    <!--  <div class="form-header">Topics</div>
                     <div class="form-group form-vertical-blocks">
                         
 						<span th:each="t : ${topics}">
                         <label th:text="${t.name}"></label>
                         <input type="checkbox" th:id="${t.name}" name="topics" th:value="${t.name}">
                         </span>
-                    </div>
+                    </div>-->
+                    
+                    <button type="submit" name="save">Submit</button> 
 
                 </form>
               </div>
