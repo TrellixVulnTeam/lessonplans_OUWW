@@ -330,7 +330,7 @@ public class LessonPlanController {
 		 }
 		 if (searchParams.getType() != null) {
 			 System.out.println("type string " + searchParams.getType().toString());
-			 checkboxesToCheck.add(searchParams.getType().toString().toLowerCase());
+			 checkboxesToCheck.add(searchParams.getType().toString());
 		 }
 		 if (searchParams.getSpeakingAmount() != null) {
 			 System.out.println("speakingAmount " + searchParams.getSpeakingAmount().toString());
@@ -399,7 +399,7 @@ public class LessonPlanController {
 //		 }
 //		 
 		 if (searchParams.getLessonTime() != null) {
-			 checkboxesToCheck.add(String.valueOf(searchParams.getLessonTime().toString().toLowerCase()));
+			 checkboxesToCheck.add(String.valueOf(searchParams.getLessonTime().toString()));
 		 }
 		
 		 System.out.println("debug checkboxestocheck ");
