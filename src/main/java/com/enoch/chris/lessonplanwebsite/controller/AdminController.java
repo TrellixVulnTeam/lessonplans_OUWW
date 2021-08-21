@@ -49,27 +49,18 @@ public class AdminController {
 	private SubscriptionRepository subscriptionRepository;
 
 	
-//	@GetMapping("/admin")
-//	public String displayAdmin(Model theModel) {		
-//
-//		//works
-//		Picture p2 = new Picture("P7", "some_name");
-//		Picture p2New = pictureRepository.save(p2);
-//		
-//		Subscription a1 = subscriptionRepository.findById(1).get();
-//	
-//		List<Topic> topics = new ArrayList<>();
-//		Topic technology = new Topic("Technology", Arrays.asList(new Tag("Driverless"), new Tag("social media")));
-//		topics.add(technology);	
-//		
-//		LessonPlan lp = new LessonPlan.LessonPlanBuilder("My LP12", LocalDate.now(), a1, Type.BUSINESS
-//				, 10, SpeakingAmount.LOTS, topics).grammar(Arrays.asList(new Grammar("Adverbs")))
-//			.picture(p2New).build();
-//		
-//		lessonPlanRepository.save(lp);
-//
-//		return "admin";
-//	}
+	@GetMapping("/admin")
+	public String displayAdmin(Model theModel) {
+		//send lessonplans
+		List<LessonPlan> lessonPlans = lessonPlanRepository.findAll();
+		theModel.addAttribute("lessonPlans", lessonPlans);
+		
+		
+		//populate topics based on lesson plan selected
+		
+
+		return "admin";
+	}
 	
 	@GetMapping("/admin/addlp")
 	public String addLessonPlan(Model theModel) {		

@@ -154,13 +154,19 @@ label {
 }
 */
 
-input, select {
+input {
 	margin-right:2rem;
 	width: 30px;
 	height: 20px;
 	border: 1px solid #ced4da;
 	border-radius: .25rem;
 }
+
+select {
+	
+}
+
+
 
 input:focus {
 	border: 1px solid rgba(255, 140, 0, 0.3);
