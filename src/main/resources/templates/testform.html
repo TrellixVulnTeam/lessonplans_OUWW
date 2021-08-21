@@ -29,7 +29,7 @@
                         <div class="form-header">Type</div>
                         
                         <span th:each="typ : ${T(com.enoch.chris.lessonplanwebsite.entity.Type).values()}" th:field="*{type}">
-                        <label th:for="${#ids.next('type')}">General</label>
+                        <label th:for="${#ids.next('type')}" th:text="${typ}">General</label>
                         <input type="radio"  th:field="*{type}" th:value="${typ}">
                         </span>
   
