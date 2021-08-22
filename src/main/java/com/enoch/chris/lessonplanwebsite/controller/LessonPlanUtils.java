@@ -55,7 +55,7 @@ public class LessonPlanUtils {
 		 if (searchParams.getTranslation()) {
 			 checkboxesToCheck.add("translation");
 		 }
-		 if (searchParams.getPrintedMaterialsNeeded()) {
+		 if (!searchParams.getPrintedMaterialsNeeded()) {
 			 checkboxesToCheck.add("printedmaterialsneeded");
 		 }
 		 if (searchParams.getGrammar() != null) {
