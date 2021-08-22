@@ -77,11 +77,12 @@ public class AdminController {
 	}
 
 	
-	@GetMapping("/admin")
+	@GetMapping({"/admin", "/admin/edit"})
 	public String displayLessonPlans(Model theModel) {
 		//send lessonplans
 		List<LessonPlan> lessonPlans = lessonPlanRepository.findAll();
 		theModel.addAttribute("lessonPlans", lessonPlans);
+		theModel.addAttribute("showExisitngLessons", "showExisitngLessons");
 		
 		//populate topics, tags and grammar
 		List<Topic> topics = topicRepository.findAll();
@@ -96,6 +97,15 @@ public class AdminController {
 		System.out.println("values of checkboxes");
 		System.out.println("Values tostring " + firstLessonPlan);
 		System.out.println("reading " + firstLessonPlan.getReading());
+
+		return "admin";
+	}
+	
+	@GetMapping("/admin/add")
+	public String addLessonPlan(Model theModel) {
+		LessonPlan templateLessonPlan = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null).build();
+		theModel.addAttribute("lessonPlan", templateLessonPlan);
+
 
 		return "admin";
 	}
@@ -116,10 +126,15 @@ public class AdminController {
 		return "admin";
 	}
 	
+	
 	@PostMapping("/admin/edit")
 	public String editLessonPlan(final LessonPlan lessonPlan, Model theModel) {
 		theModel.addAttribute("lessonPlan", lessonPlan);
 		theModel.addAttribute("lessonTitle", lessonPlan.getTitle());
+		
+		if (lessonPlan.getDateAdded() == null) {
+			lessonPlan.setDateAdded(LocalDate.now());
+		}
 		
 		System.out.println("test values");
 //		System.out.println(lessonPlan.getDateAdded());
@@ -138,30 +153,7 @@ public class AdminController {
 
 		return "admin";
 	}
-	
-	@GetMapping("/admin/addlp")
-	public String addLessonPlan(Model theModel) {		
 
-		//works
-//		Picture picture = pictureRepository.findById(48).get(); //celebrities collage
-//		Grammar g = grammarRepository.findByGrammarPoint("adverbs").get();
-//		Grammar g2 = grammarRepository.findByGrammarPoint("first conditional").get();
-//		Topic t = topicRepository.findByName("sport").get();
-//		Subscription s = subscriptionRepository.findByName("B1").get();
-//	
-//		List<Topic> topics = new ArrayList<>();
-//		topics.add(t);	
-//		
-//		LessonPlan lp = new LessonPlan.LessonPlanBuilder("Olympic Village", LocalDate.now(), s,
-//				Type.GENERAL, 10, SpeakingAmount.SPEAKING_ONLY, topics)
-//				.isVocabulary(true)
-//			.picture(picture).build();
-//		
-//		lessonPlanRepository.save(lp);
-
-		return "admin";
-	}
-	
 	@GetMapping("/admin/deletelp")
 	public String deleteLessonPlan(Model theModel) {		
 

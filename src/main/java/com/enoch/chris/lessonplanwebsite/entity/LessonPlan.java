@@ -18,6 +18,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.springframework.data.annotation.CreatedDate;
+
 @Entity(name="LessonPlan")
 @Table(name="lesson_plan")
 public class LessonPlan {
@@ -30,7 +32,7 @@ public class LessonPlan {
 	@Column(name="title")
     private String title; // required
 	
-	@Column(name="dateAdded")
+	@CreatedDate
     private LocalDate dateAdded; //required
 	
 	//@ManyToOne(fetch = FetchType.LAZY)
