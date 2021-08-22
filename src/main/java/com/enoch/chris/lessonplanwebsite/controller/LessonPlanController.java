@@ -39,6 +39,7 @@ import com.enoch.chris.lessonplanwebsite.entity.Grammar;
 import com.enoch.chris.lessonplanwebsite.entity.LessonPlan;
 import com.enoch.chris.lessonplanwebsite.entity.LessonTime;
 import com.enoch.chris.lessonplanwebsite.entity.Picture;
+import com.enoch.chris.lessonplanwebsite.entity.PreparationTime;
 import com.enoch.chris.lessonplanwebsite.entity.SpeakingAmount;
 import com.enoch.chris.lessonplanwebsite.entity.Subscription;
 import com.enoch.chris.lessonplanwebsite.entity.Tag;
@@ -160,7 +161,7 @@ public class LessonPlanController {
 				.topics(Arrays.asList(new Topic("fame", null)))
 				.build();
 		
-		List<LessonPlan> lessonPlans = lessonPlanService.findSearchedLessonPlans(lPlan, null, (short)5);
+		List<LessonPlan> lessonPlans = lessonPlanService.findSearchedLessonPlans(lPlan, null, (PreparationTime.FIVE));
 		
 		System.out.println("check method");
 		lessonPlans.stream().forEach(a -> System.out.println(a.getTitle()));
@@ -286,7 +287,13 @@ public class LessonPlanController {
 	     boolean videoIns = video == null? false : true;
 	     boolean vocabularyIns = vocabulary == null ? false: true;
 	     boolean writingIns = writing == null ? false : true;
-	     short preparationTimeIns = preparationTime == null? 5 : Short.parseShort(preparationTime);
+	     
+	     Map<Integer, PreparationTime> preparationTimes = new HashMap<>();
+	     preparationTimes.put(5, PreparationTime.FIVE);
+	     preparationTimes.put(10, PreparationTime.TEN);    
+	     preparationTimes.put(15, PreparationTime.FIFTEEN);     
+	     PreparationTime preparationTimeIns = preparationTime == null? PreparationTime.FIVE: preparationTimes
+	    		 .get(Integer.parseInt(preparationTime));
 	     
 	     //debugging
 	     printRequestParamas(age, picture, dateAdded, title, topicsInstantiated, tagsInstantiated, grammarInstantiated,
@@ -325,7 +332,7 @@ public class LessonPlanController {
 			Type typeInstantiated, SpeakingAmount speakingAmountInstantiated, Subscription subscriptionInstantiated,
 			LessonTime lessonTimeInstantiated, boolean funClassIns, boolean gamesIns, boolean jigsawIns,
 			boolean translationIns, boolean listeningIns, boolean printedMaterialsIns, boolean readingIns,
-			boolean songIns, boolean vocabularyIns, boolean writingIns, short preparationTimeIns) {
+			boolean songIns, boolean vocabularyIns, boolean writingIns, PreparationTime preparationTimeIns) {
 		System.out.println("title " + title);
 	     System.out.println("dateAdded " + dateAdded);
 	     System.out.println("subscriptionInstantiated  " + subscriptionInstantiated );

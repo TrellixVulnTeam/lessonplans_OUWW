@@ -25,6 +25,7 @@ import com.enoch.chris.lessonplanwebsite.dao.UserRepository;
 import com.enoch.chris.lessonplanwebsite.entity.Grammar;
 import com.enoch.chris.lessonplanwebsite.entity.LessonPlan;
 import com.enoch.chris.lessonplanwebsite.entity.LessonTime;
+import com.enoch.chris.lessonplanwebsite.entity.PreparationTime;
 import com.enoch.chris.lessonplanwebsite.entity.Role;
 import com.enoch.chris.lessonplanwebsite.entity.Tag;
 import com.enoch.chris.lessonplanwebsite.entity.Topic;
@@ -44,7 +45,7 @@ public class LessonPlanServiceImpl implements LessonPlanService {
 	@Override
 	@Transactional
 	public List<LessonPlan> findSearchedLessonPlans(LessonPlan searchParameters, LessonTime lessonTime,
-			short preparationTime) {
+			PreparationTime preparationTime) {
 		// Override default values
 		searchParameters.setLessonTime(lessonTime);
 		searchParameters.setPreparationTime(preparationTime);
@@ -101,7 +102,7 @@ public class LessonPlanServiceImpl implements LessonPlanService {
 				.filter(lp -> searchParameters.getSong() == false? true
 					:searchParameters.getSong() == lp.getSong())
 //
-				.filter(lp -> searchParameters.getPreparationTime() <= lp.getPreparationTime())
+				.filter(lp -> searchParameters.getPreparationTime().getTime() <= lp.getPreparationTime().getTime())
 
 				.filter(lp -> searchParameters.getPrintedMaterialsNeeded() == false? true
 					:searchParameters.getPrintedMaterialsNeeded() == lp.getPrintedMaterialsNeeded())

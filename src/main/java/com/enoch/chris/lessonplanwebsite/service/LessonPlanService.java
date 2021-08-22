@@ -4,9 +4,10 @@ import java.util.List;
 
 import com.enoch.chris.lessonplanwebsite.entity.LessonPlan;
 import com.enoch.chris.lessonplanwebsite.entity.LessonTime;
+import com.enoch.chris.lessonplanwebsite.entity.PreparationTime;
 
 public interface LessonPlanService {
 
-	List<LessonPlan> findSearchedLessonPlans(LessonPlan searchParameters, LessonTime lessonTime, short preparationTime);
+	List<LessonPlan> findSearchedLessonPlans(LessonPlan searchParameters, LessonTime lessonTime, PreparationTime preparationTime);
 
 }

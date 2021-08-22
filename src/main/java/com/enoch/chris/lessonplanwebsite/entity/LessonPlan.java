@@ -94,7 +94,8 @@ public class LessonPlan {
     private boolean  translation;
     
 	@Column(name="preparation_time")
-    private short preparationTime; //default is 5 minutes
+	@Enumerated(EnumType.STRING)
+    private PreparationTime preparationTime; 
     
 	@Column(name="printed_materials_needed")
     private boolean  printedMaterialsNeeded;
@@ -329,11 +330,11 @@ public class LessonPlan {
 	}
 	
 
-	public short getPreparationTime() {
+	public PreparationTime getPreparationTime() {
 		return preparationTime;
 	}
 
-	public void setPreparationTime(short preparationTime) {
+	public void setPreparationTime(PreparationTime preparationTime) {
 		this.preparationTime = preparationTime;
 	}
 
@@ -384,7 +385,7 @@ public class LessonPlan {
 	    private boolean  games;
 	    private boolean  jigsaw;
 	    private boolean  translation;
-	    private short preparationTime = 5;
+	    private PreparationTime preparationTime = PreparationTime.FIVE;
 	    private boolean  printedMaterialsNeeded;
 	    private Picture picture;
 	    private List<Grammar> grammar;
@@ -442,7 +443,7 @@ public class LessonPlan {
             return this;
         }
         
-        public LessonPlanBuilder preparationTime(short preparationTime) {
+        public LessonPlanBuilder preparationTime(PreparationTime preparationTime) {
             this.preparationTime = preparationTime;
             return this;
         }
