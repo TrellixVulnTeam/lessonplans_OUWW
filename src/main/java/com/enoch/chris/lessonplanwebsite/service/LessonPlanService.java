@@ -8,6 +8,6 @@ import com.enoch.chris.lessonplanwebsite.entity.PreparationTime;
 
 public interface LessonPlanService {
 
-	List<LessonPlan> findSearchedLessonPlans(LessonPlan searchParameters, LessonTime lessonTime, PreparationTime preparationTime);
+	List<LessonPlan> findSearchedLessonPlans(LessonPlan searchParameters);
 
 }

@@ -97,18 +97,20 @@ public class TestLessonPlanController {
 	@GetMapping
 	public String displayLessonPlans(Model theModel, HttpSession session) {	
 		
-		if (theModel.containsAttribute("lessonPlan")) {
-			System.out.println("contains lesson plan");
-		} else {
+		if (!theModel.containsAttribute("lessonPlan")) {
+			System.out.println("does not contains lesson plan");
 			List<LessonPlan> lessonPlans = lessonPlanRepository.findAll();	
 
 			//add to model
 			theModel.addAttribute("lessonPlans", lessonPlans);
 			LessonPlan lessonPlan = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null).build();
-			lessonPlan.setPreparationTime(PreparationTime.FIVE);
+			
+			//Override default parameters so that no value is initially shown
+			lessonPlan.setPreparationTime(null);
+			lessonPlan.setLessonTime(null);
+			//lessonPlan.setPreparationTime(PreparationTime.FIVE);
 			theModel.addAttribute("lessonPlan",lessonPlan);
-		}
-
+		} 
 
 		
 		
@@ -180,7 +182,7 @@ public class TestLessonPlanController {
 				.topics(Arrays.asList(new Topic("fame", null)))
 				.build();
 		
-		List<LessonPlan> lessonPlans = lessonPlanService.findSearchedLessonPlans(lPlan, null, (PreparationTime.FIVE));
+		List<LessonPlan> lessonPlans = lessonPlanService.findSearchedLessonPlans(lPlan);
 		
 		System.out.println("check method");
 		lessonPlans.stream().forEach(a -> System.out.println(a.getTitle()));
@@ -202,7 +204,7 @@ public class TestLessonPlanController {
 	@PostMapping()
 	public String checkboxTest(final LessonPlan lessonPlan, Model theModel, RedirectAttributes redirectAttributes)  {
 				System.out.println("debug enum " + lessonPlan.getPreparationTime());
-		 List<LessonPlan> lessonPlansFiltered = lessonPlanService.findSearchedLessonPlans(lessonPlan, lessonPlan.getLessonTime(),lessonPlan.getPreparationTime());
+		 List<LessonPlan> lessonPlansFiltered = lessonPlanService.findSearchedLessonPlans(lessonPlan);
 
 		 System.out.println("lesson plans filtered " + lessonPlansFiltered);
 		 redirectAttributes.addFlashAttribute("lessonPlans", lessonPlansFiltered);

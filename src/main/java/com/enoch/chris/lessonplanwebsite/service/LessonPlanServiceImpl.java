@@ -44,11 +44,7 @@ public class LessonPlanServiceImpl implements LessonPlanService {
 
 	@Override
 	@Transactional
-	public List<LessonPlan> findSearchedLessonPlans(LessonPlan searchParameters, LessonTime lessonTime,
-			PreparationTime preparationTime) {
-		// Override default values
-		searchParameters.setLessonTime(lessonTime);
-		searchParameters.setPreparationTime(preparationTime);
+	public List<LessonPlan> findSearchedLessonPlans(LessonPlan searchParameters) {
 
 		List<LessonPlan> lessonPlans = lessonPlanRepository.findAll();
 
@@ -59,6 +55,9 @@ public class LessonPlanServiceImpl implements LessonPlanService {
 				.filter(lp -> searchParameters.getDateAdded() == null ? true
 						: searchParameters.getDateAdded().isBefore(lp.getDateAdded()) ? true : false)
 //
+				
+				.filter(lp -> searchParameters.getPreparationTime() == null ? true	
+						: searchParameters.getPreparationTime().equals(lp.getPreparationTime()))
 				
 				.filter(lp -> searchParameters.getAssignedSubscription() == null ? true	
 						: searchParameters.getAssignedSubscription().equals(lp.getAssignedSubscription()))

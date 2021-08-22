@@ -161,7 +161,7 @@ public class LessonPlanController {
 				.topics(Arrays.asList(new Topic("fame", null)))
 				.build();
 		
-		List<LessonPlan> lessonPlans = lessonPlanService.findSearchedLessonPlans(lPlan, null, (PreparationTime.FIVE));
+		List<LessonPlan> lessonPlans = lessonPlanService.findSearchedLessonPlans(lPlan);
 		
 		System.out.println("check method");
 		lessonPlans.stream().forEach(a -> System.out.println(a.getTitle()));
@@ -309,7 +309,7 @@ public class LessonPlanController {
 				 .isReading(readingIns).isSong(songIns).isVideo(videoIns).isVocabulary(vocabularyIns).isWriting(writingIns)
 				 .picture(picture).build();
 				 
-		 List<LessonPlan> lessonPlansFiltered = lessonPlanService.findSearchedLessonPlans(searchParameters, lessonTimeInstantiated, preparationTimeIns);
+		 List<LessonPlan> lessonPlansFiltered = lessonPlanService.findSearchedLessonPlans(searchParameters);
 
 		 System.out.println("lesson plans filtered " + lessonPlansFiltered);
 		 redirectAttributes.addFlashAttribute("lessonPlans", lessonPlansFiltered);
