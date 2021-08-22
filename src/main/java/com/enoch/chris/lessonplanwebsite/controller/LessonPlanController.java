@@ -207,7 +207,7 @@ public class LessonPlanController {
 			,@RequestParam(name = "jigsaw", required = false)String jigsaw
 			,@RequestParam(name = "translation", required = false)String translation
 			,@RequestParam(name = "preparationtime", required = false)String preparationTime
-			,@RequestParam(name = "printedmaterialsneeded", required = false)String printedMaterialsNeeded	
+			,@RequestParam(name = "noprintedmaterialsneeded", required = false)String noPrintedMaterialsNeeded	
 			)  {
 		
 		 System.out.println("test value of video: " + video);
@@ -280,7 +280,7 @@ public class LessonPlanController {
 	     boolean translationIns = translation == null? false : true;
 	     boolean listeningIns = listening == null? false : true;
 	     
-	     boolean printedMaterialsIns = printedMaterialsNeeded == null? false : false;
+	     boolean printedMaterialsIns = noPrintedMaterialsNeeded == null? false : true;
 	     
 	     boolean readingIns = reading == null ? false : true;
 	     boolean songIns = song == null ? false : true;
@@ -305,7 +305,7 @@ public class LessonPlanController {
 				 , typeInstantiated , age,speakingAmountInstantiated, topicsInstantiated, 
 				 tagsInstantiated).isFunClass(funClassIns).isGames(gamesIns)
 				 .isJigsaw(jigsawIns).isListening(listeningIns).isTranslation(translationIns)
-				 .isPrintedMaterialsNeeded(printedMaterialsIns).grammar(grammarInstantiated)
+				 .isNoPrintedMaterialsNeeded(printedMaterialsIns).grammar(grammarInstantiated)
 				 .isReading(readingIns).isSong(songIns).isVideo(videoIns).isVocabulary(vocabularyIns).isWriting(writingIns)
 				 .picture(picture).build();
 				 

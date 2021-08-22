@@ -97,8 +97,8 @@ public class LessonPlan {
 	@Enumerated(EnumType.STRING)
     private PreparationTime preparationTime; 
     
-	@Column(name="printed_materials_needed")
-    private boolean  printedMaterialsNeeded;
+	@Column(name="no_printed_materials_needed")
+    private boolean  noPrintedMaterialsNeeded;
     
 	@ManyToMany(fetch = FetchType.LAZY,cascade= {CascadeType.DETACH, 
 			CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
@@ -150,7 +150,7 @@ public class LessonPlan {
 		this.jigsaw = lessonPlanBuilder.jigsaw;
 		this.translation = lessonPlanBuilder.translation;
 		this.preparationTime = lessonPlanBuilder.preparationTime;
-		this.printedMaterialsNeeded = lessonPlanBuilder.printedMaterialsNeeded;
+		this.noPrintedMaterialsNeeded = lessonPlanBuilder.noPrintedMaterialsNeeded;
 		this.grammar = lessonPlanBuilder.grammar;
 	
 	}
@@ -294,12 +294,12 @@ public class LessonPlan {
 		this.translation = translation;
 	}
 
-	public boolean  getPrintedMaterialsNeeded() {
-		return printedMaterialsNeeded;
+	public boolean  getNoPrintedMaterialsNeeded() {
+		return noPrintedMaterialsNeeded;
 	}
 
-	public void setPrintedMaterialsNeeded(boolean  printedMaterialsNeeded) {
-		this.printedMaterialsNeeded = printedMaterialsNeeded;
+	public void setNoPrintedMaterialsNeeded(boolean  noPrintedMaterialsNeeded) {
+		this.noPrintedMaterialsNeeded = noPrintedMaterialsNeeded;
 	}
 
 	public List<Topic> getTopics() {
@@ -386,7 +386,7 @@ public class LessonPlan {
 	    private boolean  jigsaw;
 	    private boolean  translation;
 	    private PreparationTime preparationTime = PreparationTime.FIVE;
-	    private boolean  printedMaterialsNeeded;
+	    private boolean  noPrintedMaterialsNeeded;
 	    private Picture picture;
 	    private List<Grammar> grammar;
  
@@ -448,8 +448,8 @@ public class LessonPlan {
             return this;
         }
         
-        public LessonPlanBuilder isPrintedMaterialsNeeded(boolean  isPrintedMaterialsNeeded) {
-            this.printedMaterialsNeeded= isPrintedMaterialsNeeded;
+        public LessonPlanBuilder isNoPrintedMaterialsNeeded(boolean  isNoPrintedMaterialsNeeded) {
+            this.noPrintedMaterialsNeeded= isNoPrintedMaterialsNeeded;
             return this;
         }
         
@@ -502,7 +502,7 @@ public class LessonPlan {
 					+ lessonTime + ", listening=" + listening + ", vocabulary=" + vocabulary + ", reading=" + reading
 					+ ", writing=" + writing + ", video=" + video + ", song=" + song + ", funClass=" + funClass
 					+ ", games=" + games + ", jigsaw=" + jigsaw + ", translation=" + translation + ", preparationTime="
-					+ preparationTime + ", printedMaterialsNeeded=" + printedMaterialsNeeded + ", picture=" + picture
+					+ preparationTime + ", noPrintedMaterialsNeeded=" + noPrintedMaterialsNeeded + ", picture=" + picture
 					+ ", grammar=" + grammar + "]";
 		}
         

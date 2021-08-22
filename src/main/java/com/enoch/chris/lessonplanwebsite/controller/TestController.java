@@ -91,7 +91,7 @@ public class TestController {
 		System.out.println("sub sub " + lessonPlan.getAssignedSubscription().getName());
 		System.out.println("g g g  " + lessonPlan.getGrammar().size());
 		System.out.println("g g g  " + lessonPlan.getLessonTime());
-		System.out.println("printed needed  " + lessonPlan.getPrintedMaterialsNeeded());
+		System.out.println("printed needed  " + lessonPlan.getNoPrintedMaterialsNeeded());
 		System.out.println("lp id  " + lessonPlan.getId());
 		System.out.println("speaking only " + lessonPlan.getSpeakingAmount());
 

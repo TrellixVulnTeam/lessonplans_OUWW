@@ -104,8 +104,8 @@ public class LessonPlanServiceImpl implements LessonPlanService {
 //
 				.filter(lp -> searchParameters.getPreparationTime().getTime() <= lp.getPreparationTime().getTime())
 
-				.filter(lp -> searchParameters.getPrintedMaterialsNeeded() == false? true
-					:searchParameters.getPrintedMaterialsNeeded() == lp.getPrintedMaterialsNeeded())
+				.filter(lp -> searchParameters.getNoPrintedMaterialsNeeded() == false? true
+					:searchParameters.getNoPrintedMaterialsNeeded() == lp.getNoPrintedMaterialsNeeded())
 //			
 				.filter(lp -> searchParameters.getPicture() == null ? true
 						: searchParameters.getPicture() == lp.getPicture())
