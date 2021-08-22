@@ -31,6 +31,16 @@ function addChecked() {
         	});
 	}
 }
+
+function updatePicture(id) {     	
+	let select = document.getElementById('picture');
+	let name = select.options[select.selectedIndex].getAttribute('name');
+	document.getElementById("picturePreview").src = name;
+
+
+	
+}
+
 </script>
 
 <title>Admin page</title>
@@ -73,25 +83,22 @@ function addChecked() {
 							type="text" th:field="*{title}" />
 					</div>
 
+
+
+
 					<div th:with="someVariable=${lessonPlan.picture?.id}">
 
-					<!--   -->
+						<select name="picture" id="picture" th:field="*{picture}"
+							onchange="updatePicture();">
+							<option th:each="picture : ${allPictures}"
+								th:value="${picture.id}" th:text="${picture.name}" th:name="${picture.fileLocation}">Picture</option>
+						</select>
+			
+						<div >
+							<img id="picturePreview" th:src="*{picture?.FileLocation}" />
+						</div>
 
-					
-					
 					</div>
-					
-
-									
-					<select name="picture" id="picture" th:field="*{picture}">
-					  <option th:each="picture : ${allPictures}" 
-					          th:value="${picture.id}" 
-					          th:text="${picture.name}">Picture</option>
-					</select>
-					
-					
-					
-					<div><img th:src="*{picture?.FileLocation}"/></div>
 
 
 
@@ -181,10 +188,9 @@ function addChecked() {
 
 						<label th:for="${#ids.next('video')}">Video</label> <input
 							type="checkbox" th:field="*{video}" /> <label
-							th:for="${#ids.next('song')}">Song</label> <input
-							type="checkbox" th:field="*{song}" /> <label
-							th:for="${#ids.next('funClass')}">Just for fun</label> <input
-							type="checkbox" th:field="*{funClass}" /> <label
+							th:for="${#ids.next('song')}">Song</label> <input type="checkbox"
+							th:field="*{song}" /> <label th:for="${#ids.next('funClass')}">Just
+							for fun</label> <input type="checkbox" th:field="*{funClass}" /> <label
 							th:for="${#ids.next('games')}">Games</label> <input
 							type="checkbox" th:field="*{games}" /> <label
 							th:for="${#ids.next('jigsaw')}">Jigsaw</label> <input
