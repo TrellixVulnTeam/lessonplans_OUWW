@@ -101,22 +101,6 @@
 					</div>
 
 					<div class="form-group form-vertical-blocks">
-						<div class="form-header">Tags</div>
-						<span th:each="tag : ${allTags}"> <label
-							th:for="${#ids.next('tags')}" th:text="${tag.name}">Heating</label>
-							<input type="checkbox" th:field="*{tags}" th:value="${tag.id}" />
-						</span>
-					</div>
-
-					<!--    <span th:each="tag : ${allSubscriptions}">
-					  	  <label th:for="${#ids.next('assignedSubscriptions')}" 
-					           th:text="${tag.name}">Heating</label>
-					    <input type="checkbox" th:field="*{assignedSubscription}" th:value="${tag.id}" /> 
-						</span>
-					</div>    -->
-
-
-					<div class="form-group form-vertical-blocks">
 						<div class="form-header">Levels</div>
 						<span th:each="sub : ${allSubscriptions}"
 							th:field="*{assignedSubscription}"> <label
@@ -184,17 +168,15 @@
 						<label th:for="${#ids.next('speakingAmount')}">Speaking
 							Only</label> <input type="checkbox" th:field="*{speakingAmount}"
 							th:value="SPEAKING_ONLY">
-
-					</div>
-
-					<div class="form-group form-vertical-blocks">
-						<div class="form-header">Resources</div>
+							
+							<div class="form-header">Resources</div>
 
 						<label th:for="${#ids.next('noPrintedMaterialsNeeded')}">No
 							printed materials needed</label> <input type="checkbox"
 							th:field="*{noPrintedMaterialsNeeded}" />
 
 					</div>
+			
 
 					<button type="submit" name="save">Submit</button>
 
