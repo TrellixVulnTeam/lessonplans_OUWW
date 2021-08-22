@@ -70,6 +70,11 @@ public class AdminController {
 	public List<Grammar> populateGrammar() {
 		return grammarRepository.findAll();
 	}
+	
+	@ModelAttribute("allPictures")
+	public List<Picture> populatePictures() {
+		return pictureRepository.findAll();
+	}
 
 	
 	@GetMapping("/admin")
@@ -101,6 +106,8 @@ public class AdminController {
 		LessonPlan lessonPlan = lessonPlanRepository.findById(Integer.parseInt(lessonPlanId)).get();
 		theModel.addAttribute("lessonPlan", lessonPlan);
 		theModel.addAttribute("lessonTitle", lessonPlan.getTitle());
+		
+		System.out.println("Picture information " + lessonPlan.getPicture());
 
 		//send lessonplans
 		List<LessonPlan> lessonPlans = lessonPlanRepository.findAll();
@@ -120,6 +127,7 @@ public class AdminController {
 //		System.out.println(lessonPlan.getId());
 //		System.out.println(lessonPlan.getAge());
 		
+		System.out.println("debug picture " + lessonPlan.getPicture());
 		
 		//save updated lesson to database
 		lessonPlanRepository.save(lessonPlan);

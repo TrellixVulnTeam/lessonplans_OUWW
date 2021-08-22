@@ -112,11 +112,27 @@ public class TestLessonPlanController {
 			theModel.addAttribute("lessonPlan",lessonPlan);
 		} 
 
-		
-		
 		return "lessonplanstest";
 	}
 	
+	
+	@PostMapping()
+	public String checkboxTest(final LessonPlan lessonPlan, Model theModel, RedirectAttributes redirectAttributes)  {
+				System.out.println("debug enum " + lessonPlan.getPreparationTime());
+		 List<LessonPlan> lessonPlansFiltered = lessonPlanService.findSearchedLessonPlans(lessonPlan);
+
+		 System.out.println("lesson plans filtered " + lessonPlansFiltered);
+		 redirectAttributes.addFlashAttribute("lessonPlans", lessonPlansFiltered);
+	 
+		 List<String> checkboxesToCheck = LessonPlanUtils.saveSelectedCheckboxes(lessonPlan);
+		 	 
+		 redirectAttributes.addFlashAttribute("checkboxesToCheck", checkboxesToCheck);
+		 redirectAttributes.addFlashAttribute("lessonPlan", lessonPlan);
+
+		 
+		//return "redirect:/lessonplans/search";
+		 return "redirect:/lessonplanstest";
+	}
 	
 	@GetMapping("/B2")
 	public String displayB2(Model theModel,HttpSession session
@@ -201,23 +217,6 @@ public class TestLessonPlanController {
 		return "lessonplanstest";
 	}
 	
-	@PostMapping()
-	public String checkboxTest(final LessonPlan lessonPlan, Model theModel, RedirectAttributes redirectAttributes)  {
-				System.out.println("debug enum " + lessonPlan.getPreparationTime());
-		 List<LessonPlan> lessonPlansFiltered = lessonPlanService.findSearchedLessonPlans(lessonPlan);
-
-		 System.out.println("lesson plans filtered " + lessonPlansFiltered);
-		 redirectAttributes.addFlashAttribute("lessonPlans", lessonPlansFiltered);
-	 
-		 List<String> checkboxesToCheck = LessonPlanUtils.saveSelectedCheckboxes(lessonPlan);
-		 	 
-		 redirectAttributes.addFlashAttribute("checkboxesToCheck", checkboxesToCheck);
-		 redirectAttributes.addFlashAttribute("lessonPlan", lessonPlan);
-
-		 
-		//return "redirect:/lessonplans/search";
-		 return "redirect:/lessonplanstest";
-	}
 	
 	
 }

@@ -105,6 +105,13 @@ public class Picture {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Picture [id=" + id + ", fileLocation=" + fileLocation + ", lessonPlans=" + lessonPlans + ", name="
+				+ name + "]";
+	}
+	
 	
 	
 
