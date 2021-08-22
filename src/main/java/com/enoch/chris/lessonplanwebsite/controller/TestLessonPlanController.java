@@ -96,14 +96,21 @@ public class TestLessonPlanController {
 	
 	@GetMapping
 	public String displayLessonPlans(Model theModel, HttpSession session) {	
+		
+		if (theModel.containsAttribute("lessonPlan")) {
+			System.out.println("contains lesson plan");
+		} else {
+			List<LessonPlan> lessonPlans = lessonPlanRepository.findAll();	
 
-		List<LessonPlan> lessonPlans = lessonPlanRepository.findAll();	
+			//add to model
+			theModel.addAttribute("lessonPlans", lessonPlans);
+			LessonPlan lessonPlan = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null).build();
+			lessonPlan.setPreparationTime(PreparationTime.FIVE);
+			theModel.addAttribute("lessonPlan",lessonPlan);
+		}
 
-		//add to model
-		theModel.addAttribute("lessonPlans", lessonPlans);
-		LessonPlan lessonPlan = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null).build();
-		lessonPlan.setPreparationTime(PreparationTime.FIVE);
-		theModel.addAttribute("lessonPlan",lessonPlan);
+
+		
 		
 		return "lessonplanstest";
 	}
@@ -207,7 +214,7 @@ public class TestLessonPlanController {
 
 		 
 		//return "redirect:/lessonplans/search";
-		 return "redirect:/lessonplanstest/search";
+		 return "redirect:/lessonplanstest";
 	}
 	
 	
