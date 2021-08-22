@@ -198,15 +198,16 @@ function addChecked() {
                     <div class="form-group form-vertical-blocks">
                         <div class="form-header">Resources</div>
 
-                        <label th:for="${#ids.next('printedMaterialsNeeded')}" >No printed materials needed</label>
-  						<input type="checkbox" th:field="*{printedMaterialsNeeded}" />
+                        <label th:for="${#ids.next('noPrintedMaterialsNeeded')}" >No printed materials needed</label>
+  						<input type="checkbox" th:field="*{noPrintedMaterialsNeeded}" />
 
                     </div>
                     
                     <input type="hidden" th:field="*{id}" id="id"> 
-                    <input type="hidden" th:field="*{title}" id="title">    
+                     
                     <input type="hidden" th:field="*{dateAdded}" id="dateAdded">    
-                    <input type="hidden" th:field="*{age}" id="age">                  
+                    <input type="hidden" th:field="*{age}" id="age"> 
+                    <input type="hidden" th:field="*{preparationTime}" id="preparationTime">                   
                     
                     <button type="submit" name="save">Submit</button> 
 

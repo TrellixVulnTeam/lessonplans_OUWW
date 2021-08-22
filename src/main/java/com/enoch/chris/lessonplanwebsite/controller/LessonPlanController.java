@@ -109,7 +109,7 @@ public class LessonPlanController {
 						
 						//check lesson is B2 level
 						if (!lp.get().getAssignedSubscription().getName().equals("B2")) { //if plan does not exist for this level, return
-							System.out.println("Subscription name doe snot match B2. Subscription name: " + lp.get().getAssignedSubscription().getName());
+							System.out.println("Subscription name does not match B2. Subscription name: " + lp.get().getAssignedSubscription().getName());
 							
 							return "error/lessonplannotfound";
 						}

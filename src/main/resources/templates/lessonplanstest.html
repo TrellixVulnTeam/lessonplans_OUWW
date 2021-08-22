@@ -1,0 +1,232 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="../css/styles_principal.css">
+
+<script>
+    
+        function showMenu() {
+        	//addChecked();
+            document.getElementById('mega-menu').style.display = 'block';
+            
+        }
+
+        function hideMenu() {
+            document.getElementById('mega-menu').style.display = 'none';
+        }
+ 
+        function addChecked() {     	
+        	let checkboxesToCheck = "[[${checkboxesToCheck}]]";
+        	
+        	if (checkboxesToCheck){
+        		checkboxesToCheck = checkboxesToCheck.slice(1, checkboxesToCheck.length -1 );
+            	checkboxesToCheck = checkboxesToCheck.split(',');	
+            	checkboxesToCheck.forEach(element => console.log(element));
+            	
+            	//loop over and add checkbox          	
+            		console.log(checkboxesToCheck.length)
+            		console.log("hello");
+            		checkboxesToCheck.forEach(element => {	
+                		element = element.trim();
+                		if (document.getElementById(element)){	
+                    		document.getElementById(element).checked = true
+                		}
+                	
+                	});
+        	}
+        }
+
+    </script>
+
+<title>Lesson Plans</title>
+</head>
+
+<body onload="addChecked()">
+	<div th:insert="navbar.html :: nav"></div>
+
+	<div class="main-content">
+
+		<div class="main-content-inner ml-5 mr-5">
+
+			<h1 id="large-header" class="mt-5 ml-5 mb-5">Lesson Plans Test</h1>
+
+			<div class="sticky">
+				<a class="btn btn-small btn-primary" href='javascript:showMenu()'>Show
+					Search</a> <a class="btn btn-small btn-primary"
+					href='javascript:hideMenu()'>Hide Search</a> <a
+					class="btn btn-small btn-primary" href='javascript:hideMenu()'>Submit</a>
+			</div>
+
+
+			<div id="mega-menu">
+				<small>*If you select nothing from a category, all from that
+					category will be included.</small>
+
+				<form th:action="@{/lessonplanstest}" th:object="${lessonPlan}"
+					method="post">
+
+					<div class="form-group form-vertical-blocks">
+						<div class="form-header">Type</div>
+						<span th:each="typ : ${T(com.enoch.chris.lessonplanwebsite.entity.Type).values()}" th:field="*{type}"> 
+							<label th:for="${#ids.next('type')}" th:text="${typ}">General</label> 
+							<input type="radio" th:field="*{type}" th:value="${typ}">
+						</span>
+						
+						<div class="form-header ml-4	">Preparation time</div>
+						
+						<span th:each="prep : ${T(com.enoch.chris.lessonplanwebsite.entity.PreparationTime).values()}" 
+						th:field="*{type}"> 
+							<label th:for="${#ids.next('preparationTime')}" th:text="${prep}">General</label> 
+							<input type="radio" th:field="*{preparationTime}" th:value="${prep}">
+						</span>
+						
+
+					</div>
+
+					<div class="form-group form-vertical-blocks">
+						<div class="form-header">Topics</div>
+						<span th:each="top : ${allTopics}"> <label
+							th:for="${#ids.next('topics')}" th:text="${top.name}">Heating</label>
+							<input type="checkbox" th:field="*{topics}" th:value="${top.id}" />
+
+						</span>
+					</div>
+
+					<div class="form-group form-vertical-blocks">
+						<div class="form-header">Tags</div>
+						<span th:each="tag : ${allTags}"> <label
+							th:for="${#ids.next('tags')}" th:text="${tag.name}">Heating</label>
+							<input type="checkbox" th:field="*{tags}" th:value="${tag.id}" />
+						</span>
+					</div>
+
+					<!--    <span th:each="tag : ${allSubscriptions}">
+					  	  <label th:for="${#ids.next('assignedSubscriptions')}" 
+					           th:text="${tag.name}">Heating</label>
+					    <input type="checkbox" th:field="*{assignedSubscription}" th:value="${tag.id}" /> 
+						</span>
+					</div>    -->
+
+
+					<div class="form-group form-vertical-blocks">
+						<div class="form-header">Levels</div>
+						<span th:each="sub : ${allSubscriptions}"
+							th:field="*{assignedSubscription}"> <label
+							th:for="${#ids.next('assignedSubscription')}"
+							th:text="${sub.name}">General</label> <input type="radio"
+							th:field="*{assignedSubscription}" th:value="${sub.id}">
+						</span>
+					</div>
+
+					<div class="form-group form-vertical-blocks">
+						<div class="form-header">Grammar</div>
+						<span th:each="g : ${allGrammar}"> <label
+							th:for="${#ids.next('grammar')}" th:text="${g.grammarPoint}">Heating</label>
+							<input type="checkbox" th:field="*{grammar}" th:value="${g.id}" />
+						</span>
+					</div>
+
+					<div class="form-group form-vertical-blocks">
+						<div class="form-header">Type</div>
+
+						<span
+							th:each="dur : ${T(com.enoch.chris.lessonplanwebsite.entity.LessonTime).values()}"
+							th:field="*{lessonTime}"> <label
+							th:for="${#ids.next('lessonTime')}" th:text="${dur}">General</label>
+							<input type="radio" th:field="*{lessonTime}" th:value="${dur}">
+						</span>
+
+					</div>
+
+					<div class="form-group form-vertical-blocks">
+						<div class="form-header">Skill</div>
+
+						<label th:for="${#ids.next('vocabulary')}">Vocabulary</label> <input
+							type="checkbox" th:field="*{vocabulary}" /> <label
+							th:for="${#ids.next('listening')}">Listening</label> <input
+							type="checkbox" th:field="*{listening}" /> <label
+							th:for="${#ids.next('reading')}">Reading</label> <input
+							type="checkbox" th:field="*{reading}" /> <label
+							th:for="${#ids.next('writing')}">Writing</label> <input
+							type="checkbox" th:field="*{writing}" />
+
+					</div>
+
+					<div class="form-group form-vertical-blocks">
+						<div class="form-header">LessonContent</div>
+
+						<label th:for="${#ids.next('video')}">Video</label> <input
+							type="checkbox" th:field="*{video}" /> <label
+							th:for="${#ids.next('song')}">Song</label> <input
+							type="checkbox" th:field="*{song}" /> <label
+							th:for="${#ids.next('funClass')}">Just for fun</label> <input
+							type="checkbox" th:field="*{funClass}" /> <label
+							th:for="${#ids.next('games')}">Games</label> <input
+							type="checkbox" th:field="*{games}" /> <label
+							th:for="${#ids.next('jigsaw')}">Jigsaw</label> <input
+							type="checkbox" th:field="*{jigsaw}" /> <label
+							th:for="${#ids.next('translation')}">Translation</label> <input
+							type="checkbox" th:field="*{translation}" />
+
+					</div>
+
+					<div class="form-group form-vertical-blocks">
+						<div class="form-header">Speaking</div>
+
+						<label th:for="${#ids.next('speakingAmount')}">Speaking
+							Only</label> <input type="checkbox" th:field="*{speakingAmount}"
+							th:value="SPEAKING_ONLY">
+
+					</div>
+
+					<div class="form-group form-vertical-blocks">
+						<div class="form-header">Resources</div>
+
+						<label th:for="${#ids.next('noPrintedMaterialsNeeded')}">No
+							printed materials needed</label> <input type="checkbox"
+							th:field="*{noPrintedMaterialsNeeded}" />
+
+					</div>
+
+					
+						<input
+						type="hidden" th:field="*{preparationTime}" id="preparationTime">
+
+					<button type="submit" name="save">Submit</button>
+
+				</form>
+
+			</div>
+
+
+			<div class="book-container mt-3">
+
+				<div class="mr-7 mb-1" th:each="lp : ${lessonPlans}">
+					<!-- <c:forEach var="libro" varStatus="status" items="${libros}"> -->
+					<h2 th:text="${lp.title}">Example H2</h2>
+					<ul class="display-list">
+						<li th:text="${lp.id}">Example id</li>
+						<li th:text="${lp.assignedSubscription}">Example subscription</li>
+						<li th:text="${lp.type}">Example type</li>
+					</ul>
+					<a class="btn btn-small btn-secondary" href='#'>Add to basket</a> <a
+						class="btn btn-small btn-primary"
+						th:href="@{/../checkout(id=${lp.assignedSubscription.name})}">Buy</a>
+					<br> <br>
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
