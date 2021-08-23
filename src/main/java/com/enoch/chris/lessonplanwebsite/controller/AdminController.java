@@ -1,18 +1,24 @@
 package com.enoch.chris.lessonplanwebsite.controller;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.enoch.chris.lessonplanwebsite.dao.GrammarRepository;
 import com.enoch.chris.lessonplanwebsite.dao.LessonPlanRepository;
@@ -22,16 +28,15 @@ import com.enoch.chris.lessonplanwebsite.dao.TagRepository;
 import com.enoch.chris.lessonplanwebsite.dao.TopicRepository;
 import com.enoch.chris.lessonplanwebsite.entity.Grammar;
 import com.enoch.chris.lessonplanwebsite.entity.LessonPlan;
-import com.enoch.chris.lessonplanwebsite.entity.LessonTime;
 import com.enoch.chris.lessonplanwebsite.entity.Picture;
-import com.enoch.chris.lessonplanwebsite.entity.SpeakingAmount;
 import com.enoch.chris.lessonplanwebsite.entity.Subscription;
 import com.enoch.chris.lessonplanwebsite.entity.Tag;
 import com.enoch.chris.lessonplanwebsite.entity.Topic;
-import com.enoch.chris.lessonplanwebsite.entity.Type;
 
 @Controller
 public class AdminController {
+	
+	private static final String UPLOAD_DIR = "src/main/resources/static/images/";
 	
 	@Autowired
 	private LessonPlanRepository lessonPlanRepository;
@@ -154,6 +159,47 @@ public class AdminController {
 		return "admin";
 	}
 
+	
+	 @PostMapping("/admin/upload")
+	    public String uploadFile(@RequestParam("file") MultipartFile file, RedirectAttributes attributes) {
+
+	        // check if file is empty
+	        if (file.isEmpty()) {
+	            attributes.addFlashAttribute("message", "Please select a file to upload.");
+	            return "redirect:/";
+	        }
+
+	        // normalize the file path
+	        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+
+	        // save the file on the local file system
+	        try {
+	            Path path = Paths.get(UPLOAD_DIR + fileName);
+	            
+	            System.out.println("File location: " + path.toAbsolutePath());     
+	            System.out.println("file name " + file.getName());
+	            System.out.println("file size " + file.getSize());
+	            
+	            Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+
+	        // return success response
+	        attributes.addFlashAttribute("message", "You successfully uploaded " + fileName + '!');
+
+	        return "redirect:/admin/upload";
+	    }
+	 
+	 @GetMapping("/admin/upload")
+	    public String uploadFileHome() {      
+	        
+	        return "uploadpicture";
+	    }
+	
+	
+	
+	
 	@GetMapping("/admin/deletelp")
 	public String deleteLessonPlan(Model theModel) {		
 
