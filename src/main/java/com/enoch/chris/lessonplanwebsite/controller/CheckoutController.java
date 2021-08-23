@@ -23,16 +23,19 @@ import com.enoch.chris.lessonplanwebsite.payment.ChargeRequest;
 @RequestMapping("/checkout")
 public class CheckoutController {
 	
-	@Autowired
 	private LessonPlanRepository lessonPlanRepository;
-	
-	@Autowired
 	private SubscriptionRepository subscriptionRepository;
 	
 	@Value("${STRIPE_PUBLIC_KEY}")
 	private String stripePublicKey;
 	
-	
+	@Autowired
+	public CheckoutController(LessonPlanRepository lessonPlanRepository, SubscriptionRepository subscriptionRepository) {
+		super();
+		this.lessonPlanRepository = lessonPlanRepository;
+		this.subscriptionRepository = subscriptionRepository;
+	}
+
 	@GetMapping
 	public String processCheckout(Model model,HttpSession session
 			, @RequestParam("id") Optional<String> subscriptionName) {

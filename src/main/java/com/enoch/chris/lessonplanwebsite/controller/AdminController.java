@@ -37,25 +37,26 @@ import com.enoch.chris.lessonplanwebsite.entity.Topic;
 public class AdminController {
 	
 	private static final String UPLOAD_DIR = "src/main/resources/static/images/";
-	
-	@Autowired
 	private LessonPlanRepository lessonPlanRepository;
-
-	@Autowired
 	private PictureRepository pictureRepository;
-	
-	@Autowired
 	private GrammarRepository grammarRepository;
-	
-	@Autowired
 	private TopicRepository topicRepository;
-	
-	@Autowired
 	private TagRepository tagRepository;
-	
-	@Autowired
 	private SubscriptionRepository subscriptionRepository;
 	
+	@Autowired
+	public AdminController(LessonPlanRepository lessonPlanRepository, PictureRepository pictureRepository,
+			GrammarRepository grammarRepository, TopicRepository topicRepository, TagRepository tagRepository,
+			SubscriptionRepository subscriptionRepository) {
+		super();
+		this.lessonPlanRepository = lessonPlanRepository;
+		this.pictureRepository = pictureRepository;
+		this.grammarRepository = grammarRepository;
+		this.topicRepository = topicRepository;
+		this.tagRepository = tagRepository;
+		this.subscriptionRepository = subscriptionRepository;
+	}
+
 	@ModelAttribute("allTopics")
 	public List<Topic> populateTopics() {
 		return topicRepository.findAll();

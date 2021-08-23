@@ -32,14 +32,18 @@ import com.stripe.model.Charge;
 @Controller
 public class ChargeController {
 
-	@Autowired
 	private StripeService paymentsService;
+	private SubscriptionRepository subscriptionRepository;
+	private PurchaseRepository purchaseRepository;
 
 	@Autowired
-	private SubscriptionRepository subscriptionRepository;
-	
-	@Autowired
-	private PurchaseRepository purchaseRepository;
+	public ChargeController(StripeService paymentsService, SubscriptionRepository subscriptionRepository,
+			PurchaseRepository purchaseRepository) {
+		super();
+		this.paymentsService = paymentsService;
+		this.subscriptionRepository = subscriptionRepository;
+		this.purchaseRepository = purchaseRepository;
+	}
 
 	@GetMapping("/charge")
 	public String chargeGet(Model theModel) {

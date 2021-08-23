@@ -57,24 +57,26 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @RequestMapping("/lessonplans")
 public class LessonPlanController {
 	
-	@Autowired
 	private LessonPlanRepository lessonPlanRepository;
-	
-	@Autowired
 	private SubscriptionRepository subscriptionRepository;
-	
-	@Autowired
 	private LessonPlanService lessonPlanService;
-	
-	@Autowired
 	private TopicRepository topicRepository;
-	
-	@Autowired
 	private GrammarRepository grammarRepository;
-	
-	@Autowired
 	private TagRepository tagRepository;
 	
+	@Autowired
+	public LessonPlanController(LessonPlanRepository lessonPlanRepository,
+			SubscriptionRepository subscriptionRepository, LessonPlanService lessonPlanService,
+			TopicRepository topicRepository, GrammarRepository grammarRepository, TagRepository tagRepository) {
+		super();
+		this.lessonPlanRepository = lessonPlanRepository;
+		this.subscriptionRepository = subscriptionRepository;
+		this.lessonPlanService = lessonPlanService;
+		this.topicRepository = topicRepository;
+		this.grammarRepository = grammarRepository;
+		this.tagRepository = tagRepository;
+	}
+
 	@ModelAttribute("allTopics")
 	public List<Topic> populateTopics() {
 		return topicRepository.findAll();

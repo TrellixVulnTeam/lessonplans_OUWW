@@ -27,16 +27,19 @@ import com.enoch.chris.lessonplanwebsite.entity.User;
 
 @Controller
 public class PurchaseController {
-	
-	@Autowired
-	private PurchaseRepository purchaseRepository;
 
-	@Autowired
+	private PurchaseRepository purchaseRepository;
 	private UserRepository userRepository;
-	
-	@Autowired
 	private SubscriptionRepository subscriptionRepository;
-	
+		
+	@Autowired
+	public PurchaseController(PurchaseRepository purchaseRepository, UserRepository userRepository,
+			SubscriptionRepository subscriptionRepository) {
+		this.purchaseRepository = purchaseRepository;
+		this.userRepository = userRepository;
+		this.subscriptionRepository = subscriptionRepository;
+	}
+
 	@GetMapping("/purchase")
 	public String displayPurchase(Model theModel) {		
 
