@@ -1,16 +1,17 @@
 <!DOCTYPE HTML>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="../css/styles_principal.css">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="../css/styles_principal.css">
 
-    <script>
+<script>
     
         function showMenu() {
         	//addChecked();
@@ -35,213 +36,175 @@
             		console.log("hello");
             		checkboxesToCheck.forEach(element => {	
                 		element = element.trim();
-                		document.getElementById(element).checked = true
+                		if (document.getElementById(element)){	
+                    		document.getElementById(element).checked = true
                 		}
-                	);
+                	
+                	});
         	}
         }
 
     </script>
 
-    <title>Lesson Plans</title>
+<title>Lesson Plans</title>
 </head>
 
 <body onload="addChecked()">
-    <div th:insert="navbar.html :: nav"></div>
+	<div th:insert="navbar.html :: nav"></div>
 
-    <div class="main-content">
+	<div class="main-content">
 
-        <div class="main-content-inner ml-5 mr-5">
+		<div class="main-content-inner ml-5 mr-5">
 
-            <h1 id="large-header" class="mt-5 ml-5 mb-5">Lesson Plans</h1>
+			<h1 id="large-header" class="mt-5 ml-5 mb-5">Lesson Plans Test</h1>
 
-            <div class="sticky">
-                <a class="btn btn-small btn-primary" href='javascript:showMenu()'>Show Search</a>
-                <a class="btn btn-small btn-primary" href='javascript:hideMenu()'>Hide Search</a>
-                <a class="btn btn-small btn-primary" href='javascript:hideMenu()'>Submit</a>
-            </div>
-
-
-            <div id="mega-menu">
-            <small>*If you select nothing from a category, all from that category will be included.</small>
-
-                <form action="/lessonplans" method="post" >
+			<div class="sticky">
+				<a class="btn btn-small btn-primary" href='javascript:showMenu()'>Show
+					Search</a> <a class="btn btn-small btn-primary"
+					href='javascript:hideMenu()'>Hide Search</a> <a
+					class="btn btn-small btn-primary" href='javascript:hideMenu()'>Submit</a>
+			</div>
 
 
-                    <div class="form-group form-vertical-blocks">
-                        <div class="form-header">Type</div>
-                        <label for="general">General</label>
-                        <input type="radio" id="GENERAL" name="type" value="general">
+			<div id="mega-menu">
+				<small>*If you select nothing from a category, all from that
+					category will be included.</small>
 
-                        <label for="business">Business</label>
-                        <input type="radio" id="BUSINESS" name="type" value="business">
-                    
-                    
-                   		
-                        <div class="form-header ml-4	">Preparation time</div>
-                        <label for="fiveminutespreparationtime"> 5 minutes</label>
-                        <input type="radio" id="FIVE" name="preparationtime" value="5">
+				<form th:action="@{/lessonplans}" th:object="${lessonPlan}"
+					method="post">
 
-                        <label for="tenminutespreparationtime"> 10 minutes </label>
-                        <input type="radio" id="TEN" name="preparationtime" value="10">
-                    </div>
-                
-                    
- 					<div class="form-header">Topics</div>
-                    <div class="form-group form-vertical-blocks">
-                        
-						<span th:each="t : ${topics}">
-                        <label th:text="${t.name}"></label>
-                        <input type="checkbox" th:id="${t.name}" name="topics" th:value="${t.name}">
-                        </span>
-             
+					<div class="form-group form-vertical-blocks">
+						<div class="form-header">Type</div>
+						<span th:each="typ : ${T(com.enoch.chris.lessonplanwebsite.entity.Type).values()}" th:field="*{type}"> 
+							<label th:for="${#ids.next('type')}" th:text="${typ.type}">General</label> 
+							<input type="radio" th:field="*{type}" th:value="${typ}">
+						</span>
+						
+						<div class="form-header ml-4	">Preparation time</div>
+						
+						<span th:each="prep : ${T(com.enoch.chris.lessonplanwebsite.entity.PreparationTime).values()}" 
+						th:field="*{type}"> 
+							<label th:for="${#ids.next('preparationTime')}" th:text="${prep.time}">General</label> 
+							<input type="radio" th:field="*{preparationTime}" th:value="${prep}">
+						</span>
+						
 
-                    </div>
+					</div>
 
-                    <div class="form-group form-vertical-blocks">
-                        <div class="form-header">Level</div>
+					<div class="form-group form-vertical-blocks">
+						<div class="form-header">Topics</div>
+						<span th:each="top : ${allTopics}"> <label
+							th:for="${#ids.next('topics')}" th:text="${top.name}">Heating</label>
+							<input type="checkbox" th:field="*{topics}" th:value="${top.id}" />
 
-                        <label for="A1">A1</label>
-                        <input type="radio" id="A1" name="subscription"  value="A1">
+						</span>
+					</div>
 
-                        <label for="A2">A2</label>
-                        <input type="radio" id="A2" name="subscription" value="A2">
+					<div class="form-group form-vertical-blocks">
+						<div class="form-header">Levels</div>
+						<span th:each="sub : ${allSubscriptions}"
+							th:field="*{assignedSubscription}"> <label
+							th:for="${#ids.next('assignedSubscription')}"
+							th:text="${sub.name}">General</label> <input type="radio"
+							th:field="*{assignedSubscription}" th:value="${sub.id}">
+						</span>
+					</div>
 
-                        <label for="B1">B1</label>
-                        <input type="radio" id="B1" name="subscription" value="B1">
+					<div class="form-group form-vertical-blocks">
+						<div class="form-header">Grammar</div>
+						<span th:each="g : ${allGrammar}"> <label
+							th:for="${#ids.next('grammar')}" th:text="${g.grammarPoint}">Heating</label>
+							<input type="checkbox" th:field="*{grammar}" th:value="${g.id}" />
+						</span>
+					</div>
 
-                        <label for="B2">B2</label>
-                        <input type="radio" id="B2" name="subscription" value="B2">
+					<div class="form-group form-vertical-blocks">
+						<div class="form-header">Lesson Time</div>
 
-                        <label for="B2+">B2+</label>
-                        <input type="radio" id="B2+" name="subscription" value="B2+">
+						<span
+							th:each="dur : ${T(com.enoch.chris.lessonplanwebsite.entity.LessonTime).values()}"
+							th:field="*{lessonTime}"> <label
+							th:for="${#ids.next('lessonTime')}" th:text="${dur.time}">General</label>
+							<input type="radio" th:field="*{lessonTime}" th:value="${dur}">
+						</span>
 
-                        <label for="C1">C1</label>
-                        <input type="radio" id="C1" name="subscription" value="C1">
+					</div>
 
-                        <label for="C1+">C1+</label>
-                        <input type="radio" id="C1+" name="subscription" value="C1+">
+					<div class="form-group form-vertical-blocks">
+						<div class="form-header">Skill</div>
 
-                        <label for="C2">C2</label>
-                        <input type="radio" id="C2" name="subscription" value="C2">
-                    </div>
+						<label th:for="${#ids.next('vocabulary')}">Vocabulary</label> <input
+							type="checkbox" th:field="*{vocabulary}" /> <label
+							th:for="${#ids.next('listening')}">Listening</label> <input
+							type="checkbox" th:field="*{listening}" /> <label
+							th:for="${#ids.next('reading')}">Reading</label> <input
+							type="checkbox" th:field="*{reading}" /> <label
+							th:for="${#ids.next('writing')}">Writing</label> <input
+							type="checkbox" th:field="*{writing}" />
 
-                    <div class="form-group form-vertical-blocks">
-                        <div class="form-header">Grammar</div>
-                        
-                        <span th:each="g : ${grammar}">
-                                             
-                        <label th:text="${g.grammarPoint}"></label>
-                        <input type="checkbox" th:id="${g.grammarPoint}"  name="grammar" th:value="${g.grammarPoint}">
-                        
-                        </span>
-            		</div>
+					</div>
 
-                    <div class="form-group form-vertical-blocks">
-                        <div class="form-header">Lesson Duration</div>
-                        <label for="60">60 minutes</label>
-                        <input type="radio" id="SIXTY" name="lessontime" value="60">
+					<div class="form-group form-vertical-blocks">
+						<div class="form-header">LessonContent</div>
 
+						<label th:for="${#ids.next('video')}">Video</label> <input
+							type="checkbox" th:field="*{video}" /> <label
+							th:for="${#ids.next('song')}">Song</label> <input
+							type="checkbox" th:field="*{song}" /> <label
+							th:for="${#ids.next('funClass')}">Just for fun</label> <input
+							type="checkbox" th:field="*{funClass}" /> <label
+							th:for="${#ids.next('games')}">Games</label> <input
+							type="checkbox" th:field="*{games}" /> <label
+							th:for="${#ids.next('jigsaw')}">Jigsaw</label> <input
+							type="checkbox" th:field="*{jigsaw}" /> <label
+							th:for="${#ids.next('translation')}">Translation</label> <input
+							type="checkbox" th:field="*{translation}" />
 
-                        <label for="90">1 hour 30 minutes</label>
-                        <input type="radio" id="NINETY" name="lessontime" value="90">
+					</div>
 
-                        <label for="120">2 hours</label>
-                        <input type="radio" id="ONE_HUNDRED_TWENTY" name="lessontime" value="120">
-                    </div>
+					<div class="form-group form-vertical-blocks">
+						<div class="form-header">Speaking</div>
 
-                    <div class="form-group form-vertical-blocks">
-                        <div class="form-header">Skill</div>
+						<label th:for="${#ids.next('speakingAmount')}">Speaking
+							Only</label> <input type="checkbox" th:field="*{speakingAmount}"
+							th:value="SPEAKING_ONLY">
+							
+							<div class="form-header">Resources</div>
 
-                        <label for="vocabulary">
-                            Vocabulary</label>
-                        <input type="checkbox" id="vocabulary" name="vocabulary" value="vocabulary">
+						<label th:for="${#ids.next('noPrintedMaterialsNeeded')}">No
+							printed materials needed</label> <input type="checkbox"
+							th:field="*{noPrintedMaterialsNeeded}" />
 
-                        <label for="listening">
-                            Listening</label>
-                        <input type="checkbox" id="listening" name="listening" value="listening">
+					</div>
+			
 
-                        <label for="reading"> Reading</label>
-                        <input type="checkbox" id="reading" name="reading" value="reading">
+					<button type="submit" name="save">Submit</button>
 
-                        <label for="writing"> Writing</label>
-                        <input type="checkbox" id="writing" name="writing" value="writing">
-                        
-                                                    <small>[All lessons include speaking]</small>
+				</form>
 
-                    </div>
-
-                    <div class="form-group form-vertical-blocks">
-                        <div class="form-header">Lesson Content</div>
-
-                        <label for="video"> Video</label>
-                        <input type="checkbox" id="video" name="video" value="video">
-
-                        <label for="song"> Song</label>
-                        <input type="checkbox" id="song" name="song" value="song">
-
-                        <label for="funClass"> Just for
-                            fun</label>
-                        <input type="checkbox" id="funClass" name="funclass" value="funclass">
-
-                        <label for="games">Games</label>
-                        <input type="checkbox" id="games" name="games" value="games">
-
-
-                        <label for="jigsaw"> Jigsaw</label>
-                        <input type="checkbox" id="jigsaw" name="jigsaw" value="jigsaw">
-
-                        <label for="translation">
-                            Translation</label>              
-
-                        <input type="checkbox" id="translation" name="translation" value="translation">
-
-                    </div>
-
-                    <div class="form-group form-vertical-blocks">
-                        <div class="form-header">Speaking</div>
-                        <label for="SPEAKING_ONLY">Speaking
-                            Only</label>
-                        <input type="checkbox" id="SPEAKING_ONLY" name="speakingamount" value="SPEAKING_ONLY">
-                        
-
-                        <div class="form-header ml-4">Resources</div>
-
-                        <label for="noprintedmaterialsneeded">No printed materials needed</label>
-                        <input type="checkbox" id="noprintedmaterialsneeded" name="noprintedmaterialsneeded"
-                            value="noprintedmaterialsneeded">
-
-                    </div>
-
-                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" /> <input
-                        type="submit" value="Submit">
+			</div>
 
 
-                </form>
+			<div class="book-container mt-3">
 
-            </div>
-
-
-            <div class="book-container mt-3">
-
-                <div class="mr-7 mb-1" th:each="lp : ${lessonPlans}">
-                    <!-- <c:forEach var="libro" varStatus="status" items="${libros}"> -->
-                    <h2 th:text="${lp.title}">Example H2</h2>
-                    <ul class="display-list">
-                        <li th:text="${lp.id}">Example id</li>
-                        <li th:text="${lp.assignedSubscription}">Example subscription</li>
-                        <li th:text="${lp.type}">Example type</li>
-                    </ul>
-                    <a class="btn btn-small btn-secondary" href='#'>Add to basket</a> <a
-                        class="btn btn-small btn-primary"
-                        th:href="@{/../checkout(id=${lp.assignedSubscription.name})}">Buy</a>
-                    <br> <br>
+				<div class="mr-7 mb-1" th:each="lp : ${lessonPlans}">
+					<!-- <c:forEach var="libro" varStatus="status" items="${libros}"> -->
+					<h2 th:text="${lp.title}">Example H2</h2>
+					<ul class="display-list">
+						<li th:text="${lp.id}">Example id</li>
+						<li th:text="${lp.assignedSubscription}">Example subscription</li>
+						<li th:text="${lp.type}">Example type</li>
+					</ul>
+					<a class="btn btn-small btn-secondary" href='#'>Add to basket</a> <a
+						class="btn btn-small btn-primary"
+						th:href="@{/../checkout(id=${lp.assignedSubscription.name})}">Buy</a>
+					<br> <br>
 
 
-                </div>
-            </div>
-        </div>
-    </div>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 
 </html>
