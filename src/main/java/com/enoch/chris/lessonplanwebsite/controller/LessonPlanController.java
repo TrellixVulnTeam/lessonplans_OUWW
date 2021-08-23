@@ -98,17 +98,16 @@ public class LessonPlanController {
 	public String displayLessonPlans(Model theModel, HttpSession session) {	
 		
 		if (!theModel.containsAttribute("lessonPlan")) {
-			System.out.println("does not contains lesson plan");
 			List<LessonPlan> lessonPlans = lessonPlanRepository.findAll();	
 
 			//add to model
 			theModel.addAttribute("lessonPlans", lessonPlans);
 			LessonPlan lessonPlan = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null).build();
 			
-			//Override default parameters so that no value is initially shown
+			//Override default parameters so that no value is initially shown in checkboxes
 			lessonPlan.setPreparationTime(null);
 			lessonPlan.setLessonTime(null);
-			//lessonPlan.setPreparationTime(PreparationTime.FIVE);
+
 			theModel.addAttribute("lessonPlan",lessonPlan);
 		} 
 
@@ -120,17 +119,12 @@ public class LessonPlanController {
 	public String checkboxTest(final LessonPlan lessonPlan, Model theModel, RedirectAttributes redirectAttributes)  {
 				System.out.println("debug enum " + lessonPlan.getPreparationTime());
 		 List<LessonPlan> lessonPlansFiltered = lessonPlanService.findSearchedLessonPlans(lessonPlan);
-
-		 System.out.println("lesson plans filtered " + lessonPlansFiltered);
-		 redirectAttributes.addFlashAttribute("lessonPlans", lessonPlansFiltered);
-	 
 		 List<String> checkboxesToCheck = LessonPlanUtils.saveSelectedCheckboxes(lessonPlan);
-		 	 
+		 
+		 redirectAttributes.addFlashAttribute("lessonPlans", lessonPlansFiltered);
 		 redirectAttributes.addFlashAttribute("checkboxesToCheck", checkboxesToCheck);
 		 redirectAttributes.addFlashAttribute("lessonPlan", lessonPlan);
 
-		 
-		//return "redirect:/lessonplans/search";
 		 return "redirect:/lessonplans";
 	}
 	
@@ -142,37 +136,10 @@ public class LessonPlanController {
 				//get lesson by id
 				Optional<LessonPlan> lp =lessonPlanRepository.findById(lessonId.get());
 					if (lp.isPresent()){
-						System.out.println("LP is present - in if");
 						
-						//check lesson is B2 level
-						if (!lp.get().getAssignedSubscription().getName().equals("B2")) { //if plan does not exist for this level, return
-							System.out.println("Subscription name does not match B2. Subscription name: " + lp.get().getAssignedSubscription().getName());
-							
-							return "error/lessonplannotfound";
-						}
+						System.out.println("LP present");
 						
-						//set lessonPlan variable
-						theModel.addAttribute("lp", lp.get());
-						
-						//get user active subscriptions
-						User theUser = (User)session.getAttribute("user");
-						
-						System.out.println("User name: " + theUser.getFirstName());
-						
-						List<Subscription> activeSubscriptions = subscriptionRepository
-								.findActiveSubscriptions(theUser, LocalDateTime.now());
-						
-						boolean isActive = activeSubscriptions.stream().anyMatch(s -> s.getName().equals("B2"));
-						
-						System.out.println("Active subscriptions");
-						activeSubscriptions.stream().forEach(a -> System.out.println(a.getName()));
-						
-						System.out.println("IS ACTIVE " + isActive);
-						
-						//add user active subscriptions to model
-						theModel.addAttribute("B2active", isActive);
-						
-						return "/lessonplans/B2/" + lp.get().getTitle();
+						return checkUserIsSubscribed(theModel, session, lp, "B2");
 					}
 					System.out.println("LP not present");
 					return "error/lessonplannotfound";
@@ -183,6 +150,36 @@ public class LessonPlanController {
 				
 			}	
 		
+	}
+
+	private String checkUserIsSubscribed(Model theModel, HttpSession session, Optional<LessonPlan> lp, String subscriptionToCheck) {
+		//check lesson is B2 level
+		if (!lp.get().getAssignedSubscription().getName().equals(subscriptionToCheck)) { //if plan does not exist for this level, return		
+			System.out.println("debug b2 not found");
+			return "error/lessonplannotfound";
+		}
+		
+		//set lessonPlan variable
+		theModel.addAttribute("lp", lp.get());
+		
+		//get user active subscriptions
+		User theUser = (User)session.getAttribute("user");
+		
+		List<Subscription> activeSubscriptions = subscriptionRepository
+				.findActiveSubscriptions(theUser, LocalDateTime.now());
+		
+		boolean isActive = activeSubscriptions.stream().anyMatch(s -> s.getName().equals(subscriptionToCheck));				
+		
+		//add user active subscriptions to model
+		theModel.addAttribute(subscriptionToCheck+"active", isActive);
+		System.out.println("debug b2 model active " + subscriptionToCheck+"active");
+		
+		System.out.println("toute to direct to " + "/lessonplans/" + subscriptionToCheck + "/" + lp.get().getTitle());
+		
+		//Strip title of spaces to produce filename
+		String titleNoSpace = lp.get().getTitle().replaceAll("\\s", "");
+		
+		return "/lessonplans/" + subscriptionToCheck + "/" + titleNoSpace;
 	}
 	
 	
