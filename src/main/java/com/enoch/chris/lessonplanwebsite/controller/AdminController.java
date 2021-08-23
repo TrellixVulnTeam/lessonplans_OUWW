@@ -176,17 +176,23 @@ public class AdminController {
 	        try {
 	            Path path = Paths.get(UPLOAD_DIR + fileName);
 	            
-	            System.out.println("File location: " + path.toAbsolutePath());     
-	            System.out.println("file name " + file.getName());
-	            System.out.println("file size " + file.getSize());
-	            
+	            System.out.println("path3    /images/" + fileName);
+
 	            Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+	            
+	            //save Picture to database
+	            Picture picture = new Picture("/images/" + fileName, fileName);
+	            pictureRepository.save(picture);
+	            
+	         // return success response
+		        attributes.addFlashAttribute("message", "You successfully uploaded " + fileName);          
+	            
 	        } catch (IOException e) {
 	            e.printStackTrace();
+	            attributes.addFlashAttribute("message", "Sorry but there was a problem uploading"
+	            		+ " " + fileName + " . Please try again.");       
 	        }
 
-	        // return success response
-	        attributes.addFlashAttribute("message", "You successfully uploaded " + fileName + '!');
 
 	        return "redirect:/admin/upload";
 	    }
