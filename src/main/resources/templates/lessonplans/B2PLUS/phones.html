@@ -21,11 +21,11 @@
 
 			<h1 id="large-header" class="mt-5 ml-5 mb-5" th:text="${lp.title}">Lesson Plan</h1>
 			
-			<div th:if="${B2+active}">
+			<div th:if="${B2PLUSactive}">
 			<p th:text="${lp.assignedSubscription.name}"></p>
 			</div>
 			
-			<div th:if="${!B2+active  || B2+active == null}">
+			<div th:if="${!B2PLUSactive  || B2PLUSactive == null}">
 			<p>In order to access this lesson plan you need a <span th:text="${lp.assignedSubscription.name}"></span> subscription.</p>
 			<a class="btn btn-small btn-primary" href='#'>Get this subscription now</a>
 			</div>		

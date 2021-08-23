@@ -202,7 +202,7 @@ public class LessonPlanController {
 		
 	}
 	
-	@GetMapping("/B2+")
+	@GetMapping("/B2PLUS")
 	public String displayB2Plus(Model theModel,HttpSession session
 			, @RequestParam("id") Optional<Integer> lessonId) {	
 		
@@ -213,14 +213,14 @@ public class LessonPlanController {
 						
 						System.out.println("LP present");
 						
-						return checkUserIsSubscribed(theModel, session, lp, "B2+");
+						return checkUserIsSubscribed(theModel, session, lp, "B2PLUS");
 					}
 					System.out.println("LP not present");
 					return "error/lessonplannotfound";
 												
 			} else {
 				//return page with all B2 lesson plans on
-				return "B2+lessonplans";
+				return "B2PLUSlessonplans";
 				
 			}		
 	}
@@ -248,7 +248,7 @@ public class LessonPlanController {
 			}		
 	}
 	
-	@GetMapping("/C1+")
+	@GetMapping("/C1PLUS")
 	public String displayC1Plus(Model theModel,HttpSession session
 			, @RequestParam("id") Optional<Integer> lessonId) {	
 		
@@ -259,23 +259,45 @@ public class LessonPlanController {
 						
 						System.out.println("LP present");
 						
-						return checkUserIsSubscribed(theModel, session, lp, "C1+");
+						return checkUserIsSubscribed(theModel, session, lp, "C1PLUS");
 					}
 					System.out.println("LP not present");
 					return "error/lessonplannotfound";
 												
 			} else {
 				//return page with all B2 lesson plans on
-				return "C1+lessonplans";
+				return "C1PLUSlessonplans";
 				
 			}		
 	}
 	
-	
+	@GetMapping("/C2")
+	public String displayC2(Model theModel,HttpSession session
+			, @RequestParam("id") Optional<Integer> lessonId) {	
+		
+			if(lessonId.isPresent()) {		
+				//get lesson by id
+				Optional<LessonPlan> lp =lessonPlanRepository.findById(lessonId.get());
+					if (lp.isPresent()){
+						
+						System.out.println("LP present");
+						
+						return checkUserIsSubscribed(theModel, session, lp, "C2");
+					}
+					System.out.println("LP not present");
+					return "error/lessonplannotfound";
+												
+			} else {
+				//return page with all B2 lesson plans on
+				return "C2lessonplans";
+				
+			}		
+	}
 	
 
 	private String checkUserIsSubscribed(Model theModel, HttpSession session, Optional<LessonPlan> lp, String subscriptionToCheck) {
-		//check lesson is B2 level
+
+		//check lesson is B2 level	
 		if (!lp.get().getAssignedSubscription().getName().equals(subscriptionToCheck)) { //if plan does not exist for this level, return		
 			System.out.println("debug b2 not found");
 			return "error/lessonplannotfound";

@@ -144,7 +144,7 @@ function updatePicture(id) {
 						<span th:each="sub : ${allSubscriptions}"
 							th:field="*{assignedSubscription}"> <label
 							th:for="${#ids.next('assignedSubscription')}"
-							th:text="${sub.name}">General</label> <input type="radio"
+							th:text="${sub.displayName}">General</label> <input type="radio"
 							th:field="*{assignedSubscription}" th:value="${sub.id}">
 						</span>
 					</div>

@@ -14,6 +14,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.springframework.scheduling.support.SimpleTriggerContext;
+
 @Entity(name="Subscription")
 @Table(name="subscription")
 public class Subscription {
@@ -29,6 +31,9 @@ public class Subscription {
 	@Column(name="price")
 	private int price;
 	
+	@Column(name="display_name")
+	private String displayName;
+	
 	protected Subscription() {
 		
 	}
@@ -37,11 +42,27 @@ public class Subscription {
 		super();
 		this.name = name;
 	}
+	
+	public Subscription(String name, String displayName) {
+		super();
+		this.name = name;
+		this.displayName = displayName;
+	}
 
-	public Subscription(String name, int price) {
+
+	public Subscription(String name, String displayName, int price) {
 		super();
 		this.name = name;
 		this.price = price;
+		this.displayName = displayName;
+	}
+
+	public String getDisplayName() {
+		return displayName;
+	}
+
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
 	}
 
 	public int getId() {
