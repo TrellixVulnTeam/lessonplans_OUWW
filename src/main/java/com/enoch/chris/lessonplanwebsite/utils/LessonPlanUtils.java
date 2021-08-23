@@ -1,4 +1,4 @@
-package com.enoch.chris.lessonplanwebsite.controller;
+package com.enoch.chris.lessonplanwebsite.utils;
 
 import java.util.ArrayList;
 import java.util.List;

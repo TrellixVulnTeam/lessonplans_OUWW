@@ -49,6 +49,7 @@ import com.enoch.chris.lessonplanwebsite.entity.Topic;
 import com.enoch.chris.lessonplanwebsite.entity.Type;
 import com.enoch.chris.lessonplanwebsite.entity.User;
 import com.enoch.chris.lessonplanwebsite.service.LessonPlanService;
+import com.enoch.chris.lessonplanwebsite.utils.LessonPlanUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -128,6 +129,55 @@ public class LessonPlanController {
 		 return "redirect:/lessonplans";
 	}
 	
+	
+	@GetMapping("/A2")
+	public String displayA2(Model theModel,HttpSession session
+			, @RequestParam("id") Optional<Integer> lessonId) {	
+		
+			if(lessonId.isPresent()) {		
+				//get lesson by id
+				Optional<LessonPlan> lp =lessonPlanRepository.findById(lessonId.get());
+					if (lp.isPresent()){
+						
+						System.out.println("LP present");
+						
+						return checkUserIsSubscribed(theModel, session, lp, "A2");
+					}
+					System.out.println("LP not present");
+					return "error/lessonplannotfound";
+												
+			} else {
+				//return page with all B2 lesson plans on
+				return "A2lessonplans";
+				
+			}	
+		
+	}
+	
+	@GetMapping("/B1")
+	public String displayB1(Model theModel,HttpSession session
+			, @RequestParam("id") Optional<Integer> lessonId) {	
+		
+			if(lessonId.isPresent()) {		
+				//get lesson by id
+				Optional<LessonPlan> lp =lessonPlanRepository.findById(lessonId.get());
+					if (lp.isPresent()){
+						
+						System.out.println("LP present");
+						
+						return checkUserIsSubscribed(theModel, session, lp, "B1");
+					}
+					System.out.println("LP not present");
+					return "error/lessonplannotfound";
+												
+			} else {
+				//return page with all B2 lesson plans on
+				return "B1lessonplans";
+				
+			}	
+		
+	}
+	
 	@GetMapping("/B2")
 	public String displayB2(Model theModel,HttpSession session
 			, @RequestParam("id") Optional<Integer> lessonId) {	
@@ -151,6 +201,78 @@ public class LessonPlanController {
 			}	
 		
 	}
+	
+	@GetMapping("/B2+")
+	public String displayB2Plus(Model theModel,HttpSession session
+			, @RequestParam("id") Optional<Integer> lessonId) {	
+		
+			if(lessonId.isPresent()) {		
+				//get lesson by id
+				Optional<LessonPlan> lp =lessonPlanRepository.findById(lessonId.get());
+					if (lp.isPresent()){
+						
+						System.out.println("LP present");
+						
+						return checkUserIsSubscribed(theModel, session, lp, "B2+");
+					}
+					System.out.println("LP not present");
+					return "error/lessonplannotfound";
+												
+			} else {
+				//return page with all B2 lesson plans on
+				return "B2+lessonplans";
+				
+			}		
+	}
+	
+	@GetMapping("/C1")
+	public String displayC1(Model theModel,HttpSession session
+			, @RequestParam("id") Optional<Integer> lessonId) {	
+		
+			if(lessonId.isPresent()) {		
+				//get lesson by id
+				Optional<LessonPlan> lp =lessonPlanRepository.findById(lessonId.get());
+					if (lp.isPresent()){
+						
+						System.out.println("LP present");
+						
+						return checkUserIsSubscribed(theModel, session, lp, "C1");
+					}
+					System.out.println("LP not present");
+					return "error/lessonplannotfound";
+												
+			} else {
+				//return page with all B2 lesson plans on
+				return "C1lessonplans";
+				
+			}		
+	}
+	
+	@GetMapping("/C1+")
+	public String displayC1Plus(Model theModel,HttpSession session
+			, @RequestParam("id") Optional<Integer> lessonId) {	
+		
+			if(lessonId.isPresent()) {		
+				//get lesson by id
+				Optional<LessonPlan> lp =lessonPlanRepository.findById(lessonId.get());
+					if (lp.isPresent()){
+						
+						System.out.println("LP present");
+						
+						return checkUserIsSubscribed(theModel, session, lp, "C1+");
+					}
+					System.out.println("LP not present");
+					return "error/lessonplannotfound";
+												
+			} else {
+				//return page with all B2 lesson plans on
+				return "C1+lessonplans";
+				
+			}		
+	}
+	
+	
+	
 
 	private String checkUserIsSubscribed(Model theModel, HttpSession session, Optional<LessonPlan> lp, String subscriptionToCheck) {
 		//check lesson is B2 level
