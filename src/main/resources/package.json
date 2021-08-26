@@ -1,0 +1,14 @@
+{
+  "name": "lesson_plans",
+  "version": "1.0.0",
+  "description": "website for lesson plans",
+  "main": "index.js",
+  "scripts": {
+    "compile:sass": "node-sass static/sass/main.scss static/css/styles_principal.css -w"
+  },
+  "author": "Chris",
+  "license": "ISC",
+  "devDependencies": {
+    "node-sass": "^6.0.1"
+  }
+}

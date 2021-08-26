@@ -1,0 +1,61 @@
+h2 {
+	text-decoration: underline;
+	text-decoration: underline #ff8c00;
+	text-decoration: underline rgba(140, 70, 240, 0.7);
+}
+
+.main-content {
+	margin: 0rem 4rem;
+	margin: 0rem 7rem 0rem 7rem;
+	background-color: rgb(249, 244, 244);
+	background-color: white;
+	overflow: hidden;
+	min-height: 100vh;	
+}
+
+#large-header {
+	font-size: 8.8rem;
+	display: block;
+	color: orange;
+	color: black;
+	font-weight: 400;
+}
+
+.message-medium {
+	font-size: 4.4rem;
+}
+
+.message-large {
+	font-size: 6.6rem;
+}
+
+.display-list {
+	list-style-type: none;
+	width: 25%;
+	min-width: 31.6rem;
+	margin: .3rem 0rem;
+	padding: .7rem;
+}
+
+.lp-container {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+#mega-menu {
+	display:none;
+	overflow: auto; 
+}
+
+a.styled-link {
+	color: #0073FF;
+}
+
+a.styled-link:hover {
+	background-color: rgba(255, 140, 0, 0.2);
+	color: rgb(33, 37, 41);
+}
+
+a.styled-link:visited {
+	color: #551A8B;
+}

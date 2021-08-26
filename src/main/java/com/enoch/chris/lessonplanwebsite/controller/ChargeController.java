@@ -4,8 +4,11 @@ import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.TemporalAdjusters;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -82,6 +85,22 @@ public class ChargeController {
 				Purchase purchase;
 				
 				if (subscription.isPresent()) {
+//					//check to see if already purchased this subscription. In this case, subscription start date should start immediately after
+//					//finish date. 
+//								
+//					//get susbcription with latest finish date
+//					List<Purchase> purchases = purchaseRepository.findAll().stream().filter(p-> p.getUser() == user)
+//							.filter(p-> p.getSubscription().equals(subscription.get()))
+//							.filter(p-> p.getDateSubscriptionEnds().isAfter(LocalDateTime.now()))
+//					.sorted(Comparator.comparing(Purchase::getDateSubscriptionEnds)).collect(Collectors.toList());		
+//					
+//					//get greatest finishing date
+//					LocalDateTime startingDate = purchases.get(purchases.size() - 1).getDateSubscriptionEnds();
+//					
+//
+//					
+//					
+//					//check if this subscription is one			
 					purchase = new Purchase(LocalDateTime.now(), LocalDateTime.now(),
 							LocalDateTime.now().plusYears(1L), amount, subscription.get(), user);
 				} else {
