@@ -19,7 +19,7 @@
 			class="navigation__item navigation__item--right"
 			href="javascript: document.logoutForm.submit()" role="menuitem"> Logout</a></li>
 			
-		<li th:if="${session.user == null }"></li><a
+		<li th:if="${session.user == null }"><a
 		class="navigation__item navigation__item--right"
 		href="/showMyLoginPage" role="menuitem"> Login</a></li>
 
