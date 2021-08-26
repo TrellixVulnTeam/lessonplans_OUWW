@@ -7,57 +7,68 @@
 	display: inline-block;
 	border-radius: 1.4rem;
 	letter-spacing: 0.2px;
+
+	&--small {
+		font-size: 2rem;
+	}
+
+	&--med {
+		font-size: 2.2rem;
+	}
+
+	&--big{
+		font-size: 2.75rem;
+	}
+	&--primary {
+		background-color: rgba(255, 140, 0, 0.8);
+
+		&:hover{
+			background-color: rgba(255, 140, 0, 1);
+			cursor: pointer;
+		}
+	}
+
+	&--secondary{
+		background-color: rgba(108, 54, 186, 0.8);
+		color: white;
+
+		&:hover{
+			background-color: rgba(108, 54, 186, 1);
+			cursor: pointer;
+		}
+	}
+
+	&--tertiary{
+		background-color: rgba(0, 0, 0, 0.1);
+		color: rgb(3, 3, 3);
+		letter-spacing: 0.2px;
+
+		&:hover{
+			background-color: rgba(0, 0, 0, 0.2);
+			cursor: pointer;
+		}
+	}
+
+	&--action-primary {
+		background-color: rgb(255, 140, 0);
+
+		&:hover{
+			background-color: #58b40b;
+			cursor: pointer;
+		}
+	}
+
+	&--action-secondary{
+		background-color: rgba(108, 54, 186, 1);
+		color: white;
+
+		&:hover {
+			background-color: #542a90;
+			color: white;
+			cursor: pointer;
+		}
+	}
+
+
 }
 
-.btn-small {
-	font-size: 2rem;
-}
-
-.btn-med {
-	font-size: 2.2rem;
-}
-
-.btn-big {
-	font-size: 2.75rem;
-}
-
-.btn-primary {
-	background-color: #ff8c00;
-}
-
-.btn-secondary {
-	background-color: rgba(108, 54, 186, 0.8);
-	color: white;
-}
-
-.btn-secondary-action {
-	background-color: rgba(108, 54, 186, 1);
-	color: white;
-}
-
-.btn-tertiary {
-	background-color: rgba(0, 0, 0, 0.1);
-	color: rgb(3, 3, 3);
-	letter-spacing: 0.2px;
-}
-
-.btn-tertiary:hover {
-	background-color: rgba(0, 0, 0, 0.2);
-	cursor: pointer;
-}
-
-.btn-secondary:hover {
-	background-color: rgba(108, 54, 186, 1);
-	cursor: pointer;
-}
-
-.btn-primary:hover {
-	background-color: #58b40b;
-	cursor: pointer;
-}
-
-.btn-secondary-action:hover {
-	background-color: #542a90;
-	color: white;
-	cursor: pointer;
-}

@@ -23,7 +23,7 @@
 			<h1 id="large-header" th:if="${lessonPlans.size() > 0}">Basket</h1>
 
 			<div th:if="${order.size() < 0}">
-				<p class="mt-5 ml-5 mb-5 message-large">Your basket is empty</p>
+				<p class="mt-5 ml-5 mb-5 message--large">Your basket is empty</p>
 				<a class="btn btn-big btn-secondary-action ml-5"
 					href="lessonplans.html" th:href="@{/lessonplans}">View
 					lesson plans</a>

@@ -73,7 +73,7 @@
 				<form th:action="@{/lessonplans}" th:object="${lessonPlan}"
 					method="post">
 
-					<div class="form-group form-vertical-blocks">
+					<div class="form-group">
 						<div class="form-header">Type</div>
 						<span th:each="typ : ${T(com.enoch.chris.lessonplanwebsite.entity.Type).values()}" th:field="*{type}"> 
 							<label th:for="${#ids.next('type')}" th:text="${typ.type}">General</label> 
@@ -91,7 +91,7 @@
 
 					</div>
 
-					<div class="form-group form-vertical-blocks">
+					<div class="form-group">
 						<div class="form-header">Topics</div>
 						<span th:each="top : ${allTopics}"> <label
 							th:for="${#ids.next('topics')}" th:text="${top.name}">Heating</label>
@@ -100,7 +100,7 @@
 						</span>
 					</div>
 
-					<div class="form-group form-vertical-blocks">
+					<div class="form-group ">
 						<div class="form-header">Levels</div>
 						<span th:each="sub : ${allSubscriptions}"
 							th:field="*{assignedSubscription}"> <label
@@ -110,7 +110,7 @@
 						</span>
 					</div>
 
-					<div class="form-group form-vertical-blocks">
+					<div class="form-group ">
 						<div class="form-header">Grammar</div>
 						<span th:each="g : ${allGrammar}"> <label
 							th:for="${#ids.next('grammar')}" th:text="${g.grammarPoint}">Heating</label>
@@ -118,7 +118,7 @@
 						</span>
 					</div>
 
-					<div class="form-group form-vertical-blocks">
+					<div class="form-group">
 						<div class="form-header">Lesson Time</div>
 
 						<span
@@ -130,7 +130,7 @@
 
 					</div>
 
-					<div class="form-group form-vertical-blocks">
+					<div class="form-group ">
 						<div class="form-header">Skill</div>
 
 						<label th:for="${#ids.next('vocabulary')}">Vocabulary</label> <input
@@ -144,7 +144,7 @@
 
 					</div>
 
-					<div class="form-group form-vertical-blocks">
+					<div class="form-group ">
 						<div class="form-header">LessonContent</div>
 
 						<label th:for="${#ids.next('video')}">Video</label> <input
@@ -162,7 +162,7 @@
 
 					</div>
 
-					<div class="form-group form-vertical-blocks">
+					<div class="form-group ">
 						<div class="form-header">Speaking</div>
 
 						<label th:for="${#ids.next('speakingAmount')}">Speaking
