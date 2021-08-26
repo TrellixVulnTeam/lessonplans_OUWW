@@ -59,10 +59,10 @@
 			<h1 id="large-header" class="mt-5 ml-5 mb-5">Lesson Plans Test</h1>
 
 			<div>
-				<a class="btn btn-small btn-primary" href='javascript:showMenu()'>Show
-					Search</a> <a class="btn btn-small btn-primary"
+				<a class="btn btn--small btn--primary" href='javascript:showMenu()'>Show
+					Search</a> <a class="btn btn--small btn--primary"
 					href='javascript:hideMenu()'>Hide Search</a> <a
-					class="btn btn-small btn-primary" href='javascript:hideMenu()'>Submit</a>
+					class="btn btn--small btn--primary" href='javascript:hideMenu()'>Submit</a>
 			</div>
 
 
@@ -73,14 +73,14 @@
 				<form th:action="@{/lessonplans}" th:object="${lessonPlan}"
 					method="post">
 
-					<div class="form-group">
-						<div class="form-header">Type</div>
+					<div class="form__group">
+						<div class="form__header">Type</div>
 						<span th:each="typ : ${T(com.enoch.chris.lessonplanwebsite.entity.Type).values()}" th:field="*{type}"> 
 							<label th:for="${#ids.next('type')}" th:text="${typ.type}">General</label> 
 							<input type="radio" th:field="*{type}" th:value="${typ}">
 						</span>
 						
-						<div class="form-header ml-4	">Preparation time</div>
+						<div class="form__header ml-4	">Preparation time</div>
 						
 						<span th:each="prep : ${T(com.enoch.chris.lessonplanwebsite.entity.PreparationTime).values()}" 
 						th:field="*{type}"> 
@@ -91,8 +91,8 @@
 
 					</div>
 
-					<div class="form-group">
-						<div class="form-header">Topics</div>
+					<div class="form__group">
+						<div class="form__header">Topics</div>
 						<span th:each="top : ${allTopics}"> <label
 							th:for="${#ids.next('topics')}" th:text="${top.name}">Heating</label>
 							<input type="checkbox" th:field="*{topics}" th:value="${top.id}" />
@@ -100,8 +100,8 @@
 						</span>
 					</div>
 
-					<div class="form-group ">
-						<div class="form-header">Levels</div>
+					<div class="form__group ">
+						<div class="form__header">Levels</div>
 						<span th:each="sub : ${allSubscriptions}"
 							th:field="*{assignedSubscription}"> <label
 							th:for="${#ids.next('assignedSubscription')}"
@@ -110,16 +110,16 @@
 						</span>
 					</div>
 
-					<div class="form-group ">
-						<div class="form-header">Grammar</div>
+					<div class="form__group ">
+						<div class="form__header">Grammar</div>
 						<span th:each="g : ${allGrammar}"> <label
 							th:for="${#ids.next('grammar')}" th:text="${g.grammarPoint}">Heating</label>
 							<input type="checkbox" th:field="*{grammar}" th:value="${g.id}" />
 						</span>
 					</div>
 
-					<div class="form-group">
-						<div class="form-header">Lesson Time</div>
+					<div class="form__group">
+						<div class="form__header">Lesson Time</div>
 
 						<span
 							th:each="dur : ${T(com.enoch.chris.lessonplanwebsite.entity.LessonTime).values()}"
@@ -130,8 +130,8 @@
 
 					</div>
 
-					<div class="form-group ">
-						<div class="form-header">Skill</div>
+					<div class="form__group ">
+						<div class="form__header">Skill</div>
 
 						<label th:for="${#ids.next('vocabulary')}">Vocabulary</label> <input
 							type="checkbox" th:field="*{vocabulary}" /> <label
@@ -144,8 +144,8 @@
 
 					</div>
 
-					<div class="form-group ">
-						<div class="form-header">LessonContent</div>
+					<div class="form__group ">
+						<div class="form__header">LessonContent</div>
 
 						<label th:for="${#ids.next('video')}">Video</label> <input
 							type="checkbox" th:field="*{video}" /> <label
@@ -162,14 +162,14 @@
 
 					</div>
 
-					<div class="form-group ">
-						<div class="form-header">Speaking</div>
+					<div class="form__group ">
+						<div class="form__header">Speaking</div>
 
 						<label th:for="${#ids.next('speakingAmount')}">Speaking
 							Only</label> <input type="checkbox" th:field="*{speakingAmount}"
 							th:value="SPEAKING_ONLY">
 							
-							<div class="form-header">Resources</div>
+							<div class="form__header">Resources</div>
 
 						<label th:for="${#ids.next('noPrintedMaterialsNeeded')}">No
 							printed materials needed</label> <input type="checkbox"
@@ -195,8 +195,8 @@
 						<li th:text="${lp.assignedSubscription}">Example subscription</li>
 						<li th:text="${lp.type}">Example type</li>
 					</ul>
-					<a class="btn btn-small btn-secondary" href='#'>Add to basket</a> <a
-						class="btn btn-small btn-primary"
+					<a class="btn btn--small btn--secondary" href='#'>Add to basket</a> <a
+						class="btn btn--small btn--primary"
 						th:href="@{/../checkout(id=${lp.assignedSubscription.name})}">Buy</a>
 					<br> <br>
 

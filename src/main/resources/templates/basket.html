@@ -24,7 +24,7 @@
 
 			<div th:if="${order.size() < 0}">
 				<p class="mt-5 ml-5 mb-5 message--large">Your basket is empty</p>
-				<a class="btn btn-big btn-secondary-action ml-5"
+				<a class="btn btn--big btn--action-secondary ml-5"
 					href="lessonplans.html" th:href="@{/lessonplans}">View
 					lesson plans</a>
 			
@@ -40,7 +40,7 @@
 							<li th:text="${o.lessonPlan.type}">Example type</li>			
 					</ul>
 					
-					<a class="btn btn-small btn-tertiary" href="checkout.html" th:href="@{/remove(o.lessonId=${o.lessonPlan.id})}">Remove</a>
+					<a class="btn btn--small btn--tertiary" href="checkout.html" th:href="@{/remove(o.lessonId=${o.lessonPlan.id})}">Remove</a>
 					<br> <br>
 
 				</div>
@@ -50,7 +50,7 @@
 				<hr>
 				<br>
 				<h2 class="mt-1" th:text="%{order.totalPrice}"></h2>
-					<a class="mt-1 ml-auto btn btn-med btn-primary" href="checkout.html" th:href="@{../checkout(orderId=${order.id})}">Buy All</a>
+					<a class="mt-1 ml-auto btn btn--med btn--primary" href="checkout.html" th:href="@{../checkout(orderId=${order.id})}">Buy All</a>
 			</div>
 
 		</div>
