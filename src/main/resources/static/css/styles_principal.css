@@ -285,36 +285,36 @@ input {
   padding: 4.1rem;
   border-bottom: 0.2rem solid rgba(255, 140, 0, 0.5); }
 
-nav {
+.navigation {
   width: 100%;
   background-image: linear-gradient(to right, #8c46f0, #9f6df7, #9f6df7, #9f6df7, #9f6df7, #b390fc);
   background-repeat: no-repeat;
-  padding: 2.75rem 1.4rem 2.75rem, 4.1rem;
+  padding: 2.75rem 1.4rem 2.75rem 4.1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: 1.6rem;
   font-weight: 600; }
-  nav__navlinks {
+  .navigation__navlinks {
     list-style: none;
     display: flex; }
-    nav__navlinks--right {
+    .navigation__navlinks--right {
       margin-left: auto;
       margin-right: 6rem;
       align-items: center; }
-  nav__item {
+  .navigation__item {
     display: inline-block;
     padding: 1.4rem 2.1rem;
     text-decoration: none; }
-    nav__item__logo {
+    .navigation__item--logo {
       color: white;
       font-size: 4rem;
       font-weight: 900;
       text-shadow: #898999 2px 3px 0px; }
-    nav__item__right {
+    .navigation__item--right {
       margin: 0rem 1rem;
       color: black;
       color: white;
       border-radius: 1.4rem; }
-      nav__item__right:hover {
+      .navigation__item--right:hover {
         background-color: #6c36ba; }
