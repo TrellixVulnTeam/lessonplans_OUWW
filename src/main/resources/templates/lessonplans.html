@@ -189,9 +189,9 @@
 					<!-- <c:forEach var="libro" varStatus="status" items="${libros}"> -->
 					<h2 th:text="${lp.title}">Example H2</h2>
 					<ul class="display-list">
-						<li th:text="${lp.id}">Example id</li>
-						<li th:text="${lp.assignedSubscription}">Example subscription</li>
-						<li th:text="${lp.type}">Example type</li>
+						<li th:text="${lp.title}">Title</li>
+						<li th:text="${lp.assignedSubscription.displayName}">Subscription</li>
+						<li th:text="${lp.type.type}">Type</li>
 					</ul>
 					<a class="btn btn--small btn--secondary" href='#'>Add to basket</a> <a
 						class="btn btn--small btn--action-primary"
@@ -201,6 +201,36 @@
 
 				</div>
 			</div>
+			
+
+		<div class="lp-container">
+			<div class="card" th:each="lp : ${lessonPlans}">
+				<div class="card__side">
+					 <div class="card__picture card__picture--1">
+						<img th:src="${lp.picture?.fileLocation}" th:alt="${lp.picture?.name}"/>
+					 </div>
+					 <div class="card__details">
+						 <ul>
+							 <li>3 day tours</li>
+							 <li>Up to 30 people</li>
+							 <li>2 tour guides</li>
+							 <li>Sleep in cozy hotels</li>
+							 <li>Difficulty: easy</li>
+						 </ul>
+					 </div>
+				</div>
+			</div>
+		</div>
+
+
+
+
+
+
+
+			
+
+
 	</div>
 </body>
 

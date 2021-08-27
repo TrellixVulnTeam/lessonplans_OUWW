@@ -20,20 +20,20 @@
 		font-size: 2.75rem;
 	}
 	&--primary {
-		background-color: rgba(255, 140, 0, 0.8);
+		background-color: rgba($color-primary, 0.8);
 
 		&:hover{
-			background-color: rgba(255, 140, 0, 1);
+			background-color: rgba($color-primary, 1);
 			cursor: pointer;
 		}
 	}
 
 	&--secondary{
-		background-color: rgba(108, 54, 186, 0.8);
+		background-color: rgba($color-secondary-dark, 0.8);
 		color: white;
 
 		&:hover{
-			background-color: rgba(108, 54, 186, 1);
+			background-color: rgba($color-secondary-dark, 1);
 			cursor: pointer;
 		}
 	}
@@ -50,7 +50,7 @@
 	}
 
 	&--action-primary {
-		background-color: rgb(255, 140, 0);
+		background-color: $color-primary;
 
 		&:hover{
 			background-color: #58b40b;
@@ -59,7 +59,7 @@
 	}
 
 	&--action-secondary{
-		background-color: rgba(108, 54, 186, 1);
+		background-color: rgba($color-secondary-dark, 1);
 		color: white;
 
 		&:hover {

@@ -1,7 +1,6 @@
 h2 {
 	text-decoration: underline;
-	text-decoration: underline #ff8c00;
-	text-decoration: underline rgba(140, 70, 240, 0.7);
+	text-decoration: underline rgba($color-secondary-light, 0.7);
 }
 
 .main-content {
@@ -16,7 +15,6 @@ h2 {
 #large-header {
 	font-size: 8.8rem;
 	display: block;
-	color: orange;
 	color: black;
 	font-weight: 400;
 }
@@ -30,14 +28,6 @@ h2 {
 		font-size: 6.6rem;
 	}
 }
-
-// .message-medium {
-	
-// }
-
-// .message-large {
-// 	font-size: 6.6rem;
-// }
 
 .display-list {
 	list-style-type: none;
