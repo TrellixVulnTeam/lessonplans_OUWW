@@ -191,7 +191,11 @@
 					 <div class="card__details">		 
 						 <ul>
 							 <li th:text="${lp.assignedSubscription.displayName}">Level</li>
-							 <li th:text="${lp.type.type}">Type</li>
+							 <li th:text="${lp.type.type + ' English'}">Type</li>
+							 
+							 <li th:if="${lp.topics != null}" th:text="${lp.topics.get(0).name.substring(0, 1).toUpperCase() + lp.topics.get(0).name.substring(1)}">Topic</li>
+							 
+							 <li th:text="${lp.preparationTime.time + ' mins prep.'}">Preparation Time</li>
 						 </ul>						 
 					 </div>
 				</div>

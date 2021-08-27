@@ -124,6 +124,8 @@ public class LessonPlanController {
 		 List<LessonPlan> lessonPlansFiltered = lessonPlanService.findSearchedLessonPlans(lessonPlan);
 		 List<String> checkboxesToCheck = LessonPlanUtils.saveSelectedCheckboxes(lessonPlan);
 		 
+		 System.out.println("debug print lesson plan topic " + lessonPlansFiltered.get(0).getTopics().get(0).getName());
+		 
 		 redirectAttributes.addFlashAttribute("lessonPlans", lessonPlansFiltered);
 		 redirectAttributes.addFlashAttribute("checkboxesToCheck", checkboxesToCheck);
 		 redirectAttributes.addFlashAttribute("lessonPlan", lessonPlan);

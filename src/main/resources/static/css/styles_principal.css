@@ -20,7 +20,8 @@ h2 {
   text-align: center;
   background-color: rgba(255, 140, 0, 0.8);
   color: white;
-  padding: 1rem 0rem; }
+  padding: 1rem 0rem;
+  border-bottom: 1px solid white; }
 
 .main-content {
   margin: 0rem 12rem 0rem 12rem;
