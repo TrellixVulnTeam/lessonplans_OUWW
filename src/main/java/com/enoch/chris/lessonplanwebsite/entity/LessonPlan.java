@@ -58,7 +58,7 @@ public class LessonPlan {
 	inverseJoinColumns = @JoinColumn(name = "topic_id"))
     private List<Topic> topics;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
     private Picture picture;
     
 	@Column(name="lesson_time")

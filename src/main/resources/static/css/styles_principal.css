@@ -17,8 +17,10 @@ body {
   font-size: 1.6rem; }
 
 h2 {
-  text-decoration: underline;
-  text-decoration: underline rgba(140, 70, 240, 0.7); }
+  text-align: center;
+  background-color: rgba(255, 140, 0, 0.8);
+  color: white;
+  padding: 1rem 0rem; }
 
 .main-content {
   margin: 0rem 12rem 0rem 12rem;
@@ -281,7 +283,7 @@ input {
   border-bottom: 0.2rem solid rgba(255, 140, 0, 0.5); }
 
 .card {
-  max-width: 30rem; }
+  width: 30rem; }
   .card__side {
     border-radius: 3px;
     overflow: hidden;
@@ -289,7 +291,7 @@ input {
     .card__side--front {
       background-color: #fff; }
   .card__picture {
-    background-size: cover;
+    background-size: contain;
     height: 23rem;
     background-blend-mode: screen;
     -webkit-clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
@@ -311,7 +313,7 @@ input {
 
 .navigation {
   width: 100%;
-  background-image: linear-gradient(to right, #8c46f0, #9f6df7, #9f6df7, #9f6df7, #9f6df7, #b390fc);
+  background-color: rgba(0, 115, 255, 0.8);
   background-repeat: no-repeat;
   padding: 2.75rem 1.4rem 2.75rem 4.1rem;
   display: flex;
