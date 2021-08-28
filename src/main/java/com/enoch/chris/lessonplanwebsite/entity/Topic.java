@@ -18,6 +18,11 @@ import javax.persistence.Table;
 @Table(name="topic")
 public class Topic {
 	
+	@Override
+	public String toString() {
+		return "Topic [id=" + id + ", name=" + name + ", relatedTags=" + relatedTags + "]";
+	}
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")

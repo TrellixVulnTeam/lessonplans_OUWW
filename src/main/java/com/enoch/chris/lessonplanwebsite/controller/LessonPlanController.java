@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -98,10 +99,22 @@ public class LessonPlanController {
 	}
 	
 	@GetMapping
-	public String displayLessonPlans(Model theModel, HttpSession session) {	
+	public String displayLessonPlans(Model theModel, HttpSession session, RedirectAttributes redirectAttributes) {	
 		
 		if (!theModel.containsAttribute("lessonPlan")) {
 			List<LessonPlan> lessonPlans = lessonPlanRepository.findAll();	
+			
+			System.out.println("Print topics in get");
+			 List<List<Topic>> topics = lessonPlans.stream().map(lp -> lp.getTopics()).collect(Collectors.toList());
+			 System.out.println("AFTER GET ONE");
+			 List<Topic> firstTopics = topics.get(0);
+			 System.out.println("AFTER GET TWO");
+			 firstTopics.forEach(System.out::println);
+			 
+			 System.out.println("name " + firstTopics.get(0).getName());
+			 System.out.println("id " + firstTopics.get(0).getId());
+			 System.out.println("tags " + firstTopics.get(0).getRelatedTags());
+			 
 
 			//add to model
 			theModel.addAttribute("lessonPlans", lessonPlans);
@@ -112,7 +125,22 @@ public class LessonPlanController {
 			lessonPlan.setLessonTime(null);
 
 			theModel.addAttribute("lessonPlan",lessonPlan);
-		} 
+		} else {		
+			LessonPlan lessonPlan = (LessonPlan) theModel.getAttribute("lessonPlan");
+			lessonPlan.getTopics();
+			lessonPlan.getTags();
+			lessonPlan.getGrammar();
+			
+			//LessonPlan lessonPlan = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null).build();
+			
+			 List<LessonPlan> lessonPlansFiltered = lessonPlanService.findSearchedLessonPlans(lessonPlan);
+			 List<String> checkboxesToCheck = LessonPlanUtils.saveSelectedCheckboxes(lessonPlan);
+			 
+			 theModel.addAttribute("lessonPlans", lessonPlansFiltered);
+			 theModel.addAttribute("checkboxesToCheck", checkboxesToCheck);
+			
+
+		}
 
 		return "lessonplans";
 	}
@@ -121,15 +149,14 @@ public class LessonPlanController {
 	@PostMapping()
 	public String checkboxTest(final LessonPlan lessonPlan, Model theModel, RedirectAttributes redirectAttributes)  {
 				System.out.println("debug enum " + lessonPlan.getPreparationTime());
-		 List<LessonPlan> lessonPlansFiltered = lessonPlanService.findSearchedLessonPlans(lessonPlan);
-		 List<String> checkboxesToCheck = LessonPlanUtils.saveSelectedCheckboxes(lessonPlan);
+//		 List<LessonPlan> lessonPlansFiltered = lessonPlanService.findSearchedLessonPlans(lessonPlan);
+//		 List<String> checkboxesToCheck = LessonPlanUtils.saveSelectedCheckboxes(lessonPlan);
 		 
-		 System.out.println("debug print lesson plan topic " + lessonPlansFiltered.get(0).getTopics().get(0).getName());
-		 
-		 redirectAttributes.addFlashAttribute("lessonPlans", lessonPlansFiltered);
-		 redirectAttributes.addFlashAttribute("checkboxesToCheck", checkboxesToCheck);
+		  
+		 //redirectAttributes.addFlashAttribute("lessonPlans", lessonPlansFiltered);
+		 //redirectAttributes.addFlashAttribute("checkboxesToCheck", checkboxesToCheck);
 		 redirectAttributes.addFlashAttribute("lessonPlan", lessonPlan);
-
+		 
 		 return "redirect:/lessonplans";
 	}
 	

@@ -20,6 +20,11 @@ public class Tag {
 	private String name;
 
 	
+	@Override
+	public String toString() {
+		return "Tag [id=" + id + ", name=" + name + "]";
+	}
+
 	protected Tag() {	
 	}
 
