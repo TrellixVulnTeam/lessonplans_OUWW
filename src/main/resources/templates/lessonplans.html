@@ -196,6 +196,17 @@
 							 <li th:if="${lp.topics != null}" th:text="${lp.topics.get(0).name.substring(0, 1).toUpperCase() + lp.topics.get(0).name.substring(1)}">Topic</li>
 							 
 							 <li th:text="${lp.preparationTime.time + ' mins prep.'}">Preparation Time</li>
+							 
+
+
+							 <li><a class="mt-1 ml-auto btn btn--med btn--primary" href="checkout.html" th:href="@{lessonplans/__${lp.assignedSubscription.name}__/(id=${lp.id})}">Check it out</a></li>
+
+							 <!--   <li><a class="mt-1 ml-auto btn btn--med btn--primary" href="checkout.html" th:href="@{../checkout(orderId=${order.id})}">Buy All</a></li>   -->
+
+							
+
+
+							 
 						 </ul>						 
 					 </div>
 				</div>

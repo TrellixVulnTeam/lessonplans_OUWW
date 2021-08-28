@@ -125,21 +125,19 @@ public class LessonPlanController {
 			lessonPlan.setLessonTime(null);
 
 			theModel.addAttribute("lessonPlan",lessonPlan);
-		} else {		
+		} else { //lesson plans have been  filtered by user
+			//Logic in get method to avoid hibernate lazy initialisation error.
 			LessonPlan lessonPlan = (LessonPlan) theModel.getAttribute("lessonPlan");
+			//must call the following to avoid hibernate lazy initialisation error.
 			lessonPlan.getTopics();
 			lessonPlan.getTags();
 			lessonPlan.getGrammar();
-			
-			//LessonPlan lessonPlan = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null).build();
 			
 			 List<LessonPlan> lessonPlansFiltered = lessonPlanService.findSearchedLessonPlans(lessonPlan);
 			 List<String> checkboxesToCheck = LessonPlanUtils.saveSelectedCheckboxes(lessonPlan);
 			 
 			 theModel.addAttribute("lessonPlans", lessonPlansFiltered);
 			 theModel.addAttribute("checkboxesToCheck", checkboxesToCheck);
-			
-
 		}
 
 		return "lessonplans";
@@ -148,13 +146,7 @@ public class LessonPlanController {
 	
 	@PostMapping()
 	public String checkboxTest(final LessonPlan lessonPlan, Model theModel, RedirectAttributes redirectAttributes)  {
-				System.out.println("debug enum " + lessonPlan.getPreparationTime());
-//		 List<LessonPlan> lessonPlansFiltered = lessonPlanService.findSearchedLessonPlans(lessonPlan);
-//		 List<String> checkboxesToCheck = LessonPlanUtils.saveSelectedCheckboxes(lessonPlan);
-		 
-		  
-		 //redirectAttributes.addFlashAttribute("lessonPlans", lessonPlansFiltered);
-		 //redirectAttributes.addFlashAttribute("checkboxesToCheck", checkboxesToCheck);
+
 		 redirectAttributes.addFlashAttribute("lessonPlan", lessonPlan);
 		 
 		 return "redirect:/lessonplans";
