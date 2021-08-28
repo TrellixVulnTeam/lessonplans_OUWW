@@ -18,10 +18,10 @@ import javax.persistence.Table;
 @Table(name="topic")
 public class Topic {
 	
-	@Override
-	public String toString() {
-		return "Topic [id=" + id + ", name=" + name + ", relatedTags=" + relatedTags + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "testostring Topic [id=" + id + ", name=" + name + ", relatedTags=" + relatedTags + "]";
+//	}
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -31,7 +31,7 @@ public class Topic {
 	@Column(name="name")
 	private String name;
 	
-	@ManyToMany(fetch = FetchType.EAGER, cascade= {CascadeType.DETACH, CascadeType.MERGE
+	@ManyToMany(fetch = FetchType.LAZY, cascade= {CascadeType.DETACH, CascadeType.MERGE
 			, CascadeType.PERSIST, CascadeType.REFRESH}  )
 	@JoinTable(name = "topic_tag", 
 	joinColumns = @JoinColumn(name = "topic_id"), 
