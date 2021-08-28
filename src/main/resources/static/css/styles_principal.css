@@ -14,9 +14,10 @@ html {
 
 body {
   box-sizing: border-box;
-  font-size: 1.6rem; }
+  font-size: 1.6rem;
+  line-height: 2.2rem; }
 
-h2 {
+.h2 {
   text-align: center;
   background-color: rgba(255, 140, 0, 0.8);
   color: white;
@@ -71,6 +72,17 @@ h2 {
 .center-text {
   text-align: center;
   text-align: center !important; }
+
+.center-block {
+  width: 100%;
+  margin: 0 auto; }
+
+.underline {
+  border-bottom: 2px solid darkorange;
+  padding-bottom: .5rem;
+  padding-left: 8rem;
+  padding-right: 8rem;
+  display: inline-block; }
 
 .mt-1 {
   margin-top: 1rem !important; }
