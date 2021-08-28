@@ -218,6 +218,12 @@ h2 {
     .btn--secondary:hover {
       background-color: #6c36ba;
       cursor: pointer; }
+  .btn--info {
+    background-color: rgba(119, 119, 119, 0.8);
+    color: white; }
+    .btn--info:hover {
+      background-color: #777777;
+      cursor: pointer; }
   .btn--tertiary {
     background-color: rgba(0, 0, 0, 0.1);
     color: #030303;

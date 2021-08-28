@@ -8,6 +8,8 @@
 	border-radius: 1.4rem;
 	letter-spacing: 0.2px;
 
+
+
 	&--small {
 		font-size: 2rem;
 	}
@@ -34,6 +36,16 @@
 
 		&:hover{
 			background-color: rgba($color-secondary-dark, 1);
+			cursor: pointer;
+		}
+	}
+
+	&--info{
+		background-color: rgba($color-grey-dark, 0.8);
+		color: white;
+
+		&:hover{
+			background-color: rgba($color-grey-dark, 1);
 			cursor: pointer;
 		}
 	}

@@ -339,7 +339,9 @@ public class LessonPlanController {
 		
 		//add user active subscriptions to model
 		theModel.addAttribute(subscriptionToCheck+"active", isActive);
-		System.out.println("debug b2 model active " + subscriptionToCheck+"active");
+		System.out.println("debug model active " + subscriptionToCheck+"active");
+		
+		System.out.println("isActive " + isActive);
 		
 		System.out.println("toute to direct to " + "/lessonplans/" + subscriptionToCheck + "/" + lp.get().getTitle());
 		
