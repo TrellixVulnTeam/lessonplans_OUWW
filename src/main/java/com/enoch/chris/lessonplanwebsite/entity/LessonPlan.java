@@ -51,7 +51,7 @@ public class LessonPlan {
 	@Enumerated(EnumType.STRING)
     private SpeakingAmount speakingAmount; // required  
 	
-	@ManyToMany(fetch = FetchType.LAZY,cascade= {CascadeType.DETACH, 
+	@ManyToMany(fetch = FetchType.EAGER,cascade= {CascadeType.DETACH, 
 			CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
 	@JoinTable(name = "lesson_plan_topic", 
 	joinColumns = @JoinColumn(name = "lesson_plan_id"), 

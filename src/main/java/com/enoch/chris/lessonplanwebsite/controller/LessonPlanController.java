@@ -80,6 +80,10 @@ public class LessonPlanController {
 
 	@ModelAttribute("allTopics")
 	public List<Topic> populateTopics() {
+		List<Topic> topics = topicRepository.findAll();
+//		topics.stream().forEach(Topic::getRelatedTags);
+//		return topics;
+		
 		return topicRepository.findAll();
 	}
 
@@ -104,17 +108,17 @@ public class LessonPlanController {
 		if (!theModel.containsAttribute("lessonPlan")) {
 			List<LessonPlan> lessonPlans = lessonPlanRepository.findAll();	
 			
-			System.out.println("Print topics in get");
-			 List<List<Topic>> topics = lessonPlans.stream().map(lp -> lp.getTopics()).collect(Collectors.toList());
-			 System.out.println("AFTER GET ONE");
-			 List<Topic> firstTopics = topics.get(0);
-			 System.out.println("AFTER GET TWO");
-			 firstTopics.forEach(System.out::println);
-			 
-			 System.out.println("name " + firstTopics.get(0).getName());
-			 System.out.println("id " + firstTopics.get(0).getId());
-			 System.out.println("tags " + firstTopics.get(0).getRelatedTags());
-			 
+//			System.out.println("Print topics in get");
+//			 List<List<Topic>> topics = lessonPlans.stream().map(lp -> lp.getTopics()).collect(Collectors.toList());
+//			 System.out.println("AFTER GET ONE");
+//			 List<Topic> firstTopics = topics.get(0);
+//			 System.out.println("AFTER GET TWO");
+//			 firstTopics.forEach(System.out::println);
+//			 
+//			 System.out.println("name " + firstTopics.get(0).getName());
+//			 System.out.println("id " + firstTopics.get(0).getId());
+//			 System.out.println("tags " + firstTopics.get(0).getRelatedTags());
+//			 
 
 			//add to model
 			theModel.addAttribute("lessonPlans", lessonPlans);
@@ -129,7 +133,8 @@ public class LessonPlanController {
 			//Logic in get method to avoid hibernate lazy initialisation error.
 			LessonPlan lessonPlan = (LessonPlan) theModel.getAttribute("lessonPlan");
 			//must call the following to avoid hibernate lazy initialisation error.
-			lessonPlan.getTopics();
+			List<Topic> topics = lessonPlan.getTopics();
+			topics.stream().forEach(Topic::getRelatedTags);
 			lessonPlan.getTags();
 			lessonPlan.getGrammar();
 			

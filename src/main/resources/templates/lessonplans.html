@@ -71,17 +71,20 @@
 
 					<div class="form__group">
 						<div class="form__header">Type</div>
-						<span th:each="typ : ${T(com.enoch.chris.lessonplanwebsite.entity.Type).values()}" th:field="*{type}"> 
-							<label th:for="${#ids.next('type')}" th:text="${typ.type}">General</label> 
-							<input type="radio" th:field="*{type}" th:value="${typ}">
-						</span>
+
+						<div>
+							<span th:each="typ : ${T(com.enoch.chris.lessonplanwebsite.entity.Type).values()}" th:field="*{type}"> 
+								<label class="center-vertical" th:for="${#ids.next('type')}" th:text="${typ.type}">General</label> 
+								<input class="center-vertical mr-2" type="radio" th:field="*{type}" th:value="${typ}">
+							</span>
+						</div>
 						
 						<div class="form__header ml-4	">Preparation time</div>
 						
 						<span th:each="prep : ${T(com.enoch.chris.lessonplanwebsite.entity.PreparationTime).values()}" 
 						th:field="*{type}"> 
-							<label th:for="${#ids.next('preparationTime')}" th:text="${prep.time}">General</label> 
-							<input type="radio" th:field="*{preparationTime}" th:value="${prep}">
+							<label class="center-vertical" th:for="${#ids.next('preparationTime')}" th:text="${prep.time}">General</label> 
+							<input class="center-vertical mr-2" type="radio" th:field="*{preparationTime}" th:value="${prep}">
 						</span>
 						
 
@@ -90,8 +93,9 @@
 					<div class="form__group">
 						<div class="form__header">Topics</div>
 						<span th:each="top : ${allTopics}"> <label
+							class="center-vertical"
 							th:for="${#ids.next('topics')}" th:text="${top.name}">Heating</label>
-							<input type="checkbox" th:field="*{topics}" th:value="${top.id}" />
+							<input class="center-vertical mr-2" type="checkbox" th:field="*{topics}" th:value="${top.id}" />
 
 						</span>
 					</div>
@@ -100,8 +104,12 @@
 						<div class="form__header">Levels</div>
 						<span th:each="sub : ${allSubscriptions}"
 							th:field="*{assignedSubscription}"> <label
+							class="center-vertical"
 							th:for="${#ids.next('assignedSubscription')}"
-							th:text="${sub.displayName}">General</label> <input type="radio"
+							th:text="${sub.displayName}">General</label>
+							 <input 
+							 class="center-vertical mr-2"
+							type="radio"
 							th:field="*{assignedSubscription}" th:value="${sub.id}">
 						</span>
 					</div>
@@ -109,8 +117,9 @@
 					<div class="form__group ">
 						<div class="form__header">Grammar</div>
 						<span th:each="g : ${allGrammar}"> <label
+							class="center-vertical"
 							th:for="${#ids.next('grammar')}" th:text="${g.grammarPoint}">Heating</label>
-							<input type="checkbox" th:field="*{grammar}" th:value="${g.id}" />
+							<input class="center-vertical mr-2" type="checkbox" th:field="*{grammar}" th:value="${g.id}" />
 						</span>
 					</div>
 
@@ -120,8 +129,9 @@
 						<span
 							th:each="dur : ${T(com.enoch.chris.lessonplanwebsite.entity.LessonTime).values()}"
 							th:field="*{lessonTime}"> <label
+							class="center-vertical"
 							th:for="${#ids.next('lessonTime')}" th:text="${dur.time}">General</label>
-							<input type="radio" th:field="*{lessonTime}" th:value="${dur}">
+							<input class="center-vertical mr-2" type="radio" th:field="*{lessonTime}" th:value="${dur}">
 						</span>
 
 					</div>
@@ -129,13 +139,20 @@
 					<div class="form__group ">
 						<div class="form__header">Skill</div>
 
-						<label th:for="${#ids.next('vocabulary')}">Vocabulary</label> <input
+						<label class="center-vertical" th:for="${#ids.next('vocabulary')}">Vocabulary</label> <input
+						class="center-vertical mr-3"
 							type="checkbox" th:field="*{vocabulary}" /> <label
+							class="center-vertical"
 							th:for="${#ids.next('listening')}">Listening</label> <input
+							class="center-vertical mr-3"
 							type="checkbox" th:field="*{listening}" /> <label
+							class="center-vertical"
 							th:for="${#ids.next('reading')}">Reading</label> <input
+							class="center-vertical mr-3"
 							type="checkbox" th:field="*{reading}" /> <label
+							class="center-vertical"
 							th:for="${#ids.next('writing')}">Writing</label> <input
+							class="center-vertical mr-3"
 							type="checkbox" th:field="*{writing}" />
 
 					</div>

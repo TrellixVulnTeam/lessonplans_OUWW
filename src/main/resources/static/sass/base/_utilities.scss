@@ -9,6 +9,13 @@
     margin: 0 auto;
 }
 
+.center-vertical {
+	vertical-align:middle;
+	display:inline-block;
+	margin-right:.3rem;
+	//padding:3rem;
+}
+
 .underline {
 	border-bottom: 2px solid $color-primary;
 	padding-bottom: .5rem;

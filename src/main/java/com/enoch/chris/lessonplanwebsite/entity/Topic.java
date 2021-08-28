@@ -31,7 +31,7 @@ public class Topic {
 	@Column(name="name")
 	private String name;
 	
-	@ManyToMany(fetch = FetchType.LAZY, cascade= {CascadeType.DETACH, CascadeType.MERGE
+	@ManyToMany(fetch = FetchType.EAGER, cascade= {CascadeType.DETACH, CascadeType.MERGE
 			, CascadeType.PERSIST, CascadeType.REFRESH}  )
 	@JoinTable(name = "topic_tag", 
 	joinColumns = @JoinColumn(name = "topic_id"), 

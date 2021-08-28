@@ -77,6 +77,11 @@ body {
   width: 100%;
   margin: 0 auto; }
 
+.center-vertical {
+  vertical-align: middle;
+  display: inline-block;
+  margin-right: .3rem; }
+
 .underline {
   border-bottom: 2px solid darkorange;
   padding-bottom: .5rem;
@@ -258,7 +263,7 @@ body {
 
 input {
   margin-right: 2rem;
-  width: 4.1rem;
+  width: 3rem;
   height: 2.8rem;
   border: .1rem solid #ced4da;
   border-radius: .25rem; }
