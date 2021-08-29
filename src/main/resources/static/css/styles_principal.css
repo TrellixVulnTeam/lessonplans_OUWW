@@ -261,12 +261,22 @@ body {
       color: white;
       cursor: pointer; }
 
-.form__container {
+.form__login {
+  height: 60vh;
   display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  flex-grow: 1;
-  justify-content: space-around; }
+  flex-direction: column;
+  flex-flow: column wrap;
+  align-items: center; }
+  .form__login form {
+    width: 30%; }
+  .form__login label {
+    margin-bottom: 1rem; }
+  .form__login input {
+    width: 100%;
+    min-width: 20rem;
+    height: 5rem;
+    font-size: 1.8rem;
+    padding-left: 1rem; }
 
 .form__group {
   font-size: 1.5rem;

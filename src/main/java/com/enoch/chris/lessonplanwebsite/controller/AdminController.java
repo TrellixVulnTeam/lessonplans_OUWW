@@ -273,17 +273,6 @@ public class AdminController {
 		return "admin";
 	}
 	
-	@GetMapping("/admin/addpicture")
-	public String addPicture(Model theModel) {		
-
-//		Picture p2 = new Picture("C:\\Users\\chris\\OneDrive\\Imágenes\\Profile pictures\\IMG-20180306-WA0000.jpg ");
-//		Picture p2New = pictureRepository.save(p2);
-//		
-//		Picture p3 = new Picture("C:\\Users\\chris\\OneDrive\\Imágenes\\Profile pictures\\IMG-20180306-WA0001.jpg ");
-//		Picture p3New = pictureRepository.save(p3);
-		
-		return "admin";
-	}
 	
 	
 	
