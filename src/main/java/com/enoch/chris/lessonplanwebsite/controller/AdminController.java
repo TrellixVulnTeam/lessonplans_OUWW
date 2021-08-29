@@ -88,11 +88,8 @@ public class AdminController {
 		//send lessonplans
 		List<LessonPlan> lessonPlans = lessonPlanRepository.findAll();
 		theModel.addAttribute("lessonPlans", lessonPlans);
-		
-		//populate topics, tags and grammar
-		List<Topic> topics = topicRepository.findAll();
-		List<Grammar> grammar = grammarRepository.findAll();
-		List<Tag> tags = tagRepository.findAll();
+		theModel.addAttribute("showExisitngLessons", "showExisitngLessons");
+		theModel.addAttribute("editLessonPlan", "editLessonPlan");
 		
 		//populate checkboxes for first lesson plan in the list
 		LessonPlan firstLessonPlan = lessonPlans.get(0);
@@ -111,7 +108,8 @@ public class AdminController {
 	public String displayLessonPlanInfo(Model theModel, @RequestParam(name = "lessonPlan", required = false)String lessonPlanId) {
 		LessonPlan lessonPlan = lessonPlanRepository.findById(Integer.parseInt(lessonPlanId)).get();
 		theModel.addAttribute("lessonPlan", lessonPlan);
-		theModel.addAttribute("lessonTitle", lessonPlan.getTitle());
+		theModel.addAttribute("showExisitngLessons", "showExisitngLessons");
+		theModel.addAttribute("editLessonPlan", "editLessonPlan");
 		
 		System.out.println("Picture information " + lessonPlan.getPicture());
 
@@ -124,14 +122,21 @@ public class AdminController {
 
 	
 	@PostMapping("/admin/edit")
-	public String editLessonPlan(final LessonPlan lessonPlan, Model theModel) {
+	public String editOrAddLessonPlan(final LessonPlan lessonPlan, Model theModel) {
 		theModel.addAttribute("lessonPlan", lessonPlan);
 		theModel.addAttribute("lessonTitle", lessonPlan.getTitle());
 		
+		//if lesson plan does not include date, it is being added not edited. Must include date as date cannot be set to null in database.
 		if (lessonPlan.getDateAdded() == null) {
 			lessonPlan.setDateAdded(LocalDate.now());
 		}
-	
+		
+		System.out.println("test values");
+//		System.out.println(lessonPlan.getDateAdded());
+//		System.out.println(lessonPlan.getTitle());
+//		System.out.println(lessonPlan.getId());
+//		System.out.println(lessonPlan.getAge());
+		
 		System.out.println("debug picture " + lessonPlan.getPicture());
 		
 		//save updated lesson to database
@@ -141,7 +146,7 @@ public class AdminController {
 		List<LessonPlan> lessonPlans = lessonPlanRepository.findAll();
 		theModel.addAttribute("lessonPlans", lessonPlans);
 
-		return "redirect:/admin";
+		return "redirect:/admin/";
 	}
 	
 	@GetMapping("/admin/add")

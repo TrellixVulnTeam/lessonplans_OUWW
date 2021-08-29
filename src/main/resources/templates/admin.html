@@ -39,7 +39,7 @@
 
 	</script>
 
-	<title>Edit lesson plan</title>
+	<title th:text="${editLessonPlan} ? 'Edit Lesson Plan' : 'Add Lesson Plan'">Edit lesson plan</title>
 </head>
 
 <body onload="addChecked(), updatePicture()">
@@ -47,9 +47,9 @@
 	<div class="main-content">
 		<div class="main-content-inner ml-5 mr-5">
 
-			<h1 id="large-header" class="mt-5 ml-5 mb-5">Edit lesson plan</h1>
+			<h1 id="large-header" class="mt-5 ml-5 mb-5" th:text="${editLessonPlan} ? 'Edit Lesson Plan' : 'Add Lesson Plan'">Edit lesson plan</h1>
 
-			<form action="/admin" method="post">
+			<form action="/admin" method="post" th:if="${showExisitngLessons}">
 				<div class="form__group">
 					<div class="form__header">Lesson Plan</div>
 
