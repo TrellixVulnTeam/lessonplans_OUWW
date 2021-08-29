@@ -67,11 +67,15 @@ public class RegistrationController {
 				BindingResult theBindingResult, 
 				Model theModel, RedirectAttributes redirectAttributes) {
 		
+		
+		System.out.println("Inside processRegistrationForm");
 		String username = regUser.getUserName();
 		logger.info("Processing registration form for: " + username);
 		
 		// form validation
+		System.out.println("Inside processRegistrationForm b4 if binding result");
 		 if (theBindingResult.hasErrors()){
+			 System.out.println("Debugging has errors - RegistrationController");
 				 
 			 return "registration-form";
 	        }

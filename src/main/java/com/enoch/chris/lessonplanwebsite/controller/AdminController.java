@@ -214,6 +214,14 @@ public class AdminController {
 		return "admin";
 	}
 	
+	@GetMapping("/admin/deletepicture")
+	public String deletePicture(Model theModel) {		
+
+		pictureRepository.deleteById(66);
+
+		return "admin";
+	}
+	
 	@GetMapping("/admin/addtags")
 	public String addTags(Model theModel) {		
 

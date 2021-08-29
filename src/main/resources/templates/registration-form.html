@@ -23,7 +23,7 @@
 
 				<!-- Check for registration error -->
 				<div th:if="${registrationError}" class="alert mb-2">
-					${registrationError}
+					<p th:text="${registrationError}"></p>
 				</div>
 
 				<!-- User name -->
@@ -58,6 +58,28 @@
 				<div th:if="${#fields.hasErrors('matchingPassword')}" class="alert">
 					<ul>
 						<li th:each="err : ${#fields.errors('matchingPassword')}" th:text="'Password ' + ${err}" />
+					</ul>						
+				</div>
+
+				<!-- First name -->
+				<div class="mb-3">
+					<label>First name</label>
+					<input type="text" th:field="*{firstName}" placeholder="first name (*)" class="form-control" th:errorclass="fieldError" />
+				</div>
+				<div th:if="${#fields.hasErrors('firstName')}" class="alert">
+					<ul>
+					  <li th:each="err : ${#fields.errors('firstName')}" th:text="'First name ' + ${err}" />
+					</ul>						
+				</div>
+
+				<!-- Last name -->
+				<div class="mb-3">
+					<label>Last name</label>
+					<input type="text" th:field="*{lastName}" placeholder="last name (*)" class="form-control" th:errorclass="fieldError" />
+				</div>
+				<div th:if="${#fields.hasErrors('lastName')}" class="alert">
+					<ul>
+						<li th:each="err : ${#fields.errors('lastName')}" th:text="'Last name ' + ${err}" />
 					</ul>						
 				</div>
 
