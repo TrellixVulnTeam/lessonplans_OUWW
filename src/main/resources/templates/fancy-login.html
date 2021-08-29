@@ -19,6 +19,18 @@
 			<h1 class="mt-6 mb-6" id="large-header">Sign In</h1>
 			<!-- Login Form -->
 			<form th:action="@{/authenticateTheUser}" method="POST" class="center-block">
+
+				<div th:if="${param.error}">
+										
+					<div class="alert mb-2">
+						Invalid username and password.
+					</div>
+
+				</div>
+
+
+
+
 				<!-- User name -->
 				<div class="mb-3">
 					<label>Username</label>
