@@ -265,7 +265,6 @@ body {
       cursor: pointer; }
 
 .form__login {
-  height: 100vh;
   display: flex;
   flex-direction: column;
   flex-flow: column wrap;
