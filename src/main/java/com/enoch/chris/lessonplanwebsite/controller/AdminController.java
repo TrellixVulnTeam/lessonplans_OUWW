@@ -88,7 +88,6 @@ public class AdminController {
 		//send lessonplans
 		List<LessonPlan> lessonPlans = lessonPlanRepository.findAll();
 		theModel.addAttribute("lessonPlans", lessonPlans);
-		theModel.addAttribute("showExisitngLessons", "showExisitngLessons");
 		
 		//populate topics, tags and grammar
 		List<Topic> topics = topicRepository.findAll();
@@ -103,15 +102,6 @@ public class AdminController {
 		System.out.println("values of checkboxes");
 		System.out.println("Values tostring " + firstLessonPlan);
 		System.out.println("reading " + firstLessonPlan.getReading());
-
-		return "admin";
-	}
-	
-	@GetMapping("/admin/add")
-	public String addLessonPlan(Model theModel) {
-		LessonPlan templateLessonPlan = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null).build();
-		theModel.addAttribute("lessonPlan", templateLessonPlan);
-
 
 		return "admin";
 	}
@@ -131,7 +121,7 @@ public class AdminController {
 
 		return "admin";
 	}
-	
+
 	
 	@PostMapping("/admin/edit")
 	public String editLessonPlan(final LessonPlan lessonPlan, Model theModel) {
@@ -141,13 +131,7 @@ public class AdminController {
 		if (lessonPlan.getDateAdded() == null) {
 			lessonPlan.setDateAdded(LocalDate.now());
 		}
-		
-		System.out.println("test values");
-//		System.out.println(lessonPlan.getDateAdded());
-//		System.out.println(lessonPlan.getTitle());
-//		System.out.println(lessonPlan.getId());
-//		System.out.println(lessonPlan.getAge());
-		
+	
 		System.out.println("debug picture " + lessonPlan.getPicture());
 		
 		//save updated lesson to database
@@ -157,8 +141,18 @@ public class AdminController {
 		List<LessonPlan> lessonPlans = lessonPlanRepository.findAll();
 		theModel.addAttribute("lessonPlans", lessonPlans);
 
+		return "redirect:/admin";
+	}
+	
+	@GetMapping("/admin/add")
+	public String addLessonPlan(Model theModel) {
+		LessonPlan templateLessonPlan = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null).build();
+		theModel.addAttribute("lessonPlan", templateLessonPlan);
+
+
 		return "admin";
 	}
+	
 
 	
 	 @PostMapping("/admin/upload")

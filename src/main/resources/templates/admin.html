@@ -49,13 +49,13 @@
 
 			<h1 id="large-header" class="mt-5 ml-5 mb-5">Edit lesson plan</h1>
 
-			<form action="/admin" method="post" th:if="${showExisitngLessons}">
+			<form action="/admin" method="post">
 				<div class="form__group">
 					<div class="form__header">Lesson Plan</div>
 
 
 					<select name="lessonPlan" onchange='if(this.value != -1) { this.form.submit(); }'>
-						<option value="-1" selected="selected">Select a lesson plan</option>
+						<option value="-1">Select a lesson plan</option>
 						<option th:each="lp : ${lessonPlans}" th:value="${lp.id}"
 							th:text="|${lp.title } - ${lp.id } - ${lp.assignedSubscription.name }|"></option>
 					</select> <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
