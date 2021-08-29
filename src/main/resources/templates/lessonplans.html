@@ -57,7 +57,8 @@
 			<h1 id="large-header" class="mt-5 ml-5 mb-5">Lesson Plans</h1>
 
 			<div  class="mb-2">
-				<a class="btn btn--small btn--primary" href='javascript:showMenu()'>Filter lessons</a> <a class="btn btn--small btn--primary"
+				<a class="btn btn--med btn--primary" href='javascript:showMenu()'>Filter lessons</a> 
+				<a class="btn btn--med btn--primary"
 					href='javascript:hideMenu()'>Hide Search</a> 
 			</div>
 
@@ -177,7 +178,7 @@
 					</div>
 			
 
-					<button class="btn btn--small btn--primary" type="submit" name="save">Submit</button>
+					<button class="btn btn--primary btn--med" type="submit" name="save">Submit</button>
 
 				</form>
 
@@ -202,7 +203,7 @@
 							 
 
 
-							 <li><a class="mt-1 ml-auto btn  btn--info" href="checkout.html" th:href="@{/lessonplans/__${lp.assignedSubscription.name}__/(id=${lp.id})}">Check it out</a></li>
+							 <li><a class="mt-1 ml-auto btn btn--info" href="checkout.html" th:href="@{/lessonplans/__${lp.assignedSubscription.name}__/(id=${lp.id})}">Check it out</a></li>
 
 							 <!--   <li><a class="mt-1 ml-auto btn btn--med btn--primary" href="checkout.html" th:href="@{../checkout(orderId=${order.id})}">Buy All</a></li>   -->
 

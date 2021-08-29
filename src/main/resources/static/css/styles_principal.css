@@ -219,11 +219,11 @@ body {
   border-radius: 1.4rem;
   letter-spacing: 0.2px; }
   .btn--small {
-    font-size: 2rem; }
+    font-size: 1.4rem; }
   .btn--med {
-    font-size: 2.2rem; }
+    font-size: 1.6rem; }
   .btn--big {
-    font-size: 2.75rem; }
+    font-size: 2.2rem; }
   .btn--primary {
     background-color: rgba(255, 140, 0, 0.8); }
     .btn--primary:hover {
@@ -275,6 +275,9 @@ body {
   align-items: center;
   background-color: white;
   margin: 0rem 1rem 1rem 0rem; }
+  .form__group select, .form__group input {
+    width: 30rem;
+    height: 3rem; }
   .form__group--mega-menu label {
     vertical-align: middle;
     display: inline-block;

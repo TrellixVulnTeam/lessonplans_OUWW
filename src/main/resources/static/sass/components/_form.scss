@@ -30,6 +30,13 @@
 		background-color: rgb(255, 255, 255);
 		margin: 0rem 1rem 1rem 0rem;
 
+		& select, & input{
+			width: 30rem;
+			height: 3rem;
+
+			
+		}
+
 		&--mega-menu{
 			& label{
 				vertical-align:middle;
@@ -49,10 +56,9 @@
 				display:inline-block;
 			}
 
-		}
+			
 
-	
-		
+		}	
 	}
 
 	&__header {
