@@ -230,10 +230,10 @@ body {
       background-color: darkorange;
       cursor: pointer; }
   .btn--secondary {
-    background-color: rgba(108, 54, 186, 0.8);
+    background-color: rgba(13, 116, 242, 0.8);
     color: white; }
     .btn--secondary:hover {
-      background-color: #6c36ba;
+      background-color: #0d74f2;
       cursor: pointer; }
   .btn--info {
     background-color: rgba(119, 119, 119, 0.8);
@@ -254,22 +254,12 @@ body {
       background-color: #58b40b;
       cursor: pointer; }
   .btn--action-secondary {
-    background-color: #6c36ba;
+    background-color: #0d74f2;
     color: white; }
     .btn--action-secondary:hover {
       background-color: #542a90;
       color: white;
       cursor: pointer; }
-
-input {
-  margin-right: 2rem;
-  width: 3rem;
-  height: 2.8rem;
-  border: .1rem solid #ced4da;
-  border-radius: .25rem; }
-  input:focus {
-    border: 0.1rem solid rgba(255, 140, 0, 0.3);
-    outline-color: rgba(255, 140, 0, 0.3); }
 
 .form__container {
   display: flex;
@@ -285,18 +275,20 @@ input {
   align-items: center;
   background-color: white;
   margin: 0rem 1rem 1rem 0rem; }
-  .form__group label {
+  .form__group--mega-menu label {
     vertical-align: middle;
     display: inline-block;
     margin-right: .3rem;
     margin-bottom: 1rem; }
-  .form__group input {
+  .form__group--mega-menu input {
     margin-right: 2.5rem;
     margin-bottom: 1rem;
+    width: 3rem;
+    height: 2.8rem;
+    border: .1rem solid #ced4da;
+    border-radius: .25rem;
     vertical-align: middle;
     display: inline-block; }
-  .form__group--tall {
-    height: 8.3rem; }
 
 .form__header {
   text-align: center;
@@ -355,7 +347,7 @@ input {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 1.6rem;
+  font-size: 1.7rem;
   font-weight: 600; }
   .navigation__navlinks {
     list-style: none;
@@ -379,4 +371,4 @@ input {
       color: white;
       border-radius: 1.4rem; }
       .navigation__item--right:hover {
-        background-color: #6c36ba; }
+        background-color: #0d74f2; }

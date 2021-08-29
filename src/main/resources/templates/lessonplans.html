@@ -69,7 +69,7 @@
 				<form th:action="@{/lessonplans}" th:object="${lessonPlan}"
 					method="post">
 
-					<div class="form__group">
+					<div class="form__group form__group--mega-menu">
 						<div class="form__header">Type</div>
 
 						<div>
@@ -90,7 +90,7 @@
 
 					</div>
 
-					<div class="form__group">
+					<div class="form__group form__group--mega-menu">
 						<div class="form__header">Topics</div>
 						<span th:each="top : ${allTopics}"> <label
 							th:for="${#ids.next('topics')}" th:text="${top.name}">Heating</label>
@@ -99,7 +99,7 @@
 						</span>
 					</div>
 
-					<div class="form__group ">
+					<div class="form__group form__group--mega-menu ">
 						<div class="form__header">Levels</div>
 						<span th:each="sub : ${allSubscriptions}"
 							th:field="*{assignedSubscription}"> <label
@@ -109,7 +109,7 @@
 						</span>
 					</div>
 
-					<div class="form__group ">
+					<div class="form__group form__group--mega-menu ">
 						<div class="form__header">Grammar</div>
 						<span th:each="g : ${allGrammar}"> <label
 							th:for="${#ids.next('grammar')}" th:text="${g.grammarPoint}">Heating</label>
@@ -117,7 +117,7 @@
 						</span>
 					</div>
 
-					<div class="form__group">
+					<div class="form__group form__group--mega-menu">
 						<div class="form__header">Lesson Time</div>
 
 						<span
@@ -129,7 +129,7 @@
 
 					</div>
 
-					<div class="form__group ">
+					<div class="form__group form__group--mega-menu ">
 						<div class="form__header">Skill</div>
 
 						<label th:for="${#ids.next('vocabulary')}">Vocabulary</label> <input
@@ -143,7 +143,7 @@
 
 					</div>
 
-					<div class="form__group ">
+					<div class="form__group form__group--mega-menu ">
 						<div class="form__header">LessonContent</div>
 
 						<label th:for="${#ids.next('video')}">Video</label> <input
@@ -161,7 +161,7 @@
 
 					</div>
 
-					<div class="form__group ">
+					<div class="form__group form__group--mega-menu ">
 						<div class="form__header">Speaking</div>
 
 						<label th:for="${#ids.next('speakingAmount')}">Speaking

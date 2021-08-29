@@ -1,16 +1,16 @@
 
-input {
-	margin-right:2rem;
-	width: 3rem;
-	height: 2.8rem;
-	border: .1rem solid #ced4da;
-	border-radius: .25rem;
+// input {
+// 	margin-right:2rem;
+// 	width: 3rem;
+// 	height: 2.8rem;
+// 	border: .1rem solid #ced4da;
+// 	border-radius: .25rem;
 
-	&:focus{
-		border: .1rem solid rgba(255, 140, 0, 0.3);
-		outline-color: rgba(255, 140, 0, 0.3);
-	}
-}
+// 	&:focus{
+// 		border: .1rem solid rgba(255, 140, 0, 0.3);
+// 		outline-color: rgba(255, 140, 0, 0.3);
+// 	}
+// }
 
 .form {
 
@@ -30,23 +30,29 @@ input {
 		background-color: rgb(255, 255, 255);
 		margin: 0rem 1rem 1rem 0rem;
 
-		& label{
-			vertical-align:middle;
-			display:inline-block;
-			margin-right:.3rem;
-			margin-bottom: 1rem;
+		&--mega-menu{
+			& label{
+				vertical-align:middle;
+				display:inline-block;
+				margin-right:.3rem;
+				margin-bottom: 1rem;
+			}
+	
+			& input{
+				margin-right:2.5rem;
+				margin-bottom: 1rem;
+				width: 3rem;
+				height: 2.8rem;
+				border: .1rem solid #ced4da;
+				border-radius: .25rem;
+				vertical-align:middle;
+				display:inline-block;
+			}
+
 		}
 
-		& input{
-			margin-right:2.5rem;
-			margin-bottom: 1rem;
-			vertical-align:middle;
-			display:inline-block;
-		}
+	
 		
-			&--tall{
-				height:8.3rem;	
-			}
 	}
 
 	&__header {

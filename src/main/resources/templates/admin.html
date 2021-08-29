@@ -35,10 +35,7 @@ function addChecked() {
 function updatePicture(id) {     	
 	let select = document.getElementById('picture');
 	let name = select.options[select.selectedIndex].getAttribute('name');
-	document.getElementById("picturePreview").src = name;
-
-
-	
+	document.getElementById("picturePreview").src = name;	
 }
 
 </script>
@@ -58,11 +55,12 @@ function updatePicture(id) {
 					<div class="form__header">LessonPlans</div>
 
 
-					<select name="lessonPlan">
+					<select name="lessonPlan" onchange='if(this.value != -1) { this.form.submit(); }'>
+						<option value="-1" selected="selected">Select a lesson plan</option>
 						<option th:each="lp : ${lessonPlans}" th:value="${lp.id}"
 							th:text="|${lp.title } - ${lp.id } - ${lp.assignedSubscription.name }|"></option>
 					</select> <input type="hidden" th:name="${_csrf.parameterName}"
-						th:value="${_csrf.token}" /> <input type="submit" value="Submit">
+						th:value="${_csrf.token}" /> 
 
 
 
@@ -102,7 +100,7 @@ function updatePicture(id) {
 
 
 
-					<div class="form__group">
+					<div class="form__group form__group--mega-menu">
 						<div class="form__header">Type</div>
 
 						<span
@@ -114,7 +112,7 @@ function updatePicture(id) {
 
 					</div>
 
-					<div class="form__group">
+					<div class="form__group form__group--mega-menu">
 						<div class="form__header">Topics</div>
 						<span th:each="top : ${allTopics}"> <label
 							th:for="${#ids.next('topics')}" th:text="${top.name}">Heating</label>
@@ -123,7 +121,7 @@ function updatePicture(id) {
 						</span>
 					</div>
 
-					<div class="form__group">
+					<div class="form__group form__group--mega-menu">
 						<div class="form__header">Tags</div>
 						<span th:each="tag : ${allTags}"> <label
 							th:for="${#ids.next('tags')}" th:text="${tag.name}">Heating</label>
@@ -139,7 +137,7 @@ function updatePicture(id) {
 					</div>    -->
 
 
-					<div class="form__group">
+					<div class="form__group form__group--mega-menu">
 						<div class="form__header">Levels</div>
 						<span th:each="sub : ${allSubscriptions}"
 							th:field="*{assignedSubscription}"> <label
@@ -149,7 +147,7 @@ function updatePicture(id) {
 						</span>
 					</div>
 
-					<div class="form__group">
+					<div class="form__group form__group--mega-menu">
 						<div class="form__header">Grammar</div>
 						<span th:each="g : ${allGrammar}"> <label
 							th:for="${#ids.next('grammar')}" th:text="${g.grammarPoint}">Heating</label>
@@ -157,7 +155,7 @@ function updatePicture(id) {
 						</span>
 					</div>
 
-					<div class="form__group">
+					<div class="form__group form__group--mega-menu">
 						<div class="form__header">Type</div>
 
 						<span
@@ -169,7 +167,7 @@ function updatePicture(id) {
 
 					</div>
 
-					<div class="form__group">
+					<div class="form__group form__group--mega-menu">
 						<div class="form__header">Skill</div>
 
 						<label th:for="${#ids.next('vocabulary')}">Vocabulary</label> <input
@@ -183,7 +181,7 @@ function updatePicture(id) {
 
 					</div>
 
-					<div class="form__group">
+					<div class="form__group form__group--mega-menu">
 						<div class="form__header">LessonContent</div>
 
 						<label th:for="${#ids.next('video')}">Video</label> <input
@@ -200,7 +198,7 @@ function updatePicture(id) {
 
 					</div>
 
-					<div class="form__group">
+					<div class="form__group form__group--mega-menu">
 						<div class="form__header">Speaking</div>
 
 						<label th:for="${#ids.next('speakingAmount')}">Speaking
@@ -209,7 +207,7 @@ function updatePicture(id) {
 
 					</div>
 
-					<div class="form__group">
+					<div class="form__group form__group--mega-menu">
 						<div class="form__header">Resources</div>
 
 						<label th:for="${#ids.next('noPrintedMaterialsNeeded')}">No
