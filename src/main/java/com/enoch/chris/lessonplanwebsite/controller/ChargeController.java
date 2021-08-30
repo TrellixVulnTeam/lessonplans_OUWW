@@ -4,6 +4,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.TemporalAdjusters;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -75,41 +76,61 @@ public class ChargeController {
 			try {
 
 				User user = (User) session.getAttribute("user");
-
 				int amount = chargeRequest.getAmount();
 				String subscriptionName = request.getParameter("subscriptionName");
-
-				// get subscription by name
-
-				Optional<Subscription> subscription = subscriptionRepository.findByName(subscriptionName);
-				Purchase purchase;
 				
-				if (subscription.isPresent()) {
-//					//check to see if already purchased this subscription. In this case, subscription start date should start immediately after
-//					//finish date. 
-//								
-//					//get susbcription with latest finish date
-//					List<Purchase> purchases = purchaseRepository.findAll().stream().filter(p-> p.getUser() == user)
-//							.filter(p-> p.getSubscription().equals(subscription.get()))
-//							.filter(p-> p.getDateSubscriptionEnds().isAfter(LocalDateTime.now()))
-//					.sorted(Comparator.comparing(Purchase::getDateSubscriptionEnds)).collect(Collectors.toList());		
-//					
-//					//get greatest finishing date
-//					LocalDateTime startingDate = purchases.get(purchases.size() - 1).getDateSubscriptionEnds();
-//					
-//
-//					
-//					
-//					//check if this subscription is one			
-					purchase = new Purchase(LocalDateTime.now(), LocalDateTime.now(),
-							LocalDateTime.now().plusYears(1L), amount, subscription.get(), user);
+				if (subscriptionName.equals("all")) {
+					//buy all				
+					
+					List<Subscription> subscriptions = subscriptionRepository.findAll();					
+					List<Purchase> purchases = subscriptions.stream().map(
+						(sub)->
+							{
+								if (sub.getName().equals("A1")) { //A1 level is free if user buys all at once.
+									return new Purchase(LocalDateTime.now(), LocalDateTime.now(),
+											LocalDateTime.now().plusYears(1L), 0, sub, user);											
+								}					
+								return new Purchase(LocalDateTime.now(), LocalDateTime.now(), //other subscriptions charged at normal price
+										LocalDateTime.now().plusYears(1L), sub.getPrice(), sub, user);											
+							}
+			
+					).collect(Collectors.toList());
+					
+					purchaseRepository.saveAll(purchases);
+					
+					
 				} else {
-					throw new Exception("Unable to recover subscription bought");
-				}
-
-				// save Purchase to database
-				purchaseRepository.save(purchase);
-				
+					// get subscription by name
+					Optional<Subscription> subscription = subscriptionRepository.findByName(subscriptionName);
+					
+					
+					if (subscription.isPresent()) {
+//						//check to see if already purchased this subscription. In this case, subscription start date should start immediately after
+//						//finish date. 
+//									
+//						//get susbcription with latest finish date
+//						List<Purchase> purchases = purchaseRepository.findAll().stream().filter(p-> p.getUser() == user)
+//								.filter(p-> p.getSubscription().equals(subscription.get()))
+//								.filter(p-> p.getDateSubscriptionEnds().isAfter(LocalDateTime.now()))
+//						.sorted(Comparator.comparing(Purchase::getDateSubscriptionEnds)).collect(Collectors.toList());		
+//						
+//						//get greatest finishing date
+//						LocalDateTime startingDate = purchases.get(purchases.size() - 1).getDateSubscriptionEnds();
+//						
+	//
+//						
+//						
+						Purchase purchase;	
+						purchase = new Purchase(LocalDateTime.now(), LocalDateTime.now(),
+								LocalDateTime.now().plusYears(1L), amount, subscription.get(), user);
+						
+						// save Purchase to database
+						purchaseRepository.save(purchase);
+					} else {
+						throw new Exception("Unable to recover subscription bought");
+					}
+	
+				}			
 
 				redirectAttributes.addFlashAttribute("paymentSuccess", "paymentSucceeded");
 

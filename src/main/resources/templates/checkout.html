@@ -21,11 +21,11 @@
 			<h1 id="large-header" class="mt-5 ml-5 mb-5">Checkout</h1>
 
 			<form action='/charge' method='POST' id='checkout-form'>	
-				<input type='hidden' th:value="${subscription.name}" name='subscriptionName' />	
+				<input type='hidden' th:value="${subscription}" name='subscriptionName' />	
 				<input type='hidden' th:value='${amount}' name='amount' />
 				
-				<h3>Price:</h3>
-				<p th:text="${amount}" >€</p>
+				<h3>Price</h3>
+				<p th:text="${formattedAmount + ' €'}" >€</p>
 				<!-- NOTE: data-key/data-amount/data-currency will be rendered by Thymeleaf -->
 				<script 
 					src='https://checkout.stripe.com/checkout.js'

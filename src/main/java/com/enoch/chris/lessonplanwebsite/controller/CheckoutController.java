@@ -40,27 +40,41 @@ public class CheckoutController {
 	public String processCheckout(Model model,HttpSession session
 			, @RequestParam("id") Optional<String> subscriptionName) {
 		
-
 		//check lesson exists
 		if (subscriptionName.isPresent()) {
-			//get price of subscription
-			
-			Optional<Subscription> subscription = subscriptionRepository.findByName(subscriptionName.get());
-						
-			if (subscription.isPresent()) {
-				//session.setAttribute("subscription", subscription.get());	
-				model.addAttribute("subscription", subscription.get());
-				model.addAttribute("amount", subscription.get().getPrice()); // in cents
-		        model.addAttribute("stripePublicKey", stripePublicKey);
-		        model.addAttribute("currency", ChargeRequest.Currency.EUR);
+			if (subscriptionName.get().equals("all")) {
+				model.addAttribute("subscription", "all");
+				model.addAttribute("amount", 28000); // in cents
+				model.addAttribute("formattedAmount", "280.00"); // in cents
+//		        model.addAttribute("stripePublicKey", stripePublicKey);
+//		        model.addAttribute("currency", ChargeRequest.Currency.EUR);	
 		        
-		        return "checkout";
 			} else {
-				return "error/checkouterror";
-			}	
-		}
+				Optional<Subscription> subscription = subscriptionRepository.findByName(subscriptionName.get());	
+				
+				System.out.println("debugging subscription name | CheckoutController - " + subscription.get().getName());
+				
+				if (subscription.isPresent()) {
+					//session.setAttribute("subscription", subscription.get());	
+					model.addAttribute("subscription", subscription.get().getName());
+					model.addAttribute("amount", subscription.get().getPrice()); // in cents
+					model.addAttribute("formattedAmount", subscription.get().getPriceFormatted()); // in cents
+//					model.addAttribute("stripePublicKey", stripePublicKey);
+//				    model.addAttribute("currency", ChargeRequest.Currency.EUR);	
+			        	        
+				} else {
+					return "error/checkouterror";
+				}
+			}   
+			model.addAttribute("stripePublicKey", stripePublicKey);
+	        model.addAttribute("currency", ChargeRequest.Currency.EUR);	
+		    return "checkout";
+			
+		} else {
+			return "redirect:upgrade"; //If no subscription selected, direct user to page where a subscription can be bought.
+		}	
 		
-		return "redirect:upgrade"; //If no subscription selected, direct user to page where a subscription can be bought.
+		
 	}
 	
 

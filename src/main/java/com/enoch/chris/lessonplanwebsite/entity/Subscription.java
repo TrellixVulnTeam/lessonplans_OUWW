@@ -1,5 +1,6 @@
 package com.enoch.chris.lessonplanwebsite.entity;
 
+import java.text.NumberFormat;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -34,8 +35,7 @@ public class Subscription {
 	@Column(name="display_name")
 	private String displayName;
 	
-	protected Subscription() {
-		
+	protected Subscription() {		
 	}
 	
 	public Subscription(String name) {
@@ -87,6 +87,20 @@ public class Subscription {
 
 	public void setPrice(int price) {
 		this.price = price;
+	}
+	
+	//to be used when retrieving price from forms, for example.
+	public String getPriceFormatted() {
+		NumberFormat nF = NumberFormat.getInstance();
+		System.out.println("numberformat: "  + nF.toString());
+		nF.setMinimumFractionDigits(2);
+        nF.setMaximumFractionDigits(2);   
+        
+        double priceFormatted = price;
+		priceFormatted =  priceFormatted/100;
+		String f =  nF.format(priceFormatted);
+		System.out.println("class price fomatted no arg " + f);
+		return f;
 	}
 
 	@Override
