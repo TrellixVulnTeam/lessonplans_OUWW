@@ -8,7 +8,6 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<!-- Bootstrap CSS -->
 <link rel="stylesheet" href="../css/styles_principal.css">
 
 <title>Upload picture</title>
@@ -21,7 +20,7 @@
 
 			<h1 id="large-header" class="mt-5 ml-5 mb-5">Upload picture</h1>
 
-			<p th:text="${message}" th:if="${message ne null}" class="alert alert-primary"></p>
+			<p th:text="${message}" th:if="${message ne null}" class="alert"></p>
 			
                 <form method="post" th:action="@{/admin/upload}" enctype="multipart/form-data">				
                     <div class="form__group">

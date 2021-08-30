@@ -64,6 +64,7 @@ public class RegistrationController {
 	@PostMapping("/processRegistrationForm")
 	public String processRegistrationForm(
 				@Valid @ModelAttribute("regUser") RegistrationUser regUser, 
+				//@Valid final RegistrationUser regUser, 
 				BindingResult theBindingResult, 
 				Model theModel, RedirectAttributes redirectAttributes) {
 		

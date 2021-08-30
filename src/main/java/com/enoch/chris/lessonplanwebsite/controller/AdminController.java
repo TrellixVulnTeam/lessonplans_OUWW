@@ -162,6 +162,7 @@ public class AdminController {
 	
 	 @PostMapping("/admin/upload")
 	    public String uploadFile(@RequestParam("file") MultipartFile file, RedirectAttributes attributes) {
+		 System.out.println("in post uploadFile");
 
 	        // check if file is empty
 	        if (file.isEmpty()) {
