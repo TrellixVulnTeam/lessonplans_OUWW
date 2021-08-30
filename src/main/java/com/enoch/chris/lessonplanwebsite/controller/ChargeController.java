@@ -109,6 +109,7 @@ public class ChargeController {
 
 				// save Purchase to database
 				purchaseRepository.save(purchase);
+				
 
 				redirectAttributes.addFlashAttribute("paymentSuccess", "paymentSucceeded");
 

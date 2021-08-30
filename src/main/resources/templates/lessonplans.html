@@ -73,28 +73,37 @@
 					<div class="form__group form__group--mega-menu">
 						<div class="form__header">Type</div>
 
-						<div>
+						<div class="mr-4">
 							<span th:each="typ : ${T(com.enoch.chris.lessonplanwebsite.entity.Type).values()}" th:field="*{type}"> 
 								<label th:for="${#ids.next('type')}" th:text="${typ.type}">General</label> 
 								<input type="radio" th:field="*{type}" th:value="${typ}">
 							</span>
 						</div>
+
 						
-						<div class="form__header ml-4	">Preparation time</div>
+						<div class="form__header">Lesson Time</div>
+						<span
+							th:each="dur : ${T(com.enoch.chris.lessonplanwebsite.entity.LessonTime).values()}"
+							th:field="*{lessonTime}"> <label
+							th:for="${#ids.next('lessonTime')}" th:text="${dur.time}">General</label>
+							<input type="radio" th:field="*{lessonTime}" th:value="${dur}">
+						</span>
+	
 						
+						
+						<!--<div class="form__header ml-4	">Preparation time</div>						
 						<span th:each="prep : ${T(com.enoch.chris.lessonplanwebsite.entity.PreparationTime).values()}" 
 						th:field="*{type}"> 
 							<label th:for="${#ids.next('preparationTime')}" th:text="${prep.time}">General</label> 
 							<input type="radio" th:field="*{preparationTime}" th:value="${prep}">
-						</span>
-						
+						</span> -->	
 
 					</div>
 
 					<div class="form__group form__group--mega-menu">
 						<div class="form__header">Topics</div>
 						<span th:each="top : ${allTopics}"> <label
-							th:for="${#ids.next('topics')}" th:text="${top.name}">Heating</label>
+							th:for="${#ids.next('topics')}" th:text="${top.name}">Topic name</label>
 							<input type="checkbox" th:field="*{topics}" th:value="${top.id}" />
 
 						</span>
@@ -118,7 +127,7 @@
 						</span>
 					</div>
 
-					<div class="form__group form__group--mega-menu">
+					<!-- 	<div class="form__group form__group--mega-menu">
 						<div class="form__header">Lesson Time</div>
 
 						<span
@@ -128,7 +137,7 @@
 							<input type="radio" th:field="*{lessonTime}" th:value="${dur}">
 						</span>
 
-					</div>
+					</div>-->
 
 					<div class="form__group form__group--mega-menu ">
 						<div class="form__header">Skill</div>
@@ -169,7 +178,7 @@
 							Only</label> <input type="checkbox" th:field="*{speakingAmount}"
 							th:value="SPEAKING_ONLY">
 							
-							<div class="form__header">Resources</div>
+							<div class="ml-4 form__header">Resources</div>
 
 						<label th:for="${#ids.next('noPrintedMaterialsNeeded')}">No
 							printed materials needed</label> <input type="checkbox"

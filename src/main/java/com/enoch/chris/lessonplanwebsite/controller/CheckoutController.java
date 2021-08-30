@@ -46,19 +46,21 @@ public class CheckoutController {
 			//get price of subscription
 			
 			Optional<Subscription> subscription = subscriptionRepository.findByName(subscriptionName.get());
-			
-			
+						
 			if (subscription.isPresent()) {
-				session.setAttribute("subscription", subscription.get());			
-			}
-			
-			model.addAttribute("amount", subscription.get().getPrice()); // in cents
-	        model.addAttribute("stripePublicKey", stripePublicKey);
-	        model.addAttribute("currency", ChargeRequest.Currency.EUR);
-		
+				//session.setAttribute("subscription", subscription.get());	
+				model.addAttribute("subscription", subscription.get());
+				model.addAttribute("amount", subscription.get().getPrice()); // in cents
+		        model.addAttribute("stripePublicKey", stripePublicKey);
+		        model.addAttribute("currency", ChargeRequest.Currency.EUR);
+		        
+		        return "checkout";
+			} else {
+				return "error/checkouterror";
+			}	
 		}
 		
-		return "checkout";
+		return "redirect:upgrade"; //If no subscription selected, direct user to page where a subscription can be bought.
 	}
 	
 

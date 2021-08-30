@@ -268,11 +268,11 @@ body {
       cursor: pointer; }
   .btn--action-tertiary {
     background-color: rgba(0, 0, 0, 0.1);
-    background-color: #fff124;
+    background-color: rgba(255, 241, 36, 0.8);
     color: #030303;
     letter-spacing: 0.2px; }
     .btn--action-tertiary:hover {
-      background-color: rgba(0, 0, 0, 0.2);
+      background-color: #fff124;
       cursor: pointer; }
 
 .form__login {

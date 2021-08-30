@@ -83,17 +83,15 @@
 
 	&--action-tertiary{
 		background-color: rgba(0, 0, 0, 0.1);
-		background-color: #fff124;
+		background-color: rgba(#fff124, .8);
 		//F0E100  
 		color: rgb(3, 3, 3);
 		letter-spacing: 0.2px;
 
 		&:hover{
-			background-color: rgba(0, 0, 0, 0.2);
+			background-color: rgba(#fff124, 1);
 			cursor: pointer;
 		}
 	}
-
-
 }
 
