@@ -266,6 +266,14 @@ body {
       background-color: #542a90;
       color: white;
       cursor: pointer; }
+  .btn--action-tertiary {
+    background-color: rgba(0, 0, 0, 0.1);
+    background-color: #fff124;
+    color: #030303;
+    letter-spacing: 0.2px; }
+    .btn--action-tertiary:hover {
+      background-color: rgba(0, 0, 0, 0.2);
+      cursor: pointer; }
 
 .form__login {
   display: flex;

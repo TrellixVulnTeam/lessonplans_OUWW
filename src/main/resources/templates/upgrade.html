@@ -11,97 +11,152 @@
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="../css/styles_principal.css">
 
-<title>Lesson Plans</title>
+
+<title>Upgrade</title>
 </head>
 
 <body>
 	<div th:insert="navbar.html :: nav"></div>
 
 	<div class="main-content">
-		<div class="main-content-inner ml-5 mr-5">
 
-			<h1 id="large-header" class="mt-5 mb-4 ml-5">Upgrade</h1>
+		<h1 id="large-header" class="mt-5 ml-5 mb-5">Get lesson plans</h1>
 
-			<div class="form__container mt-1">
-				<div class="form__group">
-					<div class="form__header">Get one level</div>
+		<div class="lp-container">
 
-					<form id="libro-form">
-
-						<div>
-							<a class="btn btn--small btn--tertiary mb-2"
-								href="javascript:anadirNuevoAutor()">Añadir nuevo autor</a>
-						</div>
-						<div id="anadirAutor"></div>
-
-
-						<div>
-							<a class="btn btn--small btn--tertiary"
-								href="javascript:seleccionarAutorExistente()">Seleccionar
-								autor</a>
-						</div>
-
-						<label for="ISBN" class="mt-2">ISBN</label> <input type="text"
-							id="ISBN" name="ISBN"><br>
-						<br> <label for="titulo">Titulo</label> <input type="text"
-							id="titulo" name="titulo"><br>
-						<br> <label for="precio">Precio en céntimos</label> <input
-							type="number" id="precio" name="precio"><br>
-						<br>
-
-
-
-
-						<div class="center-text">
-							<a class="btn btn--med btn--secondary mb-2"
-								href="javascript:anadirLibro()">Añadir</a>
-						</div>
-
-
-						<p id="resultado"></p>
-					</form>
-
+			<div class="card mr-2 mb-2">
+				<div class="card__side">
+				<h2 class="h2">All levels</h2>
+					 <div class="card__details">		 
+						 <ul>
+							 <li>60 lessons</li>							 
+							 <li>Save youself 800+ hrs of preparation time</li>	
+							 <li>495 €</li>							 						 
+							 <li><a class="mt-1 ml-auto btn btn--action-tertiary" href="/checkout">Buy</a></li>				 
+						 </ul>						 
+					 </div>
 				</div>
-
-				<div class="form__group">
-					<div class="form__header">Get multiple levels</div>
-					<form>
-						<label for="modificarId">Libro Id</label> <input type="number"
-							id="modificarId" name="modificarId"><br>
-						<br> <label for="precioModificado">Precio:</label> <input
-							type="number" id="precioModificado" name="precioModificado"><br>
-						<br>
-						<div class="center-text">
-							<a class="btn btn--med btn--secondary mb-2"
-								href="javascript:modificarPrecioDelLibro()">Modificar</a>
-						</div>
-						<p id="resultadoPrecioModificado"></p>
-					</form>
-				</div>
-
-				<div class="form__group">
-					<div class="form__header">Get all levels </div>
-					<form>
-						<label for="eliminarId">Libro Id</label> <input type="text"
-							id="eliminarId" name="eliminarId"><br>
-						<br>
-						<div class="center-text">
-							<a class="btn btn--med btn--secondary mb-2"
-								href="javascript:eliminarLibro()">Eliminar</a>
-							<!-- <input type="submit" value="Submit">  -->
-						</div>
-						<p id="resultadoEliminarLibro"></p>
-					</form>
-				</div>
-
-
-
 			</div>
-			<!-- form-container termina -->
+
+			<div class="card mr-2 mb-2">
+				<div class="card__side">
+				<h2 class="h2">A1</h2>
+					 <div class="card__details">		 
+						 <ul>
+							 <li>60 lessons</li>							 
+							 <li>Save youself 180 hrs of preparation time</li>	
+							 <li>99 €</li>							 						 
+							 <li><a class="mt-1 ml-auto btn btn--action-tertiary" href="/checkout">Buy</a></li>				 
+						 </ul>						 
+					 </div>
+				</div>
+			</div>
+
+			<div class="card mr-2 mb-2">
+				<div class="card__side">
+				<h2 class="h2">A2</h2>
+					 <div class="card__details">		 
+						 <ul>
+							 <li>60 lessons</li>							 
+							 <li>Save youself 180 hrs of preparation time</li>	
+							 <li>99 €</li>							 						 
+							 <li><a class="mt-1 ml-auto btn btn--action-tertiary" href="/checkout">Buy</a></li>				 
+						 </ul>						 
+					 </div>
+				</div>
+			</div>
+
+			<div class="card mr-2 mb-2">
+				<div class="card__side">
+				<h2 class="h2">B1</h2>
+					 <div class="card__details">		 
+						 <ul>
+							 <li>60 lessons</li>							 
+							 <li>Save youself 180 hrs of preparation time</li>	
+							 <li>99 €</li>							 						 
+							 <li><a class="mt-1 ml-auto btn btn--action-tertiary" href="/checkout">Buy</a></li>				 
+						 </ul>						 
+					 </div>
+				</div>
+			</div>
+
+			<div class="card mr-2 mb-2">
+				<div class="card__side">
+				<h2 class="h2">B2</h2>
+					 <div class="card__details">		 
+						 <ul>
+							 <li>60 lessons</li>							 
+							 <li>Save youself 180 hrs of preparation time</li>	
+							 <li>99 €</li>							 						 
+							 <li><a class="mt-1 ml-auto btn btn--action-tertiary" href="/checkout">Buy</a></li>				 
+						 </ul>						 
+					 </div>
+				</div>
+			</div>
+
+			<div class="card mr-2 mb-2">
+				<div class="card__side">
+				<h2 class="h2">B2+</h2>
+					 <div class="card__details">		 
+						 <ul>
+							 <li>60 lessons</li>							 
+							 <li>Save youself 180 hrs of preparation time</li>	
+							 <li>99 €</li>							 						 
+							 <li><a class="mt-1 ml-auto btn btn--action-tertiary" href="/checkout">Buy</a></li>				 
+						 </ul>						 
+					 </div>
+				</div>
+			</div>
+
+			<div class="card mr-2 mb-2">
+				<div class="card__side">
+				<h2 class="h2">C1</h2>
+					 <div class="card__details">		 
+						 <ul>
+							 <li>60 lessons</li>							 
+							 <li>Save youself 180 hrs of preparation time</li>	
+							 <li>99 €</li>							 						 
+							 <li><a class="mt-1 ml-auto btn btn--action-tertiary" href="/checkout">Buy</a></li>				 
+						 </ul>						 
+					 </div>
+				</div>
+			</div>
+
+			<div class="card mr-2 mb-2">
+				<div class="card__side">
+				<h2 class="h2">C1+</h2>
+					 <div class="card__details">		 
+						 <ul>
+							 <li>60 lessons</li>							 
+							 <li>Save youself 180 hrs of preparation time</li>	
+							 <li>99 €</li>							 						 
+							 <li><a class="mt-1 ml-auto btn btn--action-tertiary" href="/checkout">Buy</a></li>				 
+						 </ul>						 
+					 </div>
+				</div>
+			</div>
+
+			<div class="card mr-2 mb-2">
+				<div class="card__side">
+				<h2 class="h2">C2</h2>
+					 <div class="card__details">		 
+						 <ul>
+							 <li>60 lessons</li>							 
+							 <li>Save youself 180 hrs of preparation time</li>	
+							 <li>99 €</li>							 						 
+							 <li><a class="mt-1 ml-auto btn btn--action-tertiary" href="/checkout">Buy</a></li>				 
+						 </ul>						 
+					 </div>
+				</div>
+			</div>
+
+
+
+
+
 		</div>
+
 	</div>
 </body>
+
 </html>
-
-
-
