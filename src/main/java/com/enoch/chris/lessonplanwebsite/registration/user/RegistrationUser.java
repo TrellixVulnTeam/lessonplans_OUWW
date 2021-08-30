@@ -29,14 +29,6 @@ public class RegistrationUser {
 	@Size(min = 1, message = "is required")
 	private String matchingPassword;
 
-	@NotNull(message = "is required")
-	@Size(min = 1, message = "is required")
-	private String firstName;
-
-	@NotNull(message = "is required")
-	@Size(min = 1, message = "is required")
-	private String lastName;
-
 	@ValidEmail
 	@NotNull(message = "Your email is required")
 	@Size(min = 1, message = "Your email is required")
@@ -70,21 +62,6 @@ public class RegistrationUser {
 		this.matchingPassword = matchingPassword;
 	}
 
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
 
 	public String getEmail() {
 		return email;

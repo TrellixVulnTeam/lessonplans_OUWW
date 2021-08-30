@@ -27,12 +27,6 @@ public class User {
 	@Column(name="id")
 	private int iD;
 	
-	@Column(name="first_name")
-	private String firstName;
-	
-	@Column(name="last_name")
-	private String lastName;
-	
 	@Column(name="username")
 	private String username;
 	
@@ -70,11 +64,9 @@ public class User {
 	public User() {
 	}
 
-	public User(String firstName, String lastName, String username, String password, String email, byte enabled,
+	public User(String username, String password, String email, byte enabled,
 			Collection<Role> roles, List<Subscription> subscriptions, List<Subscription> basket) {
 		super();
-		this.firstName = firstName;
-		this.lastName = lastName;
 		this.username = username;
 		this.password = password;
 		this.email = email;
@@ -85,11 +77,9 @@ public class User {
 	}
 	
 	
-	public User(String firstName, String lastName, String username, String password, String email, byte enabled,
+	public User( String username, String password, String email, byte enabled,
 			Collection<Role> roles, List<Subscription> subscriptions) {
 		super();
-		this.firstName = firstName;
-		this.lastName = lastName;
 		this.username = username;
 		this.password = password;
 		this.email = email;
@@ -100,11 +90,9 @@ public class User {
 
 
 
-	public User(String firstName, String lastName, String username, String password, String email, byte enabled, 
+	public User(String username, String password, String email, byte enabled, 
 			Collection<Role> roles) {
 		super();
-		this.firstName = firstName;
-		this.lastName = lastName;
 		this.username = username;
 		this.password = password;
 		this.email = email;
@@ -112,10 +100,8 @@ public class User {
 		this.roles = roles;
 	}
 	
-	public User(String firstName, String lastName, String username, String password, String email, byte enabled) {
+	public User( String username, String password, String email, byte enabled) {
 		super();
-		this.firstName = firstName;
-		this.lastName = lastName;
 		this.username = username;
 		this.password = password;
 		this.email = email;
@@ -139,23 +125,6 @@ public class User {
 	public void setiD(int iD) {
 		this.iD = iD;
 	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
 
 	public String getEmail() {
 		return email;
@@ -212,7 +181,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [iD=" + iD + ", firstName=" + firstName + ", lastName=" + lastName + ", username=" + username
+		return "User [iD=" + iD + ",  username=" + username
 				+ ", email=" + email + "]";
 	}
 	

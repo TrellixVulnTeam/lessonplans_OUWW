@@ -63,29 +63,7 @@
 					<ul class="list-plain">
 						<li th:each="err : ${#fields.errors('matchingPassword')}" th:text="'Password ' + ${err}" />
 					</ul>						
-				</div>
-
-				<!-- First name -->
-				<div class="mt-2">
-					<label>First name</label>
-					<input type="text" th:field="*{firstName}" class="form-control" th:errorclass="fieldError" />
-				</div>
-				<div th:if="${#fields.hasErrors('firstName')}" class="alert">
-					<ul class="list-plain">
-					  <li th:each="err : ${#fields.errors('firstName')}" th:text="'First name ' + ${err}" />
-					</ul>						
-				</div>
-
-				<!-- Last name -->
-				<div class="mt-2">
-					<label>Last name</label>
-					<input type="text" th:field="*{lastName}" class="form-control" th:errorclass="fieldError" />
-				</div>
-				<div th:if="${#fields.hasErrors('lastName')}" class="alert">
-					<ul class="list-plain">
-						<li th:each="err : ${#fields.errors('lastName')}" th:text="'Last name ' + ${err}" />
-					</ul>						
-				</div>
+				</div>			
 
 				<!-- Email -->
 				<div class="mt-2">

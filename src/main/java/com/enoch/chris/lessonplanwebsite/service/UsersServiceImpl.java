@@ -50,8 +50,6 @@ private BCryptPasswordEncoder passwordEncoder;
 		 // assign user details to the user object
 		user.setUsername(regUser.getUserName());
 		user.setPassword(passwordEncoder.encode(regUser.getPassword()));
-		user.setFirstName(regUser.getFirstName());
-		user.setLastName(regUser.getLastName());
 		user.setEmail(regUser.getEmail());
 		user.setEnabled((byte)1);
 
