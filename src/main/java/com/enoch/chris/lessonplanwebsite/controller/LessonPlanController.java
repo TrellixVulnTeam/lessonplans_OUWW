@@ -325,7 +325,7 @@ public class LessonPlanController {
 
 	private String checkUserIsSubscribed(Model theModel, HttpSession session, Optional<LessonPlan> lp, String subscriptionToCheck) {
 
-		//check lesson is B2 level	
+		//check lesson is level specified in url
 		if (!lp.get().getAssignedSubscription().getName().equals(subscriptionToCheck)) { //if plan does not exist for this level, return		
 			System.out.println("debug b2 not found");
 			return "error/lessonplannotfound";
@@ -333,6 +333,7 @@ public class LessonPlanController {
 		
 		//set lessonPlan variable
 		theModel.addAttribute("lp", lp.get());
+		
 		
 		//get user active subscriptions
 		User theUser = (User)session.getAttribute("user");
@@ -353,7 +354,10 @@ public class LessonPlanController {
 		//Strip title of spaces to produce filename
 		String titleNoSpace = lp.get().getTitle().replaceAll("\\s", "");
 		
-		return "/lessonplans/" + subscriptionToCheck + "/" + titleNoSpace;
+		theModel.addAttribute("lessonPlanToInclude", titleNoSpace.toLowerCase() + ".html");
+		
+		//return "/lessonplans/" + subscriptionToCheck + "/" + titleNoSpace;
+		return "/lessonplans/" + subscriptionToCheck + "/B2template";
 	}
 	
 	
