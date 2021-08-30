@@ -20,6 +20,9 @@ body {
 .alert {
   color: #dc3545; }
 
+.success {
+  color: #28a745; }
+
 .h2 {
   text-align: center;
   background-color: rgba(255, 140, 0, 0.8);

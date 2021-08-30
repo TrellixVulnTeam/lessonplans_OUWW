@@ -122,8 +122,9 @@ public class RegistrationController {
         usersService.save(regUser);
         
         logger.info("Successfully created user: " + username);
+        theModel.addAttribute("registrationSuccess", "registrationSuccess");
         
-        return "registration-confirmation";		
+        return "fancy-login";		
 	}
 	
 	@GetMapping("/processRegistrationForm")
