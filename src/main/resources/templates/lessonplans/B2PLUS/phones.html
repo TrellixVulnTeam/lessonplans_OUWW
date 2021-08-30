@@ -1,39 +1,126 @@
-<!DOCTYPE HTML>
-<html lang="en" 
-		xmlns:th="http://www.thymeleaf.org"
-		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<div id="insert-section">
+  <div class="center-text">
+    <h2 class="underline">Warmer</h2>
+  </div>
+  <p class="mt-2 mb-3 ml-10 mr-10">
+    The content of the page will be different for every lesson plan. Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex eos iure amet
+    voluptas, incidunt eaque aspernatur, dolorum veritatis quidem provident
+    consequuntur perspiciatis. Est officia quae voluptatem dicta quisquam,
+    expedita beatae?
+  </p>
+  <div class="center-text">
+    <h2 class="underline">Vocabulary</h2>
+  </div>
+  <ul class="mt-2 mb-3 ml-10 mr-10">
+    <li>
+      <h4>Word</h4>
+      <p class="ml-2 mb-1">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto
+        dolorum quae
+      </p>
+    </li>
+    <li>
+      <h4>Word</h4>
+      <p class="ml-2 mb-1">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto
+        dolorum quae
+      </p>
+    </li>
+    <li>
+      <h4>Word</h4>
+      <p class="ml-2 mb-1">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto
+        dolorum quae
+      </p>
+    </li>
+    <li>
+      <h4>Word</h4>
+      <p class="ml-2 mb-1">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto
+        dolorum quae
+      </p>
+    </li>
+    <li>
+      <h4>Word</h4>
+      <p class="ml-2 mb-1">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto
+        dolorum quae
+      </p>
+    </li>
+    <li>
+      <h4>Word</h4>
+      <p class="ml-2 mb-1">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto
+        dolorum quae
+      </p>
+    </li>
+    <li>
+      <h4>Word</h4>
+      <p class="ml-2 mb-1">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto
+        dolorum quae
+      </p>
+    </li>
+    <li>
+      <h4>Word</h4>
+      <p class="ml-2 mb-1">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto
+        dolorum quae
+      </p>
+    </li>
+  </ul>
+  <div class="center-text">
+    <h2 class="underline">Vocabulary exercise</h2>
+  </div>
+  <ol class="mt-2 mb-3 ml-10 mr-10">
+    <li>
+      Lorem ipsum dolor, sit amet consectetur _______________adipisicing elit.
+    </li>
+    <li>
+      Lorem ipsum dolor, sit amet consectetur _______________adipisicing elit.
+    </li>
+    <li>
+      Lorem ipsum dolor, sit amet consectetur _______________adipisicing elit.
+    </li>
+    <li>
+      Lorem ipsum dolor, sit amet consectetur _______________adipisicing elit.
+    </li>
+    <li>
+      Lorem ipsum dolor, sit amet consectetur _______________adipisicing elit.
+    </li>
+    <li>
+      Lorem ipsum dolor, sit amet consectetur _______________adipisicing elit.
+    </li>
+    <li>
+      Lorem ipsum dolor, sit amet consectetur _______________adipisicing elit.
+    </li>
+    <li>
+      Lorem ipsum dolor, sit amet consectetur _______________adipisicing elit.
+    </li>
+  </ol>
 
-<head>
-<!-- Required meta tags -->
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <div class="center-text">
+    <h2 class="underline">Conversation</h2>
+  </div>
+  <ul class="mt-2 mb-3 ml-10 mr-10">
+    <li>Lorem ipsum dolor, sit amet consectetu.</li>
+    <li>Lorem ipsum dolor, sit amet consectetu.</li>
+    <li>Lorem ipsum dolor, sit amet consectetu.</li>
+    <li>Lorem ipsum dolor, sit amet consectetu.</li>
+    <li>Lorem ipsum dolor, sit amet consectetu.</li>
+    <li>Lorem ipsum dolor, sit amet consectetu.</li>
+    <li>Lorem ipsum dolor, sit amet consectetu.</li>
+    <li>Lorem ipsum dolor, sit amet consectetu.</li>
+  </ul>
 
-<link rel="stylesheet" href="../../css/styles_principal.css">
-
-<title>Lesson Plans</title>
-</head>
-
-<body>
-	<div th:insert="navbar.html :: nav"></div>
-	<div class="main-content">
-		<div class="main-content-inner ml-5 mr-5">
-
-			<h1 id="large-header" class="mt-5 ml-5 mb-5" th:text="${lp.title}">Lesson Plan</h1>
-			
-			<div th:if="${B2PLUSactive}">
-			<p th:text="${lp.assignedSubscription.name}"></p>
-			</div>
-			
-			<div th:if="${!B2PLUSactive  || B2PLUSactive == null}">
-			<p>In order to access this lesson plan you need a <span th:text="${lp.assignedSubscription.name}"></span> subscription.</p>
-			<a class="btn btn--small btn--primary" href='#'>Get this subscription now</a>
-			</div>		
-				
-		</div>
-	</div>
-</body>
-</html>
-
-
-
+  <div class="center-text">
+    <h2 class="underline">Plenary</h2>
+  </div>
+  <p class="mt-2 mb-1 ml-10 mr-10">
+    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fuga accusamus
+    voluptatibus vitae ducimus numquam dolores reprehenderit dolor velit
+    doloribus a! Voluptatem cum minus reiciendis vel in? Ad provident laudantium
+    id. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Similique
+    culpa accusamus corrupti ratione adipisci?
+  </p>
+</div>

@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link rel="stylesheet" href="../../css/styles_principal.css">
+
+	<title>Lesson Plans</title>
+</head>
+
+<body>
+	<div th:insert="navbar.html:: nav"></div>
+	<div class="main-content">
+
+		<h1 id="large-header" class="mt-5 ml-5 mb-5" th:text="${lp.title}">Lesson Plan</h1>
+
+		<div th:if="${!C1active  || C1active == null}">
+			<p>In order to access this lesson plan you need a <span th:text="${lp.assignedSubscription.name}"></span>
+				subscription.</p>
+			<a class="btn btn--small btn--primary" href='#'>Get this subscription now</a>
+		</div>
+
+		<div th:if="${C1active}">
+			<div th:insert="${'/lessonplans/C1/' + lessonPlanToInclude}:: #insert-section"></div>			
+		</div>
+
+	</div>
+</body>
+
+</html>

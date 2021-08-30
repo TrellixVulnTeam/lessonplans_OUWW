@@ -357,7 +357,7 @@ public class LessonPlanController {
 		theModel.addAttribute("lessonPlanToInclude", titleNoSpace.toLowerCase() + ".html");
 		
 		//return "/lessonplans/" + subscriptionToCheck + "/" + titleNoSpace;
-		return "/lessonplans/" + subscriptionToCheck + "/B2template";
+		return "/lessonplans/" + subscriptionToCheck + "/" + subscriptionToCheck + "template";
 	}
 	
 	
