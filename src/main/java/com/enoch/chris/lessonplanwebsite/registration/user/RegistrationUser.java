@@ -20,8 +20,9 @@ public class RegistrationUser {
 
 	//@NotNull(message = "")
 	//@Size(min = 1)
-	@NotNull(message = "is required")
-	@Size(min = 1, message = "is required")
+	@NotNull(message = "")
+	@Size(min = 1, message = "")
+	@ValidPassword
 	private String password;
 	
 	@NotNull(message = "is required")

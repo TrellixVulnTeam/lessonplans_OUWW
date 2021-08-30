@@ -27,75 +27,75 @@
 				</div>
 
 				<!-- User name -->
-				<div class="mb-2">
+				<div>
 					<label>Username</label>
 					<input type="text" th:field="*{userName}"/>
 				</div>
 
 				<div th:if="${#fields.hasErrors('userName')}" class="alert">
-				<ul>
+				<ul class="list-plain">
 				  <li th:each="err : ${#fields.errors('userName')}" th:text="'User name ' + ${err}" />
 				</ul>						
 				</div>
 
 				<!-- Password -->
-				<div class="mb-2">
+				<div class="mt-2">
 					<label>Password</label>
 					<input type="password" th:field="*{password}" class="form-control" th:errorclass="fieldError" />
 				</div>
 
 				<div th:if="${#fields.hasErrors('password')}"class="alert">
-					<ul>
-						<li th:each="err : ${#fields.errors('password')}" th:text="'Password ' + ${err}" />
+					<ul class="list-plain">
+						<li th:each="err : ${#fields.errors('password')}" th:text="${err}" />
 					</ul>						
 				</div>
 
 				<!-- Confirm Password -->
-				<div class="mb-2">
+				<div class="mt-2">
 					<label>Confirm password</label>
 					<input type="password" th:field="*{matchingPassword}"  class="form-control" th:errorclass="fieldError" />
 				</div>
 				<div th:if="${#fields.hasErrors('matchingPassword')}" class="alert">
-					<ul>
+					<ul class="list-plain">
 						<li th:each="err : ${#fields.errors('matchingPassword')}" th:text="'Password ' + ${err}" />
 					</ul>						
 				</div>
 
 				<!-- First name -->
-				<div class="mb-3">
+				<div class="mt-2">
 					<label>First name</label>
 					<input type="text" th:field="*{firstName}" placeholder="first name (*)" class="form-control" th:errorclass="fieldError" />
 				</div>
 				<div th:if="${#fields.hasErrors('firstName')}" class="alert">
-					<ul>
+					<ul class="list-plain">
 					  <li th:each="err : ${#fields.errors('firstName')}" th:text="'First name ' + ${err}" />
 					</ul>						
 				</div>
 
 				<!-- Last name -->
-				<div class="mb-3">
+				<div class="mt-2">
 					<label>Last name</label>
 					<input type="text" th:field="*{lastName}" placeholder="last name (*)" class="form-control" th:errorclass="fieldError" />
 				</div>
 				<div th:if="${#fields.hasErrors('lastName')}" class="alert">
-					<ul>
+					<ul class="list-plain">
 						<li th:each="err : ${#fields.errors('lastName')}" th:text="'Last name ' + ${err}" />
 					</ul>						
 				</div>
 
 				<!-- Email -->
-				<div class="mb-2">
+				<div class="mt-2">
 					<label>Email</label>
 					<input type="text" th:field="*{email}"  class="form-control" th:errorclass="fieldError" />
 				</div>
 				<div th:if="${#fields.hasErrors('email')}" class="alert">
-					<ul>
-						<li th:each="err : ${#fields.errors('email')}" th:text="'Email ' + ${err}" />
+					<ul class="list-plain">
+						<li th:each="err : ${#fields.errors('email')}" th:text="${err}" />
 					</ul>						
 				</div>
 
 					<!-- Register-->
-				<div class="center-text">
+				<div class="mt-2 center-text">
 					<button class="btn btn--primary btn--big" type="submit" name="save">Register</button>
 					<a class="btn btn--big btn--info" href='/showMyLoginPage'>Login</a> 
 				

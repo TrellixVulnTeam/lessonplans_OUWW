@@ -47,6 +47,9 @@ body {
 .message--large {
   font-size: 6.6rem; }
 
+.list-plain {
+  list-style-type: none; }
+
 .display-list {
   list-style-type: none;
   width: 25%;
