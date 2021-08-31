@@ -98,12 +98,11 @@ public class ChargeController {
 					if (subscription.isPresent()) {
 						//getSubscriptionStartDate(user, subscription.get());
 						
-	//
-//						
-//						
+						LocalDateTime startDate = SubscriptionUtils.getSubscriptionStartDate(user, subscription.get(), purchaseRepository);
+							
 						Purchase purchase;						
-						purchase = new Purchase(LocalDateTime.now(), LocalDateTime.now(),
-								LocalDateTime.now().plusYears(1L), amount, subscription.get(), user, Deal.NONE);
+						purchase = new Purchase(LocalDateTime.now(), startDate,
+								startDate.plusYears(1L), amount, subscription.get(), user, Deal.NONE);
 						
 						// save Purchase to database
 						purchaseRepository.save(purchase);

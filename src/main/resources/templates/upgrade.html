@@ -33,7 +33,7 @@
 							 <li>Save yourself 800+ hrs of preparation time</li>	
 							 <li>280 €</li>	
 							 <li>1 year's access</li>	
-							 <li><small>Extends active subscriptions by 1 year</small></li>							 						 
+							 <li><small>Get all subscriptions and extend active subscriptions by 1 year</small></li>							 						 
 							 <li><a class="mt-1 ml-auto btn btn--action-tertiary" href="/checkout?id=all">Buy</a></li>
 							 			 
 						 </ul>						 
@@ -48,9 +48,11 @@
 						 <ul>
 							 <li>60 lessons</li>							 
 							 <li>Save yourself 180 hrs of preparation time</li>	
-							 <li>40 €</li>	
-							 <li>1 year's access</li>						 						 
-							 <li><a class="mt-1 ml-auto btn btn--action-tertiary" href="/checkout?id=A1">Buy</a></li>				 
+							 <li>40 €</li>
+							 <li th:if="${A1 == null}" th:text="'1 year\'s access'"></li>
+							 <li th:if="${A1 != null}" ><small th:text="'Get access until ' + ${A1}"></small></li>
+							 <!--  <li th:text="${A1 != null}? 'Access until ' + ${A1}: '1 year\'s access'">1 year's access</li>  -->											 						 
+							 <li><a th:text="${A1 != null}? 'Extend' : 'Buy'" class="mt-1 ml-auto btn btn--action-tertiary" href="/checkout?id=A1">Buy</a></li>				 
 						 </ul>						 
 					 </div>
 				</div>
@@ -64,8 +66,10 @@
 							 <li>60 lessons</li>							 
 							 <li>Save yourself 180 hrs of preparation time</li>	
 							 <li>40 €</li>	
-							 <li>1 year's access</li>						 						 
-							 <li><a class="mt-1 ml-auto btn btn--action-tertiary" href="/checkout?id=A2">Buy</a></li>				 
+							 
+							 <li th:if="${A2 == null}" th:text="'1 year\'s access'"></li>
+							 <li th:if="${A2 != null}"><small th:text="'Get access until ' + ${A2}"></small></li>					 					 					 						 
+							 <li><a th:text="${A2 != null}? 'Extend' : 'Buy'" class="mt-1 ml-auto btn btn--action-tertiary" href="/checkout?id=A1">Buy</a></li>							 
 						 </ul>						 
 					 </div>
 				</div>
@@ -79,8 +83,9 @@
 							 <li>60 lessons</li>							 
 							 <li>Save yourself 180 hrs of preparation time</li>	
 							 <li>40 €</li>
-							 <li>1 year's access</li>							 						 
-							 <li><a class="mt-1 ml-auto btn btn--action-tertiary" href="/checkout?id=B1">Buy</a></li>				 
+							 <li th:if="${B1 == null}" th:text="'1 year\'s access'"></li>
+							 <li th:if="${B1 != null}" ><small th:text="'Get access until ' + ${B1}"></small></li>						 						 
+							 <li><a th:text="${B1 != null}? 'Extend' : 'Buy'"  class="mt-1 ml-auto btn btn--action-tertiary" href="/checkout?id=B1">Buy</a></li>				 
 						 </ul>						 
 					 </div>
 				</div>
@@ -94,8 +99,9 @@
 							 <li>60 lessons</li>							 
 							 <li>Save yourself 180 hrs of preparation time</li>	
 							 <li>40 €</li>	
-							 <li>1 year's access</li>						 						 
-							 <li><a class="mt-1 ml-auto btn btn--action-tertiary" href="/checkout?id=B2">Buy</a></li>				 
+							  <li th:if="${B2 == null}" th:text="'1 year\'s access'"></li>
+							 <li th:if="${B2 != null}"><small th:text="'Get access until ' + ${B2}"></small></li>						 						 
+							 <li><a th:text="${B2 != null}? 'Extend' : 'Buy'" class="mt-1 ml-auto btn btn--action-tertiary" href="/checkout?id=B2">Buy</a></li>				 
 						 </ul>						 
 					 </div>
 				</div>
@@ -109,8 +115,9 @@
 							 <li>60 lessons</li>							 
 							 <li>Save yourself 180 hrs of preparation time</li>	
 							 <li>40 €</li>	
-							 <li>1 year's access</li>						 						 
-							 <li><a class="mt-1 ml-auto btn btn--action-tertiary" href="/checkout?id=B2PLUS">Buy</a></li>				 
+							 <li th:if="${B2PLUS == null}" th:text="'1 year\'s access'"></li>
+							 <li th:if="${B2PLUS != null}"><small th:text="'Get access until ' + ${B2PLUS}"></small></li>						 						 
+							 <li><a th:text="${B2PLUS != null}? 'Extend' : 'Buy'" class="mt-1 ml-auto btn btn--action-tertiary" href="/checkout?id=B2PLUS">Buy</a></li>				 
 						 </ul>						 
 					 </div>
 				</div>
@@ -124,8 +131,9 @@
 							 <li>60 lessons</li>							 
 							 <li>Save yourself 180 hrs of preparation time</li>	
 							 <li>40 €</li>
-							 <li>1 year's access</li>							 						 
-							 <li><a class="mt-1 ml-auto btn btn--action-tertiary" href="/checkout?id=C1">Buy</a></li>				 
+							 <li th:if="${C1 == null}" th:text="'1 year\'s access'"></li>
+							 <li th:if="${C1 != null}" ><small th:text="'Get access until ' + ${C1}"></small></li>							 						 
+							 <li><a th:text="${C1 != null}? 'Extend' : 'Buy'" class="mt-1 ml-auto btn btn--action-tertiary" href="/checkout?id=C1">Buy</a></li>				 
 						 </ul>						 
 					 </div>
 				</div>
@@ -139,8 +147,9 @@
 							 <li>60 lessons</li>							 
 							 <li>Save yourself 180 hrs of preparation time</li>	
 							 <li>40 €</li>
-							 <li>1 year's access</li>							 						 
-							 <li><a class="mt-1 ml-auto btn btn--action-tertiary" href="/checkout?id=C1PLUS">Buy</a></li>				 
+							 <li th:if="${C1PLUS == null}" th:text="'1 year\'s access'"></li>
+							 <li th:if="${C1PLUS != null}" ><small th:text="'Get access until ' + ${C1PLUS}"></small></li>							 						 
+							 <li><a th:text="${C1PLUS != null}? 'Extend' : 'Buy'"  class="mt-1 ml-auto btn btn--action-tertiary" href="/checkout?id=C1PLUS">Buy</a></li>				 
 						 </ul>						 
 					 </div>
 				</div>
@@ -154,8 +163,9 @@
 							 <li>60 lessons</li>							 
 							 <li>Save yourself 180 hrs of preparation time</li>	
 							 <li>40 €</li>	
-							 <li>1 year's access</li>						 						 
-							 <li><a class="mt-1 ml-auto btn btn--action-tertiary" href="/checkout?id=C2">Buy</a></li>				 
+							 <li th:if="${C2 == null}" th:text="'1 year\'s access'"></li>
+							 <li th:if="${C2 != null}"><small th:text="'Get access until ' + ${C2}"></small></li>							 						 
+							 <li><a th:text="${C2 != null}? 'Extend' : 'Buy'"  class="mt-1 ml-auto btn btn--action-tertiary" href="/checkout?id=C2">Buy</a></li>				 
 						 </ul>						 
 					 </div>
 				</div>
