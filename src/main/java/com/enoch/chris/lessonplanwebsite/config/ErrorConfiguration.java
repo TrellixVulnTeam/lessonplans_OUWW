@@ -1,5 +1,8 @@
 package com.enoch.chris.lessonplanwebsite.config;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.RequestDispatcher;
+
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,9 +19,16 @@ public class ErrorConfiguration implements ErrorController  {
     }
     
     @RequestMapping("/showerror")
-    public String showError() {
+    public String handleError(HttpServletRequest request) {
+    	Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
     	
-    	System.out.println("debugging - inside show error - ErrorConfiguration");
+    	if (status != null) {
+    		
+    		System.out.println("inside if status!= null | ErrorConfiguration");
+
+        }
+    	
+    	System.out.println("debugging - inside handleError- ErrorConfiguration");
 
         return "error";
     }
