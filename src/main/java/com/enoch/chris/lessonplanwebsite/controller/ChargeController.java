@@ -83,16 +83,18 @@ public class ChargeController {
 				if (subscriptionName.equals("all")) {
 					//buy all				
 					
-					List<Subscription> subscriptions = subscriptionRepository.findAll();					
+					List<Subscription> subscriptions = subscriptionRepository.findAll();				
+					List<Subscription> subscriptionsHelper = new ArrayList<>(subscriptions); //Used so we don't call operation on the very list which the stream is operating on.
+					
 					List<Purchase> purchases = subscriptions.stream().map(
 						(sub)->
 							{
-								if (sub.getName().equals("A1")) { //A1 level is free if user buys all at once.
+								if (sub.equals(subscriptionsHelper.get(0))) { //Insert full amount into one subscription and zero into the others.
 									return new Purchase(LocalDateTime.now(), LocalDateTime.now(),
-											LocalDateTime.now().plusYears(1L), 0, sub, user);											
+											LocalDateTime.now().plusYears(1L), amount, sub, user, Deal.ALL);											
 								}					
-								return new Purchase(LocalDateTime.now(), LocalDateTime.now(), //other subscriptions charged at normal price
-										LocalDateTime.now().plusYears(1L), sub.getPrice(), sub, user);											
+								return new Purchase(LocalDateTime.now(), LocalDateTime.now(), 
+										LocalDateTime.now().plusYears(1L), 0, sub, user, Deal.ALL);											
 							}
 			
 					).collect(Collectors.toList());
@@ -121,10 +123,7 @@ public class ChargeController {
 	//
 //						
 //						
-						Purchase purchase;	
-//						purchase = new Purchase(LocalDateTime.now(), LocalDateTime.now(),
-//								LocalDateTime.now().plusYears(1L), amount, subscription.get(), user);
-						
+						Purchase purchase;						
 						purchase = new Purchase(LocalDateTime.now(), LocalDateTime.now(),
 								LocalDateTime.now().plusYears(1L), amount, subscription.get(), user, Deal.NONE);
 						

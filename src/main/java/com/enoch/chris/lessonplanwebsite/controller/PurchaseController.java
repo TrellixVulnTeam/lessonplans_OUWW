@@ -117,8 +117,6 @@ public class PurchaseController {
 		System.out.println("Basket contents");
 		user.getBasket().stream().forEach(s-> System.out.println(s.getName()));
 		
-
-
 		return "lessonplans";
 	}
 	
