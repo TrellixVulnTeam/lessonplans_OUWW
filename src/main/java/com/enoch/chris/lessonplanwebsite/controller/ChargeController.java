@@ -24,6 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.enoch.chris.lessonplanwebsite.dao.PurchaseRepository;
 import com.enoch.chris.lessonplanwebsite.dao.SubscriptionRepository;
+import com.enoch.chris.lessonplanwebsite.entity.Deal;
 import com.enoch.chris.lessonplanwebsite.entity.Purchase;
 import com.enoch.chris.lessonplanwebsite.entity.Subscription;
 import com.enoch.chris.lessonplanwebsite.entity.User;
@@ -121,8 +122,11 @@ public class ChargeController {
 //						
 //						
 						Purchase purchase;	
+//						purchase = new Purchase(LocalDateTime.now(), LocalDateTime.now(),
+//								LocalDateTime.now().plusYears(1L), amount, subscription.get(), user);
+						
 						purchase = new Purchase(LocalDateTime.now(), LocalDateTime.now(),
-								LocalDateTime.now().plusYears(1L), amount, subscription.get(), user);
+								LocalDateTime.now().plusYears(1L), amount, subscription.get(), user, Deal.NONE);
 						
 						// save Purchase to database
 						purchaseRepository.save(purchase);

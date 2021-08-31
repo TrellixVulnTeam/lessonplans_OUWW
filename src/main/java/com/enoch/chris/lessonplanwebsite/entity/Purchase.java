@@ -42,9 +42,25 @@ public class Purchase {
 	@JoinColumn(name = "user_id")
 	private User user;
 	
+	private Deal deal;
+	
 	protected Purchase() {
 	}
 	
+	public Purchase(LocalDateTime datePurchased, LocalDateTime dateSubscriptionStarts,
+			LocalDateTime dateSubscriptionEnds, int pricePaidInCents, Subscription subscription, User user, Deal deal) {
+		super();
+		this.datePurchased = datePurchased;
+		this.dateSubscriptionStarts = dateSubscriptionStarts;
+		this.dateSubscriptionEnds = dateSubscriptionEnds;
+		this.pricePaidInCents = pricePaidInCents;
+		this.subscription = subscription;
+		this.user = user;
+		this.deal = deal;
+	}
+
+
+
 	public Purchase(LocalDateTime datePurchased, LocalDateTime dateSubscriptionStarts,
 			LocalDateTime dateSubscriptionEnds, int pricePaidInCents, Subscription subscription, User user) {
 		super();
@@ -110,6 +126,14 @@ public class Purchase {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public Deal getDeal() {
+		return deal;
+	}
+
+	public void setDeal(Deal deal) {
+		this.deal = deal;
 	}
 
 

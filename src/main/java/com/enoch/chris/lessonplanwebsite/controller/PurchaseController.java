@@ -122,6 +122,15 @@ public class PurchaseController {
 		return "lessonplans";
 	}
 	
+	@GetMapping("/getpurchase")
+	public String getPurchase(Model theModel) {		
+
+		Purchase purchase = purchaseRepository.findById(18).get();
+		System.out.println("Debugging deal type: | PurchaseController " + purchase.getDeal());
+		
+		return "redirect:lessonplans";
+	}
+	
 }
 
 
