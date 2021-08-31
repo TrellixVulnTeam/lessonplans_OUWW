@@ -138,7 +138,7 @@ public class ChargeController {
 	@GetMapping("/startdatetest")
 	public String testStartDate(Model theModel, HttpSession session) {
 		User user = (User) session.getAttribute("user");
-		Subscription subscription = subscriptionRepository.findById(1).get();
+		Subscription subscription = subscriptionRepository.findById(2).get();
 		LocalDateTime startDate = getSubscriptionStartDate(user, subscription);
 		System.out.println("Debugging startDate | ChargeController " + startDate);
 		
@@ -162,8 +162,11 @@ public class ChargeController {
 		LocalDateTime startingDate = purchases.size() > 0? purchases.get(purchases.size() - 1).getDateSubscriptionEnds()
 				: LocalDateTime.now();
 		
-		System.out.println("Debugging first item list - dateSubscriptionEnds| ChargeController " + purchases.get(0).getDateSubscriptionEnds());
-		System.out.println("Debugging last item list - dateSubscriptionEnds| ChargeController " + purchases.get(purchases.size() - 1).getDateSubscriptionEnds());
+		if (purchases.size() > 0) {
+			System.out.println("Debugging first item list - dateSubscriptionEnds| ChargeController " + purchases.get(0).getDateSubscriptionEnds());
+			System.out.println("Debugging last item list - dateSubscriptionEnds| ChargeController " + purchases.get(purchases.size() - 1).getDateSubscriptionEnds());
+		}
+		
 		
 		return startingDate;
 	}
@@ -174,12 +177,14 @@ public class ChargeController {
 		List<Purchase> purchases = subscriptions.stream().map(
 			(sub)->
 				{
-					if (sub.equals(subscriptionsHelper.get(0))) { //Insert full amount into one subscription and zero into the others.
-						return new Purchase(LocalDateTime.now(), LocalDateTime.now(),
-								LocalDateTime.now().plusYears(1L), amount, sub, user, Deal.ALL);											
+					LocalDateTime startDate = getSubscriptionStartDate(user, sub);
+					
+					if (sub.equals(subscriptionsHelper.get(0))) { //Insert full amount into one subscription and zero into the others.												
+						return new Purchase(LocalDateTime.now(), startDate,
+								startDate.plusYears(1L), amount, sub, user, Deal.ALL);											
 					}					
-					return new Purchase(LocalDateTime.now(), LocalDateTime.now(), 
-							LocalDateTime.now().plusYears(1L), 0, sub, user, Deal.ALL);											
+					return new Purchase(LocalDateTime.now(), startDate, 
+							startDate.plusYears(1L), 0, sub, user, Deal.ALL);											
 				}
 
 		).collect(Collectors.toList());
