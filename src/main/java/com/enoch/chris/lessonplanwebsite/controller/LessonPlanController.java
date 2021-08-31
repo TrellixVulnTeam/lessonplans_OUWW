@@ -49,8 +49,8 @@ import com.enoch.chris.lessonplanwebsite.entity.TestObject;
 import com.enoch.chris.lessonplanwebsite.entity.Topic;
 import com.enoch.chris.lessonplanwebsite.entity.Type;
 import com.enoch.chris.lessonplanwebsite.entity.User;
+import com.enoch.chris.lessonplanwebsite.entity.utils.LessonPlanUtils;
 import com.enoch.chris.lessonplanwebsite.service.LessonPlanService;
-import com.enoch.chris.lessonplanwebsite.utils.LessonPlanUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 

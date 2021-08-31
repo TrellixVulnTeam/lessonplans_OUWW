@@ -1,4 +1,4 @@
-package com.enoch.chris.lessonplanwebsite.utils;
+package com.enoch.chris.lessonplanwebsite.entity.utils;
 
 import java.util.ArrayList;
 import java.util.List;
