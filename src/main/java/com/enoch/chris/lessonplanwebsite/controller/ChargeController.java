@@ -84,20 +84,7 @@ public class ChargeController {
 					//buy all				
 					
 					List<Subscription> subscriptions = subscriptionRepository.findAll();				
-					List<Subscription> subscriptionsHelper = new ArrayList<>(subscriptions); //Used so we don't call operation on the very list which the stream is operating on.
-					
-					List<Purchase> purchases = subscriptions.stream().map(
-						(sub)->
-							{
-								if (sub.equals(subscriptionsHelper.get(0))) { //Insert full amount into one subscription and zero into the others.
-									return new Purchase(LocalDateTime.now(), LocalDateTime.now(),
-											LocalDateTime.now().plusYears(1L), amount, sub, user, Deal.ALL);											
-								}					
-								return new Purchase(LocalDateTime.now(), LocalDateTime.now(), 
-										LocalDateTime.now().plusYears(1L), 0, sub, user, Deal.ALL);											
-							}
-			
-					).collect(Collectors.toList());
+					List<Purchase> purchases = preparePurchasesDealALL(user, amount, subscriptions);
 					
 					purchaseRepository.saveAll(purchases);
 					
@@ -108,18 +95,8 @@ public class ChargeController {
 					
 					
 					if (subscription.isPresent()) {
-//						//check to see if already purchased this subscription. In this case, subscription start date should start immediately after
-//						//finish date. 
-//									
-//						//get susbcription with latest finish date
-//						List<Purchase> purchases = purchaseRepository.findAll().stream().filter(p-> p.getUser() == user)
-//								.filter(p-> p.getSubscription().equals(subscription.get()))
-//								.filter(p-> p.getDateSubscriptionEnds().isAfter(LocalDateTime.now()))
-//						.sorted(Comparator.comparing(Purchase::getDateSubscriptionEnds)).collect(Collectors.toList());		
-//						
-//						//get greatest finishing date
-//						LocalDateTime startingDate = purchases.get(purchases.size() - 1).getDateSubscriptionEnds();
-//						
+						//getSubscriptionStartDate(user, subscription.get());
+						
 	//
 //						
 //						
@@ -156,6 +133,57 @@ public class ChargeController {
 			redirectAttributes.addFlashAttribute("paymentSuccess", "paymentFailed");
 			return "redirect:/charge";
 		}
+	}
+	
+	@GetMapping("/startdatetest")
+	public String testStartDate(Model theModel, HttpSession session) {
+		User user = (User) session.getAttribute("user");
+		Subscription subscription = subscriptionRepository.findById(1).get();
+		LocalDateTime startDate = getSubscriptionStartDate(user, subscription);
+		System.out.println("Debugging startDate | ChargeController " + startDate);
+		
+		return "redirect:lessonplans";
+		
+	}
+
+	private LocalDateTime getSubscriptionStartDate(User user, Subscription subscription) {
+		//check to see if already purchased this subscription. In this case, subscription start date should start immediately after
+		//finish date. 
+					
+		//get susbcription with latest finish date
+		List<Purchase> purchases = purchaseRepository.findAll().stream()
+				.filter(p-> p.getUser().equals(user))
+				.filter(p-> p.getSubscription().equals(subscription))
+				.filter(p-> p.getDateSubscriptionEnds().isAfter(LocalDateTime.now()))
+		.sorted(Comparator.comparing(Purchase::getDateSubscriptionEnds))
+		.collect(Collectors.toList());		
+		
+		//get greatest finishing date
+		LocalDateTime startingDate = purchases.size() > 0? purchases.get(purchases.size() - 1).getDateSubscriptionEnds()
+				: LocalDateTime.now();
+		
+		System.out.println("Debugging first item list - dateSubscriptionEnds| ChargeController " + purchases.get(0).getDateSubscriptionEnds());
+		System.out.println("Debugging last item list - dateSubscriptionEnds| ChargeController " + purchases.get(purchases.size() - 1).getDateSubscriptionEnds());
+		
+		return startingDate;
+	}
+
+	private List<Purchase> preparePurchasesDealALL(User user, int amount, List<Subscription> subscriptions) {
+		List<Subscription> subscriptionsHelper = new ArrayList<>(subscriptions); //Used so we don't call operation on the very list which the stream is operating on.
+		
+		List<Purchase> purchases = subscriptions.stream().map(
+			(sub)->
+				{
+					if (sub.equals(subscriptionsHelper.get(0))) { //Insert full amount into one subscription and zero into the others.
+						return new Purchase(LocalDateTime.now(), LocalDateTime.now(),
+								LocalDateTime.now().plusYears(1L), amount, sub, user, Deal.ALL);											
+					}					
+					return new Purchase(LocalDateTime.now(), LocalDateTime.now(), 
+							LocalDateTime.now().plusYears(1L), 0, sub, user, Deal.ALL);											
+				}
+
+		).collect(Collectors.toList());
+		return purchases;
 	}
 
 	@ExceptionHandler(StripeException.class)
