@@ -1,5 +1,6 @@
 package com.enoch.chris.lessonplanwebsite.controller;
 
+import java.net.http.HttpRequest;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
@@ -12,6 +13,7 @@ import java.util.Set;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,70 +30,51 @@ import com.enoch.chris.lessonplanwebsite.entity.LessonPlan;
 import com.enoch.chris.lessonplanwebsite.entity.Subscription;
 import com.enoch.chris.lessonplanwebsite.entity.User;
 import com.enoch.chris.lessonplanwebsite.entity.utils.SubscriptionUtils;
+import com.enoch.chris.lessonplanwebsite.service.SubscriptionService;
 
 @Controller
-@RequestMapping("/upgrade")
 public class UpgradeController {
 	
 	private SubscriptionRepository subcriptionRepository;
+	private SubscriptionService subscriptionService;
 	private PurchaseRepository purchaseRepository;
 	
 	@Autowired
-	public UpgradeController(SubscriptionRepository subcriptionRepository, PurchaseRepository purchaseRepository) {
+	public UpgradeController(SubscriptionRepository subcriptionRepository, SubscriptionService subscriptionService
+			,PurchaseRepository purchaseRepository) {
 		this.subcriptionRepository = subcriptionRepository;
+		this.subscriptionService = subscriptionService;
 		this.purchaseRepository = purchaseRepository;
 	}
 	
 	
-	@GetMapping
-	public String displaySubscriptions(Model theModel, HttpSession session) {	
+	@GetMapping("/upgrade")
+	public String displaySubscriptionsForUpgrade(Model theModel, HttpSession session, HttpServletRequest request) {		
 		User user = (User) session.getAttribute("user");
 		
-		//find active susbcriptions
 		LinkedHashSet<Subscription> activeSubscriptions = subcriptionRepository.findActiveSubscriptionsOrderByName(user, LocalDateTime.now())
-				.stream().collect(Collectors.toCollection(LinkedHashSet::new));
-		
-		//for each active subscription, get date ends and add one year to this.
-//		activeSubscriptions.stream().forEach( (activeSub) ->		
-//				{
-//					LocalDateTime newSubscriptionEndDate = SubscriptionUtils.getSubscriptionStartDate(user, 
-//							activeSub, purchaseRepository).plusYears(1L);
-//					theModel.addAttribute("date"+activeSub.getName() ,newSubscriptionEndDate.format(DateTimeFormatter.ofPattern("d MMM uuuu")));				
-//				}
-//		);
-		
-		Map<Subscription, String> newSubExtensionDates = new LinkedHashMap<>();
-		activeSubscriptions.stream().forEach( (activeSub) ->		
-		{
-			LocalDateTime newSubscriptionEndDate = SubscriptionUtils.getSubscriptionStartDate(user, 
-					activeSub, purchaseRepository).plusYears(1L);
-			
-			newSubExtensionDates.put(activeSub, newSubscriptionEndDate.format(DateTimeFormatter.ofPattern("d MMM uuuu")));			
-			//theModel.addAttribute("date"+activeSub.getName() ,newSubscriptionEndDate.format(DateTimeFormatter.ofPattern("d MMM uuuu")));				
-		}
-		);
-		
-		
+				.stream().collect(Collectors.toCollection(LinkedHashSet::new));	
+		Map<Subscription, String> activeSubExtensionDates = subscriptionService.findActiveSubscriptionExtensionDates(user, activeSubscriptions
+				,purchaseRepository);
 		
 		//find non.active subscriptions
-		Set<Subscription> subscriptions = subcriptionRepository.findAll().stream().collect(Collectors.toSet());
-		
-		
-		LinkedHashSet<Subscription> nonActiveSubscriptions = subscriptions.stream().filter(sub -> 
-			!activeSubscriptions.contains(sub)).sorted(Comparator.comparing(Subscription::getName)).collect(Collectors.toCollection(LinkedHashSet::new));
+		LinkedHashSet<Subscription> nonActiveSubscriptions = subscriptionService.findNonActiveSubscriptions(activeSubscriptions
+				, subcriptionRepository);
 				
-		//add active an inactive subscriptions to model
-		//theModel.addAttribute("activeSubscriptions", activeSubscriptions);
+		//add active and inactive subscriptions to model
 		theModel.addAttribute("nonActiveSubscriptions", nonActiveSubscriptions);
-		theModel.addAttribute("activeSubscriptions", newSubExtensionDates);
+		theModel.addAttribute("activeSubscriptions", activeSubExtensionDates);
 		
-		System.out.println("Active subscriptions");
-		activeSubscriptions.forEach(a->  System.out.println(a.getName()));	
-		System.out.println("Non-active subscriptions");
-		nonActiveSubscriptions.forEach(a->  System.out.println(a.getName()));
+		//Debugging
+//		System.out.println("Active subscriptions");
+//		activeSubscriptions.forEach(a->  System.out.println(a.getName()));	
+//		System.out.println("Non-active subscriptions");
+//		nonActiveSubscriptions.forEach(a->  System.out.println(a.getName()));
 		
 		return "upgrade";
 	}
+
+	
 }
 
 
