@@ -2,7 +2,9 @@ package com.enoch.chris.lessonplanwebsite.controller;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -47,28 +49,40 @@ public class UpgradeController {
 				.stream().collect(Collectors.toSet());
 		
 		//for each active subscription, get date ends and add one year to this.
+//		activeSubscriptions.stream().forEach( (activeSub) ->		
+//				{
+//					LocalDateTime newSubscriptionEndDate = SubscriptionUtils.getSubscriptionStartDate(user, 
+//							activeSub, purchaseRepository).plusYears(1L);
+//					theModel.addAttribute("date"+activeSub.getName() ,newSubscriptionEndDate.format(DateTimeFormatter.ofPattern("d MMM uuuu")));				
+//				}
+//		);
+		
+		Map<Subscription, String> newSubExtensionDates = new HashMap<>();
 		activeSubscriptions.stream().forEach( (activeSub) ->		
-				{
-					LocalDateTime newSubscriptionEndDate = SubscriptionUtils.getSubscriptionStartDate(user, 
-							activeSub, purchaseRepository).plusYears(1L);
-					theModel.addAttribute(activeSub.getName() ,newSubscriptionEndDate.format(DateTimeFormatter.ofPattern("d MMM uuuu")));				
-				}
+		{
+			LocalDateTime newSubscriptionEndDate = SubscriptionUtils.getSubscriptionStartDate(user, 
+					activeSub, purchaseRepository).plusYears(1L);
+			
+			newSubExtensionDates.put(activeSub, newSubscriptionEndDate.format(DateTimeFormatter.ofPattern("d MMM uuuu")));			
+			//theModel.addAttribute("date"+activeSub.getName() ,newSubscriptionEndDate.format(DateTimeFormatter.ofPattern("d MMM uuuu")));				
+		}
 		);
+		
 		
 		//find non.active subscriptions
 		Set<Subscription> subscriptions = subcriptionRepository.findAll().stream().collect(Collectors.toSet());
 		Set<Subscription> nonActiveSubscriptions = subscriptions.stream().filter(sub -> 
 			!activeSubscriptions.contains(sub)).collect(Collectors.toSet());
+				
+		//add active an inactive subscriptions to model
+		//theModel.addAttribute("activeSubscriptions", activeSubscriptions);
+		theModel.addAttribute("nonActiveSubscriptions", nonActiveSubscriptions);
+		theModel.addAttribute("activeSubscriptions", newSubExtensionDates);
 		
 		System.out.println("Active subscriptions");
-		activeSubscriptions.forEach(a->  System.out.println(a.getName()));
-		
+		activeSubscriptions.forEach(a->  System.out.println(a.getName()));	
 		System.out.println("Non-active subscriptions");
 		nonActiveSubscriptions.forEach(a->  System.out.println(a.getName()));
-		
-		
-		//testing - add all elssonplans to model
-		theModel.addAttribute("subscriptions", subscriptions);
 		
 		return "upgrade";
 	}

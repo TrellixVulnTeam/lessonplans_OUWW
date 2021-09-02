@@ -41,16 +41,31 @@
 				</div>
 			</div>
 			
-			<div th:each="sub : ${subscriptions}" class="card mr-2 mb-2">
+			<div th:each="subNon : ${nonActiveSubscriptions}" class="card mr-2 mb-2">
 				<div class="card__side">
-				<h2 th:text="${sub.displayName}" class="h2">Subscription</h2>
+				<h2 th:text="${subNon.displayName}" class="h2">Subscription</h2>
 					 <div class="card__details">		 
 						 <ul>
 							 <li>60 lessons</li>							 
 							 <li>Save yourself 180 hrs of preparation time</li>	
-							 <li th:text="${sub.priceFormatted + ' €'}" >40 €</li>
+							 <li th:text="${subNon.priceFormatted + ' €'}" >40 €</li>
 							 <li>1 year's access</li>		
-							 <li><a class="mt-1 ml-auto btn btn--action-tertiary" th:href="@{/checkout?id=__${sub.name}__}">Buy</a></li>				 			 
+							 <li><a class="mt-1 ml-auto btn btn--action-tertiary" th:href="@{/checkout?id=__${subNon.name}__}">Buy</a></li>				 			 
+						 </ul>						 
+					 </div>
+				</div>
+			</div>
+			
+			<div th:each="subAct : ${activeSubscriptions}" class="card mr-2 mb-2">
+				<div class="card__side">
+				<h2 th:text="${subAct.key.displayName}" class="h2">Subscription</h2>
+					 <div class="card__details">		 
+						 <ul>
+							 <li>60 lessons</li>							 
+							 <li>Save yourself 180 hrs of preparation time</li>	
+							 <li th:text="${subAct.key.priceFormatted + ' €'}" >40 €</li>								 
+							 <li><small th:text="'Get access until ' + ${subAct.value}">+ 1 year's access</small></li>	
+							 <li><a class="mt-1 ml-auto btn btn--tertiary" th:href="@{/checkout?id=__${subAct.key.name}__}">Extend</a></li>				 			 
 						 </ul>						 
 					 </div>
 				</div>
