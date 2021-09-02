@@ -3,6 +3,9 @@ package com.enoch.chris.lessonplanwebsite.controller;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
 
@@ -37,8 +40,11 @@ public class UpgradeController {
 	
 	@GetMapping
 	public String displaySubscriptions(Model theModel, HttpSession session) {	
-		User user = (User) session.getAttribute("user");	
-		List<Subscription> activeSubscriptions = subcriptionRepository.findActiveSubscriptions(user, LocalDateTime.now());
+		User user = (User) session.getAttribute("user");
+		
+		//find active susbcriptions
+		Set<Subscription> activeSubscriptions = subcriptionRepository.findActiveSubscriptions(user, LocalDateTime.now())
+				.stream().collect(Collectors.toSet());
 		
 		//for each active subscription, get date ends and add one year to this.
 		activeSubscriptions.stream().forEach( (activeSub) ->		
@@ -50,9 +56,18 @@ public class UpgradeController {
 		);
 		
 		//find non.active subscriptions
+		Set<Subscription> subscriptions = subcriptionRepository.findAll().stream().collect(Collectors.toSet());
+		Set<Subscription> nonActiveSubscriptions = subscriptions.stream().filter(sub -> 
+			!activeSubscriptions.contains(sub)).collect(Collectors.toSet());
+		
+		System.out.println("Active subscriptions");
+		activeSubscriptions.forEach(a->  System.out.println(a.getName()));
+		
+		System.out.println("Non-active subscriptions");
+		nonActiveSubscriptions.forEach(a->  System.out.println(a.getName()));
+		
 		
 		//testing - add all elssonplans to model
-		List<Subscription> subscriptions = subcriptionRepository.findAll();
 		theModel.addAttribute("subscriptions", subscriptions);
 		
 		return "upgrade";
