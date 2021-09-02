@@ -13,8 +13,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.enoch.chris.lessonplanwebsite.dao.LessonPlanRepository;
 import com.enoch.chris.lessonplanwebsite.dao.PurchaseRepository;
 import com.enoch.chris.lessonplanwebsite.dao.SubscriptionRepository;
+import com.enoch.chris.lessonplanwebsite.entity.LessonPlan;
 import com.enoch.chris.lessonplanwebsite.entity.Subscription;
 import com.enoch.chris.lessonplanwebsite.entity.User;
 import com.enoch.chris.lessonplanwebsite.entity.utils.SubscriptionUtils;
@@ -38,7 +40,7 @@ public class UpgradeController {
 		User user = (User) session.getAttribute("user");	
 		List<Subscription> activeSubscriptions = subcriptionRepository.findActiveSubscriptions(user, LocalDateTime.now());
 		
-		//for each one, get date ends and add one year to this.
+		//for each active subscription, get date ends and add one year to this.
 		activeSubscriptions.stream().forEach( (activeSub) ->		
 				{
 					LocalDateTime newSubscriptionEndDate = SubscriptionUtils.getSubscriptionStartDate(user, 
@@ -46,6 +48,12 @@ public class UpgradeController {
 					theModel.addAttribute(activeSub.getName() ,newSubscriptionEndDate.format(DateTimeFormatter.ofPattern("d MMM uuuu")));				
 				}
 		);
+		
+		//find non.active subscriptions
+		
+		//testing - add all elssonplans to model
+		List<Subscription> subscriptions = subcriptionRepository.findAll();
+		theModel.addAttribute("subscriptions", subscriptions);
 		
 		return "upgrade";
 	}
