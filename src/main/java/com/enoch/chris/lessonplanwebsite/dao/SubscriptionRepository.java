@@ -18,6 +18,9 @@ public interface SubscriptionRepository extends JpaRepository<Subscription, Inte
 //	@Query("SELECT name FROM Purchase as p inner join p.subscription")
 //	List<Subscription> findByUser(User user);
 	
+	Optional<Subscription> findByName(String name);
+	List<Subscription> findAllOrderByName(String name);
+	
 	@Query("SELECT s FROM Purchase as p inner join p.subscription as s")
 	List<Subscription> findAllSubscriptionsToDate(User user);
 	
@@ -28,7 +31,12 @@ public interface SubscriptionRepository extends JpaRepository<Subscription, Inte
 			+ "and p.dateSubscriptionEnds > :date")
 	List<Subscription> findActiveSubscriptions(@Param("user") User user, @Param("date") LocalDateTime date);
 	
-	Optional<Subscription> findByName(String name);
+	@Query("SELECT s FROM Purchase as p inner join p.subscription as s where p.user = :user "
+			+ "and p.dateSubscriptionEnds > :date ORDER BY s.name")
+	List<Subscription> findActiveSubscriptionsOrderByName(@Param("user") User user, @Param("date") LocalDateTime date);
+	
+	
+	
 
 
 }

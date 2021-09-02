@@ -2,7 +2,10 @@ package com.enoch.chris.lessonplanwebsite.controller;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -45,8 +48,8 @@ public class UpgradeController {
 		User user = (User) session.getAttribute("user");
 		
 		//find active susbcriptions
-		Set<Subscription> activeSubscriptions = subcriptionRepository.findActiveSubscriptions(user, LocalDateTime.now())
-				.stream().collect(Collectors.toSet());
+		LinkedHashSet<Subscription> activeSubscriptions = subcriptionRepository.findActiveSubscriptionsOrderByName(user, LocalDateTime.now())
+				.stream().collect(Collectors.toCollection(LinkedHashSet::new));
 		
 		//for each active subscription, get date ends and add one year to this.
 //		activeSubscriptions.stream().forEach( (activeSub) ->		
@@ -57,7 +60,7 @@ public class UpgradeController {
 //				}
 //		);
 		
-		Map<Subscription, String> newSubExtensionDates = new HashMap<>();
+		Map<Subscription, String> newSubExtensionDates = new LinkedHashMap<>();
 		activeSubscriptions.stream().forEach( (activeSub) ->		
 		{
 			LocalDateTime newSubscriptionEndDate = SubscriptionUtils.getSubscriptionStartDate(user, 
@@ -69,10 +72,13 @@ public class UpgradeController {
 		);
 		
 		
+		
 		//find non.active subscriptions
 		Set<Subscription> subscriptions = subcriptionRepository.findAll().stream().collect(Collectors.toSet());
-		Set<Subscription> nonActiveSubscriptions = subscriptions.stream().filter(sub -> 
-			!activeSubscriptions.contains(sub)).collect(Collectors.toSet());
+		
+		
+		LinkedHashSet<Subscription> nonActiveSubscriptions = subscriptions.stream().filter(sub -> 
+			!activeSubscriptions.contains(sub)).sorted(Comparator.comparing(Subscription::getName)).collect(Collectors.toCollection(LinkedHashSet::new));
 				
 		//add active an inactive subscriptions to model
 		//theModel.addAttribute("activeSubscriptions", activeSubscriptions);
