@@ -19,9 +19,10 @@
 		<h1 id="large-header" class="mt-5 ml-5 mb-5" th:text="${lp.title}">Lesson Plan</h1>
 
 		<div th:if="${!C2active  || C2active == null}">
-			<p>In order to access this lesson plan you need a <span th:text="${lp.assignedSubscription.name}"></span>
-				subscription.</p>
-			<a class="btn btn--small btn--primary" href='#'>Get this subscription now</a>
+			<p>You must be logged in and have a <span th:text="${lp.assignedSubscription.displayName}"></span>
+				subscription in order to access this lesson plan.</p>
+			<a class="mt-2 btn btn--primary" href='/checkout?id=C2'>Get this subscription now</a>
+			<a class="mt-2 btn btn--info" href='/showMyLoginPage'>Login/Register</a>
 		</div>
 
 		<div th:if="${C2active}">
