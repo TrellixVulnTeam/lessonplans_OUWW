@@ -29,6 +29,8 @@ body {
   color: white;
   padding: 1rem 0rem;
   border-bottom: 1px solid white; }
+  .h2--secondary {
+    background-color: rgba(0, 115, 255, 0.7); }
 
 .main-content {
   margin: 0rem 12rem 0rem 12rem;
@@ -238,6 +240,15 @@ body {
     .btn--primary:hover {
       background-color: darkorange;
       cursor: pointer; }
+  .btn--primary-outline {
+    background-color: #fff;
+    color: darkorange;
+    font-weight: 500;
+    border: 0.2rem solid darkorange; }
+    .btn--primary-outline:hover {
+      background-color: rgba(255, 140, 0, 0.8);
+      cursor: pointer;
+      color: white; }
   .btn--secondary {
     background-color: rgba(13, 116, 242, 0.8);
     color: white; }
@@ -275,7 +286,7 @@ body {
     color: #030303;
     letter-spacing: 0.2px; }
     .btn--action-tertiary:hover {
-      background-color: #fff124;
+      background-color: #f0e100;
       cursor: pointer; }
 
 .form__login {
