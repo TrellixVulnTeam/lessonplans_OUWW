@@ -16,11 +16,16 @@
         function showMenu() {
         	//addChecked();
             document.getElementById('mega-menu').style.display = 'block';
+            document.getElementById('showSearch').classList.add('hide');
+			document.getElementById('hideSearch').classList.remove('hide');
             
         }
 
         function hideMenu() {
             document.getElementById('mega-menu').style.display = 'none';
+			document.getElementById('hideSearch').classList.add('hide');
+			document.getElementById('showSearch').classList.remove('hide');
+            
         }
  
         function addChecked() {     	
@@ -53,12 +58,11 @@
 	<div th:insert="navbar.html :: nav"></div>
 
 	<div class="main-content">
-
 			<h1 id="large-header" class="mt-5 ml-5 mb-5">Lesson Plans</h1>
-
+			
 			<div  class="mb-2">
-				<a class="btn btn--med btn--primary" href='javascript:showMenu()'>Filter lessons</a> 
-				<a class="btn btn--med btn--primary"
+				<a id="showSearch" class="ml-5 mb-2 btn btn--big btn--action-secondary" href='javascript:showMenu()'>Search lessons</a> 
+				<a id="hideSearch" class=" btn btn--med btn--tertiary hide"
 					href='javascript:hideMenu()'>Hide Search</a> 
 			</div>
 
@@ -187,14 +191,14 @@
 					</div>
 			
 
-					<button class="btn btn--primary btn--med" type="submit" name="save">Submit</button>
+					<button class=" mb-3 btn btn--action-secondary btn--med" type="submit" name="save">Submit</button>
 
 				</form>
 
 			</div>
 		
 
-		<div class="lp-container">
+		<div class="mt-1 lp-container">
 			<div class="card mr-2 mb-2" th:each="lp : ${lessonPlans}">
 				<div class="card__side">
 				<h2 class="h2" th:text="${lp.title}">Heading</h2>

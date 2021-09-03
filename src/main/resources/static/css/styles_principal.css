@@ -89,6 +89,9 @@ body {
 .styled-link:visited {
   color: #551A8B; }
 
+.hide {
+  display: none !important; }
+
 .center-text {
   text-align: center;
   text-align: center !important; }
@@ -283,11 +286,9 @@ body {
       background-color: #58b40b;
       cursor: pointer; }
   .btn--action-secondary {
-    background-color: #0d74f2;
-    color: white; }
+    background-color: rgba(86, 177, 11, 0.6); }
     .btn--action-secondary:hover {
-      background-color: #542a90;
-      color: white;
+      background-color: rgba(86, 177, 11, 0.7);
       cursor: pointer; }
   .btn--action-tertiary {
     background-color: rgba(0, 0, 0, 0.1);
