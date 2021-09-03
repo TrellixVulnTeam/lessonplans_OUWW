@@ -23,7 +23,7 @@ public class SubscriptionUtils {
 	}
 
 	
-	public LocalDateTime getSubscriptionStartDate() {
+	public LocalDateTime getNextSubscriptionStartDate() {
 		//check to see if already purchased this subscription. In this case, subscription start date should start immediately after
 		//finish date. 
 					
@@ -36,7 +36,7 @@ public class SubscriptionUtils {
 		.collect(Collectors.toList());		
 		
 		//get greatest finishing date
-		LocalDateTime startingDate = purchases.size() > 0? purchases.get(purchases.size() - 1).getDateSubscriptionEnds()
+		LocalDateTime nextStartingDate = purchases.size() > 0? purchases.get(purchases.size() - 1).getDateSubscriptionEnds()
 				: LocalDateTime.now();
 		
 		if (purchases.size() > 0) {
@@ -44,7 +44,7 @@ public class SubscriptionUtils {
 			System.out.println("Debugging last item list - dateSubscriptionEnds| SubscriptionUtils " + purchases.get(purchases.size() - 1).getDateSubscriptionEnds());
 		}
 		
-		return startingDate;
+		return nextStartingDate;
 	}
 
 	public Subscription getSubscription() {
