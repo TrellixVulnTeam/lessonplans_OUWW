@@ -17,9 +17,6 @@ import com.enoch.chris.lessonplanwebsite.entity.User;
 import com.enoch.chris.lessonplanwebsite.service.UsersService;
 
 
-
-
-
 @Component
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler{
 	
@@ -30,10 +27,6 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
-
-		String pp = request.getParameter("previousPage");
-		System.out.println("Value of pp | CustomLoginSuccesshandler " + pp);
-		
 		
 		String userName = authentication.getName();
 
@@ -42,9 +35,16 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 		// now place in the session
 		HttpSession session = request.getSession();
 		session.setAttribute("user", theUser);
+				
+		String previousPage = request.getParameter("previousPage");
+		System.out.println("Value of pp | CustomLoginSuccesshandler " + previousPage);
+		// forward to home page	or previous page user was on before signing in.
+		if (previousPage == null) {
+			response.sendRedirect(request.getContextPath() + "/lessonplans");
+		} else {
+			response.sendRedirect(request.getContextPath() + "/" + previousPage);
+		}
 		
-		// forward to home page	
-		response.sendRedirect(request.getContextPath() + "/lessonplans");
 			
 	}
 
