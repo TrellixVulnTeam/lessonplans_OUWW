@@ -17,6 +17,7 @@ import com.enoch.chris.lessonplanwebsite.dao.LessonPlanRepository;
 import com.enoch.chris.lessonplanwebsite.dao.SubscriptionRepository;
 import com.enoch.chris.lessonplanwebsite.entity.LessonPlan;
 import com.enoch.chris.lessonplanwebsite.entity.Subscription;
+import com.enoch.chris.lessonplanwebsite.entity.User;
 import com.enoch.chris.lessonplanwebsite.payment.ChargeRequest;
 
 @Controller
@@ -40,6 +41,13 @@ public class CheckoutController {
 	public String processCheckout(Model model,HttpSession session
 			, @RequestParam("id") Optional<String> subscriptionName) {
 		
+		//If user not logged in, return login page and add previousPage so user automatically redirected back to upgrade upon log in.
+		User user = (User) session.getAttribute("user");
+		if (user == null) {
+			model.addAttribute("previousPage", "upgrade");
+			return "fancy-login";		
+		}	
+		
 		//check lesson exists
 		if (subscriptionName.isPresent()) {
 			if (subscriptionName.get().equals("all")) {
@@ -52,7 +60,7 @@ public class CheckoutController {
 			} else {
 				Optional<Subscription> subscription = subscriptionRepository.findByName(subscriptionName.get());	
 				
-				System.out.println("debugging subscription name | CheckoutController - " + subscription.get().getName());
+				//System.out.println("debugging subscription name | CheckoutController - " + subscription.get().getName());
 				
 				if (subscription.isPresent()) {
 					//session.setAttribute("subscription", subscription.get());	
