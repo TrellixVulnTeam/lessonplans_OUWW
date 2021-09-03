@@ -12,8 +12,18 @@ import com.enoch.chris.lessonplanwebsite.entity.User;
 
 public class SubscriptionUtils {
 	
-	public static LocalDateTime getSubscriptionStartDate(User user, Subscription subscription
-			, PurchaseRepository purchaseRepository) {
+	private Subscription subscription;
+	private User user;
+	private PurchaseRepository purchaseRepository;
+
+	public SubscriptionUtils(Subscription subscription, User user, PurchaseRepository purchaseRepository) {
+		this.subscription = subscription;
+		this.user = user;
+		this.purchaseRepository = purchaseRepository;
+	}
+
+	
+	public LocalDateTime getSubscriptionStartDate() {
 		//check to see if already purchased this subscription. In this case, subscription start date should start immediately after
 		//finish date. 
 					
@@ -36,5 +46,31 @@ public class SubscriptionUtils {
 		
 		return startingDate;
 	}
+
+	public Subscription getSubscription() {
+		return subscription;
+	}
+
+	public void setSubscription(Subscription subscription) {
+		this.subscription = subscription;
+	}
+	
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public PurchaseRepository getPurchaseRepository() {
+		return purchaseRepository;
+	}
+
+	public void setPurchaseRepository(PurchaseRepository purchaseRepository) {
+		this.purchaseRepository = purchaseRepository;
+	}
+
+
 
 }

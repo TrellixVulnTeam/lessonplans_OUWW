@@ -54,8 +54,9 @@ public class AccountController {
 		
 		LinkedHashSet<Subscription> activeSubscriptions = subcriptionRepository.findActiveSubscriptionsOrderByName(user, LocalDateTime.now())
 				.stream().collect(Collectors.toCollection(LinkedHashSet::new));	
-		Map<Subscription, String> activeSubExtensionDates = subscriptionService.findActiveSubscriptionExtensionDates(user, activeSubscriptions
-				,purchaseRepository);
+		
+//		Map<Subscription, String> activeSubExtensionDates = subscriptionService.findActiveSubscriptionExtensionDates(user, activeSubscriptions
+//				,purchaseRepository);
 		
 		//find non.active subscriptions
 		LinkedHashSet<Subscription> nonActiveSubscriptions = subscriptionService.findNonActiveSubscriptions(activeSubscriptions
@@ -63,13 +64,10 @@ public class AccountController {
 				
 		//add active and inactive subscriptions to model
 		theModel.addAttribute("nonActiveSubscriptions", nonActiveSubscriptions);
-		theModel.addAttribute("activeSubscriptions", activeSubExtensionDates);
+		//theModel.addAttribute("activeSubscriptions", activeSubExtensionDates);
 		
-		//Debugging
-//		System.out.println("Active subscriptions");
-//		activeSubscriptions.forEach(a->  System.out.println(a.getName()));	
-//		System.out.println("Non-active subscriptions");
-//		nonActiveSubscriptions.forEach(a->  System.out.println(a.getName()));
+		//Test date formatting
+		//theModel.addAttribute("date", LocalDateTime.now());
 		
 		return "account";
 	}

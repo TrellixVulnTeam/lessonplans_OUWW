@@ -54,8 +54,10 @@ public class UpgradeController {
 		
 		LinkedHashSet<Subscription> activeSubscriptions = subcriptionRepository.findActiveSubscriptionsOrderByName(user, LocalDateTime.now())
 				.stream().collect(Collectors.toCollection(LinkedHashSet::new));	
-		Map<Subscription, String> activeSubExtensionDates = subscriptionService.findActiveSubscriptionExtensionDates(user, activeSubscriptions
-				,purchaseRepository);
+		
+		//send a list of SubscriptionUtils with activeSubscriptions in. They must be in order.
+		List<SubscriptionUtils> activeSubscriptionUtils = activeSubscriptions.stream().map(sub -> new SubscriptionUtils(sub, user, purchaseRepository))
+				.collect(Collectors.toList());
 		
 		//find non.active subscriptions
 		LinkedHashSet<Subscription> nonActiveSubscriptions = subscriptionService.findNonActiveSubscriptions(activeSubscriptions
@@ -63,7 +65,7 @@ public class UpgradeController {
 				
 		//add active and inactive subscriptions to model
 		theModel.addAttribute("nonActiveSubscriptions", nonActiveSubscriptions);
-		theModel.addAttribute("activeSubscriptions", activeSubExtensionDates);
+		theModel.addAttribute("activeSubscriptions", activeSubscriptionUtils);
 		
 		//Debugging
 //		System.out.println("Active subscriptions");
