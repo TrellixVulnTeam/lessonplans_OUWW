@@ -31,7 +31,7 @@
 						 <ul>
 							 <li>480 lessons</li>							 
 							 <li>Save yourself 800+ hrs of preparation time</li>	
-							 <li>280 €</li>	
+							 <li>€280.00</li>	
 							 <li>1 year's access</li>	
 							 <li><small>Get all subscriptions and extend active subscriptions by 1 year</small></li>							 						 
 							 <li><a class="mt-1 ml-auto btn btn--action-tertiary" href="/checkout?id=all">Buy</a></li>
@@ -48,7 +48,7 @@
 						 <ul>
 							 <li>60 lessons</li>							 
 							 <li>Save yourself 180 hrs of preparation time</li>	
-							 <li th:text="${subNon.priceFormatted + ' €'}" >40 €</li>
+							 <li th:text="${'€' + subNon.priceFormatted}" >40 €</li>
 							 <li>1 year's access</li>		
 							 <li><a class="mt-1 ml-auto btn btn--action-tertiary" th:href="@{/checkout?id=__${subNon.name}__}">Buy</a></li>				 			 
 						 </ul>						 
@@ -64,7 +64,7 @@
 						     <li><b>Subscribed</b></li>
 						     <li th:text="'Expires: ' + ${#temporals.format(subAct.getNextSubscriptionStartDate(), 'd MMM uuuu')}"></li>
 							 <li>60 lessons</li>							 
-							 <li th:text="${subAct.subscription.priceFormatted + ' €'}" >40 €</li>								 
+							 <li th:text="${'€' + subAct.subscription.priceFormatted}" >40 €</li>								 
 							 <li><small th:text="'Get access until ' + ${#temporals.format(subAct.getNextSubscriptionStartDate().plusYears(1L), 'd MMM uuuu')}">+ 1 year's access</small></li>					 
 							 <li><a class="mt-1 ml-auto btn btn--primary-outline" th:href="@{/checkout?id=__${subAct.subscription.name}__}">Extend</a></li>				 			 
 						 </ul>						 

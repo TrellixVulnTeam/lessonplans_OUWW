@@ -25,7 +25,7 @@
 				<input type='hidden' th:value='${amount}' name='amount' />
 				
 				<h3>Price</h3>
-				<p th:text="${formattedAmount + ' €'}" >€</p>
+				<p th:text="${'€' + formattedAmount}" >€</p>
 				<!-- NOTE: data-key/data-amount/data-currency will be rendered by Thymeleaf -->
 				<script 
 					src='https://checkout.stripe.com/checkout.js'
