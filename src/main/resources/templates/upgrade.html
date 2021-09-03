@@ -64,7 +64,7 @@
 							 <li>60 lessons</li>							 
 							 <li>Save yourself 180 hrs of preparation time</li>	
 							 <li th:text="${subAct.subscription.priceFormatted + ' €'}" >40 €</li>								 
-							 <li><small th:text="'Get access until ' + ${#temporals.format(subAct.getSubscriptionStartDate(), 'd MMM uuuu')}">+ 1 year's access</small></li>					 
+							 <li><small th:text="'Get access until ' + ${#temporals.format(subAct.getSubscriptionStartDate().plusYears(1L), 'd MMM uuuu')}">+ 1 year's access</small></li>					 
 							 <li><a class="mt-1 ml-auto btn btn--primary-outline" th:href="@{/checkout?id=__${subAct.subscription.name}__}">Extend</a></li>				 			 
 						 </ul>						 
 					 </div>

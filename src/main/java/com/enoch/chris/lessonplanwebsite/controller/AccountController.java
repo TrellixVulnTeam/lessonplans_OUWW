@@ -50,13 +50,14 @@ public class AccountController {
 	
 	@GetMapping("/account")
 	public String displaySubscriptionsForUpgrade(Model theModel, HttpSession session, HttpServletRequest request) {		
-		User user = (User) session.getAttribute("user");
+	User user = (User) session.getAttribute("user");
 		
 		LinkedHashSet<Subscription> activeSubscriptions = subcriptionRepository.findActiveSubscriptionsOrderByName(user, LocalDateTime.now())
 				.stream().collect(Collectors.toCollection(LinkedHashSet::new));	
 		
-//		Map<Subscription, String> activeSubExtensionDates = subscriptionService.findActiveSubscriptionExtensionDates(user, activeSubscriptions
-//				,purchaseRepository);
+		//send a list of SubscriptionUtils with activeSubscriptions in. They must be in order.
+		List<SubscriptionUtils> activeSubscriptionUtils = activeSubscriptions.stream().map(sub -> new SubscriptionUtils(sub, user, purchaseRepository))
+				.collect(Collectors.toList());
 		
 		//find non.active subscriptions
 		LinkedHashSet<Subscription> nonActiveSubscriptions = subscriptionService.findNonActiveSubscriptions(activeSubscriptions
@@ -64,10 +65,7 @@ public class AccountController {
 				
 		//add active and inactive subscriptions to model
 		theModel.addAttribute("nonActiveSubscriptions", nonActiveSubscriptions);
-		//theModel.addAttribute("activeSubscriptions", activeSubExtensionDates);
-		
-		//Test date formatting
-		//theModel.addAttribute("date", LocalDateTime.now());
+		theModel.addAttribute("activeSubscriptions", activeSubscriptionUtils);
 		
 		return "account";
 	}
