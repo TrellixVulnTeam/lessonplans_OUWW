@@ -36,10 +36,8 @@
 		method="POST" action='/showMyLoginPage'>
 		<input type="hidden" th:name="${_csrf.parameterName}"
 					th:value="${_csrf.token}" />
-		<input type="hidden" name="pp" value="lessonplans/B2/?id=45"  />
-		<input hidden="true" type="submit" value="Logout" />
-		
-
+		<input type="hidden" name="pp" th:value="'lessonplans/' + ${lp.assignedSubscription.name} + '/?id=' + ${lp.id}"  />
+		<input hidden="true" type="submit" value="sendPreviousPage" />
 	</form>
 </body>
 

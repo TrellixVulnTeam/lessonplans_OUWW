@@ -36,9 +36,9 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 		HttpSession session = request.getSession();
 		session.setAttribute("user", theUser);
 				
+		// forward to home page	or previous page user was on before signing in.
 		String previousPage = request.getParameter("previousPage");
 		System.out.println("Value of pp | CustomLoginSuccesshandler " + previousPage);
-		// forward to home page	or previous page user was on before signing in.
 		if (previousPage == null) {
 			response.sendRedirect(request.getContextPath() + "/lessonplans");
 		} else {
