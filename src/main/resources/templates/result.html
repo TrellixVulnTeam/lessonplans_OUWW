@@ -1,18 +1,16 @@
 <!DOCTYPE HTML>
-<html lang="en" 
-		xmlns:th="http://www.thymeleaf.org"
-		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
-<!-- Required meta tags -->
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<!-- Bootstrap CSS -->
-<link rel="stylesheet" href="../css/styles_principal.css">
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="../css/styles_principal.css">
 
-<title>Payment result</title>
+	<title>Payment result</title>
 </head>
 
 <body>
@@ -20,22 +18,22 @@
 
 	<div class="main-content">
 		<div class="main-content-inner ml-5 mr-5">
-			<h1 id="large-header">Payment Result</h1>			
-					<h3 th:if="${paymentSuccess == 'paymentSucceeded'}" style='color: green;' role="alert">Payment successful</h3>
-					
-					<h3 th:if="${paymentSuccess == 'paymentFailed'}" style='color: red;' role="alert">Payment attempt
-							failed. Please try again or use a different payment card.</h3>
-							
-					<h3 th:if="${paymentSuccess == 'paymentSucceededButCheckoutNotSaved'}" style='color: red;' 
-					role="alert">There has been a
-							problem with your order. Please contact the website
-							administrator. Sorry for the inconvenience.</h3>
-							
-							<!-- Add links here to lessonplans and others. -->
+
+			<div class="center-text">
+				<h1 th:if="${paymentSuccess == 'paymentSucceeded'}" class="mt-1 font font--big success ">Payment Success!</h1>
+				<h1  th:if="${paymentSuccess == 'paymentFailed'}" class="mt-1 font font--big alert">Payment Failed</h1>
+				<h1 th:if="${paymentSuccess == 'paymentSucceededButCheckoutNotSaved'}" class="mt-1 font font--big alert">Payment Failed</h1>
+			</div>
+
+			<p th:if="${paymentSuccess == 'paymentFailed'}" class="alert mt-2 mb-3 ml-10 mr-10" role="alert"> Please try again or use a different payment card.</p>
+			<p th:if="${paymentSuccess == 'paymentSucceededButCheckoutNotSaved'}" class="alert mt-2 mb-3 ml-10 mr-10"  role="alert">There been a problem with your order. Please contact the website administrator. Sorry for the inconvenience.</p>
+
+			<div th:if="${paymentSuccess == 'paymentSucceeded'}" class="center-text mt-2"><a class="btn btn--big btn--primary" href='/lessonplans'>Find lesson plans</a></div>
+			<div th:if="${paymentSuccess != 'paymentSucceeded'}" class="center-text mt-2"><a class="btn btn--big btn--tertiary" href='/upgrade'>Get subscription</a></div>
+
+			<!-- Add links here to lessonplans and others. -->
 		</div>
 	</div>
 </body>
+
 </html>
-
-
-

@@ -91,7 +91,7 @@
 					<div class="form__header">Type</div>
 
 					<span th:each="typ : ${T(com.enoch.chris.lessonplanwebsite.entity.Type).values()}"
-						th:field="*{type}"> <label th:for="${#ids.next('type')}" th:text="${typ}">General</label> <input
+						th:field="*{type}"> <label th:for="${#ids.next('type')}" th:text="${typ.type}">General</label> <input
 							type="radio" th:field="*{type}" th:value="${typ}">
 					</span>
 
@@ -139,7 +139,7 @@
 				</div>
 
 				<div class="form__group form__group--mega-menu">
-					<div class="form__header">Type</div>
+					<div class="form__header">Lesson Time</div>
 
 					<span th:each="dur : ${T(com.enoch.chris.lessonplanwebsite.entity.LessonTime).values()}"
 						th:field="*{lessonTime}"> <label th:for="${#ids.next('lessonTime')}"
@@ -162,7 +162,7 @@
 				</div>
 
 				<div class="form__group form__group--mega-menu">
-					<div class="form__header">LessonContent</div>
+					<div class="form__header">Lesson Content</div>
 
 					<label th:for="${#ids.next('video')}">Video</label> <input type="checkbox" th:field="*{video}" />
 					<label th:for="${#ids.next('song')}">Song</label> <input type="checkbox" th:field="*{song}" />

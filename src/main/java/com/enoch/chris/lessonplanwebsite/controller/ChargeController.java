@@ -60,6 +60,27 @@ public class ChargeController {
 			return "redirect:/lessonplans";
 		}
 	}
+	
+	@GetMapping("/resulttest/success")
+	public String testResultSuccess(Model theModel) {
+		theModel.addAttribute("paymentSuccess", "paymentSucceeded");
+		
+		return "result";	
+	}
+	
+	@GetMapping("/resulttest/failed")
+	public String testResultFailed(Model theModel) {
+		theModel.addAttribute("paymentSuccess", "paymentFailed");
+		
+		return "result";	
+	}
+	
+	@GetMapping("/resulttest/successnotsaved")
+	public String paymentSucceededButCheckoutNotSaved(Model theModel) {
+		theModel.addAttribute("paymentSuccess", "paymentSucceededButCheckoutNotSaved");
+		
+		return "result";	
+	}
 
 	@PostMapping("/charge")
 	public String charge(ChargeRequest chargeRequest, Model model, RedirectAttributes redirectAttributes,

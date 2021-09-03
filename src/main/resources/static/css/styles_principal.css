@@ -46,6 +46,15 @@ body {
   color: black;
   font-weight: 400; }
 
+.font {
+  font-weight: 400; }
+  .font--med {
+    font-size: 2rem;
+    line-height: 2.7rem; }
+  .font--big {
+    font-size: 4rem;
+    line-height: 5.3rem; }
+
 .message--medium {
   font-size: 4.4rem; }
 

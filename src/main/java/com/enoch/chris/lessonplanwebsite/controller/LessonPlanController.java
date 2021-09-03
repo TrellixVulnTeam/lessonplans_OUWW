@@ -157,6 +157,29 @@ public class LessonPlanController {
 		 return "redirect:/lessonplans";
 	}
 	
+	@GetMapping("/A1")
+	public String displayA1(Model theModel,HttpSession session
+			, @RequestParam("id") Optional<Integer> lessonId) {	
+		
+			if(lessonId.isPresent()) {		
+				//get lesson by id
+				Optional<LessonPlan> lp =lessonPlanRepository.findById(lessonId.get());
+					if (lp.isPresent()){
+						
+						System.out.println("LP present");
+						
+						return checkUserIsSubscribed(theModel, session, lp, "A1");
+					}
+					System.out.println("LP not present");
+					return "error/lessonplannotfound";
+												
+			} else {
+				//return page with all B2 lesson plans on
+				return "redirect:/lessonplans";
+				
+			}	
+		
+	}
 	
 	@GetMapping("/A2")
 	public String displayA2(Model theModel,HttpSession session
@@ -176,7 +199,7 @@ public class LessonPlanController {
 												
 			} else {
 				//return page with all B2 lesson plans on
-				return "A2lessonplans";
+				return "redirect:/lessonplans";
 				
 			}	
 		
@@ -200,7 +223,7 @@ public class LessonPlanController {
 												
 			} else {
 				//return page with all B2 lesson plans on
-				return "B1lessonplans";
+				return "redirect:/lessonplans";
 				
 			}	
 		
@@ -224,7 +247,7 @@ public class LessonPlanController {
 												
 			} else {
 				//return page with all B2 lesson plans on
-				return "B2lessonplans";
+				return "redirect:/lessonplans";
 				
 			}	
 		
@@ -248,7 +271,7 @@ public class LessonPlanController {
 												
 			} else {
 				//return page with all B2 lesson plans on
-				return "B2PLUSlessonplans";
+				return "redirect:/lessonplans";
 				
 			}		
 	}
@@ -271,7 +294,7 @@ public class LessonPlanController {
 												
 			} else {
 				//return page with all B2 lesson plans on
-				return "C1lessonplans";
+				return "redirect:/lessonplans";
 				
 			}		
 	}
@@ -294,7 +317,7 @@ public class LessonPlanController {
 												
 			} else {
 				//return page with all B2 lesson plans on
-				return "C1PLUSlessonplans";
+				return "redirect:/lessonplans";
 				
 			}		
 	}
@@ -317,7 +340,7 @@ public class LessonPlanController {
 												
 			} else {
 				//return page with all B2 lesson plans on
-				return "C2lessonplans";
+				return "redirect:/lessonplans";
 				
 			}		
 	}

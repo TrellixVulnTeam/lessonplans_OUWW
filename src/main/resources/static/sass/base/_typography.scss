@@ -36,6 +36,20 @@
 	//border: .1rem solid rgba(0, 0, 0, .125);
 }
 
+.font{
+	font-weight:400;
+	&--med{
+		font-size: 2rem;
+		line-height: 2.7rem;
+	}
+
+	&--big{
+		font-size: 4rem;
+		line-height: 5.3rem;
+	}
+
+}
+
 .message {
 	&--medium{
 		font-size: 4.4rem;
