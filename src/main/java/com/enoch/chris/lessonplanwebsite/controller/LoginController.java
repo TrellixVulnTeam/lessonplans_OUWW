@@ -22,7 +22,7 @@ public class LoginController {
 	public String showLoginAndReturnToPage(Model theModel, HttpServletRequest request) {
 		System.out.println("Inside showLoginAndReturnToPage | LoginController");
 		
-		String previousPage = request.getParameter("pp");
+		String previousPage = request.getParameter("previousPage");
 			
 		//check if param indicating previous page exists
 		if (previousPage != null) {
