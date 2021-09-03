@@ -19,19 +19,23 @@
 	<div class="main-content">
 		<div class="main-content-inner ml-5 mr-5">
 
-			<div class="center-text">
-				<h1 th:if="${paymentSuccess == 'paymentSucceeded'}" class="mt-1 font font--big success ">Payment Success!</h1>
-				<h1  th:if="${paymentSuccess == 'paymentFailed'}" class="mt-1 font font--big alert">Payment Failed</h1>
-				<h1 th:if="${paymentSuccess == 'paymentSucceededButCheckoutNotSaved'}" class="mt-1 font font--big alert">Payment Failed</h1>
+			<div th:if="${paymentSuccess == 'paymentSucceeded'}" class="center-text">
+				<h1 class="mt-1 font font--big success ">Payment Success!</h1>
+				<a class="mt-2 btn btn--big btn--primary" href='/lessonplans'>Find lesson plans</a></div>
 			</div>
 
-			<p th:if="${paymentSuccess == 'paymentFailed'}" class="alert mt-2 mb-3 ml-10 mr-10" role="alert"> Please try again or use a different payment card.</p>
-			<p th:if="${paymentSuccess == 'paymentSucceededButCheckoutNotSaved'}" class="alert mt-2 mb-3 ml-10 mr-10"  role="alert">There been a problem with your order. Please contact the website administrator. Sorry for the inconvenience.</p>
+			<div th:if="${paymentSuccess == 'paymentFailed'}" class="center-text">
+				<h1 class="mt-1 font font--big alert">Payment Failed</h1>
+				<p class="alert mt-2 mb-3 ml-10 mr-10" role="alert"> Please try again or use a different payment card.</p>
+				<div class="center-text mt-2"><a class="btn btn--big btn--tertiary" href='/upgrade'>Get subscription</a></div>				
+			</div>
 
-			<div th:if="${paymentSuccess == 'paymentSucceeded'}" class="center-text mt-2"><a class="btn btn--big btn--primary" href='/lessonplans'>Find lesson plans</a></div>
-			<div th:if="${paymentSuccess != 'paymentSucceeded'}" class="center-text mt-2"><a class="btn btn--big btn--tertiary" href='/upgrade'>Get subscription</a></div>
+			<div th:if="${paymentSuccess == 'paymentSucceededButCheckoutNotSaved'}" class="center-text">
+				<h1 class="mt-1 font font--big alert">Payment Failed</h1>
+				<p class="alert mt-2 mb-3 ml-10 mr-10"  role="alert">There been a problem with your order. Please contact the website administrator. Sorry for the inconvenience.</p>
+				<div class="center-text mt-2"><a class="btn btn--big btn--tertiary" href='/upgrade'>Get subscription</a></div>				
+			</div>
 
-			<!-- Add links here to lessonplans and others. -->
 		</div>
 	</div>
 </body>
