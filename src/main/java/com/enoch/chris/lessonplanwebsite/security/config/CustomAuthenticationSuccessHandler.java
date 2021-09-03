@@ -31,6 +31,10 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
 
+		String pp = request.getParameter("previousPage");
+		System.out.println("Value of pp | CustomLoginSuccesshandler " + pp);
+		
+		
 		String userName = authentication.getName();
 
 		User theUser = userRepository.findByUsername(userName);

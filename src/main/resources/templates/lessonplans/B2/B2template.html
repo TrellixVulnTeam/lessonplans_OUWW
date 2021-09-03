@@ -23,6 +23,7 @@
 				subscription in order to access this lesson plan.</p>
 			<a class="mt-2 btn btn--primary" href='/checkout?id=B2'>Get this subscription now</a>
 			<a class="mt-2 btn btn--info" href='/showMyLoginPage'>Login/Register</a>
+			<a class="mt-2 btn btn--info" href="javascript: document.sendPreviousPage.submit()" >Login/Register - Test send post</a>
 		</div>
 
 		<div th:if="${B2active}">
@@ -30,6 +31,16 @@
 		</div>
 
 	</div>
+	
+	<form name="sendPreviousPage" style="display: none"
+		method="POST" action='/showMyLoginPage'>
+		<input type="hidden" th:name="${_csrf.parameterName}"
+					th:value="${_csrf.token}" />
+		<input type="hidden" name="pp" value="lessonplans/B2/?id=45"  />
+		<input hidden="true" type="submit" value="Logout" />
+		
+
+	</form>
 </body>
 
 </html>

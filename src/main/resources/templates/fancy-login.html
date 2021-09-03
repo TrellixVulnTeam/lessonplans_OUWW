@@ -25,6 +25,8 @@
 			
 			<!-- Login Form -->
 			<form th:action="@{/authenticateTheUser}" method="POST" class="center-block">
+			<input type="hidden" th:name="previousPage" th:value="${previousPage}"  />
+			
 
 				<div th:if="${param.error}">
 										
