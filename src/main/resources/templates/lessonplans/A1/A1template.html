@@ -19,10 +19,12 @@
 		<h1 id="large-header" class="mt-5 ml-5 mb-5" th:text="${lp.title}">Lesson Plan</h1>
 
 		<div th:if="${!A1active  || A1active == null}">
-			<p>You must be logged in and have a <span th:text="${lp.assignedSubscription.displayName}"></span>
-				subscription in order to access this lesson plan.</p>
-			<a class="mt-2 btn btn--primary" href='/checkout?id=A1'>Get this subscription now</a>
-			<a class="mt-2 btn btn--info" href="javascript: document.sendPreviousPage.submit()" >Login/Register</a>
+			<p th:if="${session.user == null}">You must be logged in and have a <span th:text="${lp.assignedSubscription.displayName}"></span>
+			subscription in order to access this lesson plan.</p>
+			<p th:if="${session.user != null}">You must have a <span th:text="${lp.assignedSubscription.displayName}"></span>
+			subscription in order to access this lesson plan.</p>
+			<a class="mt-2 btn btn--primary" href='/checkout?id=B2'>Get this subscription now</a>
+			<a th:if="${session.user == null}" class="mt-2 btn btn--info" href="javascript: document.sendPreviousPage.submit()" >Login/Register</a>
 		</div>
 
 		<div th:if="${A1active}">
