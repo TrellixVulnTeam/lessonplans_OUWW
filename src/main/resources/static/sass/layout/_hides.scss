@@ -1,0 +1,35 @@
+//These make code blocks appear or disappear according to media queries.
+
+//Appears on smaller screens
+.flex-col{
+	display:flex;
+	flex-wrap:wrap;
+	flex-direction: column;
+
+	&--hides{
+		display:none;
+
+		@include respond(lg-1) { // width < 1200?
+			display:flex; //1 rem = 9px, 9/16 = 50%
+		}
+
+        
+	}
+
+}
+
+//Disappears on smalelr screens
+.flex{
+	display:flex;
+	flex-wrap:wrap;
+
+	&--hides{
+		
+		@include respond(lg-1) { // width < 1200?
+			display:none; //1 rem = 9px, 9/16 = 50%
+		}
+
+       
+		
+	}
+}

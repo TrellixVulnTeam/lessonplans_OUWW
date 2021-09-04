@@ -59,12 +59,21 @@ body {
   overflow: hidden;
   min-height: 100vh;
   padding: 2rem 0rem; }
+  @media only screen and (max-width: 61.86em) {
+    .main-content {
+      margin: 0% 5% 0% 5%; } }
 
 #large-header {
   font-size: 8.8rem;
+  line-height: 10rem;
   display: block;
   color: black;
   font-weight: 400; }
+  @media only screen and (max-width: 61.86em) {
+    #large-header {
+      text-align: center;
+      font-size: 7.7rem;
+      line-height: 9rem; } }
 
 .font {
   font-weight: 400; }
@@ -94,6 +103,10 @@ body {
 .lp-container {
   display: flex;
   flex-wrap: wrap; }
+  @media only screen and (max-width: 61.86em) {
+    .lp-container {
+      flex-direction: column;
+      align-items: center; } }
 
 #mega-menu {
   display: none;
@@ -443,3 +456,24 @@ body {
       border-radius: 1.4rem; }
       .navigation__item--right:hover {
         background-color: #0d74f2; }
+
+.flex-col {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column; }
+  .flex-col--hides {
+    display: none; }
+    @media only screen and (max-width: 80em) {
+      .flex-col--hides {
+        display: flex; } }
+
+.flex {
+  display: flex;
+  flex-wrap: wrap; }
+  @media only screen and (max-width: 80em) {
+    .flex--hides {
+      display: none; } }
+
+@media only screen and (max-width: 61.86em) {
+  .lp-btn-container {
+    text-align: center; } }

@@ -1,0 +1,5 @@
+.lp-btn-container{
+    @include respond(med-2) {
+		text-align: center;
+	}
+}
