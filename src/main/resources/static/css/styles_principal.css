@@ -68,8 +68,9 @@ body {
   line-height: 10rem;
   display: block;
   color: black;
-  font-weight: 400; }
-  @media only screen and (max-width: 61.86em) {
+  font-weight: 400;
+  margin: 2rem 5rem; }
+  @media only screen and (max-width: 48.75em) {
     #large-header {
       text-align: center;
       font-size: 7.7rem;
@@ -103,7 +104,7 @@ body {
 .lp-container {
   display: flex;
   flex-wrap: wrap; }
-  @media only screen and (max-width: 61.86em) {
+  @media only screen and (max-width: 48.75em) {
     .lp-container {
       flex-direction: column;
       align-items: center; } }
@@ -489,6 +490,6 @@ body {
     .flex--hides {
       display: none; } }
 
-@media only screen and (max-width: 61.86em) {
+@media only screen and (max-width: 48.75em) {
   .lp-btn-container {
     text-align: center; } }
