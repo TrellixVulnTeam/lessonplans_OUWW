@@ -15,16 +15,26 @@
 
   @include respond(med-2) {
 		flex-direction: column;
+    padding:2.75rem 0rem 0rem 0rem;
 	}
 
   &__navlinks {
     list-style: none;
     display: flex;
 
+
     &--right {
       margin-left: auto;
       margin-right: 6rem;
       align-items: center;
+    }
+
+    &--left-smaller-screen{
+      @include respond(med-2) {
+      margin-right: auto;
+      margin-left: 0rem;
+      align-items: center;
+      }
     }
   }
 
@@ -33,11 +43,19 @@
     padding: 1.4rem 2.1rem;
     text-decoration: none;
 
+    @include respond(med-2) {
+      padding: .6rem 2.1rem;
+     }
+
     &--logo {
       color: white;
       font-size: 4rem;
       font-weight: 900;
       text-shadow: rgb(137, 137, 153) 2px 3px 0px;
+
+      @include respond(med-2) {
+        margin-bottom: 2rem;
+       }
     }
 
     &--right {

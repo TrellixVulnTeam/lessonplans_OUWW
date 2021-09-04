@@ -6,7 +6,7 @@
 	</ul>
 
 	<div class="flex flex--hides">
-		<ul class="navigation__navlinks navigation__navlinks--right ">
+		<ul class="navigation__navlinks navigation__navlinks--right">
 
 			<li 
 				sec:authorize="hasAnyRole('ROLE_MANAGER', 'ROLE_ADMIN')"><a
@@ -31,7 +31,7 @@
 
 
 	<div class="flex-col flex-col--hides">
-		<ul class="navigation__navlinks navigation__navlinks--right ">
+		<ul class="navigation__navlinks navigation__navlinks--right navigation__navlinks--left-smaller-screen ">
 			<li 
 				sec:authorize="hasAnyRole('ROLE_MANAGER', 'ROLE_ADMIN')"><a
 				class="navigation__item navigation__item--right"
@@ -40,7 +40,7 @@
 			<li ><a class="navigation__item navigation__item--right" href="/account">Account</a></li>
 
 		</ul>
-		<ul class="navigation__navlinks navigation__navlinks--right ">
+		<ul class="navigation__navlinks navigation__navlinks--right navigation__navlinks--left-smaller-screen">
 			<li th:if="${session.user != null }" ><a
 				class="navigation__item navigation__item--right"
 				href="javascript: document.logoutForm.submit()" role="menuitem"> Logout</a></li>
