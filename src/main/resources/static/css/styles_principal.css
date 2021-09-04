@@ -73,8 +73,11 @@ body {
   @media only screen and (max-width: 48.75em) {
     #large-header {
       text-align: center;
-      font-size: 7.7rem;
-      line-height: 9rem; } }
+      font-size: 6rem; } }
+  @media only screen and (max-width: 37.5em) {
+    #large-header {
+      text-align: center;
+      font-size: 4.3rem; } }
 
 .font {
   font-weight: 400; }
