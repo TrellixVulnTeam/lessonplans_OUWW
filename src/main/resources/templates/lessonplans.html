@@ -199,7 +199,7 @@
 		
 
 		<div class="mt-1 lp-container">
-			<div class="card mr-2 mb-2" th:each="lp : ${lessonPlans}">
+			<div class="card mr-2 ml-2 mb-2" th:each="lp : ${lessonPlans}">
 				<div class="card__side">
 				<h2 class="h2" th:text="${lp.title}">Heading</h2>
 					 <div class="card__picture card__picture--1">
@@ -208,10 +208,8 @@
 					 <div class="card__details">		 
 						 <ul>
 							 <li th:text="${lp.assignedSubscription.displayName}">Level</li>
-							 <li th:text="${lp.type.type + ' English'}">Type</li>
-							 
-							 <li th:if="${lp.topics != null}" th:text="${lp.topics.get(0).name.substring(0, 1).toUpperCase() + lp.topics.get(0).name.substring(1)}">Topic</li>
-							 
+							 <li th:text="${lp.type.type + ' English'}">Type</li> 
+							 <!--  <li th:if="${lp.topics != null}" th:text="${lp.topics.get(0).name.substring(0, 1).toUpperCase() + lp.topics.get(0).name.substring(1)}">Topic</li>  -->				 
 							 <li th:text="${lp.preparationTime.time + ' mins prep.'}">Preparation Time</li>
 							 
 

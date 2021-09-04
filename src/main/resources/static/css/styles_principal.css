@@ -33,12 +33,12 @@ body {
     background-color: rgba(0, 115, 255, 0.7); }
 
 .main-content {
-  margin: 0rem 12rem 0rem 12rem;
+  margin: 0% 15% 0% 15%;
   background-color: #f9f4f4;
   background-color: white;
   overflow: hidden;
   min-height: 100vh;
-  padding: 2rem 8rem; }
+  padding: 2rem 0rem; }
 
 #large-header {
   font-size: 8.8rem;
@@ -391,9 +391,10 @@ body {
 
 .navigation {
   width: 100%;
+  min-width: max-content;
   background-color: rgba(0, 115, 255, 0.8);
   background-repeat: no-repeat;
-  padding: 2.75rem 1.4rem 2.75rem 4.1rem;
+  padding: 2.75rem 0rem 2.75rem 0rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
