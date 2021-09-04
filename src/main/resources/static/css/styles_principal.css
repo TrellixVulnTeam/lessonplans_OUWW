@@ -433,6 +433,9 @@ body {
   align-items: center;
   font-size: 1.7rem;
   font-weight: 600; }
+  @media only screen and (max-width: 61.86em) {
+    .navigation {
+      flex-direction: column; } }
   .navigation__navlinks {
     list-style: none;
     display: flex; }

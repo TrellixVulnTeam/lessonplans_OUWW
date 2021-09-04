@@ -13,6 +13,10 @@
 			display:flex; //1 rem = 9px, 9/16 = 50%
 		}
 
+        // @include respond(med-2) { // width < 1200?
+		// 	display:none; //1 rem = 9px, 9/16 = 50%
+		// }
+
         
 	}
 
@@ -28,6 +32,10 @@
 		@include respond(lg-1) { // width < 1200?
 			display:none; //1 rem = 9px, 9/16 = 50%
 		}
+
+        // @include respond(med-2) { // width < 1200?
+		// 	display:flex; //1 rem = 9px, 9/16 = 50%
+		// }
 
        
 		
