@@ -349,11 +349,23 @@ body {
   align-items: center; }
   .form__login form {
     width: 30%; }
+    @media only screen and (max-width: 66em) {
+      .form__login form {
+        width: 40%; } }
+    @media only screen and (max-width: 61.86em) {
+      .form__login form {
+        width: 40%; } }
+    @media only screen and (max-width: 48.75em) {
+      .form__login form {
+        width: 45%; } }
+    @media only screen and (max-width: 37.5em) {
+      .form__login form {
+        width: 60%; } }
   .form__login label {
     margin-bottom: 1rem; }
   .form__login input {
     width: 100%;
-    min-width: 20rem;
+    min-width: 25rem;
     height: 5rem;
     font-size: 1.8rem;
     padding-left: 1rem; }

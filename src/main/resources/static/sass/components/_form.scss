@@ -27,6 +27,24 @@
 
 		& form {
 			width:30%;
+
+			@include respond(med-3) {
+				width:40%;
+			}
+
+			@include respond(med-2) {
+				width:40%;
+			}
+			
+			@include respond(med-1) {
+				width:45%;
+			}
+		
+			@include respond(sm-1) {
+				width:60%;
+			}
+
+
 		}
 
 		& label {
@@ -36,7 +54,7 @@
 
 		& input{
 			width: 100%;
-			min-width: 20rem;
+			min-width: 25rem;
 			height: 5rem;
 			font-size:1.8rem;	
 			padding-left: 1rem;
