@@ -144,7 +144,6 @@ body {
   text-align: center !important; }
 
 .center-block {
-  width: 100%;
   margin: 0 auto; }
 
 .center-vertical {
@@ -158,6 +157,18 @@ body {
   padding-left: 8rem;
   padding-right: 8rem;
   display: inline-block; }
+
+.gutter-bottom-sm {
+  margin-bottom: 2rem; }
+
+.gutter-bottom-med {
+  margin-bottom: 3rem; }
+
+.gutter-top-sm {
+  margin-top: 2rem; }
+
+.gutter-top-med {
+  margin-top: 3rem; }
 
 .mt-1 {
   margin-top: 1rem !important; }

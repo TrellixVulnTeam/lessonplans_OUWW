@@ -14,6 +14,8 @@
 	<div th:insert="navbar.html :: nav"></div>
 
 	<div class="main-content">
+	
+	
 	<div class="flex">
 		<div class="form__login">
 			<h1 th:if="${registrationSuccess == null}"  id="large-header">Sign In</h1>
@@ -40,13 +42,13 @@
 
 
 				<!-- User name -->
-				<div class="mb-3">
+				<div class="gutter-bottom-med">
 					<label>Username</label>
 					<input type="text" name="username" />
 				</div>
 
 				<!-- Password -->
-				<div class="mb-3">
+				<div class="gutter-bottom-med">
 					<label>Password</label>
 					<input type="password" name="password" />
 				</div>

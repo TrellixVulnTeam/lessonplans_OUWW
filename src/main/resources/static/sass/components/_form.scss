@@ -32,38 +32,9 @@
 			width:28rem;
 		}
 
-
-
-		//min-width: 25rem;
-		//width:40rem;
-
-		//& form {
-			//width:18rem;
-
-			// @include respond(med-3) {
-			// 	width:40%;
-			// }
-
-			// @include respond(med-2) {
-			// 	width:40%;
-			// }
-			
-			// @include respond(med-1) {
-			// 	width:45%;
-			// }
-		
-			// @include respond(sm-1) {
-			// 	width:60%;
-			// }
-
-
-		//}
-
 		& label {
 			//font-size: 1.4rem;
 			margin-bottom:1rem;
-
-			//width:30%;
 		}
 
 		& input{
@@ -75,7 +46,7 @@
 			padding-left: 1rem;
 		}
 
-
+		
 	}
 
 
@@ -110,9 +81,6 @@
 				vertical-align:middle;
 				display:inline-block;
 			}
-
-			
-
 		}	
 	}
 
