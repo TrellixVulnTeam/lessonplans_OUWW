@@ -470,7 +470,7 @@ body {
   align-items: center;
   font-size: 1.7rem;
   font-weight: 600; }
-  @media only screen and (max-width: 66em) {
+  @media only screen and (max-width: 80em) {
     .navigation {
       flex-direction: column;
       padding: 2.75rem 0rem 0rem 0rem; } }
@@ -490,15 +490,15 @@ body {
     display: inline-block;
     padding: 1.4rem 2.1rem;
     text-decoration: none; }
-    @media only screen and (max-width: 61.86em) {
+    @media only screen and (max-width: 80em) {
       .navigation__item {
-        padding: .6rem 2.1rem; } }
+        padding: 1rem 2.1rem; } }
     .navigation__item--logo {
       color: white;
       font-size: 4rem;
       font-weight: 900;
       text-shadow: #898999 2px 3px 0px; }
-      @media only screen and (max-width: 61.86em) {
+      @media only screen and (max-width: 80em) {
         .navigation__item--logo {
           margin-bottom: 2rem; } }
     .navigation__item--right {
@@ -515,12 +515,6 @@ body {
   flex-direction: column; }
   .flex-col--hides {
     display: none; }
-    @media only screen and (max-width: 80em) {
-      .flex-col--hides {
-        display: flex; } }
-    @media only screen and (max-width: 66em) {
-      .flex-col--hides {
-        display: none; } }
     @media only screen and (max-width: 37.5em) {
       .flex-col--hides {
         display: flex; } }
@@ -528,12 +522,6 @@ body {
 .flex {
   display: flex;
   flex-wrap: wrap; }
-  @media only screen and (max-width: 80em) {
-    .flex--hides {
-      display: none; } }
-  @media only screen and (max-width: 66em) {
-    .flex--hides {
-      display: flex; } }
   @media only screen and (max-width: 37.5em) {
     .flex--hides {
       display: none; } }

@@ -13,7 +13,7 @@
   font-size: 1.7rem;
   font-weight: 600;
 
-  @include respond(med-3) {
+  @include respond(lg-1) {
 		flex-direction: column;
     padding:2.75rem 0rem 0rem 0rem;
 	}
@@ -43,8 +43,8 @@
     padding: 1.4rem 2.1rem;
     text-decoration: none;
 
-    @include respond(med-2) {
-      padding: .6rem 2.1rem;
+    @include respond(lg-1) {
+      padding: 1rem 2.1rem;
      }
 
     &--logo {
@@ -53,7 +53,7 @@
       font-weight: 900;
       text-shadow: rgb(137, 137, 153) 2px 3px 0px;
 
-      @include respond(med-2) {
+      @include respond(lg-1) {
         margin-bottom: 2rem;
        }
     }
