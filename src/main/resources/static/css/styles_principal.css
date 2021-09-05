@@ -48,7 +48,7 @@ body {
   display: block;
   color: black;
   font-weight: 400;
-  margin: 2rem 5rem; }
+  margin: 2rem 2rem; }
   @media only screen and (max-width: 66em) {
     #large-header {
       font-size: 7.8rem;
@@ -126,7 +126,8 @@ body {
 
 .center-flex {
   display: flex;
-  justify-content: center; }
+  justify-content: center;
+  align-items: flex-start; }
 
 .center-block {
   margin: 0 auto; }
@@ -274,6 +275,16 @@ body {
 
 .ml-10 {
   margin-left: 10rem !important; }
+
+.badge {
+  font-size: 1.6rem;
+  line-height: 2.7rem;
+  vertical-align: super;
+  margin-left: 2rem;
+  border-radius: 1.4rem;
+  background-color: #28a745;
+  padding: .5rem;
+  color: white; }
 
 .btn {
   color: white;
