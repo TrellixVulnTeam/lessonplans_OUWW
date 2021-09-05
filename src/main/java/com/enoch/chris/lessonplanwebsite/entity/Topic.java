@@ -1,6 +1,7 @@
 package com.enoch.chris.lessonplanwebsite.entity;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -36,12 +37,12 @@ public class Topic {
 	@JoinTable(name = "topic_tag", 
 	joinColumns = @JoinColumn(name = "topic_id"), 
 	inverseJoinColumns = @JoinColumn(name = "tag_id"))
-	List<Tag> relatedTags;
+	Set<Tag> relatedTags;
 	
 	protected Topic() {	
 	}
 	
-	public Topic(String name, List<Tag> relatedTags) {
+	public Topic(String name, Set<Tag> relatedTags) {
 		super();
 		this.name = name;
 		this.relatedTags = relatedTags;
@@ -63,11 +64,11 @@ public class Topic {
 		this.name = name;
 	}
 
-	public List<Tag> getRelatedTags() {
+	public Set<Tag> getRelatedTags() {
 		return relatedTags;
 	}
 
-	public void setTags(List<Tag> relatedTags) {
+	public void setTags(Set<Tag> relatedTags) {
 		this.relatedTags = relatedTags;
 	}
 
