@@ -32,9 +32,14 @@ ORDER: Base + typography > general layout + grid > page layout > components
         @media only screen and (max-width: 61.86em) { @content };    //990px
     }
 
+    // @if $breakpoint == med-3 {
+    //     @media only screen and (max-width: 63.43em) { @content };     //1015px 
+    // }
+
     @if $breakpoint == med-3 {
-        @media only screen and (max-width: 63.43em) { @content };     //1015px
+        @media only screen and (max-width: 66em) { @content };     // 1027px
     }
+
     @if $breakpoint == lg-1 {
         @media only screen and (max-width: 80em) { @content };    //1280px
     }

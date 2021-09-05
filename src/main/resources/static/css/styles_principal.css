@@ -59,7 +59,7 @@ body {
   overflow: hidden;
   min-height: 100vh;
   padding: 2rem 0rem; }
-  @media only screen and (max-width: 61.86em) {
+  @media only screen and (max-width: 66em) {
     .main-content {
       margin: 0% 5% 0% 5%; } }
 
@@ -70,6 +70,10 @@ body {
   color: black;
   font-weight: 400;
   margin: 2rem 5rem; }
+  @media only screen and (max-width: 66em) {
+    #large-header {
+      font-size: 7.8rem;
+      line-height: 10rem; } }
   @media only screen and (max-width: 48.75em) {
     #large-header {
       text-align: center;
