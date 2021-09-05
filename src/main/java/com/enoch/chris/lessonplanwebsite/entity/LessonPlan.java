@@ -2,6 +2,7 @@ package com.enoch.chris.lessonplanwebsite.entity;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -56,7 +57,7 @@ public class LessonPlan {
 	@JoinTable(name = "lesson_plan_topic", 
 	joinColumns = @JoinColumn(name = "lesson_plan_id"), 
 	inverseJoinColumns = @JoinColumn(name = "topic_id"))
-    private List<Topic> topics;
+    private Set<Topic> topics;
 	
 	@ManyToOne
     private Picture picture;
@@ -107,20 +108,48 @@ public class LessonPlan {
 	@JoinTable(name = "lesson_plan_grammar", 
 	joinColumns = @JoinColumn(name = "lesson_plan_id"), 
 	inverseJoinColumns = @JoinColumn(name = "grammar_id"))
-    private List<Grammar> grammar;
+    private Set<Grammar> grammar;
 	
 	@ManyToMany(fetch = FetchType.LAZY,cascade= {CascadeType.DETACH, 
 			CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
 	@JoinTable(name = "lesson_plan_tag", 
 	joinColumns = @JoinColumn(name = "lesson_plan_id"), 
 	inverseJoinColumns = @JoinColumn(name = "tag_id"))
-	private List<Tag> tags;
+	private Set<Tag> tags;
     
  
 	
+	
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		LessonPlan other = (LessonPlan) obj;
+		if (id != other.id)
+			return false;
+		return true;
+	}
+
+
+
 	private LessonPlan() {
 		
 	}
+	
+	
     
     private LessonPlan(LessonPlanBuilder lessonPlanBuilder) {
     	//Using setters ensures appropriate validation is performed.
@@ -304,11 +333,11 @@ public class LessonPlan {
 		this.noPrintedMaterialsNeeded = noPrintedMaterialsNeeded;
 	}
 
-	public List<Topic> getTopics() {
+	public Set<Topic> getTopics() {
 		return topics;
 	}
 
-	public void setTopics(List<Topic> topics) {
+	public void setTopics(Set<Topic> topics) {
 		this.topics = topics;
 	}
 
@@ -340,11 +369,11 @@ public class LessonPlan {
 		this.preparationTime = preparationTime;
 	}
 
-	public List<Grammar> getGrammar() {
+	public Set<Grammar> getGrammar() {
 		return grammar;
 	}
 
-	public void setGrammar(List<Grammar> grammar) {
+	public void setGrammar(Set<Grammar> grammar) {
 		this.grammar = grammar;
 	}
 
@@ -356,11 +385,11 @@ public class LessonPlan {
 		this.assignedSubscription = assignedSubscription;
 	}
 
-	public List<Tag> getTags() {
+	public Set<Tag> getTags() {
 		return tags;
 	}
 
-	public void setTags(List<Tag> tags) {
+	public void setTags(Set<Tag> tags) {
 		this.tags = tags;
 	}
 
@@ -373,8 +402,8 @@ public class LessonPlan {
 	    private Type type; // required
 	    private int age; // required  
 	    private SpeakingAmount speakingAmount; // required  
-		public List<Topic> topics; // required 
-		public List<Tag> tags; //required
+		public Set<Topic> topics; // required 
+		public Set<Tag> tags; //required
 	    
 		private LessonTime lessonTime = LessonTime.SIXTY;
 	    private boolean  listening;
@@ -390,11 +419,11 @@ public class LessonPlan {
 	    private PreparationTime preparationTime = PreparationTime.FIVE;
 	    private boolean  noPrintedMaterialsNeeded;
 	    private Picture picture;
-	    private List<Grammar> grammar;
+	    private Set<Grammar> grammar;
  
 	    
         public LessonPlanBuilder(String title, LocalDate dateAdded,Subscription assignedSubscription, Type type
-        		,int age,SpeakingAmount speakingAmount, List<Topic> topics, List<Tag> tags) {
+        		,int age,SpeakingAmount speakingAmount, Set<Topic> topics, Set<Tag> tags) {
             this.title = title;
             this.dateAdded = dateAdded;
             this.assignedSubscription = assignedSubscription;
@@ -470,12 +499,12 @@ public class LessonPlan {
             return this;
         }
         
-        public LessonPlanBuilder grammar (List<Grammar> grammar) {
+        public LessonPlanBuilder grammar (Set<Grammar> grammar) {
             this.grammar = grammar;
             return this;
         }
         
-        public LessonPlanBuilder topics (List<Topic> topics) {
+        public LessonPlanBuilder topics (Set<Topic> topics) {
             this.topics = topics;
             return this;
         }

@@ -86,8 +86,8 @@ public class TestController {
 	@PostMapping("/testform")
 	public String processForm(final LessonPlan lessonPlan, Model theModel) {
 		System.out.println("Post getType " + lessonPlan.getType());
-		System.out.println(lessonPlan.getTopics().get(0).getName());
-		System.out.println(lessonPlan.getTags().get(0).getName());
+		//System.out.println(lessonPlan.getTopics().get(0).getName());
+		//System.out.println(lessonPlan.getTags().get(0).getName());
 		System.out.println("sub sub " + lessonPlan.getAssignedSubscription().getName());
 		System.out.println("g g g  " + lessonPlan.getGrammar().size());
 		System.out.println("g g g  " + lessonPlan.getLessonTime());

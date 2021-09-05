@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
@@ -133,7 +134,7 @@ public class LessonPlanController {
 			//Logic in get method to avoid hibernate lazy initialisation error.
 			LessonPlan lessonPlan = (LessonPlan) theModel.getAttribute("lessonPlan");
 			//must call the following to avoid hibernate lazy initialisation error.
-			List<Topic> topics = lessonPlan.getTopics();
+			Set<Topic> topics = lessonPlan.getTopics();
 			topics.stream().forEach(Topic::getRelatedTags);
 			lessonPlan.getTags();
 			lessonPlan.getGrammar();
@@ -384,27 +385,27 @@ public class LessonPlanController {
 	}
 	
 	
-	@GetMapping("/checkmethod")
-	public String checkMethod() {
-		Topic fame = new Topic("fame", null);
-		List<Topic> topics = new ArrayList<>();
-		topics.add(fame);
-			
-		LessonPlan lPlan = new LessonPlan.LessonPlanBuilder(null, null, new Subscription("a1"), null, 10, null, null
-				, null)
-//				.grammar(Arrays.asList(new Grammar("first conditional")))
-				.topics(Arrays.asList(new Topic("fame", null)))
-				.build();
-		
-		List<LessonPlan> lessonPlans = lessonPlanService.findSearchedLessonPlans(lPlan);
-		
-		System.out.println("check method");
-		lessonPlans.stream().forEach(a -> System.out.println(a.getTitle()));
-		System.out.println("check method END");
-		
-
-		return "lessonplans";		
-	}
+//	@GetMapping("/checkmethod")
+//	public String checkMethod() {
+//		Topic fame = new Topic("fame", null);
+//		List<Topic> topics = new ArrayList<>();
+//		topics.add(fame);
+//			
+////		LessonPlan lPlan = new LessonPlan.LessonPlanBuilder(null, null, new Subscription("a1"), null, 10, null, null
+////				, null)
+//////				.grammar(Arrays.asList(new Grammar("first conditional")))
+////				.topics(Arrays.asList(new Topic("fame", null)))
+////				.build();
+////		
+//		//List<LessonPlan> lessonPlans = lessonPlanService.findSearchedLessonPlans(lPlan);
+//		
+//		System.out.println("check method");
+//		//lessonPlans.stream().forEach(a -> System.out.println(a.getTitle()));
+//		System.out.println("check method END");
+//		
+//
+//		return "lessonplans";		
+//	}
 	
 	
 	@GetMapping("/search")

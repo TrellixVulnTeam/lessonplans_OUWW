@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
@@ -114,8 +115,8 @@ public class LessonPlanServiceImpl implements LessonPlanService {
 				// Check grammar points. Return true, if anymatch
 				
 				.filter(lp -> {
-					List<Grammar> searchParamGrammar = searchParameters.getGrammar();
-					List<Grammar> lpGrammar = lp.getGrammar();
+					Set<Grammar> searchParamGrammar = searchParameters.getGrammar();
+					Set<Grammar> lpGrammar = lp.getGrammar();
 
 					if (searchParamGrammar != null) {
 						for (Grammar grammarSearchParameter : searchParamGrammar) {
@@ -134,8 +135,8 @@ public class LessonPlanServiceImpl implements LessonPlanService {
 				// if all searchTopics inside list of lessonplantopics
 
 				.filter(lp -> {
-					List<Topic> searchParamTopics = searchParameters.getTopics();
-					List<Topic> lpTopics = lp.getTopics();
+					Set<Topic> searchParamTopics = searchParameters.getTopics();
+					Set<Topic> lpTopics = lp.getTopics();
 
 					if (searchParamTopics != null) {
 						for (Topic topicSearchParameter : searchParamTopics) {
@@ -154,8 +155,8 @@ public class LessonPlanServiceImpl implements LessonPlanService {
 //				// check tags
 				// //if all searchTags inside list of lessonplantags
 				.filter(lp -> {
-					List<Tag> searchParamTags = searchParameters.getTags();
-					List<Tag> lpTags = lp.getTags();
+					Set<Tag> searchParamTags = searchParameters.getTags();
+					Set<Tag> lpTags = lp.getTags();
 
 					if (searchParamTags != null) {
 						for (Tag tagSearchParameter : searchParamTags) {
