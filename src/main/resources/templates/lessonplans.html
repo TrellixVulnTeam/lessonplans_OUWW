@@ -60,8 +60,8 @@
 	<div class="main-content">
 			<h1 id="large-header">Lesson Plans</h1>
 			
-			<div class="mb-2 lp-btn-container">
-				<a id="showSearch" class="ml-5 mb-2 btn btn--big btn--action-secondary" href='javascript:showMenu()'>Search lessons</a> 
+			<div class="lp-btn-container">
+				<a id="showSearch" class="mb-2 btn btn--big btn--action-secondary" href='javascript:showMenu()'>Search lessons</a> 
 				<a id="hideSearch" class=" btn btn--med btn--tertiary hide"
 					href='javascript:hideMenu()'>Hide Search</a> 
 			</div>
@@ -199,7 +199,7 @@
 		
 
 		<div class="mt-1 lp-container">
-			<div class="card ml-4 mb-2" th:each="lp : ${lessonPlans}">
+			<div class="card" th:each="lp : ${lessonPlans}">
 				<div class="card__side">
 				<h2 class="h2" th:text="${lp.title}">Heading</h2>
 					 <div class="card__picture card__picture--1">

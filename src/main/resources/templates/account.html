@@ -23,7 +23,7 @@
 		<h1 id="large-header">Subscriptions</h1>
 		
 		<div class="lp-container">		
-		<div th:each="subAct : ${activeSubscriptions}" class="card ml-4 mb-2">
+		<div th:each="subAct : ${activeSubscriptions}" class="card">
 				<div class="card__side">
 				<h2 th:text="${subAct.subscription.displayName}" class="h2 h2--secondary">Subscription</h2>
 					 <div class="card__details">		 
@@ -39,7 +39,7 @@
 				</div>
 			</div>	
 			
-			<div class="card ml-4 mb-2">
+			<div class="card">
 				<div class="card__side">
 				<h2 class="h2">All 8 levels</h2>
 					 <div class="card__details">		 
@@ -56,7 +56,7 @@
 				</div>
 			</div>
 			
-			<div th:each="subNon : ${nonActiveSubscriptions}" class="card ml-4 mb-2">
+			<div th:each="subNon : ${nonActiveSubscriptions}" class="card">
 				<div class="card__side">
 				<h2 th:text="${subNon.displayName}" class="h2">Subscription</h2>
 					 <div class="card__details">		 

@@ -73,11 +73,13 @@ body {
   @media only screen and (max-width: 48.75em) {
     #large-header {
       text-align: center;
-      font-size: 6rem; } }
+      font-size: 6rem;
+      line-height: 7.5rem; } }
   @media only screen and (max-width: 37.5em) {
     #large-header {
       text-align: center;
-      font-size: 4.3rem; } }
+      font-size: 4.3rem;
+      line-height: 5.7rem; } }
 
 .font {
   font-weight: 400; }
@@ -398,7 +400,14 @@ body {
   border-bottom: 0.2rem solid rgba(255, 140, 0, 0.5); }
 
 .card {
-  width: 30rem; }
+  width: 30rem;
+  margin-left: 4rem;
+  margin-bottom: 2rem; }
+  @media only screen and (max-width: 48.75em) {
+    .card {
+      flex-direction: column;
+      align-items: center;
+      margin-left: 0rem; } }
   .card__side {
     border-radius: 3px;
     overflow: hidden;
@@ -493,6 +502,10 @@ body {
     .flex--hides {
       display: none; } }
 
-@media only screen and (max-width: 48.75em) {
-  .lp-btn-container {
-    text-align: center; } }
+.lp-btn-container {
+  margin-left: 5rem;
+  margin-bottom: 2rem; }
+  @media only screen and (max-width: 48.75em) {
+    .lp-btn-container {
+      text-align: center;
+      margin-left: 0rem; } }
