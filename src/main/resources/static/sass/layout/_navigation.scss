@@ -21,19 +21,16 @@
   &__navlinks {
     list-style: none;
     display: flex;
+    align-items: center;
 
 
     &--right {
       margin-left: auto;
       margin-right: 6rem;
-      align-items: center;
-    }
 
-    &--left-smaller-screen{
-      @include respond(med-2) {
-      margin-right: auto;
-      margin-left: 0rem;
-      align-items: center;
+      @include respond(lg-1) {
+        margin-left: 0rem;
+        margin-right: 0rem;
       }
     }
   }
