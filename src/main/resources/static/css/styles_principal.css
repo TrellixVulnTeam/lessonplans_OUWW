@@ -110,6 +110,10 @@ body {
   margin: .3rem 0rem;
   padding: .7rem; }
 
+.flex {
+  display: flex;
+  justify-content: center; }
+
 .lp-container {
   display: flex;
   flex-wrap: wrap; }
@@ -346,21 +350,14 @@ body {
   display: flex;
   flex-direction: column;
   flex-flow: column wrap;
-  align-items: center; }
-  .form__login form {
-    width: 30%; }
-    @media only screen and (max-width: 66em) {
-      .form__login form {
-        width: 40%; } }
-    @media only screen and (max-width: 61.86em) {
-      .form__login form {
-        width: 40%; } }
-    @media only screen and (max-width: 48.75em) {
-      .form__login form {
-        width: 45%; } }
-    @media only screen and (max-width: 37.5em) {
-      .form__login form {
-        width: 60%; } }
+  align-items: center;
+  width: 40rem; }
+  @media only screen and (max-width: 48.75em) {
+    .form__login {
+      width: 30rem; } }
+  @media only screen and (max-width: 37.5em) {
+    .form__login {
+      width: 28rem; } }
   .form__login label {
     margin-bottom: 1rem; }
   .form__login input {
