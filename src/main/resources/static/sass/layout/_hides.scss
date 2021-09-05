@@ -13,6 +13,14 @@
 			display:flex; //1 rem = 9px, 9/16 = 50%
 		}
 
+		@include respond(med-3) { // width < 1200?
+			display:none; //1 rem = 9px, 9/16 = 50%
+		}
+
+		@include respond(sm-1) { // width < 1200?
+			display:flex; //1 rem = 9px, 9/16 = 50%
+		}
+
         // @include respond(med-2) { // width < 1200?
 		// 	display:none; //1 rem = 9px, 9/16 = 50%
 		// }
@@ -33,11 +41,16 @@
 			display:none; //1 rem = 9px, 9/16 = 50%
 		}
 
+		@include respond(med-3) { // width < 1200?
+			display:flex; //1 rem = 9px, 9/16 = 50%
+		}
+
+		@include respond(sm-1) { // width < 1200?
+			display:none; //1 rem = 9px, 9/16 = 50%
+		}
         // @include respond(med-2) { // width < 1200?
 		// 	display:flex; //1 rem = 9px, 9/16 = 50%
 		// }
-
-       
 		
 	}
 }
