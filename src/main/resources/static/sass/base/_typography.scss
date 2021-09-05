@@ -1,11 +1,3 @@
-.alert{
-	color: $color-alert;
-}
-
-.success{
-	color: $color-success;
-}
-
 .h2{
 	text-align: center;
 	background-color:  rgba($color-primary, 0.8);
@@ -40,10 +32,6 @@
 	color: black;
 	font-weight: 400;
 	margin: 2rem 5rem;
-	// margin-top: 2rem;
-	// margin-bottom: 2rem;
-	// margin-left: 2rem;
-	// margin-bottom: 2rem;
 
 	@include respond(med-3) {
 		font-size: 7.8rem;
@@ -82,6 +70,14 @@
 
 }
 
+.alert{
+	color: $color-alert;
+}
+
+.success{
+	color: $color-success;
+}
+
 .message {
 	&--medium{
 		font-size: 4.4rem;
@@ -104,12 +100,6 @@
 	padding: .7rem;
 }
 
-
-.flex{
-	display: flex;
-	justify-content: center;
-}
-
 .lp-container {
 	display: flex;
 	flex-wrap: wrap;
@@ -119,7 +109,6 @@
 		align-items: center;
 	}
 }
-
 
 
 #mega-menu {

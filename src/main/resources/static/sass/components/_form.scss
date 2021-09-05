@@ -1,26 +1,11 @@
 
-// input {
-// 	margin-right:2rem;
-// 	width: 3rem;
-// 	height: 2.8rem;
-// 	border: .1rem solid #ced4da;
-// 	border-radius: .25rem;
-
-// 	&:focus{
-// 		border: .1rem solid rgba(255, 140, 0, 0.3);
-// 		outline-color: rgba(255, 140, 0, 0.3);
-// 	}
-// }
-
 .form {
 
 	&__login{
-		//height:100vh;
-		//background-color: yellow;
+
 		display:flex;
 		flex-direction: column;
 		flex-flow: column wrap;
-		//flex-grow: 2;
 		align-items: center;
 		width: 40rem;
 
@@ -33,7 +18,6 @@
 		}
 
 		& label {
-			//font-size: 1.4rem;
 			margin-bottom:1rem;
 		}
 

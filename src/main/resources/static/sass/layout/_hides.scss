@@ -9,48 +9,26 @@
 	&--hides{
 		display:none;
 
-		// @include respond(lg-1) { // width < 1200?
-		// 	display:flex; //1 rem = 9px, 9/16 = 50%
-		// }
-
-		// @include respond(med-3) { // width < 1200?
-		// 	display:none; //1 rem = 9px, 9/16 = 50%
-		// }
-
 		@include respond(sm-1) { // width < 1200?
 			display:flex; //1 rem = 9px, 9/16 = 50%
 		}
-
-        // @include respond(med-2) { // width < 1200?
-		// 	display:none; //1 rem = 9px, 9/16 = 50%
-		// }
-
         
 	}
 
 }
 
-//Disappears on smalelr screens
+//Disappears on smaller screens
 .flex{
 	display:flex;
 	flex-wrap:wrap;
 
 	&--hides{
 		
-		// @include respond(lg-1) { // width < 1200?
-		// 	display:none; //1 rem = 9px, 9/16 = 50%
-		// }
 
-		// @include respond(med-3) { // width < 1200?
-		// 	display:flex; //1 rem = 9px, 9/16 = 50%
-		// }
-
-		@include respond(sm-1) { // width < 1200?
-			display:none; //1 rem = 9px, 9/16 = 50%
+		@include respond(sm-1) { 
+			display:none; 
 		}
-        // @include respond(med-2) { // width < 1200?
-		// 	display:flex; //1 rem = 9px, 9/16 = 50%
-		// }
+    
 		
 	}
 }

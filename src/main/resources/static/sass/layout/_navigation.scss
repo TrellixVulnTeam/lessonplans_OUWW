@@ -1,9 +1,6 @@
 .navigation {
   width: 100%;
   min-width:max-content;
-  //background-image: linear-gradient(to right, #8c46f0, #9f6df7, #9f6df7, #9f6df7, #9f6df7,
-  //#b390fc);
-
   background-color: rgba($color-secondary-light, 0.8);
   background-repeat: no-repeat;
   padding: 2.75rem 0rem 2.75rem 0rem;
@@ -24,11 +21,11 @@
     align-items: center;
 
 
-    &--right {
+    &--right { 
       margin-left: auto;
       margin-right: 6rem;
 
-      @include respond(lg-1) {
+      @include respond(lg-1) { //Stop displaying on the right and display in the centre 
         margin-left: 0rem;
         margin-right: 0rem;
       }
@@ -68,6 +65,3 @@
   }
 }
 
-// .nav-item-right:hover a {
-// 	background-color: rgba(108, 54, 186, 1);
-// }

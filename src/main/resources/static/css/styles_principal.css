@@ -1,21 +1,6 @@
 /*
-0 - 600px:      Phone
-600 - 900px:    Tablet portrait
-900 - 1200px:   Tablet landscape
-[1200 - 1800] is where our normal styles apply
-1800px + :      Big desktop
-
-1270 
-
-
-$breakpoint arguement choices:
-- phone
-- tab-port
-- tab-land
-- big-desktop
 
 ORDER: Base + typography > general layout + grid > page layout > components
-
 1em = 16px
 */
 *,
@@ -36,12 +21,6 @@ body {
   box-sizing: border-box;
   font-size: 1.6rem;
   line-height: 2.2rem; }
-
-.alert {
-  color: #dc3545; }
-
-.success {
-  color: #28a745; }
 
 .h2 {
   text-align: center;
@@ -94,6 +73,12 @@ body {
     font-size: 4rem;
     line-height: 5.3rem; }
 
+.alert {
+  color: #dc3545; }
+
+.success {
+  color: #28a745; }
+
 .message--medium {
   font-size: 4.4rem; }
 
@@ -109,10 +94,6 @@ body {
   min-width: 31.6rem;
   margin: .3rem 0rem;
   padding: .7rem; }
-
-.flex {
-  display: flex;
-  justify-content: center; }
 
 .lp-container {
   display: flex;
@@ -142,6 +123,10 @@ body {
 .center-text {
   text-align: center;
   text-align: center !important; }
+
+.center-flex {
+  display: flex;
+  justify-content: center; }
 
 .center-block {
   margin: 0 auto; }
@@ -436,8 +421,6 @@ body {
     border-radius: 3px;
     overflow: hidden;
     box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.15); }
-    .card__side--front {
-      background-color: #fff; }
   .card__picture {
     background-size: contain;
     height: 23rem;

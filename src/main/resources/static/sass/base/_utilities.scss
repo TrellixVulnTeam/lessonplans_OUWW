@@ -10,9 +10,16 @@
 	text-align: center !important; 
 }
 
+.center-flex{
+	display: flex;
+	justify-content: center;
+}
+
 .center-block {
     margin: 0 auto;
 }
+
+
 
 .center-vertical {
 	vertical-align:middle;
