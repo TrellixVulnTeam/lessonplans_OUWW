@@ -18,6 +18,8 @@ public interface UsersService extends UserDetailsService {
 //	public User getUserByUsername(String username);
 	
 	public void save(RegistrationUser regUser);
+
+	User findUserByUsernameEager(String username);
 	
 //	public void delete(User theUser);
 //	

@@ -26,14 +26,18 @@ public class SubscriptionUtils {
 	public LocalDateTime getNextSubscriptionStartDate() {
 		//check to see if already purchased this subscription. In this case, subscription start date should start immediately after
 		//finish date. 
-					
+			
+		System.out.println("In getNextSubscriptionStartDate");
+		
 		//get susbcription with latest finish date
 		List<Purchase> purchases = purchaseRepository.findAll().stream()
 				.filter(p-> p.getUser().equals(user))
 				.filter(p-> p.getSubscription().equals(subscription))
 				.filter(p-> p.getDateSubscriptionEnds().isAfter(LocalDateTime.now()))
 		.sorted(Comparator.comparing(Purchase::getDateSubscriptionEnds))
-		.collect(Collectors.toList());		
+		.collect(Collectors.toList());	
+		
+		System.out.println("In getNextSubscriptionStartDate after filter method.");
 		
 		//get greatest finishing date
 		LocalDateTime nextStartingDate = purchases.size() > 0? purchases.get(purchases.size() - 1).getDateSubscriptionEnds()

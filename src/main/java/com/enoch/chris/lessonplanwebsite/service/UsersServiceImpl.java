@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -71,6 +72,37 @@ private BCryptPasswordEncoder passwordEncoder;
 				mapRolesToAuthorities(user.getRoles()));
 	}
 
+	@Override
+	@Transactional
+	public User findUserByUsernameEager(String username)  {
+		User user = userRepository.findByUsername(username);
+		
+		Hibernate.initialize(user);
+		
+//		new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
+//				mapRolesToAuthorities(user.getRoles()));
+//		
+		Hibernate.initialize(user.getRoles());
+		Hibernate.initialize(user.getSubscriptions());
+		Hibernate.initialize(user.getBasket());
+		
+//		user.getRoles().stream().count(); //Force fetch to avoid lazy initialisation exception
+//		user.getSubscriptions().stream().count(); //Force fetch to avoid lazy initialisation exception
+//		user.getBasket().stream().count(); //Force fetch to avoid lazy initialisation exception
+//		
+//		User user1 = new User();
+//		user1.setiD(user.getiD());
+//		user1.setBasket(user.getBasket());
+//		user1.setEmail(user.getEmail());
+//		user1.setEnabled(user.getEnabled());
+//		user1.setPassword(user.getPassword());
+//		user1.setRoles(user.getRoles());
+//		user1.setSubscriptions(user.getSubscriptions());
+//		user1.setUsername(user.getUsername());
+
+		return user;
+
+	}
 	
 	private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
 		return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());

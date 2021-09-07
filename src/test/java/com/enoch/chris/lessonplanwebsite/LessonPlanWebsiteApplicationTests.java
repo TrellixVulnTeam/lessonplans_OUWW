@@ -39,8 +39,6 @@ class LessonPlanWebsiteApplicationTests {
 	@Autowired
 	private MockMvc mockMvc;
 	
-	@Autowired
-	private ObjectMapper objectMapper;
 	
 //	@Test
 //	public void contextLoads() throws Exception {

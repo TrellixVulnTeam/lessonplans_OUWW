@@ -49,7 +49,7 @@ public class User {
 			CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}) //Was @JoinTable(name = "subscription_user",
 	@JoinTable(name = "purchase", 
 	joinColumns = @JoinColumn(name = "user_id"), 
-	inverseJoinColumns = @JoinColumn(name = "subcription_id"))
+	inverseJoinColumns = @JoinColumn(name = "subscription_id"))
 	private List<Subscription> subscriptions;
 	
 	@ManyToMany(fetch = FetchType.LAZY,cascade= {CascadeType.DETACH, 
@@ -179,11 +179,7 @@ public class User {
 		this.subscriptions = subscriptions;
 	}
 
-	@Override
-	public String toString() {
-		return "User [iD=" + iD + ",  username=" + username
-				+ ", email=" + email + "]";
-	}
+
 
 	@Override
 	public int hashCode() {

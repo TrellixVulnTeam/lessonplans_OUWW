@@ -34,11 +34,13 @@ public class Purchase {
 	@Column(name="price_paid_in_cents")
 	private int pricePaidInCents;
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	//@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne
 	@JoinColumn(name = "subscription_id")
 	private Subscription subscription;
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	//@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne
 	@JoinColumn(name = "user_id")
 	private User user;
 	
