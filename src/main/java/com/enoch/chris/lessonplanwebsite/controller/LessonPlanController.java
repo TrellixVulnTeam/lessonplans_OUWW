@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -113,27 +114,12 @@ public class LessonPlanController {
 		
 		if (!theModel.containsAttribute("lessonPlan")) {
 			List<LessonPlan> lessonPlans = lessonPlanRepository.findAll();	
-			
-			
-//			System.out.println("Print topics in get");
-//			 List<List<Topic>> topics = lessonPlans.stream().map(lp -> lp.getTopics()).collect(Collectors.toList());
-//			 System.out.println("AFTER GET ONE");
-//			 List<Topic> firstTopics = topics.get(0);
-//			 System.out.println("AFTER GET TWO");
-//			 firstTopics.forEach(System.out::println);
-//			 
-//			 System.out.println("name " + firstTopics.get(0).getName());
-//			 System.out.println("id " + firstTopics.get(0).getId());
-//			 System.out.println("tags " + firstTopics.get(0).getRelatedTags());
-//			 
-
+					 
 			//add to model
 			theModel.addAttribute("lessonPlans", lessonPlans);
 			LessonPlan lessonPlan = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null).build();
 			
-			//Override default parameters so that no value is initially shown in checkboxes
-			lessonPlan.setPreparationTime(null);
-			lessonPlan.setLessonTime(null);
+			initCheckboxes(lessonPlan);
 
 			theModel.addAttribute("lessonPlan",lessonPlan);
 		} else { 
@@ -145,34 +131,7 @@ public class LessonPlanController {
 
 		return "lessonplans";
 	}
-	
-	@GetMapping("/test/withb2subscription")//Only works if test Profile is used (spring.profiles.active=test)
-	public String displaylessonPlansWithSubscriptionSelected(Model theModel)  {
-		if (Arrays.asList(env.getActiveProfiles()).contains("test")){
-			System.out.println("Cool profile method worked");
-			
-			System.out.println("Inside withB2subscription");
-			
-			LessonPlan lessonPlan = new LessonPlan.LessonPlanBuilder(null, null, new Subscription("B2"), null, 0, null, null, null).build();		
-			processCheckboxesToCheck(theModel, lessonPlan);
-			
-			System.out.println("Values of lessonPlan " + lessonPlan);
-			
-			
-			theModel.addAttribute("lessonPlan", lessonPlan);
-//			
-//			Values of lessonPlan sent by user: LessonPlan [id=0, title=null, dateAdded=null,
-//					assignedSubscription=com.enoch.chris.lessonplanwebsite.entity.Subscription@86d,
-//					type=null, age=0, speakingAmount=null, topics=[], picture=null, lessonTime=null,
-//					listening=false, vocabulary=false, reading=false, writing=false, video=false, 
-//					song=false, funClass=false, games=false, jigsaw=false, translation=false,
-//					preparationTime=null, noPrintedMaterialsNeeded=false, grammar=[], tags=null]
-//			
-			return "lessonplans";		
-		} else {
-			return "error";
-		}		
-	}
+
 	
 	@PostMapping()
 	public String checkboxTest(final LessonPlan lessonPlan, Model theModel, RedirectAttributes redirectAttributes)  {
@@ -448,6 +407,202 @@ public class LessonPlanController {
 		 
 		 System.out.println("lessonPlansFiltered: " + lessonPlansFiltered);
 		 System.out.println("length of lessonPlansFiltered: " + lessonPlansFiltered.size());
+	}
+	
+	private void initCheckboxes(LessonPlan lessonPlan) {
+		//Override default parameters so that no value is initially shown in checkboxes
+		lessonPlan.setPreparationTime(null);
+		lessonPlan.setLessonTime(null);
+	}
+	
+	
+	
+	/* TEST CONTROLLERS. These only work when test Profile is used (spring.profiles.active=test).
+	 * Controllers are in this class because if not, changes in this class will not be reflected in the tests unless tests are updated. 
+	 * This helps prevents the tests and the production code from becoming out of sync.
+	 * These emulate possible user requests when the user filters the lesson plans via the search option on /lessonplans page
+	 * */
+	
+	@GetMapping("/test/withb2subscription")//Only works if test Profile is used (spring.profiles.active=test)
+	public String displaylessonPlansWithSubscriptionSelected(Model theModel)  {
+		if (Arrays.asList(env.getActiveProfiles()).contains("test")){
+			
+			LessonPlan lessonPlan = new LessonPlan.LessonPlanBuilder(null, null, new Subscription("B2"), null, 0, null, null, null).build();		
+			initCheckboxes(lessonPlan); //ensure preparation time and lesson time radio buttons start unselected
+			processCheckboxesToCheck(theModel, lessonPlan);
+			
+			theModel.addAttribute("lessonPlan", lessonPlan);
+			
+			return "lessonplans";		
+		} else {
+			return "error";
+		}		
+	}
+	
+	@GetMapping("/test/withTopic")//Only works if test Profile is used (spring.profiles.active=test)
+	public String displaylessonPlansWithTopicsSelected(Model theModel)  {
+		if (Arrays.asList(env.getActiveProfiles()).contains("test")){
+			
+			Set<Topic> topics = new HashSet<>();
+			topics.add(new Topic("Technology", null));
+			LessonPlan lessonPlan = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, topics, null).build();		
+			initCheckboxes(lessonPlan); //ensure preparation time and lesson time radio buttons start unselected
+			
+			processCheckboxesToCheck(theModel, lessonPlan);
+			
+			theModel.addAttribute("lessonPlan", lessonPlan);
+			
+			return "lessonplans";		
+		} else {
+			return "error";
+		}		
+	}
+	
+	@GetMapping("/test/withTwoTopics")//Only works if test Profile is used (spring.profiles.active=test)
+	public String displaylessonPlansWithTwoTopicsSelected(Model theModel)  {
+		if (Arrays.asList(env.getActiveProfiles()).contains("test")){
+			
+			Set<Topic> topics = new HashSet<>();
+			topics.add(new Topic("Technology", null));
+			topics.add(new Topic("Transport", null));
+			LessonPlan lessonPlan = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, topics, null).build();		
+			initCheckboxes(lessonPlan); //ensure preparation time and lesson time radio buttons start unselected
+			
+			processCheckboxesToCheck(theModel, lessonPlan);
+			
+			theModel.addAttribute("lessonPlan", lessonPlan);
+			
+			return "lessonplans";		
+		} else {
+			return "error";
+		}		
+	}
+	
+	@GetMapping("/test/withGrammar")//Only works if test Profile is used (spring.profiles.active=test)
+	public String displaylessonPlansWithGrammarSelected(Model theModel)  {
+		if (Arrays.asList(env.getActiveProfiles()).contains("test")){
+			
+			Set<Grammar> grammar = new HashSet<>();
+			grammar.add(new Grammar("First conditional"));
+			LessonPlan lessonPlan = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+					.build();
+			lessonPlan.setGrammar(grammar);
+			
+			initCheckboxes(lessonPlan); //ensure preparation time and lesson time radio buttons start unselected
+			
+			processCheckboxesToCheck(theModel, lessonPlan);
+			
+			theModel.addAttribute("lessonPlan", lessonPlan);
+			
+			return "lessonplans";		
+		} else {
+			return "error";
+		}		
+	}
+	
+	@GetMapping("/test/withTwoGrammar")//Only works if test Profile is used (spring.profiles.active=test)
+	public String displaylessonPlansWithTwoGrammarSelected(Model theModel)  {
+		if (Arrays.asList(env.getActiveProfiles()).contains("test")){
+			
+			Set<Grammar> grammar = new HashSet<>();
+			grammar.add(new Grammar("Adjectives"));
+			grammar.add(new Grammar("Adverbs"));
+			LessonPlan lessonPlan = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+					.build();
+			lessonPlan.setGrammar(grammar);
+			
+			initCheckboxes(lessonPlan); //ensure preparation time and lesson time radio buttons start unselected
+			
+			processCheckboxesToCheck(theModel, lessonPlan);
+			
+			theModel.addAttribute("lessonPlan", lessonPlan);
+			
+			return "lessonplans";		
+		} else {
+			return "error";
+		}		
+	}
+	
+	@GetMapping("/test/withListening")//Only works if test Profile is used (spring.profiles.active=test)
+	public String displaylessonPlansWithListeningSelected(Model theModel)  {
+		if (Arrays.asList(env.getActiveProfiles()).contains("test")){
+			
+			LessonPlan lessonPlan = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+					.build();
+			lessonPlan.setListening(true);
+			
+			initCheckboxes(lessonPlan); //ensure preparation time and lesson time radio buttons start unselected
+			
+			processCheckboxesToCheck(theModel, lessonPlan);
+			
+			theModel.addAttribute("lessonPlan", lessonPlan);
+			
+			return "lessonplans";		
+		} else {
+			return "error";
+		}		
+	}
+	
+	@GetMapping("/test/withSong")//Only works if test Profile is used (spring.profiles.active=test)
+	public String displaylessonPlansWithSongSelected(Model theModel)  {
+		if (Arrays.asList(env.getActiveProfiles()).contains("test")){
+			
+			LessonPlan lessonPlan = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+					.build();
+			lessonPlan.setSong(true);
+			
+			initCheckboxes(lessonPlan); //ensure preparation time and lesson time radio buttons start unselected
+			
+			processCheckboxesToCheck(theModel, lessonPlan);
+			
+			theModel.addAttribute("lessonPlan", lessonPlan);
+			
+			return "lessonplans";		
+		} else {
+			return "error";
+		}		
+	}
+	
+	@GetMapping("/test/withSpeakingOnlyAndNoPrinted")//Only works if test Profile is used (spring.profiles.active=test)
+	public String displaylessonPlansWithSpeakingOnlyAndNoPrintedSelected(Model theModel)  {
+		if (Arrays.asList(env.getActiveProfiles()).contains("test")){
+			
+			LessonPlan lessonPlan = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+					.build();
+			lessonPlan.setSpeakingAmount(SpeakingAmount.SPEAKING_ONLY);
+			lessonPlan.setNoPrintedMaterialsNeeded(true);
+			
+			initCheckboxes(lessonPlan); //ensure preparation time and lesson time radio buttons start unselected
+			
+			processCheckboxesToCheck(theModel, lessonPlan);
+			
+			theModel.addAttribute("lessonPlan", lessonPlan);
+			
+			return "lessonplans";		
+		} else {
+			return "error";
+		}		
+	}
+	
+	@GetMapping("/test/withLessonTime90mins")//Only works if test Profile is used (spring.profiles.active=test)
+	public String displaylessonPlansWithLessonTime90minsSelected(Model theModel)  {
+		if (Arrays.asList(env.getActiveProfiles()).contains("test")){
+			
+			LessonPlan lessonPlan = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+					.build();
+			lessonPlan.setPreparationTime(null);
+			lessonPlan.setLessonTime(LessonTime.NINETY);
+			
+			//Do not call initCheckboxes (unlike other tests). This time we do not want to set both radio buttons to null because one is beign tested.
+			
+			processCheckboxesToCheck(theModel, lessonPlan);
+			
+			theModel.addAttribute("lessonPlan", lessonPlan);
+			
+			return "lessonplans";		
+		} else {
+			return "error";
+		}		
 	}
 	
 	
