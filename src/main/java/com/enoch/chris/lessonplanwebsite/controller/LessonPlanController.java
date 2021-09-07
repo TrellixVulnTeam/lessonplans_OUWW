@@ -136,10 +136,10 @@ public class LessonPlanController {
 			//Logic in get method to avoid hibernate lazy initialisation error.
 			LessonPlan lessonPlan = (LessonPlan) theModel.getAttribute("lessonPlan");
 			//must call the following to avoid hibernate lazy initialisation error.
-			Set<Topic> topics = lessonPlan.getTopics();
-			topics.stream().forEach(Topic::getRelatedTags);
-			lessonPlan.getTags();
-			lessonPlan.getGrammar();
+//			Set<Topic> topics = lessonPlan.getTopics();
+//			topics.stream().forEach(Topic::getRelatedTags);
+//			lessonPlan.getTags();
+//			lessonPlan.getGrammar();
 			
 
 			System.out.println("Values of lessonPlan sent by user: " + lessonPlan);

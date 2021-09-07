@@ -395,18 +395,6 @@ public class LessonPlan {
 	
 	
 
-	@Override
-	public String toString() {
-		return "LessonPlan [id=" + id + ", title=" + title + ", dateAdded=" + dateAdded + ", assignedSubscription="
-				+ assignedSubscription + ", type=" + type + ", age=" + age + ", speakingAmount=" + speakingAmount
-				+ ", topics=" + topics + ", picture=" + picture + ", lessonTime=" + lessonTime + ", listening="
-				+ listening + ", vocabulary=" + vocabulary + ", reading=" + reading + ", writing=" + writing
-				+ ", video=" + video + ", song=" + song + ", funClass=" + funClass + ", games=" + games + ", jigsaw="
-				+ jigsaw + ", translation=" + translation + ", preparationTime=" + preparationTime
-				+ ", noPrintedMaterialsNeeded=" + noPrintedMaterialsNeeded + ", grammar=" + grammar + ", tags=" + tags
-				+ "]";
-	}
-
 	public static class LessonPlanBuilder {
 		
 		private int id; // database automatically generates so id is optional

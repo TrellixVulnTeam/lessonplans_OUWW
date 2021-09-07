@@ -28,34 +28,34 @@ public class ErrorConfiguration implements ErrorController  {
 //          errorAttributes.getErrorAttributes(webRequest, true);
     	
     	
-    	Enumeration<String> e = request.getAttributeNames();
+//    	Enumeration<String> e = request.getAttributeNames();
+//    	
+//    	System.out.println("Request attribute names");
+//    	while (e.hasMoreElements()) {
+//    	    String param = e.nextElement();
+//    	    System.out.println(param);
+//    	}
     	
-    	System.out.println("Request attribute names");
-    	while (e.hasMoreElements()) {
-    	    String param = e.nextElement();
-    	    System.out.println(param);
-    	}
-    	
-    	Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
-    	Integer statusCode = Integer.valueOf(status.toString());
-    	System.out.println("Error details status code " + statusCode);
-    	System.out.println("Error details other information " 
-    			+ request.getAttribute(RequestDispatcher.ERROR_MESSAGE));
-    	System.out.println("exception one " + request.getAttribute(RequestDispatcher.ERROR_EXCEPTION));	
-    	
+//    	Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
+//    	Integer statusCode = Integer.valueOf(status.toString());
+//    	System.out.println("Error details status code " + statusCode);
+//    	System.out.println("Error details other information " 
+//    			+ request.getAttribute(RequestDispatcher.ERROR_MESSAGE));
+//    	System.out.println("exception one " + request.getAttribute(RequestDispatcher.ERROR_EXCEPTION));	
+//    	
 //    	System.out.println("debugging - inside handle error - ErrorConfiguration");
 //    	System.out.println("Error details " + request.getAttribute(RequestDispatcher.ERROR_MESSAGE));
 //    	
 //    	Exception exception = (Exception) request.getAttribute("javax.servlet.error.exception");
 //    	exception.getMessage();
     	
-    	if (status != null) {
-    		
-    		System.out.println("inside if status!= null | ErrorConfiguration");
-    		System.out.println("Error details");
-    		
-
-        }
+//    	if (status != null) {
+//    		
+//    		System.out.println("inside if status!= null | ErrorConfiguration");
+//    		System.out.println("Error details");
+//    		
+//
+//        }
     	
 
         return "redirect:/showerror";

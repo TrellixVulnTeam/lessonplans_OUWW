@@ -112,19 +112,6 @@ public class LessonPlanControllerTest {
 		if (!theModel.containsAttribute("lessonPlan")) {
 			List<LessonPlan> lessonPlans = lessonPlanRepository.findAll();	
 			
-			
-//			System.out.println("Print topics in get");
-//			 List<List<Topic>> topics = lessonPlans.stream().map(lp -> lp.getTopics()).collect(Collectors.toList());
-//			 System.out.println("AFTER GET ONE");
-//			 List<Topic> firstTopics = topics.get(0);
-//			 System.out.println("AFTER GET TWO");
-//			 firstTopics.forEach(System.out::println);
-//			 
-//			 System.out.println("name " + firstTopics.get(0).getName());
-//			 System.out.println("id " + firstTopics.get(0).getId());
-//			 System.out.println("tags " + firstTopics.get(0).getRelatedTags());
-//			 
-
 			//add to model
 			theModel.addAttribute("lessonPlans", lessonPlans);
 			LessonPlan lessonPlan = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null).build();
@@ -135,31 +122,37 @@ public class LessonPlanControllerTest {
 
 			theModel.addAttribute("lessonPlan",lessonPlan);
 		} else { //lesson plans have been  filtered by user
-			//Logic in get method to avoid hibernate lazy initialisation error.
 			LessonPlan lessonPlan = (LessonPlan) theModel.getAttribute("lessonPlan");
-			//must call the following to avoid hibernate lazy initialisation error.
-			Set<Topic> topics = lessonPlan.getTopics();
-			topics.stream().forEach(Topic::getRelatedTags);
-			lessonPlan.getTags();
-			lessonPlan.getGrammar();
 			
 			System.out.println("Values of lessonPlan sent by user: " + lessonPlan);
 			
-			 List<LessonPlan> lessonPlansFiltered = lessonPlanService.findSearchedLessonPlans(lessonPlan);
-			 List<String> checkboxesToCheck = LessonPlanUtils.saveSelectedCheckboxes(lessonPlan);
+			 processCheckboxesToCheck(theModel, lessonPlan);
 			 
-			 theModel.addAttribute("lessonPlans", lessonPlansFiltered);
-			 theModel.addAttribute("checkboxesToCheck", checkboxesToCheck);
-			 
-			 System.out.println("Values of lessonPlan sent by user: " + lessonPlan);
 		}
 
 		return "lessonplans";
 	}
-	
-	@GetMapping
-	public String displaylessonPlansWithSubscriptionSelected() {
+
+
+	@GetMapping("/test")
+	public String testMethod(Model theModel) {
+		System.out.println("Inside test plese work");
 		
+		return "result";
+	}
+	
+	@GetMapping("/withB2subscription")
+	public String displaylessonPlansWithSubscriptionSelected(Model theModel) {	
+		System.out.println("Inside withB2subscription");
+		
+		LessonPlan lessonPlan = new LessonPlan.LessonPlanBuilder(null, null, new Subscription("B2"), null, 0, null, null, null).build();		
+		processCheckboxesToCheck(theModel, lessonPlan);
+		
+		System.out.println("Values of lessonPlan " + lessonPlan);
+		
+		
+		theModel.addAttribute("lessonPlan", lessonPlan);
+//		
 //		Values of lessonPlan sent by user: LessonPlan [id=0, title=null, dateAdded=null,
 //				assignedSubscription=com.enoch.chris.lessonplanwebsite.entity.Subscription@86d,
 //				type=null, age=0, speakingAmount=null, topics=[], picture=null, lessonTime=null,
@@ -170,38 +163,41 @@ public class LessonPlanControllerTest {
 		return "lessonplans";
 	}
 	
-	@GetMapping
-	public String displaylessonPlansWithTopicSelected() {
-		
-
-		
-		return "lessonplans";
+	private void processCheckboxesToCheck(Model theModel, LessonPlan lessonPlan) {
+		List<LessonPlan> lessonPlansFiltered = lessonPlanService.findSearchedLessonPlans(lessonPlan);
+		 List<String> checkboxesToCheck = LessonPlanUtils.saveSelectedCheckboxes(lessonPlan);		 
+		 theModel.addAttribute("lessonPlans", lessonPlansFiltered);
+		 theModel.addAttribute("checkboxesToCheck", checkboxesToCheck);
+		 
+		 System.out.println("lessonPlansFiltered: " + lessonPlansFiltered);
+		 System.out.println("length of lessonPlansFiltered: " + lessonPlansFiltered.size());
 	}
 	
-	@GetMapping
-	public String displaylessonPlansWithTwoTopicsSelected() {
-		
-
-		
-		return "lessonplans";
-	}
 	
-	@GetMapping
-	public String displaylessonPlansWithGrammarSelected() {
-		
-
-		
-		return "lessonplans";
-	}
-	
-	@GetMapping
-	public String displaylessonPlansWithTagsSelected() {
-		
-
-		
-		return "lessonplans";
-	}
-	
+//	@GetMapping
+//	public String displaylessonPlansWithTopicSelected() {
+//		
+//
+//		
+//		return "lessonplans";
+//	}
+//	
+//	@GetMapping
+//	public String displaylessonPlansWithTwoTopicsSelected() {
+//		
+//
+//		
+//		return "lessonplans";
+//	}
+//	
+//	@GetMapping
+//	public String displaylessonPlansWithGrammarSelected() {
+//		
+//
+//		
+//		return "lessonplans";
+//	}
+//	
 //	@GetMapping
 //	public String displaylessonPlansWithTagsSelected() {
 //		
@@ -210,13 +206,21 @@ public class LessonPlanControllerTest {
 //		return "lessonplans";
 //	}
 	
-	@GetMapping
-	public String displaylessonPlansWithAllFieldsSelected() {
-		
-
-		
-		return "lessonplans";
-	}
+//	@GetMapping
+//	public String displaylessonPlansWithTagsSelected() {
+//		
+//
+//		
+//		return "lessonplans";
+//	}
+//	
+//	@GetMapping
+//	public String displaylessonPlansWithAllFieldsSelected() {
+//		
+//
+//		
+//		return "lessonplans";
+//	}
 	
 	
 	@PostMapping()
@@ -227,231 +231,9 @@ public class LessonPlanControllerTest {
 		 return "redirect:/lessonplans";
 	}
 	
-	@GetMapping("/A1")
-	public String displayA1(Model theModel,HttpSession session
-			, @RequestParam("id") Optional<Integer> lessonId) {	
-		
-			if(lessonId.isPresent()) {		
-				//get lesson by id
-				Optional<LessonPlan> lp =lessonPlanRepository.findById(lessonId.get());
-					if (lp.isPresent()){
-						
-						System.out.println("LP present");
-						
-						return checkUserIsSubscribed(theModel, session, lp, "A1");
-					}
-					System.out.println("LP not present");
-					return "error/lessonplannotfound";
-												
-			} else {
-				//return page with all B2 lesson plans on
-				return "redirect:/lessonplans";
-				
-			}	
-		
-	}
-	
-	@GetMapping("/A2")
-	public String displayA2(Model theModel,HttpSession session
-			, @RequestParam("id") Optional<Integer> lessonId) {	
-		
-			if(lessonId.isPresent()) {		
-				//get lesson by id
-				Optional<LessonPlan> lp =lessonPlanRepository.findById(lessonId.get());
-					if (lp.isPresent()){
-						
-						System.out.println("LP present");
-						
-						return checkUserIsSubscribed(theModel, session, lp, "A2");
-					}
-					System.out.println("LP not present");
-					return "error/lessonplannotfound";
-												
-			} else {
-				//return page with all B2 lesson plans on
-				return "redirect:/lessonplans";
-				
-			}	
-		
-	}
-	
-	@GetMapping("/B1")
-	public String displayB1(Model theModel,HttpSession session
-			, @RequestParam("id") Optional<Integer> lessonId) {	
-		
-			if(lessonId.isPresent()) {		
-				//get lesson by id
-				Optional<LessonPlan> lp =lessonPlanRepository.findById(lessonId.get());
-					if (lp.isPresent()){
-						
-						System.out.println("LP present");
-						
-						return checkUserIsSubscribed(theModel, session, lp, "B1");
-					}
-					System.out.println("LP not present");
-					return "error/lessonplannotfound";
-												
-			} else {
-				//return page with all B2 lesson plans on
-				return "redirect:/lessonplans";
-				
-			}	
-		
-	}
-	
-	@GetMapping("/B2")
-	public String displayB2(Model theModel,HttpSession session
-			, @RequestParam("id") Optional<Integer> lessonId) {	
-		
-			if(lessonId.isPresent()) {		
-				//get lesson by id
-				Optional<LessonPlan> lp =lessonPlanRepository.findById(lessonId.get());
-					if (lp.isPresent()){
-						
-						System.out.println("LP present");
-						
-						return checkUserIsSubscribed(theModel, session, lp, "B2");
-					}
-					System.out.println("LP not present");
-					return "error/lessonplannotfound";
-												
-			} else {
-				//return page with all B2 lesson plans on
-				return "redirect:/lessonplans";
-				
-			}	
-		
-	}
-	
-	@GetMapping("/B2PLUS")
-	public String displayB2Plus(Model theModel,HttpSession session
-			, @RequestParam("id") Optional<Integer> lessonId) {	
-		
-			if(lessonId.isPresent()) {		
-				//get lesson by id
-				Optional<LessonPlan> lp =lessonPlanRepository.findById(lessonId.get());
-					if (lp.isPresent()){
-						
-						System.out.println("LP present");
-						
-						return checkUserIsSubscribed(theModel, session, lp, "B2PLUS");
-					}
-					System.out.println("LP not present");
-					return "error/lessonplannotfound";
-												
-			} else {
-				//return page with all B2 lesson plans on
-				return "redirect:/lessonplans";
-				
-			}		
-	}
-	
-	@GetMapping("/C1")
-	public String displayC1(Model theModel,HttpSession session
-			, @RequestParam("id") Optional<Integer> lessonId) {	
-		
-			if(lessonId.isPresent()) {		
-				//get lesson by id
-				Optional<LessonPlan> lp =lessonPlanRepository.findById(lessonId.get());
-					if (lp.isPresent()){
-						
-						System.out.println("LP present");
-						
-						return checkUserIsSubscribed(theModel, session, lp, "C1");
-					}
-					System.out.println("LP not present");
-					return "error/lessonplannotfound";
-												
-			} else {
-				//return page with all B2 lesson plans on
-				return "redirect:/lessonplans";
-				
-			}		
-	}
-	
-	@GetMapping("/C1PLUS")
-	public String displayC1Plus(Model theModel,HttpSession session
-			, @RequestParam("id") Optional<Integer> lessonId) {	
-		
-			if(lessonId.isPresent()) {		
-				//get lesson by id
-				Optional<LessonPlan> lp =lessonPlanRepository.findById(lessonId.get());
-					if (lp.isPresent()){
-						
-						System.out.println("LP present");
-						
-						return checkUserIsSubscribed(theModel, session, lp, "C1PLUS");
-					}
-					System.out.println("LP not present");
-					return "error/lessonplannotfound";
-												
-			} else {
-				//return page with all B2 lesson plans on
-				return "redirect:/lessonplans";
-				
-			}		
-	}
-	
-	@GetMapping("/C2")
-	public String displayC2(Model theModel,HttpSession session
-			, @RequestParam("id") Optional<Integer> lessonId) {	
-		
-			if(lessonId.isPresent()) {		
-				//get lesson by id
-				Optional<LessonPlan> lp =lessonPlanRepository.findById(lessonId.get());
-					if (lp.isPresent()){
-						
-						System.out.println("LP present");
-						
-						return checkUserIsSubscribed(theModel, session, lp, "C2");
-					}
-					System.out.println("LP not present");
-					return "error/lessonplannotfound";
-												
-			} else {
-				//return page with all B2 lesson plans on
-				return "redirect:/lessonplans";
-				
-			}		
-	}
 	
 
-	private String checkUserIsSubscribed(Model theModel, HttpSession session, Optional<LessonPlan> lp, String subscriptionToCheck) {
-
-		//check lesson is level specified in url
-		if (!lp.get().getAssignedSubscription().getName().equals(subscriptionToCheck)) { //if plan does not exist for this level, return		
-			System.out.println("debug b2 not found");
-			return "error/lessonplannotfound";
-		}
-		
-		//set lessonPlan variable
-		theModel.addAttribute("lp", lp.get());
-		
-		
-		//get user active subscriptions
-		User theUser = (User)session.getAttribute("user");
-		
-		List<Subscription> activeSubscriptions = subscriptionRepository
-				.findActiveSubscriptions(theUser, LocalDateTime.now());
-		
-		boolean isActive = activeSubscriptions.stream().anyMatch(s -> s.getName().equals(subscriptionToCheck));				
-		
-		//add user active subscriptions to model
-		theModel.addAttribute(subscriptionToCheck+"active", isActive);
-		System.out.println("debug model active " + subscriptionToCheck+"active");
-		
-		System.out.println("isActive " + isActive);
-		
-		System.out.println("toute to direct to " + "/lessonplans/" + subscriptionToCheck + "/" + lp.get().getTitle());
-		
-		//Strip title of spaces to produce filename
-		String titleNoSpace = lp.get().getTitle().replaceAll("\\s", "");
-		
-		theModel.addAttribute("lessonPlanToInclude", titleNoSpace.toLowerCase() + ".html");
-		
-		//return "/lessonplans/" + subscriptionToCheck + "/" + titleNoSpace;
-		return "/lessonplans/" + subscriptionToCheck + "/" + subscriptionToCheck + "template";
-	}
+	
 	
 	
 //	@GetMapping("/checkmethod")
@@ -475,18 +257,7 @@ public class LessonPlanControllerTest {
 //
 //		return "lessonplans";		
 //	}
-	
-	
-	@GetMapping("/search")
-	public String displayFilteredLessonPlans(Model theModel, HttpSession session) {	
 
-		
-		
-		return "lessonplans";
-	}
-	
-	
-	
 }
 
 
