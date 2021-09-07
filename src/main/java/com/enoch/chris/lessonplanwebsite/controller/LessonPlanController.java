@@ -25,6 +25,7 @@ import javax.servlet.http.HttpSession;
 
 import org.hibernate.engine.jdbc.spi.TypeSearchability;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -66,6 +67,9 @@ public class LessonPlanController {
 	private TopicRepository topicRepository;
 	private GrammarRepository grammarRepository;
 	private TagRepository tagRepository;
+	
+	@Autowired
+	Environment env;
 	
 	@Autowired
 	public LessonPlanController(LessonPlanRepository lessonPlanRepository,
@@ -132,28 +136,43 @@ public class LessonPlanController {
 			lessonPlan.setLessonTime(null);
 
 			theModel.addAttribute("lessonPlan",lessonPlan);
-		} else { //lesson plans have been  filtered by user
-			//Logic in get method to avoid hibernate lazy initialisation error.
-			LessonPlan lessonPlan = (LessonPlan) theModel.getAttribute("lessonPlan");
-			//must call the following to avoid hibernate lazy initialisation error.
-//			Set<Topic> topics = lessonPlan.getTopics();
-//			topics.stream().forEach(Topic::getRelatedTags);
-//			lessonPlan.getTags();
-//			lessonPlan.getGrammar();
+		} else { 
+			LessonPlan lessonPlan = (LessonPlan) theModel.getAttribute("lessonPlan");		
+			System.out.println("Values of lessonPlan sent by user: " + lessonPlan);	
+			 processCheckboxesToCheck(theModel, lessonPlan);
 			
-
-			System.out.println("Values of lessonPlan sent by user: " + lessonPlan);
-			
-			 List<LessonPlan> lessonPlansFiltered = lessonPlanService.findSearchedLessonPlans(lessonPlan);
-			 List<String> checkboxesToCheck = LessonPlanUtils.saveSelectedCheckboxes(lessonPlan);
-			 
-			 theModel.addAttribute("lessonPlans", lessonPlansFiltered);
-			 theModel.addAttribute("checkboxesToCheck", checkboxesToCheck);
 		}
 
 		return "lessonplans";
 	}
 	
+	@GetMapping("/test/withb2subscription")//Only works if test Profile is used (spring.profiles.active=test)
+	public String displaylessonPlansWithSubscriptionSelected(Model theModel)  {
+		if (Arrays.asList(env.getActiveProfiles()).contains("test")){
+			System.out.println("Cool profile method worked");
+			
+			System.out.println("Inside withB2subscription");
+			
+			LessonPlan lessonPlan = new LessonPlan.LessonPlanBuilder(null, null, new Subscription("B2"), null, 0, null, null, null).build();		
+			processCheckboxesToCheck(theModel, lessonPlan);
+			
+			System.out.println("Values of lessonPlan " + lessonPlan);
+			
+			
+			theModel.addAttribute("lessonPlan", lessonPlan);
+//			
+//			Values of lessonPlan sent by user: LessonPlan [id=0, title=null, dateAdded=null,
+//					assignedSubscription=com.enoch.chris.lessonplanwebsite.entity.Subscription@86d,
+//					type=null, age=0, speakingAmount=null, topics=[], picture=null, lessonTime=null,
+//					listening=false, vocabulary=false, reading=false, writing=false, video=false, 
+//					song=false, funClass=false, games=false, jigsaw=false, translation=false,
+//					preparationTime=null, noPrintedMaterialsNeeded=false, grammar=[], tags=null]
+//			
+			return "lessonplans";		
+		} else {
+			return "error";
+		}		
+	}
 	
 	@PostMapping()
 	public String checkboxTest(final LessonPlan lessonPlan, Model theModel, RedirectAttributes redirectAttributes)  {
@@ -421,6 +440,15 @@ public class LessonPlanController {
 		return "lessonplans";
 	}
 	
+	private void processCheckboxesToCheck(Model theModel, LessonPlan lessonPlan) {
+		List<LessonPlan> lessonPlansFiltered = lessonPlanService.findSearchedLessonPlans(lessonPlan);
+		 List<String> checkboxesToCheck = LessonPlanUtils.saveSelectedCheckboxes(lessonPlan);		 
+		 theModel.addAttribute("lessonPlans", lessonPlansFiltered);
+		 theModel.addAttribute("checkboxesToCheck", checkboxesToCheck);
+		 
+		 System.out.println("lessonPlansFiltered: " + lessonPlansFiltered);
+		 System.out.println("length of lessonPlansFiltered: " + lessonPlansFiltered.size());
+	}
 	
 	
 }
