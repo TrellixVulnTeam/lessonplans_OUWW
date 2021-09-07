@@ -35,17 +35,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 //@WebMvcTest
 @AutoConfigureMockMvc
 class LessonPlanWebsiteApplicationTests {
-//	private CostOfLivingService costOfLivingService;
-//	private COLIndexModelAssemblerNew assembler;
-
-//	@Autowired
-//	public CostOfLivingApplicationTests(CostOfLivingService costOfLivingService, COLIndexModelAssemblerNew assembler) {
-//		this.costOfLivingService = costOfLivingService;
-//		this.assembler = assembler;
-//	}
-//
-//	@Autowired
-//	private COLController colController;
 	
 	@Autowired
 	private MockMvc mockMvc;
@@ -61,7 +50,7 @@ class LessonPlanWebsiteApplicationTests {
 	@Test
 	public void shouldReturnLessonPlans() throws Exception {
 
-		this.mockMvc.perform(get("/lessonplanstest")).andExpect(content()
+		this.mockMvc.perform(get("/lessonplans")).andExpect(content()
 				.string(containsString("Famous People")))
 		.andExpect(content()
 				.string(containsString("Driverless Cars")))
@@ -79,6 +68,102 @@ class LessonPlanWebsiteApplicationTests {
 				.string(containsString("Beach Activities")))
 		.andExpect(content()	
 		.string(containsString("Artifical Intelligence")))
+		.andDo(print()).andExpect(status().isOk());	
+	}
+	
+	@Test
+	public void shouldReturnB2LevelLessonPlans() throws Exception {
+
+		this.mockMvc.perform(get("/lessonplans/test/withb2subscription"))
+		.andExpect(content()
+				.string(containsString("Driverless Cars")))
+		.andExpect(content()
+				.string(containsString("Olympic Village")))
+		.andExpect(content()
+				.string(containsString("Daredevils")))			
+		.andExpect(content()
+				.string(containsString("Beach Activities")))
+		.andDo(print()).andExpect(status().isOk());	
+	}
+	
+	@Test
+	public void shouldReturnTechnologyTopicLessonPlans() throws Exception {
+
+		this.mockMvc.perform(get("/lessonplans/test/withTopic"))
+		.andExpect(content()
+				.string(containsString("Driverless Cars")))
+		.andExpect(content()
+				.string(containsString("Electric Car Conspiracy")))	
+		.andExpect(content()
+				.string(containsString("Phone")))
+		.andExpect(content()	
+		.string(containsString("Artifical Intelligence")))
+		.andDo(print()).andExpect(status().isOk());	
+	}
+	
+	@Test
+	public void shouldReturnTechnologyAndTransportTopicLessonPlans() throws Exception {
+
+		this.mockMvc.perform(get("/lessonplans/test/withTwoTopics"))
+		.andExpect(content()
+				.string(containsString("Driverless Cars")))
+		.andExpect(content()
+				.string(containsString("Electric Car Conspiracy")))	
+		.andDo(print()).andExpect(status().isOk());	
+	}
+	
+	@Test
+	public void shouldReturnFirstConditionalGrammarLessonPlans() throws Exception {
+
+		this.mockMvc.perform(get("/lessonplans/test/withTopic"))
+		.andExpect(content()
+				.string(containsString("Phone")))
+		.andDo(print()).andExpect(status().isOk());	
+	}
+	
+	@Test
+	public void shouldReturnAdjectivesAndAdverbsGrammarLessonPlans() throws Exception {
+
+		this.mockMvc.perform(get("/lessonplans/test/withTwoGrammar")).andExpect(content()
+				.string(containsString("Famous People")))
+		.andDo(print()).andExpect(status().isOk());	
+	}
+	
+	@Test
+	public void shouldReturnListeningLessonPlans() throws Exception {
+		this.mockMvc.perform(get("/lessonplans/test/withListening")).andExpect(content()
+				.string(containsString("Famous People")))
+		.andExpect(content()
+				.string(containsString("Driverless Cars")))
+		.andExpect(content()
+				.string(containsString("Daredevils")))			
+		.andExpect(content()		
+				.string(containsString("Beach Activities")))
+		.andExpect(content()	
+		.string(containsString("Artifical Intelligence")))
+		.andDo(print()).andExpect(status().isOk());	
+	}
+	
+	@Test
+	public void shouldReturnSongLessonPlans() throws Exception {
+		this.mockMvc.perform(get("/lessonplans/test/withSong")).andExpect(content()
+				.string(containsString("Environment Strike")))			
+		.andDo(print()).andExpect(status().isOk());	
+	}
+	
+	@Test
+	public void shouldReturnSpeakingOnlyAndNoPrintedLessonPlans() throws Exception {
+		this.mockMvc.perform(get("/lessonplans/test/withSpeakingOnlyAndNoPrinted")).andExpect(content()
+				.string(containsString("Famous People")))	
+		.andDo(print()).andExpect(status().isOk());	
+	}
+	
+	@Test
+	public void shouldReturnNinetyMinuteLessonPlans() throws Exception {
+		this.mockMvc.perform(get("/lessonplans/test/withLessonTime90mins")).andExpect(content()
+						.string(containsString("Driverless Cars")))		
+				.andExpect(content()
+						.string(containsString("Phone")))
 		.andDo(print()).andExpect(status().isOk());	
 	}
 	
