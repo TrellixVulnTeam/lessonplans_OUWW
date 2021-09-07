@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -124,7 +125,7 @@ public class AdminController {
 	@PostMapping("/admin/edit")
 	public String editOrAddLessonPlan(final LessonPlan lessonPlan, Model theModel) {
 		theModel.addAttribute("lessonPlan", lessonPlan);
-		theModel.addAttribute("lessonTitle", lessonPlan.getTitle());
+		//theModel.addAttribute("lessonTitle", lessonPlan.getTitle());
 		
 		//if lesson plan does not include date, it is being added not edited. Must include date as date cannot be set to null in database.
 		if (lessonPlan.getDateAdded() == null) {
@@ -139,7 +140,7 @@ public class AdminController {
 		
 		System.out.println("debug picture " + lessonPlan.getPicture());
 		
-		//save updated lesson to database
+		//save new or updated lesson to database
 		lessonPlanRepository.save(lessonPlan);
 		
 		//send lessonplans
@@ -167,7 +168,7 @@ public class AdminController {
 	        // check if file is empty
 	        if (file.isEmpty()) {
 	            attributes.addFlashAttribute("message", "Please select a file to upload.");
-	            return "redirect:/";
+	            return "redirect:/admin/upload";
 	        }
 
 	        // normalize the file path
@@ -262,7 +263,7 @@ public class AdminController {
 		Tag tag2 = tagRepository.findByName("business tips").get();
 		
 		//add them to topic
-		Topic topic = new Topic("entrepreneur", Arrays.asList(tag, tag2));
+		Topic topic = new Topic("entrepreneur", new HashSet<>(Arrays.asList(tag, tag2)));
 		
 		//save topic
 		topicRepository.save(topic);

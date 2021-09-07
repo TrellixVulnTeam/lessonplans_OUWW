@@ -55,9 +55,9 @@ public class AccountController {
 		LinkedHashSet<Subscription> activeSubscriptions = subcriptionRepository.findActiveSubscriptionsOrderByName(user, LocalDateTime.now())
 				.stream().collect(Collectors.toCollection(LinkedHashSet::new));	
 		
-		//send a list of SubscriptionUtils with activeSubscriptions in. They must be in order.
-		List<SubscriptionUtils> activeSubscriptionUtils = activeSubscriptions.stream().map(sub -> new SubscriptionUtils(sub, user, purchaseRepository))
-				.collect(Collectors.toList());
+		//Send a list of SubscriptionUtils with activeSubscriptions in. They must be in order.
+		List<SubscriptionUtils> activeSubscriptionUtils = activeSubscriptions.stream()
+				.map(sub -> new SubscriptionUtils(sub, user, purchaseRepository)).collect(Collectors.toList());
 		
 		//find non.active subscriptions
 		LinkedHashSet<Subscription> nonActiveSubscriptions = subscriptionService.findNonActiveSubscriptions(activeSubscriptions

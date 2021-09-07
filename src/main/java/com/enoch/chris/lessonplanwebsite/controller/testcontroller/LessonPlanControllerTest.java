@@ -1,4 +1,4 @@
-package com.enoch.chris.lessonplanwebsite.controller;
+package com.enoch.chris.lessonplanwebsite.controller.testcontroller;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -25,6 +25,7 @@ import javax.servlet.http.HttpSession;
 
 import org.hibernate.engine.jdbc.spi.TypeSearchability;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -57,8 +58,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
-@RequestMapping("/lessonplans")
-public class LessonPlanController {
+@RequestMapping("/lessonplanstest")
+@Profile("test")
+public class LessonPlanControllerTest {
 	
 	private LessonPlanRepository lessonPlanRepository;
 	private SubscriptionRepository subscriptionRepository;
@@ -68,7 +70,7 @@ public class LessonPlanController {
 	private TagRepository tagRepository;
 	
 	@Autowired
-	public LessonPlanController(LessonPlanRepository lessonPlanRepository,
+	public LessonPlanControllerTest(LessonPlanRepository lessonPlanRepository,
 			SubscriptionRepository subscriptionRepository, LessonPlanService lessonPlanService,
 			TopicRepository topicRepository, GrammarRepository grammarRepository, TagRepository tagRepository) {
 		super();
@@ -141,7 +143,6 @@ public class LessonPlanController {
 			lessonPlan.getTags();
 			lessonPlan.getGrammar();
 			
-
 			System.out.println("Values of lessonPlan sent by user: " + lessonPlan);
 			
 			 List<LessonPlan> lessonPlansFiltered = lessonPlanService.findSearchedLessonPlans(lessonPlan);
@@ -149,8 +150,71 @@ public class LessonPlanController {
 			 
 			 theModel.addAttribute("lessonPlans", lessonPlansFiltered);
 			 theModel.addAttribute("checkboxesToCheck", checkboxesToCheck);
+			 
+			 System.out.println("Values of lessonPlan sent by user: " + lessonPlan);
 		}
 
+		return "lessonplans";
+	}
+	
+	@GetMapping
+	public String displaylessonPlansWithSubscriptionSelected() {
+		
+//		Values of lessonPlan sent by user: LessonPlan [id=0, title=null, dateAdded=null,
+//				assignedSubscription=com.enoch.chris.lessonplanwebsite.entity.Subscription@86d,
+//				type=null, age=0, speakingAmount=null, topics=[], picture=null, lessonTime=null,
+//				listening=false, vocabulary=false, reading=false, writing=false, video=false, 
+//				song=false, funClass=false, games=false, jigsaw=false, translation=false,
+//				preparationTime=null, noPrintedMaterialsNeeded=false, grammar=[], tags=null]
+//		
+		return "lessonplans";
+	}
+	
+	@GetMapping
+	public String displaylessonPlansWithTopicSelected() {
+		
+
+		
+		return "lessonplans";
+	}
+	
+	@GetMapping
+	public String displaylessonPlansWithTwoTopicsSelected() {
+		
+
+		
+		return "lessonplans";
+	}
+	
+	@GetMapping
+	public String displaylessonPlansWithGrammarSelected() {
+		
+
+		
+		return "lessonplans";
+	}
+	
+	@GetMapping
+	public String displaylessonPlansWithTagsSelected() {
+		
+
+		
+		return "lessonplans";
+	}
+	
+//	@GetMapping
+//	public String displaylessonPlansWithTagsSelected() {
+//		
+//
+//		
+//		return "lessonplans";
+//	}
+	
+	@GetMapping
+	public String displaylessonPlansWithAllFieldsSelected() {
+		
+
+		
 		return "lessonplans";
 	}
 	
