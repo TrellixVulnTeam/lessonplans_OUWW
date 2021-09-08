@@ -8,8 +8,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.assertj.core.util.Arrays;
 import org.hibernate.Hibernate;
@@ -22,6 +24,7 @@ import com.enoch.chris.lessonplanwebsite.dao.LessonPlanRepository;
 import com.enoch.chris.lessonplanwebsite.dao.PurchaseRepository;
 import com.enoch.chris.lessonplanwebsite.dao.SubscriptionRepository;
 import com.enoch.chris.lessonplanwebsite.dao.UserRepository;
+import com.enoch.chris.lessonplanwebsite.entity.Grammar;
 import com.enoch.chris.lessonplanwebsite.entity.LessonPlan;
 import com.enoch.chris.lessonplanwebsite.entity.PreparationTime;
 import com.enoch.chris.lessonplanwebsite.entity.SpeakingAmount;
@@ -201,9 +204,139 @@ public class LessonPlanIntegrationTests {
 		
 		//ASSERT
 		assertThat(lessonPlans).hasSameElementsAs(expectedValues);
+	}
+	
+	@Test
+	public void shouldReturnLpsWithReadingAndWriting(){
+		//ARRANGE
+		List<LessonPlan> expectedValues = new ArrayList<>();
+		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+				.lessonTime(null).preparationTime(null).build();
+		lp1.setId(50);	
+		
+		LessonPlan lp2 = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+				.lessonTime(null).preparationTime(null).build();
+		lp2.setId(52);	
+				
+		
+		expectedValues.add(lp1);
+		expectedValues.add(lp2);
+		
+
+		//ACT
+		LessonPlan lpSearchParams = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+				.lessonTime(null).preparationTime(null).isReading(true).isWriting(true).build();
+		List<LessonPlan> lessonPlans = lessonPlanService.findSearchedLessonPlans(lpSearchParams);
+		
+		System.out.println("Print lesson plan info");
+		lessonPlans.forEach(lp-> System.out.println(lp.getId() + lp.getTitle()));
+		
+		//ASSERT
+		assertThat(lessonPlans).hasSameElementsAs(expectedValues);
 		
 
 	}
+	
+	@Test
+	public void shouldReturnLpsWithFunAndGames(){
+		//ARRANGE
+		List<LessonPlan> expectedValues = new ArrayList<>();
+		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+				.lessonTime(null).preparationTime(null).build();
+		lp1.setId(53);	
+			
+		expectedValues.add(lp1);
+
+		
+		//ACT
+		LessonPlan lpSearchParams = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+				.lessonTime(null).preparationTime(null).isFunClass(true).isGames(true).build();
+		List<LessonPlan> lessonPlans = lessonPlanService.findSearchedLessonPlans(lpSearchParams);
+		
+		System.out.println("Print lesson plan info");
+		lessonPlans.forEach(lp-> System.out.println(lp.getId() + lp.getTitle()));
+		
+		//ASSERT
+		assertThat(lessonPlans).hasSameElementsAs(expectedValues);
+		
+
+	}
+	
+	@Test
+	public void shouldReturnLpsWithJigsawAndTranslation(){
+		//ARRANGE
+		List<LessonPlan> expectedValues = new ArrayList<>();
+		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+				.lessonTime(null).preparationTime(null).build();
+		lp1.setId(46);	
+			
+		expectedValues.add(lp1);
+
+		
+		//ACT
+		LessonPlan lpSearchParams = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+				.lessonTime(null).preparationTime(null).isJigsaw(true).isTranslation(true).build();
+		List<LessonPlan> lessonPlans = lessonPlanService.findSearchedLessonPlans(lpSearchParams);
+		
+		System.out.println("Print lesson plan info");
+		lessonPlans.forEach(lp-> System.out.println(lp.getId() + lp.getTitle()));
+		
+		//ASSERT
+		assertThat(lessonPlans).hasSameElementsAs(expectedValues);
+		
+
+	}
+	
+	@Test
+	public void shouldReturnLpsWithSongAndNoPrintedMaterials(){
+		//ARRANGE
+		List<LessonPlan> expectedValues = new ArrayList<>();
+		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+				.lessonTime(null).preparationTime(null).build();
+		lp1.setId(49);	
+			
+		expectedValues.add(lp1);
+		
+		//ACT
+		LessonPlan lpSearchParams = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+				.lessonTime(null).preparationTime(null).isSong(true).isNoPrintedMaterialsNeeded(true).build();
+		List<LessonPlan> lessonPlans = lessonPlanService.findSearchedLessonPlans(lpSearchParams);
+		
+		System.out.println("Print lesson plan info");
+		lessonPlans.forEach(lp-> System.out.println(lp.getId() + lp.getTitle()));
+		
+		//ASSERT
+		assertThat(lessonPlans).hasSameElementsAs(expectedValues);
+		
+	}
+	
+	public void shouldReturnLpsWithAdjectivesAndAdverbs(){
+		//ARRANGE
+		List<LessonPlan> expectedValues = new ArrayList<>();
+		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+				.lessonTime(null).preparationTime(null).build();
+		lp1.setId(44);				
+		expectedValues.add(lp1);
+		
+		Set<Grammar> grammar = new HashSet<>();
+		grammar.add(new Grammar("Adjectives"));
+		grammar.add(new Grammar("Adverbs"));
+		
+		//ACT
+		LessonPlan lpSearchParams = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+				.lessonTime(null).preparationTime(null).grammar(grammar).build();
+		List<LessonPlan> lessonPlans = lessonPlanService.findSearchedLessonPlans(lpSearchParams);
+		
+		System.out.println("Print lesson plan info");
+		lessonPlans.forEach(lp-> System.out.println(lp.getId() + lp.getTitle()));
+		
+		//ASSERT
+		assertThat(lessonPlans).hasSameElementsAs(expectedValues);
+		
+	}
+
+
+
 
 
 	
