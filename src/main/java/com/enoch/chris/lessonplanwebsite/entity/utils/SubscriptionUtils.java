@@ -15,11 +15,14 @@ public class SubscriptionUtils {
 	private Subscription subscription;
 	private User user;
 	private PurchaseRepository purchaseRepository;
+	private LocalDateTime currentDateTime;
 
-	public SubscriptionUtils(Subscription subscription, User user, PurchaseRepository purchaseRepository) {
+	public SubscriptionUtils(Subscription subscription, User user, PurchaseRepository purchaseRepository
+			,LocalDateTime currentDateTime) {
 		this.subscription = subscription;
 		this.user = user;
 		this.purchaseRepository = purchaseRepository;
+		this.currentDateTime = currentDateTime;
 	}
 
 	
@@ -33,7 +36,7 @@ public class SubscriptionUtils {
 		List<Purchase> purchases = purchaseRepository.findAll().stream()
 				.filter(p-> p.getUser().equals(user))
 				.filter(p-> p.getSubscription().equals(subscription))
-				.filter(p-> p.getDateSubscriptionEnds().isAfter(LocalDateTime.now()))
+				.filter(p-> p.getDateSubscriptionEnds().isAfter(currentDateTime))
 		.sorted(Comparator.comparing(Purchase::getDateSubscriptionEnds))
 		.collect(Collectors.toList());	
 		
@@ -41,7 +44,7 @@ public class SubscriptionUtils {
 		
 		//get greatest finishing date
 		LocalDateTime nextStartingDate = purchases.size() > 0? purchases.get(purchases.size() - 1).getDateSubscriptionEnds()
-				: LocalDateTime.now();
+				: currentDateTime;
 		
 		if (purchases.size() > 0) {
 			System.out.println("Debugging first item list - dateSubscriptionEnds| SubscriptionUtils " + purchases.get(0).getDateSubscriptionEnds());

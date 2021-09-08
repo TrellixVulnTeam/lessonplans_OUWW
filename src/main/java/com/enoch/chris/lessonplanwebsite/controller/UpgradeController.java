@@ -56,7 +56,8 @@ public class UpgradeController {
 				.stream().collect(Collectors.toCollection(LinkedHashSet::new));	
 		
 		//send a list of SubscriptionUtils with activeSubscriptions in. They must be in order.
-		List<SubscriptionUtils> activeSubscriptionUtils = activeSubscriptions.stream().map(sub -> new SubscriptionUtils(sub, user, purchaseRepository))
+		List<SubscriptionUtils> activeSubscriptionUtils = activeSubscriptions.stream().map(sub -> 
+		new SubscriptionUtils(sub, user, purchaseRepository, LocalDateTime.now()))
 				.collect(Collectors.toList());
 		
 		//find non.active subscriptions

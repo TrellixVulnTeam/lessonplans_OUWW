@@ -119,7 +119,8 @@ public class ChargeController {
 					if (subscription.isPresent()) {
 						//getSubscriptionStartDate(user, subscription.get());
 						
-						LocalDateTime startDate = new SubscriptionUtils(subscription.get(), user, purchaseRepository).getNextSubscriptionStartDate();
+						LocalDateTime startDate = new SubscriptionUtils(subscription.get(), user, purchaseRepository, LocalDateTime.now())
+								.getNextSubscriptionStartDate();
 							
 						Purchase purchase;						
 						purchase = new Purchase(LocalDateTime.now(), startDate,
@@ -160,7 +161,8 @@ public class ChargeController {
 	public String testStartDate(Model theModel, HttpSession session) {
 		User user = (User) session.getAttribute("user");
 		Subscription subscription = subscriptionRepository.findById(2).get();
-		LocalDateTime startDate = new SubscriptionUtils(subscription, user, purchaseRepository).getNextSubscriptionStartDate();
+		LocalDateTime startDate = new SubscriptionUtils(subscription, user, purchaseRepository, LocalDateTime.now())
+				.getNextSubscriptionStartDate();
 		System.out.println("Debugging startDate | ChargeController " + startDate);
 		
 		return "redirect:lessonplans";
@@ -199,7 +201,8 @@ public class ChargeController {
 		List<Purchase> purchases = subscriptions.stream().map(
 			(sub)->
 				{
-					LocalDateTime startDate = new SubscriptionUtils(sub, user, purchaseRepository).getNextSubscriptionStartDate();
+					LocalDateTime startDate = new SubscriptionUtils(sub, user, purchaseRepository, LocalDateTime.now())
+							.getNextSubscriptionStartDate();
 					
 					if (sub.equals(subscriptionsHelper.get(0))) { //Insert full amount into one subscription and zero into the others.												
 						return new Purchase(LocalDateTime.now(), startDate,

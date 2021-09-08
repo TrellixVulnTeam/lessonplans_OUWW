@@ -57,7 +57,7 @@ public class AccountController {
 		
 		//Send a list of SubscriptionUtils with activeSubscriptions in. They must be in order.
 		List<SubscriptionUtils> activeSubscriptionUtils = activeSubscriptions.stream()
-				.map(sub -> new SubscriptionUtils(sub, user, purchaseRepository)).collect(Collectors.toList());
+				.map(sub -> new SubscriptionUtils(sub, user, purchaseRepository, LocalDateTime.now())).collect(Collectors.toList());
 		
 		//find non.active subscriptions
 		LinkedHashSet<Subscription> nonActiveSubscriptions = subscriptionService.findNonActiveSubscriptions(activeSubscriptions
