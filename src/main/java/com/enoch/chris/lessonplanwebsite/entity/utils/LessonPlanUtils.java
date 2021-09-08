@@ -83,10 +83,9 @@ public class LessonPlanUtils {
 			 checkboxesToCheck.add("writing");
 		 }
 		 
-		 checkboxesToCheck.add(String.valueOf(searchParams.getPreparationTime()));
-//		 if (searchParams != null) {
-//			 checkboxesToCheck.add(preparationtime);
-//		 }
+		 if (searchParams.getPreparationTime() != null) {
+			 checkboxesToCheck.add(searchParams.getPreparationTime().toString());
+		 }
 //		 
 		 if (searchParams.getLessonTime() != null) {
 			 checkboxesToCheck.add(String.valueOf(searchParams.getLessonTime().toString()));

@@ -496,6 +496,11 @@ public class LessonPlan {
             return this;
         }
         
+        public LessonPlanBuilder speakingAmount(SpeakingAmount speakingAmount) {
+            this.speakingAmount = speakingAmount;
+            return this;
+        }
+        
         public LessonPlanBuilder picture (Picture picture) {
             this.picture = picture;
             return this;
@@ -508,6 +513,11 @@ public class LessonPlan {
         
         public LessonPlanBuilder topics (Set<Topic> topics) {
             this.topics = topics;
+            return this;
+        }
+        
+        public LessonPlanBuilder tags (Set<Tag> tags) {
+            this.tags = tags;
             return this;
         }
   

@@ -394,14 +394,16 @@ public class LessonPlanController {
 	@GetMapping("/search")
 	public String displayFilteredLessonPlans(Model theModel, HttpSession session) {	
 
-		
-		
-		return "lessonplans";
+	return "lessonplans";
 	}
 	
 	private void processCheckboxesToCheck(Model theModel, LessonPlan lessonPlan) {
 		List<LessonPlan> lessonPlansFiltered = lessonPlanService.findSearchedLessonPlans(lessonPlan);
-		 List<String> checkboxesToCheck = LessonPlanUtils.saveSelectedCheckboxes(lessonPlan);		 
+		 List<String> checkboxesToCheck = LessonPlanUtils.saveSelectedCheckboxes(lessonPlan);	
+		 
+		 System.out.println("Print checkboxes to check");
+		 checkboxesToCheck.forEach(System.out::println);
+		 
 		 theModel.addAttribute("lessonPlans", lessonPlansFiltered);
 		 theModel.addAttribute("checkboxesToCheck", checkboxesToCheck);
 		 

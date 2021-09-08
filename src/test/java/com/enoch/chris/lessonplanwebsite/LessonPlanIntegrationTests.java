@@ -26,9 +26,12 @@ import com.enoch.chris.lessonplanwebsite.dao.SubscriptionRepository;
 import com.enoch.chris.lessonplanwebsite.dao.UserRepository;
 import com.enoch.chris.lessonplanwebsite.entity.Grammar;
 import com.enoch.chris.lessonplanwebsite.entity.LessonPlan;
+import com.enoch.chris.lessonplanwebsite.entity.LessonTime;
 import com.enoch.chris.lessonplanwebsite.entity.PreparationTime;
 import com.enoch.chris.lessonplanwebsite.entity.SpeakingAmount;
 import com.enoch.chris.lessonplanwebsite.entity.Subscription;
+import com.enoch.chris.lessonplanwebsite.entity.Tag;
+import com.enoch.chris.lessonplanwebsite.entity.Topic;
 import com.enoch.chris.lessonplanwebsite.entity.User;
 import com.enoch.chris.lessonplanwebsite.entity.utils.SubscriptionUtils;
 import com.enoch.chris.lessonplanwebsite.service.LessonPlanService;
@@ -310,6 +313,7 @@ public class LessonPlanIntegrationTests {
 		
 	}
 	
+	@Test
 	public void shouldReturnLpsWithAdjectivesAndAdverbs(){
 		//ARRANGE
 		List<LessonPlan> expectedValues = new ArrayList<>();
@@ -333,6 +337,175 @@ public class LessonPlanIntegrationTests {
 		//ASSERT
 		assertThat(lessonPlans).hasSameElementsAs(expectedValues);
 		
+	}
+	
+	@Test
+	public void shouldReturnLpsWithFirstConditional(){
+		//ARRANGE
+		List<LessonPlan> expectedValues = new ArrayList<>();
+		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+				.lessonTime(null).preparationTime(null).build();
+		lp1.setId(52);				
+		expectedValues.add(lp1);
+		
+		Set<Grammar> grammar = new HashSet<>();
+		grammar.add(new Grammar("First conditional"));
+		
+		//ACT
+		LessonPlan lpSearchParams = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+				.lessonTime(null).preparationTime(null).grammar(grammar).build();
+		List<LessonPlan> lessonPlans = lessonPlanService.findSearchedLessonPlans(lpSearchParams);
+		
+		System.out.println("Print lesson plan info shouldReturnLpsWithFirstConditional");
+		lessonPlans.forEach(lp-> System.out.println(lp.getId() + lp.getTitle()));
+		
+		//ASSERT
+		assertThat(lessonPlans).hasSameElementsAs(expectedValues);
+		
+	}
+	
+	@Test
+	public void shouldReturnLpsWithTransportAndTechnology(){
+		//ARRANGE
+		List<LessonPlan> expectedValues = new ArrayList<>();
+		
+		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+				.lessonTime(null).preparationTime(null).build();
+		lp1.setId(45);	
+		
+		LessonPlan lp2 = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+				.lessonTime(null).preparationTime(null).build();
+		lp2.setId(46);		
+
+		expectedValues.add(lp1);
+		expectedValues.add(lp2);
+		
+		Set<Topic> topics = new HashSet<>();
+		topics.add(new Topic("Technology", null));
+		topics.add(new Topic("Transport", null));
+		
+		//ACT
+		LessonPlan lpSearchParams = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+				.lessonTime(null).preparationTime(null).topics(topics).build();
+		List<LessonPlan> lessonPlans = lessonPlanService.findSearchedLessonPlans(lpSearchParams);
+		
+		
+		//ASSERT
+		assertThat(lessonPlans).hasSameElementsAs(expectedValues);
+		
+	}
+	
+	@Test
+	public void shouldReturnLpsWithEnvironment(){
+		//ARRANGE
+		List<LessonPlan> expectedValues = new ArrayList<>();
+		
+		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+				.lessonTime(null).preparationTime(null).build();
+		lp1.setId(47);	
+		
+		expectedValues.add(lp1);
+
+		
+		Set<Topic> topics = new HashSet<>();
+		topics.add(new Topic("Environment", null));
+
+		
+		//ACT
+		LessonPlan lpSearchParams = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+				.lessonTime(null).preparationTime(null).topics(topics).build();
+		List<LessonPlan> lessonPlans = lessonPlanService.findSearchedLessonPlans(lpSearchParams);
+		
+		
+		//ASSERT
+		assertThat(lessonPlans).hasSameElementsAs(expectedValues);
+		
+	}
+	
+	@Test
+	public void shouldReturnLpsWithTwoTags(){
+		//ARRANGE
+		List<LessonPlan> expectedValues = new ArrayList<>();
+		
+		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+				.lessonTime(null).preparationTime(null).build();
+		lp1.setId(44);	
+		
+		expectedValues.add(lp1);
+		
+		Set<Tag> tags = new HashSet<>();
+		tags.add(new Tag("Celebrities"));
+		tags.add(new Tag("Privacy"));
+
+		
+		//ACT
+		LessonPlan lpSearchParams = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+				.lessonTime(null).preparationTime(null).tags(tags).build();
+		List<LessonPlan> lessonPlans = lessonPlanService.findSearchedLessonPlans(lpSearchParams);
+		
+		System.out.println("Print lesson plan info shouldReturnLpsWithTwoTags");
+		lessonPlans.forEach(lp-> System.out.println(lp.getId() + lp.getTitle()));
+		
+		//ASSERT
+		assertThat(lessonPlans).hasSameElementsAs(expectedValues);	
+	}
+	
+	@Test
+	public void shouldReturnLpsWithOneTag(){
+		//ARRANGE
+		List<LessonPlan> expectedValues = new ArrayList<>();
+		
+		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+				.lessonTime(null).preparationTime(null).build();
+		lp1.setId(47);	
+		
+		expectedValues.add(lp1);
+		
+		Set<Tag> tags = new HashSet<>();
+		tags.add(new Tag("Protest"));
+
+		
+		//ACT
+		LessonPlan lpSearchParams = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+				.lessonTime(null).preparationTime(null).tags(tags).build();
+		List<LessonPlan> lessonPlans = lessonPlanService.findSearchedLessonPlans(lpSearchParams);
+		
+		
+		//ASSERT
+		assertThat(lessonPlans).hasSameElementsAs(expectedValues);	
+	}
+	
+	@Test
+	public void shouldReturnEnvironmentWithManyFiltersSet(){
+		//ARRANGE
+		List<LessonPlan> expectedValues = new ArrayList<>();
+		
+		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+				.lessonTime(null).preparationTime(null).build();
+		lp1.setId(47);		
+		expectedValues.add(lp1);
+		
+	
+		Set<Grammar> grammar = new HashSet<>();
+		grammar.add(new Grammar("Third conditional"));
+		
+		Set<Topic> topics = new HashSet<>();
+		topics.add(new Topic("Environment", null));
+		
+		Set<Tag> tags = new HashSet<>();
+		tags.add(new Tag("Protest"));
+
+		
+		//ACT
+		LessonPlan lpSearchParams = new LessonPlan.LessonPlanBuilder(null, null, new Subscription("C1PLUS"), null, 0, null, null, null)
+				.grammar(grammar).topics(topics).tags(tags)
+				.isVideo(true).isVocabulary(true).isSong(true).isJigsaw(true)
+				.lessonTime(LessonTime.SIXTY).preparationTime(PreparationTime.FIVE).build();
+		List<LessonPlan> lessonPlans = lessonPlanService.findSearchedLessonPlans(lpSearchParams);
+		
+		
+		//ASSERT
+		assertThat(lessonPlans).hasSameElementsAs(expectedValues);	
 	}
 
 
