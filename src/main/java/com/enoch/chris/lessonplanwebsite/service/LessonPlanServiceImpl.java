@@ -105,11 +105,7 @@ public class LessonPlanServiceImpl implements LessonPlanService {
 				.filter(lp -> searchParameters.getNoPrintedMaterialsNeeded() == false? true
 					:searchParameters.getNoPrintedMaterialsNeeded() == lp.getNoPrintedMaterialsNeeded())
 //			
-				.filter(lp -> searchParameters.getPicture() == null ? true
-						: searchParameters.getPicture() == lp.getPicture())
-
-				// Check grammar points. Return true, if anymatch
-				
+				// Check grammar points. Return true if all searched grammar points inside list of grammar		
 				.filter(lp -> {
 					Set<Grammar> searchParamGrammar = searchParameters.getGrammar();
 					Set<Grammar> lpGrammar = lp.getGrammar();
@@ -127,8 +123,8 @@ public class LessonPlanServiceImpl implements LessonPlanService {
 
 				})	
 //				
-				// Check topics. Return true, if anymatch
-				// if all searchTopics inside list of lessonplantopics
+				
+				// return true if all searchTopics inside list of lessonplantopics
 
 				.filter(lp -> {
 					Set<Topic> searchParamTopics = searchParameters.getTopics();
