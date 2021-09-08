@@ -51,14 +51,12 @@ public class LessonPlanServiceImpl implements LessonPlanService {
 
 		List<LessonPlan> filteredLessonPlans = lessonPlans.stream()
 				.filter(lp -> searchParameters.getTitle() == null ? true
-						: searchParameters.getTitle().equals(searchParameters.getTitle()))
+						: searchParameters.getTitle().equals(lp.getTitle()))
 
+				//I ask for 6th Jan 2002 . I want dates equal to and after
 				.filter(lp -> searchParameters.getDateAdded() == null ? true
-						: searchParameters.getDateAdded().isBefore(lp.getDateAdded()) ? true : false)
-//
-				
-				.filter(lp -> searchParameters.getPreparationTime() == null ? true	
-						: searchParameters.getPreparationTime().equals(lp.getPreparationTime()))
+						: searchParameters.getDateAdded().isBefore(lp.getDateAdded()) || searchParameters.getDateAdded().isEqual(lp.getDateAdded()) ? true : false)
+//			
 				
 				.filter(lp -> searchParameters.getAssignedSubscription() == null ? true	
 						: searchParameters.getAssignedSubscription().equals(lp.getAssignedSubscription()))
@@ -69,8 +67,6 @@ public class LessonPlanServiceImpl implements LessonPlanService {
 						: searchParameters.getLessonTime() == lp.getLessonTime())
 //
 				.filter(lp -> searchParameters.getType() == null ? true : searchParameters.getType() == lp.getType())
-//
-				.filter(lp -> searchParameters.getAge() <= lp.getAge())
 //
 				.filter(lp -> searchParameters.getSpeakingAmount() == null ? true
 						: searchParameters.getSpeakingAmount() == lp.getSpeakingAmount())
@@ -104,7 +100,7 @@ public class LessonPlanServiceImpl implements LessonPlanService {
 				
 //
 				.filter(lp -> searchParameters.getPreparationTime() == null ? true			
-						:searchParameters.getPreparationTime().getTime() <= lp.getPreparationTime().getTime())
+						:searchParameters.getPreparationTime().getTime() >= lp.getPreparationTime().getTime())
  
 				.filter(lp -> searchParameters.getNoPrintedMaterialsNeeded() == false? true
 					:searchParameters.getNoPrintedMaterialsNeeded() == lp.getNoPrintedMaterialsNeeded())

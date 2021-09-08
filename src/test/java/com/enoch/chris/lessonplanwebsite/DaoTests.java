@@ -50,10 +50,7 @@ public class DaoTests {
 		expectedValues.add(new Subscription("B1"));
 		expectedValues.add(new Subscription("B2"));
 		expectedValues.add(new Subscription("B2PLUS"));
-		expectedValues.add(new Subscription("C1"));
-//		expectedValues.add(new Subscription("C1PLUS"));
-//		expectedValues.add(new Subscription("C2"));
-		
+		expectedValues.add(new Subscription("C1"));	
 		
 		//ACT
 		Set<Subscription> activeSubscriptions = subscriptionRepository.findActiveSubscriptions(user, LocalDateTime.of(2021,9,8,11,38));
@@ -75,10 +72,7 @@ public class DaoTests {
 		expectedValues.add(new Subscription("B1"));
 		expectedValues.add(new Subscription("B2"));
 		expectedValues.add(new Subscription("B2PLUS"));
-		expectedValues.add(new Subscription("C1"));
-//		expectedValues.add(new Subscription("C1PLUS"));
-//		expectedValues.add(new Subscription("C2"));
-		
+		expectedValues.add(new Subscription("C1"));		
 		
 		//ACT
 		LinkedHashSet<Subscription> activeSubscriptions = subscriptionRepository.findActiveSubscriptionsOrderByName(user, LocalDateTime.of(2021,9,8,11,38));
