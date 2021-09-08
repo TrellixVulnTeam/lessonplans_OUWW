@@ -28,24 +28,5 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 			!activeSubscriptions.contains(sub)).sorted(Comparator.comparing(Subscription::getName)).collect(Collectors.toCollection(LinkedHashSet::new));
 		return nonActiveSubscriptions;
 	}
-	
-//	@Override
-//	public Map<Subscription, String> findActiveSubscriptionExtensionDates(User user, LinkedHashSet<Subscription> activeSubscriptions
-//			, PurchaseRepository purchaseRepository){
-//		//find active susbcriptions - use order by as order from mySQL not guaranteed.
-//		
-//		Map<Subscription, String> activeSubExtensionDates= new LinkedHashMap<>(); //LinkedHashMap retain order
-//		activeSubscriptions.stream().forEach( (activeSub) ->		
-//			{
-//				LocalDateTime newSubscriptionEndDate = SubscriptionUtils.getSubscriptionStartDate(user, 
-//						activeSub, purchaseRepository).plusYears(1L);
-//				
-//				activeSubExtensionDates.put(activeSub, newSubscriptionEndDate.format(DateTimeFormatter.ofPattern("d MMM uuuu")));			
-//			}
-//		);
-//		
-//		return activeSubExtensionDates;
-//		
-//	}
 
 }
