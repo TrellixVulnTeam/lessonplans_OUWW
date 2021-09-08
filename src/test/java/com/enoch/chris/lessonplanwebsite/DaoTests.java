@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -62,6 +63,31 @@ public class DaoTests {
 		
 		//ASSERT
 		assertThat(expectedValues).hasSameElementsAs(activeSubscriptions);
+	}
+	
+	@Test
+	public void shouldReturnActiveSubscriptionsInOrder(){
+			
+		//ARRANGE
+		User user = userRepository.findByUsername("lessonplantest");
+		
+		LinkedHashSet<Subscription> expectedValues = new LinkedHashSet<>();
+		expectedValues.add(new Subscription("B1"));
+		expectedValues.add(new Subscription("B2"));
+		expectedValues.add(new Subscription("B2PLUS"));
+		expectedValues.add(new Subscription("C1"));
+//		expectedValues.add(new Subscription("C1PLUS"));
+//		expectedValues.add(new Subscription("C2"));
+		
+		
+		//ACT
+		LinkedHashSet<Subscription> activeSubscriptions = subscriptionRepository.findActiveSubscriptionsOrderByName(user, LocalDateTime.of(2021,9,8,11,38));
+		
+		System.out.println("Active subscriptions found");
+		activeSubscriptions.forEach(a-> System.out.println(a.getName()));
+		
+		//ASSERT
+		assertEquals(expectedValues, activeSubscriptions);
 	}
 	
 
