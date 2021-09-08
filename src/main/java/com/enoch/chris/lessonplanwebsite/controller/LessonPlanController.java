@@ -345,7 +345,7 @@ public class LessonPlanController {
 		//get user active subscriptions
 		User theUser = (User)session.getAttribute("user");
 		
-		List<Subscription> activeSubscriptions = subscriptionRepository
+		Set<Subscription> activeSubscriptions = subscriptionRepository
 				.findActiveSubscriptions(theUser, LocalDateTime.now());
 		
 		boolean isActive = activeSubscriptions.stream().anyMatch(s -> s.getName().equals(subscriptionToCheck));				

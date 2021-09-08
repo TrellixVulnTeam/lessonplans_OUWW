@@ -8,6 +8,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.assertj.core.util.Arrays;
 import org.hibernate.Hibernate;
@@ -54,7 +55,7 @@ public class DaoTests {
 		
 		
 		//ACT
-		List<Subscription> activeSubscriptions = subscriptionRepository.findActiveSubscriptions(user, LocalDateTime.of(2021,9,8,11,38));
+		Set<Subscription> activeSubscriptions = subscriptionRepository.findActiveSubscriptions(user, LocalDateTime.of(2021,9,8,11,38));
 		
 		System.out.println("Active subscriptions found");
 		activeSubscriptions.forEach(a-> System.out.println(a.getName()));
