@@ -68,6 +68,21 @@ public class SubscriptionIntegrationTests {
 
 	}
 	
+	@Test
+	public void shouldReturn2022BecauseThatsWhenCurrrentSubscriptionEnds(){	
+		User user = userRepository.findByUsername("lessonplantest");		
+		SubscriptionUtils subscriptionUtils = new SubscriptionUtils(new Subscription("C1"), user, purchaseRepository
+				, LocalDateTime.of(2021,9,8,11,38)); //Current dateTime set to a fixed value. If not, this test will break over time as the date changes.
+		
+		//Pass "current datetime" to method as an argument
+		//Expect 7th September
+		
+		//Time is database time plus two in order to allow for time zones.
+		String dateSubscriptionShouldEnd = LocalDateTime.of(2022, 9,7,19,23).format(DateTimeFormatter.ofPattern("d MMM uuuu H mm"));
+		assertEquals(dateSubscriptionShouldEnd, subscriptionUtils
+				.getNextSubscriptionStartDate().format(DateTimeFormatter.ofPattern("d MMM uuuu H mm")));
+
+	}
 	
 	
 	
