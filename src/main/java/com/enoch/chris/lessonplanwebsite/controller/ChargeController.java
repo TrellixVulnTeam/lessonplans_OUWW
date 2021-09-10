@@ -51,6 +51,11 @@ public class ChargeController {
 		this.purchaseRepository = purchaseRepository;
 	}
 
+	/**
+	 * Displays the result of a user payment.
+	 * @param theModel
+	 * @return the result of the payment action if undertaken or redirected to /lessonplans if accessed directly.
+	 */
 	@GetMapping("/charge")
 	public String chargeGet(Model theModel) {
 		if (theModel.getAttribute("paymentSuccess") != null) {
@@ -61,27 +66,39 @@ public class ChargeController {
 		}
 	}
 	
-	@GetMapping("/resulttest/success")
-	public String testResultSuccess(Model theModel) {
-		theModel.addAttribute("paymentSuccess", "paymentSucceeded");
-		
-		return "result";	
-	}
-	
-	@GetMapping("/resulttest/failed")
-	public String testResultFailed(Model theModel) {
-		theModel.addAttribute("paymentSuccess", "paymentFailed");
-		
-		return "result";	
-	}
-	
-	@GetMapping("/resulttest/successnotsaved")
-	public String paymentSucceededButCheckoutNotSaved(Model theModel) {
-		theModel.addAttribute("paymentSuccess", "paymentSucceededButCheckoutNotSaved");
-		
-		return "result";	
-	}
+//	@GetMapping("/resulttest/success")
+//	public String testResultSuccess(Model theModel) {
+//		theModel.addAttribute("paymentSuccess", "paymentSucceeded");
+//		
+//		return "result";	
+//	}
+//	
+//	@GetMapping("/resulttest/failed")
+//	public String testResultFailed(Model theModel) {
+//		theModel.addAttribute("paymentSuccess", "paymentFailed");
+//		
+//		return "result";	
+//	}
+//	
+//	@GetMapping("/resulttest/successnotsaved")
+//	public String paymentSucceededButCheckoutNotSaved(Model theModel) {
+//		theModel.addAttribute("paymentSuccess", "paymentSucceededButCheckoutNotSaved");
+//		
+//		return "result";	
+//	}
 
+	/**
+	 * Processes the user payment using Stripe integration and saves the purchase information in the database so the newly-bought user subscription will come into effect.
+	 * In case of success, the success message is displayed. In case of payment failure, the user is informed. In case the payment succeeds but there is an error upon saving the user's purchase
+	 * , the user is instructed to contact the website administrator.
+	 * @param chargeRequest
+	 * @param model
+	 * @param redirectAttributes
+	 * @param request
+	 * @param session
+	 * @return Redirects to the page where success or failure message is rendered.
+	 * @throws StripeException
+	 */
 	@PostMapping("/charge")
 	public String charge(ChargeRequest chargeRequest, Model model, RedirectAttributes redirectAttributes,
 			HttpServletRequest request, HttpSession session) throws StripeException {
@@ -142,11 +159,7 @@ public class ChargeController {
 				System.out.println("IN CATCH POST CHARGE");
 				
 				redirectAttributes.addFlashAttribute("paymentSuccess", "paymentSucceededButCheckoutNotSaved");
-				System.out.println(exc.getMessage());
-				System.out.println(exc.getStackTrace());
-				// To do: Notify admin. If a user has paid and order does not get stored in
-				// database, user will not receive order
-				// To do: Email the user id and the order details from Stripe.
+				exc.printStackTrace();
 
 				return "redirect:/charge";
 			}
@@ -157,17 +170,17 @@ public class ChargeController {
 		}
 	}
 	
-	@GetMapping("/startdatetest")
-	public String testStartDate(Model theModel, HttpSession session) {
-		User user = (User) session.getAttribute("user");
-		Subscription subscription = subscriptionRepository.findById(2).get();
-		LocalDateTime startDate = new SubscriptionUtils(subscription, user, purchaseRepository, LocalDateTime.now())
-				.getNextSubscriptionStartDate();
-		System.out.println("Debugging startDate | ChargeController " + startDate);
-		
-		return "redirect:lessonplans";
-		
-	}
+//	@GetMapping("/startdatetest")
+//	public String testStartDate(Model theModel, HttpSession session) {
+//		User user = (User) session.getAttribute("user");
+//		Subscription subscription = subscriptionRepository.findById(2).get();
+//		LocalDateTime startDate = new SubscriptionUtils(subscription, user, purchaseRepository, LocalDateTime.now())
+//				.getNextSubscriptionStartDate();
+//		System.out.println("Debugging startDate | ChargeController " + startDate);
+//		
+//		return "redirect:lessonplans";
+//		
+//	}
 
 //	private LocalDateTime getSubscriptionStartDate(User user, Subscription subscription) {
 //		//check to see if already purchased this subscription. In this case, subscription start date should start immediately after
@@ -194,6 +207,16 @@ public class ChargeController {
 //		return startingDate;
 //	}
 
+	/**
+	 * If a user purchases all subscriptions, each subscription is inserted into the purchase table in the database individually.
+	 * A price of zero is inserted into the price_paid_in_cents column for all except one subscription. The total price paid will be inserted for the remaining subscription.
+	 * This makes it easier to conduct database queries related to user spending. It doesn't matter which subscription is chosen to store the total price paid. 
+	 * @param user
+	 * @param amount
+	 * @param subscriptions - the subscriptions that the user has purchased. The first element of this list will store the price paid by the user; the others will each store zero.
+	 * @param purchaseRepository
+	 * @return
+	 */
 	private List<Purchase> preparePurchasesDealALL(User user, int amount, List<Subscription> subscriptions
 			, PurchaseRepository purchaseRepository) {
 		List<Subscription> subscriptionsHelper = new ArrayList<>(subscriptions); //Used so we don't call operation on the very list which the stream is operating on.
@@ -216,8 +239,16 @@ public class ChargeController {
 		return purchases;
 	}
 
+	/**
+	 * Handles exceptions generated by making payments via Stripe.
+	 * @param model
+	 * @param stripeException
+	 * @param session
+	 * @return the page the exception message is show on.
+	 * @throws Exception
+	 */
 	@ExceptionHandler(StripeException.class)
-	public String handleError(Model model, StripeException ex, HttpSession session) throws Exception {
+	public String handleError(Model model, StripeException stripeException, HttpSession session) throws Exception {
 		model.addAttribute("paymentSuccess", "paymentFailed");	
 		return "result";
 	}

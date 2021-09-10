@@ -47,7 +47,14 @@ public class UpgradeController {
 		this.purchaseRepository = purchaseRepository;
 	}
 	
-	
+	/**
+	 * Displays a list of the subscriptions the user hasn't bought (nonActiveSubscriptions)
+	 * ,followed by the subscriptions the user has bought (activeSubscriptions)
+	 * @param theModel
+	 * @param session
+	 * @param request
+	 * @return the name of the page to be rendered
+	 */
 	@GetMapping("/upgrade")
 	public String displaySubscriptionsForUpgrade(Model theModel, HttpSession session, HttpServletRequest request) {		
 		User user = (User) session.getAttribute("user");
@@ -67,12 +74,6 @@ public class UpgradeController {
 		//add active and inactive subscriptions to model
 		theModel.addAttribute("nonActiveSubscriptions", nonActiveSubscriptions);
 		theModel.addAttribute("activeSubscriptions", activeSubscriptionUtils);
-		
-		//Debugging
-//		System.out.println("Active subscriptions");
-//		activeSubscriptions.forEach(a->  System.out.println(a.getName()));	
-//		System.out.println("Non-active subscriptions");
-//		nonActiveSubscriptions.forEach(a->  System.out.println(a.getName()));
 		
 		return "upgrade";
 	}

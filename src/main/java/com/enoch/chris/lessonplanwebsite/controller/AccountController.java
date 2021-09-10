@@ -48,6 +48,14 @@ public class AccountController {
 	}
 	
 	
+	/**
+	 * Displays a list of the subscriptions the user has bought (activeSubscriptions)
+	 * ,followed by the subscriptions the user has not bought (nonActiveSubscriptions)
+	 * @param theModel
+	 * @param session
+	 * @param request
+	 * @return the name of the page to be rendered
+	 */
 	@GetMapping("/account")
 	public String displaySubscriptionsForUpgrade(Model theModel, HttpSession session, HttpServletRequest request) {		
 	User user = (User) session.getAttribute("user");

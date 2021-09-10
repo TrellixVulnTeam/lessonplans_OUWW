@@ -87,9 +87,9 @@ public class LessonPlanController {
 
 	@ModelAttribute("allTopics")
 	public List<Topic> populateTopics() {
-		List<Topic> topics = topicRepository.findAll();
-//		topics.stream().forEach(Topic::getRelatedTags);
-//		return topics;
+//		List<Topic> topics = topicRepository.findAll();
+////		topics.stream().forEach(Topic::getRelatedTags);
+////		return topics;
 		
 		return topicRepository.findAll();
 	}
@@ -109,6 +109,16 @@ public class LessonPlanController {
 		return grammarRepository.findAll();
 	}
 	
+	/**
+	 * Displays the lesson plans on the page. If lessonPlan is present as a model attribute then the user has filtered the lesson plans
+	 * In this case, only the filtered lesson plans are returned along with the information necessary to ensure that the checkboxes 
+	 * the user selected in the search tool, remain checked.
+	 * 
+	 * @param theModel
+	 * @param session
+	 * @param redirectAttributes
+	 * @return
+	 */
 	@GetMapping
 	public String displayLessonPlans(Model theModel, HttpSession session, RedirectAttributes redirectAttributes) {	
 		
@@ -132,7 +142,13 @@ public class LessonPlanController {
 		return "lessonplans";
 	}
 
-	
+	/**
+	 * The lessonPlan object represents the checkboxes the user selected when searching. This information is redirected to the get method of the same url path for processing.
+	 * @param lessonPlan
+	 * @param theModel
+	 * @param redirectAttributes
+	 * @return
+	 */
 	@PostMapping()
 	public String checkboxTest(final LessonPlan lessonPlan, Model theModel, RedirectAttributes redirectAttributes)  {
 
@@ -141,6 +157,18 @@ public class LessonPlanController {
 		 return "redirect:/lessonplans";
 	}
 	
+	
+	/**
+	 * Processes a request for a particular lesson plan page and returns the appropriate page.
+	 * @param theModel
+	 * @param session
+	 * @param lessonId
+	 * @return If no request parameter is present, the general lesson plans page ("/lessonplans") is returned. If the request 
+	 * parameter id is present but no such lesson can be found for the correct level, "error/lessonplannotfound"
+	 * is returned. If the lesson plan exists, then status of the user's subscription is checked 
+	 * to see if access to the page should be granted. The lesson plan page is rendered with this information,
+	 *  and either the lesson plan or a message prompting the user to purchase the subscription is shown.
+	 *  */
 	@GetMapping("/A1")
 	public String displayA1(Model theModel,HttpSession session
 			, @RequestParam("id") Optional<Integer> lessonId) {	
@@ -165,6 +193,17 @@ public class LessonPlanController {
 		
 	}
 	
+	/**
+	 * Processes a request for a particular lesson plan page and returns the appropriate page.
+	 * @param theModel
+	 * @param session
+	 * @param lessonId
+	 * @return If no request parameter is present, the general lesson plans page ("/lessonplans") is returned. If the request 
+	 * parameter id is present but no such lesson can be found for the correct level, "error/lessonplannotfound"
+	 * is returned. If the lesson plan exists, then status of the user's subscription is checked 
+	 * to see if access to the page should be granted. The lesson plan page is rendered with this information,
+	 *  and either the lesson plan or a message prompting the user to purchase the subscription is shown.
+	 *  */
 	@GetMapping("/A2")
 	public String displayA2(Model theModel,HttpSession session
 			, @RequestParam("id") Optional<Integer> lessonId) {	
@@ -189,6 +228,17 @@ public class LessonPlanController {
 		
 	}
 	
+	/**
+	 * Processes a request for a particular lesson plan page and returns the appropriate page.
+	 * @param theModel
+	 * @param session
+	 * @param lessonId
+	 * @return If no request parameter is present, the general lesson plans page ("/lessonplans") is returned. If the request 
+	 * parameter id is present but no such lesson can be found for the correct level, "error/lessonplannotfound"
+	 * is returned. If the lesson plan exists, then status of the user's subscription is checked 
+	 * to see if access to the page should be granted. The lesson plan page is rendered with this information,
+	 *  and either the lesson plan or a message prompting the user to purchase the subscription is shown.
+	 *  */
 	@GetMapping("/B1")
 	public String displayB1(Model theModel,HttpSession session
 			, @RequestParam("id") Optional<Integer> lessonId) {	
@@ -213,6 +263,17 @@ public class LessonPlanController {
 		
 	}
 	
+	/**
+	 * Processes a request for a particular lesson plan page and returns the appropriate page.
+	 * @param theModel
+	 * @param session
+	 * @param lessonId
+	 * @return If no request parameter is present, the general lesson plans page ("/lessonplans") is returned. If the request 
+	 * parameter id is present but no such lesson can be found for the correct level, "error/lessonplannotfound"
+	 * is returned. If the lesson plan exists, then status of the user's subscription is checked 
+	 * to see if access to the page should be granted. The lesson plan page is rendered with this information,
+	 *  and either the lesson plan or a message prompting the user to purchase the subscription is shown.
+	 *  */
 	@GetMapping("/B2")
 	public String displayB2(Model theModel,HttpSession session
 			, @RequestParam("id") Optional<Integer> lessonId) {	
@@ -237,6 +298,17 @@ public class LessonPlanController {
 		
 	}
 	
+	/**
+	 * Processes a request for a particular lesson plan page and returns the appropriate page.
+	 * @param theModel
+	 * @param session
+	 * @param lessonId
+	 * @return If no request parameter is present, the general lesson plans page ("/lessonplans") is returned. If the request 
+	 * parameter id is present but no such lesson can be found for the correct level, "error/lessonplannotfound"
+	 * is returned. If the lesson plan exists, then status of the user's subscription is checked 
+	 * to see if access to the page should be granted. The lesson plan page is rendered with this information,
+	 *  and either the lesson plan or a message prompting the user to purchase the subscription is shown.
+	 *  */
 	@GetMapping("/B2PLUS")
 	public String displayB2Plus(Model theModel,HttpSession session
 			, @RequestParam("id") Optional<Integer> lessonId) {	
@@ -260,6 +332,17 @@ public class LessonPlanController {
 			}		
 	}
 	
+	/**
+	 * Processes a request for a particular lesson plan page and returns the appropriate page.
+	 * @param theModel
+	 * @param session
+	 * @param lessonId
+	 * @return If no request parameter is present, the general lesson plans page ("/lessonplans") is returned. If the request 
+	 * parameter id is present but no such lesson can be found for the correct level, "error/lessonplannotfound"
+	 * is returned. If the lesson plan exists, then status of the user's subscription is checked 
+	 * to see if access to the page should be granted. The lesson plan page is rendered with this information,
+	 *  and either the lesson plan or a message prompting the user to purchase the subscription is shown.
+	 *  */
 	@GetMapping("/C1")
 	public String displayC1(Model theModel,HttpSession session
 			, @RequestParam("id") Optional<Integer> lessonId) {	
@@ -283,6 +366,17 @@ public class LessonPlanController {
 			}		
 	}
 	
+	/**
+	 * Processes a request for a particular lesson plan page and returns the appropriate page.
+	 * @param theModel
+	 * @param session
+	 * @param lessonId
+	 * @return If no request parameter is present, the general lesson plans page ("/lessonplans") is returned. If the request 
+	 * parameter id is present but no such lesson can be found for the correct level, "error/lessonplannotfound"
+	 * is returned. If the lesson plan exists, then status of the user's subscription is checked 
+	 * to see if access to the page should be granted. The lesson plan page is rendered with this information,
+	 *  and either the lesson plan or a message prompting the user to purchase the subscription is shown.
+	 *  */
 	@GetMapping("/C1PLUS")
 	public String displayC1Plus(Model theModel,HttpSession session
 			, @RequestParam("id") Optional<Integer> lessonId) {	
@@ -306,6 +400,17 @@ public class LessonPlanController {
 			}		
 	}
 	
+	/**
+	 * Processes a request for a particular lesson plan page and returns the appropriate page.
+	 * @param theModel
+	 * @param session
+	 * @param lessonId
+	 * @return If no request parameter is present, the general lesson plans page ("/lessonplans") is returned. If the request 
+	 * parameter id is present but no such lesson can be found for the correct level, "error/lessonplannotfound"
+	 * is returned. If the lesson plan exists, then status of the user's subscription is checked 
+	 * to see if access to the page should be granted. The lesson plan page is rendered with this information,
+	 *  and either the lesson plan or a message prompting the user to purchase the subscription is shown.
+	 *  */
 	@GetMapping("/C2")
 	public String displayC2(Model theModel,HttpSession session
 			, @RequestParam("id") Optional<Integer> lessonId) {	
@@ -329,9 +434,16 @@ public class LessonPlanController {
 			}		
 	}
 	
-
+	/**
+	 * Checks if the user is subscribed and sends this information to the relevant lesson plan template along with the specific lesson plan to include
+	 * in the template.
+	 * @param theModel
+	 * @param session
+	 * @param lp
+	 * @param subscriptionToCheck
+	 * @return
+	 */
 	private String checkUserIsSubscribed(Model theModel, HttpSession session, Optional<LessonPlan> lp, String subscriptionToCheck) {
-
 		//check lesson is level specified in url
 		if (!lp.get().getAssignedSubscription().getName().equals(subscriptionToCheck)) { //if plan does not exist for this level, return		
 			System.out.println("debug b2 not found");
@@ -340,8 +452,7 @@ public class LessonPlanController {
 		
 		//set lessonPlan variable
 		theModel.addAttribute("lp", lp.get());
-		
-		
+				
 		//get user active subscriptions
 		User theUser = (User)session.getAttribute("user");
 		
@@ -352,11 +463,6 @@ public class LessonPlanController {
 		
 		//add user active subscriptions to model
 		theModel.addAttribute(subscriptionToCheck+"active", isActive);
-		System.out.println("debug model active " + subscriptionToCheck+"active");
-		
-		System.out.println("isActive " + isActive);
-		
-		System.out.println("toute to direct to " + "/lessonplans/" + subscriptionToCheck + "/" + lp.get().getTitle());
 		
 		//Strip title of spaces to produce filename
 		String titleNoSpace = lp.get().getTitle().replaceAll("\\s", "");
@@ -367,35 +473,7 @@ public class LessonPlanController {
 		return "/lessonplans/" + subscriptionToCheck + "/" + subscriptionToCheck + "template";
 	}
 	
-	
-//	@GetMapping("/checkmethod")
-//	public String checkMethod() {
-//		Topic fame = new Topic("fame", null);
-//		List<Topic> topics = new ArrayList<>();
-//		topics.add(fame);
-//			
-////		LessonPlan lPlan = new LessonPlan.LessonPlanBuilder(null, null, new Subscription("a1"), null, 10, null, null
-////				, null)
-//////				.grammar(Arrays.asList(new Grammar("first conditional")))
-////				.topics(Arrays.asList(new Topic("fame", null)))
-////				.build();
-////		
-//		//List<LessonPlan> lessonPlans = lessonPlanService.findSearchedLessonPlans(lPlan);
-//		
-//		System.out.println("check method");
-//		//lessonPlans.stream().forEach(a -> System.out.println(a.getTitle()));
-//		System.out.println("check method END");
-//		
-//
-//		return "lessonplans";		
-//	}
-	
-	
-	@GetMapping("/search")
-	public String displayFilteredLessonPlans(Model theModel, HttpSession session) {	
 
-	return "lessonplans";
-	}
 	
 	private void processCheckboxesToCheck(Model theModel, LessonPlan lessonPlan) {
 		List<LessonPlan> lessonPlansFiltered = lessonPlanService.findSearchedLessonPlans(lessonPlan);

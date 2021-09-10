@@ -65,7 +65,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 					.permitAll()
 				.and()
 				.logout().logoutSuccessHandler(logoutSuccessHandler()).permitAll().and()
-				.exceptionHandling().accessDeniedPage("/access-denied");
+				.exceptionHandling().accessDeniedPage("/error"); //don't show access-denied page as this would be a clue for hackers
 			
 			//http.csrf().disable();  //debugging
 			

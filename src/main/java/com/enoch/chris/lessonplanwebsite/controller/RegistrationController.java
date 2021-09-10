@@ -61,6 +61,15 @@ public class RegistrationController {
 	}
 	
 
+	/**
+	 * Processes the registration request, validates the input, ensures the username and email do not already exist
+	 * and saves the user in the database if no errors are present.
+	 * @param regUser - DTO with validation rules used for the registration
+	 * @param theBindingResult
+	 * @param theModel
+	 * @param redirectAttributes
+	 * @return the login page upon success or the registration page indicating the errors.
+	 */
 	@PostMapping("/processRegistrationForm")
 	public String processRegistrationForm(
 				@Valid @ModelAttribute("regUser") RegistrationUser regUser, 

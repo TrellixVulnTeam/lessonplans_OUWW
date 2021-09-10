@@ -37,6 +37,17 @@ public class CheckoutController {
 		this.subscriptionRepository = subscriptionRepository;
 	}
 
+	
+	/**
+	 * 
+	 * @param model
+	 * @param session
+	 * @param subscriptionName
+	 * @return. If the user isn't logged in, the user is redirected to the login page. If no susbscription is present as the request 
+	 * parameter id, the user is redirected to the upgrade page. If a subscription is present but not recognised, the user is redirected to
+	 * "error/checkouterror" If the user is logged in and the request parameter id is a recognised subscription, the checkout page is returned and the user may purchase
+	 * the subscription.
+	 */
 	@GetMapping
 	public String processCheckout(Model model,HttpSession session
 			, @RequestParam("id") Optional<String> subscriptionName) {

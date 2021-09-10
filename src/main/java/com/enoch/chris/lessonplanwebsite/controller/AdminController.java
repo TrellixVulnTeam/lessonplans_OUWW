@@ -121,7 +121,13 @@ public class AdminController {
 		return "admin";
 	}
 
-	
+	/**
+	 * Handles both the adding and editing of lesson plans. If the dateAdded field of the LessonPlan object is null, a new lesson plan is added
+	 * and dateAdded will be equivalent to the date when the lesson plan is added. If dateAdded is not present, the lesson plan is edited.
+	 * @param lessonPlan
+	 * @param theModel
+	 * @return the name of the page to be rendered
+	 */
 	@PostMapping("/admin/edit")
 	public String editOrAddLessonPlan(final LessonPlan lessonPlan, Model theModel) {
 		theModel.addAttribute("lessonPlan", lessonPlan);
@@ -131,14 +137,6 @@ public class AdminController {
 		if (lessonPlan.getDateAdded() == null) {
 			lessonPlan.setDateAdded(LocalDate.now());
 		}
-		
-		System.out.println("test values");
-//		System.out.println(lessonPlan.getDateAdded());
-//		System.out.println(lessonPlan.getTitle());
-//		System.out.println(lessonPlan.getId());
-//		System.out.println(lessonPlan.getAge());
-		
-		System.out.println("debug picture " + lessonPlan.getPicture());
 		
 		//save new or updated lesson to database
 		lessonPlanRepository.save(lessonPlan);
@@ -150,6 +148,11 @@ public class AdminController {
 		return "redirect:/admin/";
 	}
 	
+	/**
+	 * A page where a new lesson plan can be added.
+	 * @param theModel
+	 * @return the name of the page to be rendered
+	 */
 	@GetMapping("/admin/add")
 	public String addLessonPlan(Model theModel) {
 		LessonPlan templateLessonPlan = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null).build();
@@ -159,8 +162,12 @@ public class AdminController {
 		return "admin";
 	}
 	
-
-	
+	/**
+	 * Handles the processing of a new uploaded picture.
+	 * @param file
+	 * @param attributes
+	 * @return the name of the page to be rendered
+	 */
 	 @PostMapping("/admin/upload")
 	    public String uploadFile(@RequestParam("file") MultipartFile file, RedirectAttributes attributes) {
 		 System.out.println("in post uploadFile");
@@ -199,13 +206,15 @@ public class AdminController {
 	        return "redirect:/admin/upload";
 	    }
 	 
+	 /**
+	  * Displays a page where a new picture can be uploaded
+	  * @return the name of the page to be rendered
+	  */
 	 @GetMapping("/admin/upload")
 	    public String uploadFileHome() {      
 	        
 	        return "uploadpicture";
 	    }
-	
-	
 	
 	
 	@GetMapping("/admin/deletelp")
@@ -215,78 +224,7 @@ public class AdminController {
 
 		return "admin";
 	}
-	
-	@GetMapping("/admin/deletepicture")
-	public String deletePicture(Model theModel) {		
 
-		pictureRepository.deleteById(66);
-
-		return "admin";
-	}
-	
-	@GetMapping("/admin/addtags")
-	public String addTags(Model theModel) {		
-
-		//save tags
-		List<Tag> tags = Arrays.asList(new Tag("driverless"), new Tag("social media"), new Tag("celebrities")
-				, new Tag("media"), new Tag("electric cars"), new Tag("protest"), new Tag("extreme sports")
-				, new Tag("olympics"), new Tag("dangerous sports"), new Tag("camping"), new Tag("beach")
-				, new Tag("biography"), new Tag("busienss tips"));
-		
-		//tagRepository.sav
-		tagRepository.saveAll(tags);
-
-		return "admin";
-	}
-	
-	@GetMapping("/admin/gettags")
-	public String getTags(Model theModel) {		
-
-		LessonPlan lessonPlan = lessonPlanRepository.findById(45).get();
-		
-		System.out.println("Print associated tags " + lessonPlan.getTags().size());
-		lessonPlan.getTags().stream().forEach(t -> System.out.println(t.getName()));
-	
-		System.out.println("end of associated tags ");
-
-		return "admin";
-	}
-	
-	 
-	
-	
-	@GetMapping("/admin/addtopic")
-	public String addTopic(Model theModel) {		
-
-		//get tags by tagname
-		Tag tag = tagRepository.findByName("biography").get();
-		Tag tag2 = tagRepository.findByName("business tips").get();
-		
-		//add them to topic
-		Topic topic = new Topic("entrepreneur", new HashSet<>(Arrays.asList(tag, tag2)));
-		
-		//save topic
-		topicRepository.save(topic);
-
-		return "admin";
-	}
-	
-	@GetMapping("/admin/addgrammar")
-	public String addGrammar(Model theModel) {		
-
-		//save Grammar
-		List<Grammar> grammarPointsGrammars = Arrays.asList(new Grammar("First conditional"), new Grammar("Second conditional")
-				, new Grammar("Third conditional"), new Grammar("Adverbs"), new Grammar("Adjectives"));
-
-		grammarRepository.saveAll(grammarPointsGrammars);
-		
-		return "admin";
-	}
-	
-	
-	
-	
-	
 	
 	
 }
