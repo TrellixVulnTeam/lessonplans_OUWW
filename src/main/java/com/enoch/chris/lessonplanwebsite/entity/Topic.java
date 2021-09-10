@@ -19,10 +19,6 @@ import javax.persistence.Table;
 @Table(name="topic")
 public class Topic {
 	
-//	@Override
-//	public String toString() {
-//		return "testostring Topic [id=" + id + ", name=" + name + ", relatedTags=" + relatedTags + "]";
-//	}
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -96,9 +92,6 @@ public class Topic {
 			return false;
 		return true;
 	}
-	
-	
-	
 	
 	
 

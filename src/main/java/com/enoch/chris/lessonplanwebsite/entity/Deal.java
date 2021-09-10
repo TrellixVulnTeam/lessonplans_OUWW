@@ -13,6 +13,12 @@ public enum Deal {
         return shortName;
     }
 	
+	/**
+	 * This method can be used with {@link com.enoch.chris.lessonplanwebsite.entity.converter.DealConverter} to
+	 * convert enums to shorter values that can be stored in the database in order to save memory.
+	 * @param shortName
+	 * @return
+	 */
 	public static Deal fromShortName(String shortName) {
         switch (shortName) {
         case "N":

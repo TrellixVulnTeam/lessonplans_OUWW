@@ -21,6 +21,15 @@ import javax.persistence.Table;
 
 import org.springframework.data.annotation.CreatedDate;
 
+
+/**
+ * It is important to note that upon creation lessonTime will be set to the default value of LessonTime.SIXTY and
+ * preparationTime will be set to the default value of PreparationTime.FIVE unless explicitly set using LessonPlanBuilder.
+ * @author chris
+ *
+ */
+
+
 @Entity(name="LessonPlan")
 @Table(name="lesson_plan")
 public class LessonPlan {
@@ -33,10 +42,8 @@ public class LessonPlan {
 	@Column(name="title")
     private String title; // required
 	
-	@CreatedDate
     private LocalDate dateAdded; //required
 	
-	//@ManyToOne(fetch = FetchType.LAZY)
 	@ManyToOne
 	@JoinColumn(name="subscription_id")
     private Subscription assignedSubscription; // required
@@ -117,9 +124,6 @@ public class LessonPlan {
 	inverseJoinColumns = @JoinColumn(name = "tag_id"))
 	private Set<Tag> tags;
     
- 
-	
-	
 	
 	@Override
 	public int hashCode() {
@@ -144,15 +148,13 @@ public class LessonPlan {
 	}
 
 
-
-	private LessonPlan() {
+	protected LessonPlan() {
 		
 	}
 	
 	
     
     private LessonPlan(LessonPlanBuilder lessonPlanBuilder) {
-    	//Using setters ensures appropriate validation is performed.
     	
     	this.id = lessonPlanBuilder.id;
 		this.title = lessonPlanBuilder.title;
@@ -168,8 +170,6 @@ public class LessonPlan {
 		
 		this.picture = lessonPlanBuilder.picture;
 
-		
-		this.picture = lessonPlanBuilder.picture;
 		this.listening = lessonPlanBuilder.listening;
 		this.vocabulary = lessonPlanBuilder.vocabulary;
 		this.reading = lessonPlanBuilder.reading;
@@ -352,6 +352,7 @@ public class LessonPlan {
 	}
 
 	public void setPicture(Picture picture) {
+		picture.addLessonPlan(this);
 		this.picture = picture;
 	}
 	

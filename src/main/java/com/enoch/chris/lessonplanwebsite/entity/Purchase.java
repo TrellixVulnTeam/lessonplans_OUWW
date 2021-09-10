@@ -34,12 +34,10 @@ public class Purchase {
 	@Column(name="price_paid_in_cents")
 	private int pricePaidInCents;
 	
-	//@OneToOne(fetch = FetchType.LAZY)
 	@OneToOne
 	@JoinColumn(name = "subscription_id")
 	private Subscription subscription;
 	
-	//@OneToOne(fetch = FetchType.LAZY)
 	@OneToOne
 	@JoinColumn(name = "user_id")
 	private User user;
@@ -61,18 +59,6 @@ public class Purchase {
 		this.deal = deal;
 	}
 
-
-
-	public Purchase(LocalDateTime datePurchased, LocalDateTime dateSubscriptionStarts,
-			LocalDateTime dateSubscriptionEnds, int pricePaidInCents, Subscription subscription, User user) {
-		super();
-		this.datePurchased = datePurchased;
-		this.dateSubscriptionStarts = dateSubscriptionStarts;
-		this.dateSubscriptionEnds = dateSubscriptionEnds;
-		this.pricePaidInCents = pricePaidInCents;
-		this.subscription = subscription;
-		this.user = user;
-	}
 
 	public int getId() {
 		return id;

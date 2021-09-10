@@ -89,7 +89,10 @@ public class Subscription {
 		this.price = price;
 	}
 	
-	//to be used when retrieving price from forms, for example.
+	/**
+	 * Formats the price to two decimal places.
+	 * @return
+	 */
 	public String getPriceFormatted() {
 		NumberFormat nF = NumberFormat.getInstance();
 		System.out.println("numberformat: "  + nF.toString());
