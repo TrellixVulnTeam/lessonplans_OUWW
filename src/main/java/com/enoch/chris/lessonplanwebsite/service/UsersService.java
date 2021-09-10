@@ -11,18 +11,11 @@ import com.enoch.chris.lessonplanwebsite.registration.user.RegistrationUser;
 
 public interface UsersService extends UserDetailsService {
 	
-//	public List<User> getMembers(int pageStart, int recordsPerPage);
-//	
-//	public int getTotalMembers();
-//	
-//	public User getUserByUsername(String username);
 	
 	public void save(RegistrationUser regUser);
 
-	User findUserByUsernameEager(String username);
+
 	
-//	public void delete(User theUser);
-//	
-//	public User getUserByEmail(String email);
+
 
 }

@@ -21,9 +21,11 @@ import com.enoch.chris.lessonplanwebsite.service.UsersService;
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler{
 	
 	@Autowired
-    //private UsersService usersService;
 	private UserRepository userRepository;
 
+	/**
+	 * If previousPage request parameter is set, redirect user to the page he/she was on before login. If not, redirect user to "/lessonplans"
+	 */
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {

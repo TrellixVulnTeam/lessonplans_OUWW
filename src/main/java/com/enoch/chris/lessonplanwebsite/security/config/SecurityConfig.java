@@ -38,16 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 							"SELECT user.username, authority from user INNER JOIN user_roles"
 							+ " ON user.id=user_id INNER JOIN role ON role_id=role.id WHERE user.username=?");
 
-			/*
-			 * // add users for in memory authentication
-			
-			UserBuilder users = User.withDefaultPasswordEncoder();
-			
-			auth.inMemoryAuthentication()
-				.withUser(users.username("john").password("test123").roles("CUSTOMER"))
-				.withUser(users.username("mary").password("test123").roles("CUSTOMER", "MANAGER"))
-				.withUser(users.username("susan").password("test123").roles("CUSTOMER", "ADMIN"));
-			 */
+	
 		}
 
 		@Override

@@ -42,7 +42,10 @@ public class LessonPlanServiceImpl implements LessonPlanService {
 	public LessonPlanServiceImpl(LessonPlanRepository lessonPlanRepository) {
 		this.lessonPlanRepository = lessonPlanRepository;
 	}
-
+	
+	/**
+	 * Filters the lesson plans according to the parameters set on LessonPlan searchParamas. 
+	 */
 	@Override
 	@Transactional
 	public List<LessonPlan> findSearchedLessonPlans(LessonPlan searchParameters) {
@@ -167,60 +170,5 @@ public class LessonPlanServiceImpl implements LessonPlanService {
 
 	}
 
-//	private boolean checkLGrammar(List<LessonPlan> lp, LessonPlan searchParameters) {
-//		List<Grammar> searchParametersGrammar = searchParameters.getGrammar();
-//
-//		boolean isMatch = false;
-//
-//		for (LessonPlan lessonPlan : lp) {
-//			for (Grammar grammarPointLPSearchParameter : searchParametersGrammar) {
-//				for (Grammar lessonPlGrammar : lessonPlan.getGrammar()) {
-//					if (grammarPointLPSearchParameter == lessonPlGrammar) {
-//						return true;
-//					}
-//				}
-//			}
-//
-//			return false;
-//		}
-//	}
-
-//	private List<LessonPlan> checkLGrammar(List<LessonPlan> lp, LessonPlan searchParameters){
-//		List<Grammar> searchParametersGrammar = searchParameters.getGrammar();
-//			
-//		List<LessonPlan> lessonPlans = new ArrayList<>();
-//		
-//		
-//		for (LessonPlan lessonPlan : lp) {
-//			for (Grammar grammarPointLPSearchParameter : searchParametersGrammar) {
-//				for (Grammar lessonPlGrammar : lessonPlan.getGrammar()) {
-//					if (grammarPointLPSearchParameter == lessonPlGrammar) {
-//						
-//					}
-//				}
-//				
-//				if (lp. == grammarPointLPSearchParameter) {
-//					lessonPlans.add(LessonPlan plan)
-//				}
-//				
-//			}
-//		}
-//	
-//	
-//}
-
-//	private List<LessonPlan> checkLGrammar(List<LessonPlan> lpGrammar, List<LessonPlan> searchParametersGrammar){
-//		List<LessonPlan> lessonPlans = new ArrayList<>();
-//		for (LessonPlan grammarPointLP : lpGrammar) {
-//			for (LessonPlan grammarPointLPSearchParameter : searchParametersGrammar) {
-//				if (grammarPointLP.get == grammarPointLPSearchParameter) {
-//					lessonPlans.add(LessonPlan plan)
-//				}
-//				
-//			}
-//		}
-//		
-//		
-//	}
 
 }

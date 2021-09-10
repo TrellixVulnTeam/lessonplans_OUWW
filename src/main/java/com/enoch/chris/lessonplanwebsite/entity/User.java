@@ -60,55 +60,8 @@ public class User {
 	private List<Subscription> basket = new ArrayList<>();
 	
 
-
 	public User() {
 	}
-
-	public User(String username, String password, String email, byte enabled,
-			Collection<Role> roles, List<Subscription> subscriptions, List<Subscription> basket) {
-		super();
-		this.username = username;
-		this.password = password;
-		this.email = email;
-		this.enabled = enabled;
-		this.roles = roles;
-		this.subscriptions = subscriptions;
-		this.basket = basket;
-	}
-	
-	
-	public User( String username, String password, String email, byte enabled,
-			Collection<Role> roles, List<Subscription> subscriptions) {
-		super();
-		this.username = username;
-		this.password = password;
-		this.email = email;
-		this.enabled = enabled;
-		this.roles = roles;
-		this.subscriptions = subscriptions;
-	}
-
-
-
-	public User(String username, String password, String email, byte enabled, 
-			Collection<Role> roles) {
-		super();
-		this.username = username;
-		this.password = password;
-		this.email = email;
-		this.enabled = enabled;
-		this.roles = roles;
-	}
-	
-	public User( String username, String password, String email, byte enabled) {
-		super();
-		this.username = username;
-		this.password = password;
-		this.email = email;
-		this.enabled = enabled;
-	}
-
-
 
 	public Collection<Role> getRoles() {
 		return roles;

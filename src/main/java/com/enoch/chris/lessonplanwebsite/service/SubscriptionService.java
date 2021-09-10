@@ -12,8 +12,6 @@ import com.enoch.chris.lessonplanwebsite.entity.User;
 
 public interface SubscriptionService {
 
-	//Map<Subscription, String> findActiveSubscriptionExtensionDates(User user,
-			//LinkedHashSet<Subscription> activeSubscriptions, PurchaseRepository purchaseRepository);
 
 	LinkedHashSet<Subscription> findNonActiveSubscriptions(LinkedHashSet<Subscription> activeSubscriptions,
 			SubscriptionRepository subscriptionRepository);

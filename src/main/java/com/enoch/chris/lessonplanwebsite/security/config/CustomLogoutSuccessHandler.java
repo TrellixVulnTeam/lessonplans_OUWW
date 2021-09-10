@@ -27,11 +27,10 @@ public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
 			throws IOException, ServletException {
 		
 		System.out.println("LOGOUT SUCCESSFUL");
-		
-		
+			
 		//get user from session
-		String userName = authentication.getName();
-		User user = userRepository.findByUsername(userName);
+//		String userName = authentication.getName();
+//		User user = userRepository.findByUsername(userName);
 	
 		
 		response.sendRedirect(request.getContextPath() + "/showMyLoginPage");
