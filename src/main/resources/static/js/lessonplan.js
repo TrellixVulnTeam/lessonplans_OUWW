@@ -8,17 +8,30 @@ console.log("external js loaded");
 
 window.addEventListener("load", addChecked);
 
+// document.getElementById("showSearch").addEventListener('click', function(event){
+// console.log("debugging event " + event);
+// 		event.preventDefault();
+//         console.log("showSearch click working");
+//     });
+
+document.getElementById('showSearch').addEventListener('click', (e) => showMenu(e));
+document.getElementById('hideSearch').addEventListener('click', function(event){
+        hideMenu(event);
+});
 
 
-function showMenu() {
+
+function showMenu(e) {
     //addChecked();
+    e.preventDefault();
     document.getElementById('mega-menu').style.display = 'block';
     document.getElementById('showSearch').classList.add('hide');
     document.getElementById('hideSearch').classList.remove('hide');
     
 }
 
-function hideMenu() {
+function hideMenu(e) {
+	e.preventDefault();
     document.getElementById('mega-menu').style.display = 'none';
     document.getElementById('hideSearch').classList.add('hide');
     document.getElementById('showSearch').classList.remove('hide');

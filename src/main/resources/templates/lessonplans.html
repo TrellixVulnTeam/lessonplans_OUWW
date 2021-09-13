@@ -10,7 +10,6 @@
 
 
 <link th:href="@{/css/styles_principal.css}" rel="stylesheet" />
-<script type="text/javascript" th:src="@{/js/lessonplan.js}"></script>
 
 
 
@@ -24,9 +23,9 @@
 			<h1 id="large-header">Lesson Plans</h1>
 			
 			<div class="lp-btn-container">
-				<a id="showSearch" class="mb-2 btn btn--big btn--action-secondary" href='javascript:showMenu()'>Search lessons</a> 
+				<a id="showSearch" class="mb-2 btn btn--big btn--action-secondary" href='#'>Search lessons</a> 
 				<a id="hideSearch" class=" btn btn--med btn--tertiary hide"
-					href='javascript:hideMenu()'>Hide Search</a> 
+					href='#'>Hide Search</a> 
 			</div>
 
 
@@ -219,6 +218,8 @@
 
 
 	</div>
+	
+	<script type="text/javascript" th:src="@{/js/lessonplan.js}"></script>
 </body>
 
 </html>
