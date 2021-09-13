@@ -10,51 +10,14 @@
 
 
 <link th:href="@{/css/styles_principal.css}" rel="stylesheet" />
+<script type="text/javascript" th:src="@{/js/lessonplan.js}"></script>
 
-<script>
-    
-        function showMenu() {
-        	//addChecked();
-            document.getElementById('mega-menu').style.display = 'block';
-            document.getElementById('showSearch').classList.add('hide');
-			document.getElementById('hideSearch').classList.remove('hide');
-            
-        }
 
-        function hideMenu() {
-            document.getElementById('mega-menu').style.display = 'none';
-			document.getElementById('hideSearch').classList.add('hide');
-			document.getElementById('showSearch').classList.remove('hide');
-            
-        }
- 
-        function addChecked() {     	
-        	let checkboxesToCheck = "[[${checkboxesToCheck}]]";
-        	
-        	if (checkboxesToCheck){
-        		checkboxesToCheck = checkboxesToCheck.slice(1, checkboxesToCheck.length -1 );
-            	checkboxesToCheck = checkboxesToCheck.split(',');	
-            	checkboxesToCheck.forEach(element => console.log(element));
-            	
-            	//loop over and add checkbox          	
-            		console.log(checkboxesToCheck.length)
-            		console.log("hello");
-            		checkboxesToCheck.forEach(element => {	
-                		element = element.trim();
-                		if (document.getElementById(element)){	
-                    		document.getElementById(element).checked = true
-                		}
-                	
-                	});
-        	}
-        }
-
-    </script>
 
 <title>Lesson Plans</title>
 </head>
 
-<body onload="addChecked()">
+<body>
 	<div th:insert="navbar.html :: nav"></div>
 
 	<div class="main-content">
