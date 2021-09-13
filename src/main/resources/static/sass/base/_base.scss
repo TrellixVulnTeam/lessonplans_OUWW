@@ -19,4 +19,9 @@ body {
     box-sizing: border-box;
     font-size: $default-font-size;
     line-height: 2.2rem;
+
+    @include respond(sm-1) {
+		//font-size: 1.4rem;
+        font-size: calc(#{$default-font-size} - .2rem);
+	}
 }
