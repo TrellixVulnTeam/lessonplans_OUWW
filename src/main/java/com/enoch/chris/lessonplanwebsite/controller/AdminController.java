@@ -132,7 +132,7 @@ public class AdminController {
 	 * @return the name of the page to be rendered
 	 */
 	@PostMapping("/admin/edit")
-	public String editOrAddLessonPlan(final LessonPlan lessonPlan, Model theModel) {
+	public String editOrAddLessonPlan(final LessonPlan lessonPlan, Model theModel, RedirectAttributes attributes) {
 		theModel.addAttribute("lessonPlan", lessonPlan);
 		//theModel.addAttribute("lessonTitle", lessonPlan.getTitle());
 		
@@ -164,11 +164,12 @@ public class AdminController {
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				theModel.addAttribute("moveFileError", e.getMessage());
+				//theModel.addAttribute("moveFileError", e.getMessage());
+				attributes.addFlashAttribute("moveFileError", e.getMessage());
 				
 				//send lessonplans
-				List<LessonPlan> lessonPlans = lessonPlanRepository.findAll();
-				theModel.addAttribute("lessonPlans", lessonPlans);
+//				List<LessonPlan> lessonPlans = lessonPlanRepository.findAll();
+//				theModel.addAttribute("lessonPlans", lessonPlans);
 				return "redirect:/admin/";
 			}
 			
@@ -178,8 +179,9 @@ public class AdminController {
 		lessonPlanRepository.save(lessonPlan);
 		
 		//send lessonplans
-		List<LessonPlan> lessonPlans = lessonPlanRepository.findAll();
-		theModel.addAttribute("lessonPlans", lessonPlans);
+		
+		//List<LessonPlan> lessonPlans = lessonPlanRepository.findAll();
+		//theModel.addAttribute("lessonPlans", lessonPlans);
 		return "redirect:/admin/";
 	}
 	
@@ -274,7 +276,7 @@ public class AdminController {
 			
 			//if exists, throw exception
 			if (fileDestination.exists()) {
-				throw new Exception ("File already exists in destination folder.");
+				throw new Exception ("File already exists in the folder for the level you selected. Changes not saved.");
 			}
 			
 			//check if file already exists in source folder
@@ -282,7 +284,7 @@ public class AdminController {
 			
 			//if does not exist, throw exception
 			if (!fileSource.exists()) {
-				throw new Exception ("Unable to find source file.");
+				throw new Exception ("Unable to find source file for the lesson plan you edited. Changes not saved.");
 			}
 			
 			//attempt move
@@ -291,7 +293,7 @@ public class AdminController {
 			//check move
 			File newFile = new File(destination);		
 			if (!newFile.exists()) {
-				throw new Exception ("Unable to move the file.");
+				throw new Exception ("Unable to move the file to the new level folder. Changes not saved.");
 			}	
 			
 			//if get to here, file was moved successfully

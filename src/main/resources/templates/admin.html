@@ -47,6 +47,9 @@
 		<div class="main-content-inner ml-5 mr-5">
 
 			<h1 id="large-header"  th:text="${editLessonPlan} ? 'Edit Lesson Plan' : 'Add Lesson Plan'">Edit lesson plan</h1>
+			
+			<p class="alert mb-1" th:if="${moveFileError}" th:text="${moveFileError}"></p>
+
 
 			<form action="/admin" method="post" th:if="${showExisitngLessons}">
 				<div class="form__group">
