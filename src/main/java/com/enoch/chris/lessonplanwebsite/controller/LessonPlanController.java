@@ -105,17 +105,20 @@ public class LessonPlanController {
 	public List<Subscription> populateSubscriptions() {
 		return subscriptionRepository.findAll();
 	}
-
-	@ModelAttribute("allGrammar")
-	public List<Grammar> populateGrammar() {
-		return grammarRepository.findAll();
-	}
 	
 	@ModelAttribute("snapshotGrammar")
 	public Page<Grammar> populateGrammarSnapshot() {
 		return grammarRepository.findAll(PageRequest.of(0, 5));
 
 	}
+
+	@ModelAttribute("restOfGrammar")
+	public List<Grammar> populateGrammar() {
+		List<Grammar> allGrammars = grammarRepository.findAll();
+		return allGrammars.subList(5, allGrammars.size());
+	}
+	
+
 	
 	/**
 	 * Displays the lesson plans on the page. If lessonPlan is present as a model attribute then the user has filtered the lesson plans
@@ -143,7 +146,7 @@ public class LessonPlanController {
 		} else { 
 			LessonPlan lessonPlan = (LessonPlan) theModel.getAttribute("lessonPlan");		
 			System.out.println("Values of lessonPlan sent by user: " + lessonPlan);	
-			 processCheckboxesToCheck(theModel, lessonPlan);
+			 processFilteredLessonPlans(theModel, lessonPlan);
 			
 		}
 
@@ -483,15 +486,10 @@ public class LessonPlanController {
 	
 
 	
-	private void processCheckboxesToCheck(Model theModel, LessonPlan lessonPlan) {
-		List<LessonPlan> lessonPlansFiltered = lessonPlanService.findSearchedLessonPlans(lessonPlan);
-		 List<String> checkboxesToCheck = LessonPlanUtils.saveSelectedCheckboxes(lessonPlan);	
-		 
-		 System.out.println("Print checkboxes to check");
-		 checkboxesToCheck.forEach(System.out::println);
-		 
+	private void processFilteredLessonPlans(Model theModel, LessonPlan lessonPlan) {
+		List<LessonPlan> lessonPlansFiltered = lessonPlanService.findSearchedLessonPlans(lessonPlan);	 
 		 theModel.addAttribute("lessonPlans", lessonPlansFiltered);
-		 theModel.addAttribute("checkboxesToCheck", checkboxesToCheck);
+		 theModel.addAttribute("lessonPlan", lessonPlan); 
 		 
 		 System.out.println("lessonPlansFiltered: " + lessonPlansFiltered);
 		 System.out.println("length of lessonPlansFiltered: " + lessonPlansFiltered.size());
@@ -517,7 +515,7 @@ public class LessonPlanController {
 			
 			LessonPlan lessonPlan = new LessonPlan.LessonPlanBuilder(null, null, new Subscription("B2"), null, 0, null, null, null).build();		
 			initCheckboxes(lessonPlan); //ensure preparation time and lesson time radio buttons start unselected
-			processCheckboxesToCheck(theModel, lessonPlan);
+			processFilteredLessonPlans(theModel, lessonPlan);
 			
 			theModel.addAttribute("lessonPlan", lessonPlan);
 			
@@ -536,7 +534,7 @@ public class LessonPlanController {
 			LessonPlan lessonPlan = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, topics, null).build();		
 			initCheckboxes(lessonPlan); //ensure preparation time and lesson time radio buttons start unselected
 			
-			processCheckboxesToCheck(theModel, lessonPlan);
+			processFilteredLessonPlans(theModel, lessonPlan);
 			
 			theModel.addAttribute("lessonPlan", lessonPlan);
 			
@@ -556,7 +554,7 @@ public class LessonPlanController {
 			LessonPlan lessonPlan = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, topics, null).build();		
 			initCheckboxes(lessonPlan); //ensure preparation time and lesson time radio buttons start unselected
 			
-			processCheckboxesToCheck(theModel, lessonPlan);
+			processFilteredLessonPlans(theModel, lessonPlan);
 			
 			theModel.addAttribute("lessonPlan", lessonPlan);
 			
@@ -578,7 +576,7 @@ public class LessonPlanController {
 			
 			initCheckboxes(lessonPlan); //ensure preparation time and lesson time radio buttons start unselected
 			
-			processCheckboxesToCheck(theModel, lessonPlan);
+			processFilteredLessonPlans(theModel, lessonPlan);
 			
 			theModel.addAttribute("lessonPlan", lessonPlan);
 			
@@ -601,7 +599,7 @@ public class LessonPlanController {
 			
 			initCheckboxes(lessonPlan); //ensure preparation time and lesson time radio buttons start unselected
 			
-			processCheckboxesToCheck(theModel, lessonPlan);
+			processFilteredLessonPlans(theModel, lessonPlan);
 			
 			theModel.addAttribute("lessonPlan", lessonPlan);
 			
@@ -621,7 +619,7 @@ public class LessonPlanController {
 			
 			initCheckboxes(lessonPlan); //ensure preparation time and lesson time radio buttons start unselected
 			
-			processCheckboxesToCheck(theModel, lessonPlan);
+			processFilteredLessonPlans(theModel, lessonPlan);
 			
 			theModel.addAttribute("lessonPlan", lessonPlan);
 			
@@ -641,7 +639,7 @@ public class LessonPlanController {
 			
 			initCheckboxes(lessonPlan); //ensure preparation time and lesson time radio buttons start unselected
 			
-			processCheckboxesToCheck(theModel, lessonPlan);
+			processFilteredLessonPlans(theModel, lessonPlan);
 			
 			theModel.addAttribute("lessonPlan", lessonPlan);
 			
@@ -662,7 +660,7 @@ public class LessonPlanController {
 			
 			initCheckboxes(lessonPlan); //ensure preparation time and lesson time radio buttons start unselected
 			
-			processCheckboxesToCheck(theModel, lessonPlan);
+			processFilteredLessonPlans(theModel, lessonPlan);
 			
 			theModel.addAttribute("lessonPlan", lessonPlan);
 			
@@ -683,7 +681,7 @@ public class LessonPlanController {
 			
 			//Do not call initCheckboxes (unlike other tests). This time we do not want to set both radio buttons to null because one is beign tested.
 			
-			processCheckboxesToCheck(theModel, lessonPlan);
+			processFilteredLessonPlans(theModel, lessonPlan);
 			
 			theModel.addAttribute("lessonPlan", lessonPlan);
 			

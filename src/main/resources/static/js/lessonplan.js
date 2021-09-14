@@ -6,7 +6,7 @@ console.log("external js loaded");
 //     console.log("body onload event seems to be working");
 // });
 
-window.addEventListener("load", addChecked);
+//window.addEventListener("load", addChecked);
 
 // document.getElementById("showSearch").addEventListener('click', function(event){
 // console.log("debugging event " + event);
@@ -25,7 +25,7 @@ document.getElementById('hideAllGrammar').addEventListener('click', (e) => hideA
 
 function showAllGrammar(e){
     e.preventDefault();
-    document.getElementById('grammarSnapshot').classList.add("hide");
+    //document.getElementById('grammarSnapshot').classList.add("hide");
     document.getElementById('allGrammar').classList.remove('hide');
     document.getElementById('showAllGrammar').classList.add('hide');
     document.getElementById('hideAllGrammar').classList.remove('hide');
@@ -34,7 +34,7 @@ function showAllGrammar(e){
 function hideAllGrammar(e){
     e.preventDefault();
     document.getElementById('allGrammar').classList.add("hide");
-    document.getElementById('grammarSnapshot').classList.remove('hide');
+   // document.getElementById('grammarSnapshot').classList.remove('hide');
     document.getElementById('hideAllGrammar').classList.add('hide');
     document.getElementById('showAllGrammar').classList.remove('hide');
 }
