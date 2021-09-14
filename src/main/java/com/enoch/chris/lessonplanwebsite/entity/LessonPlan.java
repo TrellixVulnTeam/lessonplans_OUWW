@@ -352,15 +352,15 @@ public class LessonPlan {
 	}
 
 	public void setPicture(Picture picture) {
-		picture.addLessonPlan(this);
+		//picture.addLessonPlan(this);
 		this.picture = picture;
 	}
 	
-	public void removePicture(Picture picture) {
-		picture.removeLessonPlan(this);
-		this.picture = null;		
-	}
-	
+//	public void removePicture(Picture picture) {
+//		//picture.removeLessonPlan(this);
+//		this.picture = null;		
+//	}
+//	
 
 	public PreparationTime getPreparationTime() {
 		return preparationTime;
