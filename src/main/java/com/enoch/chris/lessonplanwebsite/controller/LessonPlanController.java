@@ -27,6 +27,8 @@ import javax.servlet.http.HttpSession;
 import org.hibernate.engine.jdbc.spi.TypeSearchability;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -107,6 +109,12 @@ public class LessonPlanController {
 	@ModelAttribute("allGrammar")
 	public List<Grammar> populateGrammar() {
 		return grammarRepository.findAll();
+	}
+	
+	@ModelAttribute("snapshotGrammar")
+	public Page<Grammar> populateGrammarSnapshot() {
+		return grammarRepository.findAll(PageRequest.of(0, 5));
+
 	}
 	
 	/**

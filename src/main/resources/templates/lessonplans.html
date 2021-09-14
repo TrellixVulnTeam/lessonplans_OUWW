@@ -85,14 +85,25 @@
 						</span>
 					</div>
 
-					<div class="form__group form__group--mega-menu ">
+					<div id="grammarSnapshot" class="form__group form__group--mega-menu ">
+						<div class="form__header">Grammar</div>
+						<span th:each="g : ${snapshotGrammar}"> <label
+							th:for="${#ids.next('grammar')}" th:text="${g.grammarPoint}">Heating</label>
+							<input type="checkbox" th:field="*{grammar}" th:value="${g.id}" />
+						</span>
+						<button id="showAllGrammar" class=" badge badge--tiny-symbol badge--primary-light">+</button> 
+					
+
+					</div>			
+					<div id="allGrammar" class="form__group form__group--mega-menu hide">
 						<div class="form__header">Grammar</div>
 						<span th:each="g : ${allGrammar}"> <label
 							th:for="${#ids.next('grammar')}" th:text="${g.grammarPoint}">Heating</label>
 							<input type="checkbox" th:field="*{grammar}" th:value="${g.id}" />
 						</span>
+						<button id="hideAllGrammar" class=" badge badge--tiny-symbol badge--primary-light" >-</button> 
 					</div>
-
+					
 					<!-- 	<div class="form__group form__group--mega-menu">
 						<div class="form__header">Lesson Time</div>
 

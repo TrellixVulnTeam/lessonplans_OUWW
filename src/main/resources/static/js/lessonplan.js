@@ -20,6 +20,26 @@ document.getElementById('hideSearch').addEventListener('click', function(event){
 });
 
 
+document.getElementById('showAllGrammar').addEventListener('click', (e) => showAllGrammar(e));
+document.getElementById('hideAllGrammar').addEventListener('click', (e) => hideAllGrammar(e));
+
+function showAllGrammar(e){
+    e.preventDefault();
+    document.getElementById('grammarSnapshot').classList.add("hide");
+    document.getElementById('allGrammar').classList.remove('hide');
+    document.getElementById('showAllGrammar').classList.add('hide');
+    document.getElementById('hideAllGrammar').classList.remove('hide');
+}
+
+function hideAllGrammar(e){
+    e.preventDefault();
+    document.getElementById('allGrammar').classList.add("hide");
+    document.getElementById('grammarSnapshot').classList.remove('hide');
+    document.getElementById('hideAllGrammar').classList.add('hide');
+    document.getElementById('showAllGrammar').classList.remove('hide');
+}
+
+
 
 function showMenu(e) {
     //addChecked();

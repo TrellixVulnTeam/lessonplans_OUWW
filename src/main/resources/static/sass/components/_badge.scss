@@ -7,5 +7,22 @@
 		background-color: $color-success;
 		padding:.5rem;
 		color: white;
+		border:none;
+
+		&--tiny-symbol {
+			padding:.7rem;
+			line-height: 1.7rem;
+			font-size: 3rem;
+			margin:0rem;		
+			margin-bottom: 1rem;		
+		}
+
+		&--primary-light{
+			background-color: rgba($color: $color-primary, $alpha: .6);
+			
+		}
+
+
+		
 }
 
