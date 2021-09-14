@@ -150,11 +150,13 @@ public class AdminController {
 			//Strip title of spaces and convert to lowercase to produce filename
 			String titleNoSpace = lessonPlan.getTitle().replaceAll("\\s", "").toLowerCase();
 			//build source path
-			String source = "src/main/resources/templates/lessonplans/"+ lessonPlanOriginal.getAssignedSubscription() 
+			String source = "src/main/resources/templates/lessonplans/"+ lessonPlanOriginal.getAssignedSubscription().getName() 
 					+ "/" + titleNoSpace + ".html";
-		
+			
+			System.out.println("debugging Source file " + source);
+			
 			//build destination path
-			String destination = "src/main/resources/templates/lessonplans/"+ lessonPlan.getAssignedSubscription() 
+			String destination = "src/main/resources/templates/lessonplans/"+ lessonPlan.getAssignedSubscription().getName() 
 			+ "/" + titleNoSpace + ".html";
 			
 			try {
