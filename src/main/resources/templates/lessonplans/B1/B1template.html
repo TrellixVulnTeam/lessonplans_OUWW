@@ -24,7 +24,7 @@
 			<p th:if="${session.user != null}">You must have a <span th:text="${lp.assignedSubscription.displayName}"></span>
 			subscription in order to access this lesson plan.</p>
 			<a class="mt-2 btn btn--primary" href='/checkout?id=B2'>Get this subscription now</a>
-			<a th:if="${session.user == null}" class="mt-2 btn btn--info" href="javascript: document.sendPreviousPage.submit()" >Login/Register</a>
+			<a th:if="${session.user == null}" id="loginRegister" class="mt-2 btn btn--info" href="#" >Login/Register</a>
 		</div>
 
 		<div th:if="${B1active}">
@@ -33,13 +33,16 @@
 
 	</div>
 	
-	<form name="sendPreviousPage" style="display: none"
+	<form name="sendPreviousPage" id="sendPreviousPage" style="display: none"
 		method="POST" action='/showMyLoginPage'>
 		<input type="hidden" th:name="${_csrf.parameterName}"
 					th:value="${_csrf.token}" />
 		<input type="hidden" name="previousPage" th:value="'lessonplans/' + ${lp.assignedSubscription.name} + '/?id=' + ${lp.id}"  />
 		<input hidden="true" type="submit" value="sendPreviousPage" />
 	</form>
+
+
+	<script type="text/javascript" th:src="@{/js/lessonplantemplates.js}"></script>
 </body>
 
 </html>
