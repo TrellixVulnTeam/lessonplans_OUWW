@@ -69,19 +69,19 @@
 					<input type="text" th:field="*{title}" />
 				</div>
 
-
-				<div class="form__group">
+<!-- 	<div class="form__group">
 					<div class="form__header">Picture</div>
 					<input type="text" th:field="*{picture}" />
-				</div>
+				</div> -->
+			
 
-<!-- <div class="form__group">
+ 				<div class="form__group">
 					<div class="form__header">Picture</div>
 					<select name="picture" id="picture" th:field="*{picture}" onchange="updatePicture();">
 						<option th:each="picture : ${allPictures}" th:value="${picture.id}" th:text="${picture.name}"
 							th:name="${picture.fileLocation}">Picture</option>
 					</select>
-				</div>  -->
+				</div>  
 				
 
 				<div class="mb-1">
