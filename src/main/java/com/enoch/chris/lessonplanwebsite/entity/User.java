@@ -52,13 +52,6 @@ public class User {
 	inverseJoinColumns = @JoinColumn(name = "subscription_id"))
 	private List<Subscription> subscriptions;
 	
-	@ManyToMany(fetch = FetchType.LAZY,cascade= {CascadeType.DETACH, 
-			CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}) //Was @JoinTable(name = "subscription_user",
-	@JoinTable(name = "basket", 
-	joinColumns = @JoinColumn(name = "user_id"), 
-	inverseJoinColumns = @JoinColumn(name = "subscription_id"))
-	private List<Subscription> basket = new ArrayList<>();
-	
 
 	public User() {
 	}
@@ -118,14 +111,6 @@ public class User {
 
 	public void setPackages(List<Subscription> subscriptions) {
 		this.subscriptions = subscriptions;
-	}
-
-	public List<Subscription> getBasket() {
-		return basket;
-	}
-
-	public void setBasket(List<Subscription> basket) {
-		this.basket = basket;
 	}
 
 	public void setSubscriptions(List<Subscription> subscriptions) {
