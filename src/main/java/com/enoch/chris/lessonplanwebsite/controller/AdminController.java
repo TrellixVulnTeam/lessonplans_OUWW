@@ -1,6 +1,8 @@
 package com.enoch.chris.lessonplanwebsite.controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.CopyOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -9,6 +11,7 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -129,7 +132,7 @@ public class AdminController {
 	 * @return the name of the page to be rendered
 	 */
 	@PostMapping("/admin/edit")
-	public String editOrAddLessonPlan(final LessonPlan lessonPlan, Model theModel) {
+	public String editOrAddLessonPlan(final LessonPlan lessonPlan, Model theModel, RedirectAttributes attributes) {
 		theModel.addAttribute("lessonPlan", lessonPlan);
 		//theModel.addAttribute("lessonTitle", lessonPlan.getTitle());
 		
@@ -138,15 +141,54 @@ public class AdminController {
 			lessonPlan.setDateAdded(LocalDate.now());
 		}
 		
+		//compare level field with field from database
+		LessonPlan lessonPlanOriginal = lessonPlanRepository.findById(lessonPlan.getId()).get();
+		Subscription originalAssignedSubscription = lessonPlanOriginal.getAssignedSubscription();
+		if (originalAssignedSubscription  != 
+				lessonPlan.getAssignedSubscription()) {  //means assignedSubscription has been changed
+			
+			//Strip title of spaces and convert to lowercase to produce filename
+			String titleNoSpace = lessonPlan.getTitle().replaceAll("\\s", "").toLowerCase();
+			//build source path
+			String source = "src/main/resources/templates/lessonplans/"+ lessonPlanOriginal.getAssignedSubscription().getName() 
+					+ "/" + titleNoSpace + ".html";
+			
+			System.out.println("debugging Source file " + source);
+			
+			//build destination path
+			String destination = "src/main/resources/templates/lessonplans/"+ lessonPlan.getAssignedSubscription().getName() 
+			+ "/" + titleNoSpace + ".html";
+			
+			try {
+				moveLessonPlanFile(source, destination);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				//theModel.addAttribute("moveFileError", e.getMessage());
+				attributes.addFlashAttribute("moveFileError", e.getMessage());
+				
+				//send lessonplans
+//				List<LessonPlan> lessonPlans = lessonPlanRepository.findAll();
+//				theModel.addAttribute("lessonPlans", lessonPlans);
+				return "redirect:/admin/";
+			}
+			
+		}		
+			
 		//save new or updated lesson to database
 		lessonPlanRepository.save(lessonPlan);
 		
 		//send lessonplans
-		List<LessonPlan> lessonPlans = lessonPlanRepository.findAll();
-		theModel.addAttribute("lessonPlans", lessonPlans);
-
+		
+		//List<LessonPlan> lessonPlans = lessonPlanRepository.findAll();
+		//theModel.addAttribute("lessonPlans", lessonPlans);
 		return "redirect:/admin/";
 	}
+	
+	
+	
+	
+	
 	
 	/**
 	 * A page where a new lesson plan can be added.
@@ -224,6 +266,76 @@ public class AdminController {
 
 		return "admin";
 	}
+	
+	
+	private void moveLessonPlanFile(String source, String destination) throws Exception {
+			
+			
+			//check if file already exists in destination folder
+			File fileDestination = new File(destination);
+			
+			//if exists, throw exception
+			if (fileDestination.exists()) {
+				throw new Exception ("File already exists in the folder for the level you selected. Changes not saved.");
+			}
+			
+			//check if file already exists in source folder
+			File fileSource = new File(source);
+			
+			//if does not exist, throw exception
+			if (!fileSource.exists()) {
+				throw new Exception ("Unable to find source file for the lesson plan you edited. Changes not saved.");
+			}
+			
+			//attempt move
+			Files.move(Paths.get(source), Paths.get(destination));
+					
+			//check move
+			File newFile = new File(destination);		
+			if (!newFile.exists()) {
+				throw new Exception ("Unable to move the file to the new level folder. Changes not saved.");
+			}	
+			
+			//if get to here, file was moved successfully
+	}
+	
+	
+	@GetMapping("testfile")
+	public String testFile(Model theModel) throws IOException {
+		////Strip title of spaces to produce filename
+		//String titleNoSpace = lp.get().getTitle().replaceAll("\\s", "");
+		//convert to html
+		
+		
+		try {
+			System.out.println("Current working directory: " + new File(".").getCanonicalPath());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		File temp;
+		//temp = new File("/../../../../../../resources/templates/lessonplans/B2/beachactivities.html");
+		temp = new File("src/main/resources/templates/lessonplans/B2/beachactivities.html");
+		
+		
+		Files.move(Paths.get("src/main/resources/templates/lessonplans/B2/beachactivities.html")
+				, Paths.get("src/main/resources/templates/lessonplans/C1/beachactivities.html"));
+		
+		boolean exists = temp.exists();
+		System.out.println("Beachactivities exists : " + exists);
+		
+		System.out.println("Directory contents of file referenced");
+		try (Stream<Path> paths = Files.walk(Paths.get("/../"))) {
+		    paths
+		        .filter(Files::isRegularFile)
+		        .forEach(System.out::println);
+		}
+		return "admin";
+	}
+	
+	
+	
 
 	
 	
