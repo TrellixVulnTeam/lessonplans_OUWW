@@ -216,7 +216,18 @@ public class AdminController {
 	}
 	
 
-	 @PostMapping("/admin/upload")
+	
+	 @GetMapping("/admin/upload")
+	    public String uploadFileHome(Model theModel) {	 
+		 List<DeletedLessonPlan> deletedLessonPlans = deletedLessonPlanRepository.findAll();
+		 theModel.addAttribute("deletedLessonPlans", deletedLessonPlans);
+		 theModel.addAttribute("topics", populateTopics());
+		 theModel.addAttribute("tags", populateTags());
+		 theModel.addAttribute("grammar", populateGrammar());        
+	        return "adddata";
+	  }
+	 
+	 @PostMapping("/admin/uploadpicture")
 	    public String uploadFile(@RequestParam("file") MultipartFile file, RedirectAttributes attributes) {
 		 System.out.println("in post uploadFile");
 
@@ -259,92 +270,134 @@ public class AdminController {
 	    }
 
 	 
-	 @PostMapping("/admin/uploadlessonplan")
+	 @PostMapping("/admin/uploadlessonplan_a1")
+	    public String uploadLessonPlanFileA1(@RequestParam("file") MultipartFile file, RedirectAttributes attributes
+	    		,HttpServletRequest request) {
+
+	        return uploadLessonPlan(file, attributes, "A1");
+	  }
+	 
+	 @PostMapping("/admin/uploadlessonplan_a2")
+	    public String uploadLessonPlanFileA2(@RequestParam("file") MultipartFile file, RedirectAttributes attributes
+	    		,HttpServletRequest request) {
+
+	        return uploadLessonPlan(file, attributes, "A2");
+	  }
+	 
+	 @PostMapping("/admin/uploadlessonplan_b1")
+	    public String uploadLessonPlanFileB1(@RequestParam("file") MultipartFile file, RedirectAttributes attributes
+	    		,HttpServletRequest request) {
+
+	        return uploadLessonPlan(file, attributes, "B1");
+	  }
+	 
+	 @PostMapping("/admin/uploadlessonplan_b2")
+	    public String uploadLessonPlanFileB2(@RequestParam("file") MultipartFile file, RedirectAttributes attributes
+	    		,HttpServletRequest request) {
+
+	        return uploadLessonPlan(file, attributes, "B2");
+	  }
+	 
+	 @PostMapping("/admin/uploadlessonplan_b2plus")
+	    public String uploadLessonPlanFileB2Plus(@RequestParam("file") MultipartFile file, RedirectAttributes attributes
+	    		,HttpServletRequest request) {
+
+	        return uploadLessonPlan(file, attributes, "B2PLUS");
+	  }
+	 
+	 @PostMapping("/admin/uploadlessonplan_c1")
+	    public String uploadLessonPlanFileC1(@RequestParam("file") MultipartFile file, RedirectAttributes attributes
+	    		,HttpServletRequest request) {
+
+	        return uploadLessonPlan(file, attributes, "C1");
+	  }
+	 
+	 @PostMapping("/admin/uploadlessonplan_c1plus")
+	    public String uploadLessonPlanFileC1plus(@RequestParam("file") MultipartFile file, RedirectAttributes attributes
+	    		,HttpServletRequest request) {
+
+	        return uploadLessonPlan(file, attributes, "C1PLUS");
+	  }
+	 
+	 @PostMapping("/admin/uploadlessonplan_c2")
 	    public String uploadLessonPlanFile(@RequestParam("file") MultipartFile file, RedirectAttributes attributes
 	    		,HttpServletRequest request) {
 
-	        // check if file is empty
-	        if (file.isEmpty()) {
-	            attributes.addFlashAttribute("messagelessonplanfailure", "Please select a file to upload.");
-	            return "redirect:/admin/upload";
-	        }
-	            
-	        // normalize the file path
-	        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-	        
-	        //only accept html files
-	        String fileExtentions = ".html";   
-	        if (!restrictUploadedFiles(fileName, fileExtentions)) {
-	        	 attributes.addFlashAttribute("messagelessonplanfailure", "We only support files with "
-	 					+ "the html extension.");
-	        	 return "redirect:/admin/upload";
-	        }
-	        
-	        //build file destination path
-	        //Strip title of spaces and convert to lowercase to produce filename
-			String titleNoSpace = fileName.replaceAll("\\s", "").toLowerCase();
-			
-			String subscriptionName = "A1"; //change this
-			
-			String destination = "src/main/resources/templates/lessonplans/"+ subscriptionName
-					+ "/" + titleNoSpace;            
-	        
-	        //check if already exists in intended subscription folder
-			File fileDestination = new File(destination);
-			if (fileDestination.exists()) { //if it does move current file to recycle bin			
-							
-				String fileEnding = destination.substring(destination.lastIndexOf("."));
-				System.out.println("debugging filending " + fileEnding);
-
-				//get file name without ending
-				int lastIndex = destination.lastIndexOf('/');
-				String fileNameWithoutEnding = destination.substring(lastIndex + 1, destination.lastIndexOf("."));	
-				String newFileName = subscriptionName + "_" + fileNameWithoutEnding + "_" + 
-						LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd--hh-mm-s")) + fileEnding;
-				
-				//build path to deleted lesson plans. Use date to ensure file name is always unique and for ease of reference.
-				String newDestination = "src/main/resources/templates/deletedlessonplans/" + newFileName;									
-				try {
-					Files.move(Paths.get(destination), Paths.get(newDestination));
-					deletedLessonPlanRepository.save(new DeletedLessonPlan(newFileName));
-					
-				} catch (IOException e1) {
-					e1.printStackTrace();
-					attributes.addFlashAttribute("messagelessonplanfailure", "Sorry but there was a problem uploading"
-		            		+ " " + fileName + " . The file already exists in the subscription folder and the current file wasn't able to be moved to the recycle bin.");  				
-					  return "redirect:/admin/upload";
-				}			
-			}			
-			
-			// save the file on the local file system
-	        try {
-	            Path path = Paths.get(destination);       
-	            
-	            Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-	            
-	         // return success response
-		        attributes.addFlashAttribute("messagelessonplansuccess", "You successfully uploaded " + fileName);          
-	            
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	            attributes.addFlashAttribute("messagelessonplanfailure", "Sorry but there was a problem uploading"
-	            		+ " " + fileName + " . Please try again.");       
-	        }
-	        return "redirect:/admin/upload";
-	    }
-
+	        return uploadLessonPlan(file, attributes, "C2");
+	  }
 	 
 
-	 @GetMapping("/admin/upload")
-	    public String uploadFileHome(Model theModel) {	 
-		 List<DeletedLessonPlan> deletedLessonPlans = deletedLessonPlanRepository.findAll();
-		 theModel.addAttribute("deletedLessonPlans", deletedLessonPlans);
-		 theModel.addAttribute("topics", populateTopics());
-		 theModel.addAttribute("tags", populateTags());
-		 theModel.addAttribute("grammar", populateGrammar());        
-	        return "adddata";
-	    }
-	
+	private String uploadLessonPlan(MultipartFile file, RedirectAttributes attributes, String subscription) {
+		// check if file is empty
+		if (file.isEmpty()) {
+		    attributes.addFlashAttribute("messagelessonplanfailure"+subscription, "Please select a file to upload.");
+		    return "redirect:/admin/upload";
+		}
+		    
+		// normalize the file path
+		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+		
+		//only accept html files
+		String fileExtentions = ".html";   
+		if (!restrictUploadedFiles(fileName, fileExtentions)) {
+			 attributes.addFlashAttribute("messagelessonplanfailure" + subscription, "We only support files with "
+					+ "the html extension.");
+			 return "redirect:/admin/upload";
+		}
+		
+		//build file destination path
+		//Strip title of spaces and convert to lowercase to produce filename
+		String titleNoSpace = fileName.replaceAll("\\s", "").toLowerCase();
+		
+		String subscriptionName = subscription; //change this
+		
+		String destination = "src/main/resources/templates/lessonplans/"+ subscriptionName
+				+ "/" + titleNoSpace;            
+		
+		//check if already exists in intended subscription folder
+		File fileDestination = new File(destination);
+		if (fileDestination.exists()) { //if it does move current file to recycle bin			
+						
+			String fileEnding = destination.substring(destination.lastIndexOf("."));
+			System.out.println("debugging filending " + fileEnding);
+
+			//get file name without ending
+			int lastIndex = destination.lastIndexOf('/');
+			String fileNameWithoutEnding = destination.substring(lastIndex + 1, destination.lastIndexOf("."));	
+			String newFileName = subscriptionName + "_" + fileNameWithoutEnding + "_" + 
+					LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd--hh-mm-s")) + fileEnding;
+			
+			//build path to deleted lesson plans. Use date to ensure file name is always unique and for ease of reference.
+			String newDestination = "src/main/resources/templates/deletedlessonplans/" + newFileName;									
+			try {
+				Files.move(Paths.get(destination), Paths.get(newDestination));
+				deletedLessonPlanRepository.save(new DeletedLessonPlan(newFileName));
+				
+			} catch (IOException e1) {
+				e1.printStackTrace();
+				attributes.addFlashAttribute("messagelessonplanfailure" + subscription, "Sorry but there was a problem uploading"
+		        		+ " " + fileName + " . The file already exists in the subscription folder and the current file wasn't able to be moved to the recycle bin.");  				
+				  return "redirect:/admin/upload";
+			}			
+		}			
+		
+		// save the file on the local file system
+		try {
+		    Path path = Paths.get(destination);       
+		    
+		    Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+		    
+		 // return success response
+		    attributes.addFlashAttribute("messagelessonplansuccess" + subscription, "You successfully uploaded " + fileName);          
+		    
+		} catch (IOException e) {
+		    e.printStackTrace();
+		    attributes.addFlashAttribute("messagelessonplanfailure" + subscription, "Sorry but there was a problem uploading"
+		    		+ " " + fileName + " . Please try again.");       
+		}
+		return "redirect:/admin/upload";
+	}
+
 	 
 	 @PostMapping("/admin/uploadtopic")
 	    public String addTopic(HttpServletRequest request, RedirectAttributes attributes) {

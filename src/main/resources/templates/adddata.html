@@ -20,21 +20,105 @@
 
 			<h1 id="large-header">Manage Data</h1>
 
- 			<h2 class="mb-2 mt-3">Upload lesson plan</h2>
-			<p th:text="${messagelessonplansuccess}" th:if="${messagelessonplansuccess ne null}" class="success"></p>
-			<p th:text="${messagelessonplanfailure}" th:if="${messagelessonplanfailure ne null}" class="alert"></p>	
+ 			<h2 class="mb-2 mt-3">Upload A1 lesson plan</h2>
+			<p th:text="${messagelessonplansuccessA1}" th:if="${messagelessonplansuccessA1 ne null}" class="success"></p>
+			<p th:text="${messagelessonplanfailureA1}" th:if="${messagelessonplanfailureA1 ne null}" class="alert"></p>	
 
-           	<form method="post" th:action="@{/admin/uploadlessonplan}" enctype="multipart/form-data">								
+           	<form method="post" th:action="@{/admin/uploadlessonplan_a1}" enctype="multipart/form-data">								
                <div class="form__group">
                    <input type="file" name="file" class="form-control-file">
                </div>
                <button type="submit" class="btn btn--info">Upload lesson plan</button>
-           	</form>     
+           	</form>
+           	
+           		<h2 class="mb-2 mt-3">Upload A2 lesson plan</h2>
+			<p th:text="${messagelessonplansuccessA2}" th:if="${messagelessonplansuccessA2 ne null}" class="success"></p>
+			<p th:text="${messagelessonplanfailureA2}" th:if="${messagelessonplanfailureA2 ne null}" class="alert"></p>	
+
+           	<form method="post" th:action="@{/admin/uploadlessonplan_a2}" enctype="multipart/form-data">								
+               <div class="form__group">
+                   <input type="file" name="file" class="form-control-file">
+               </div>
+               <button type="submit" class="btn btn--info">Upload lesson plan</button>
+           	</form> 
+           	
+           		<h2 class="mb-2 mt-3">Upload B1 lesson plan</h2>
+			<p th:text="${messagelessonplansuccessB1}" th:if="${messagelessonplansuccessB1 ne null}" class="success"></p>
+			<p th:text="${messagelessonplanfailureB1}" th:if="${messagelessonplanfailureB1 ne null}" class="alert"></p>	
+
+           	<form method="post" th:action="@{/admin/uploadlessonplan_b1}" enctype="multipart/form-data">								
+               <div class="form__group">
+                   <input type="file" name="file" class="form-control-file">
+               </div>
+               <button type="submit" class="btn btn--info">Upload lesson plan</button>
+           	</form> 
+           	
+           		<h2 class="mb-2 mt-3">Upload B2 lesson plan</h2>
+			<p th:text="${messagelessonplansuccessB2}" th:if="${messagelessonplansuccessB2 ne null}" class="success"></p>
+			<p th:text="${messagelessonplanfailureB2}" th:if="${messagelessonplanfailureB2 ne null}" class="alert"></p>	
+
+           	<form method="post" th:action="@{/admin/uploadlessonplan_b2}" enctype="multipart/form-data">								
+               <div class="form__group">
+                   <input type="file" name="file" class="form-control-file">
+               </div>
+               <button type="submit" class="btn btn--info">Upload lesson plan</button>
+           	</form> 
+           	
+           		<h2 class="mb-2 mt-3">Upload B2PLUS lesson plan</h2>
+			<p th:text="${messagelessonplansuccessB2PLUS}" th:if="${messagelessonplansuccessB2PLUS ne null}" class="success"></p>
+			<p th:text="${messagelessonplanfailureB2PLUS}" th:if="${messagelessonplanfailureB2PLUS ne null}" class="alert"></p>	
+
+           	<form method="post" th:action="@{/admin/uploadlessonplan_b2plus}" enctype="multipart/form-data">								
+               <div class="form__group">
+                   <input type="file" name="file" class="form-control-file">
+               </div>
+               <button type="submit" class="btn btn--info">Upload lesson plan</button>
+           	</form> 
+           	
+           		<h2 class="mb-2 mt-3">Upload C1 lesson plan</h2>
+			<p th:text="${messagelessonplansuccessC1}" th:if="${messagelessonplansuccessC1 ne null}" class="success"></p>
+			<p th:text="${messagelessonplanfailureC1}" th:if="${messagelessonplanfailureC1 ne null}" class="alert"></p>	
+
+           	<form method="post" th:action="@{/admin/uploadlessonplan_c1}" enctype="multipart/form-data">								
+               <div class="form__group">
+                   <input type="file" name="file" class="form-control-file">
+               </div>
+               <button type="submit" class="btn btn--info">Upload lesson plan</button>
+           	</form> 
+           	
+           		<h2 class="mb-2 mt-3">Upload C1PLUS lesson plan</h2>
+			<p th:text="${messagelessonplansuccessC1PLUS}" th:if="${messagelessonplansuccessC1PLUS ne null}" class="success"></p>
+			<p th:text="${messagelessonplanfailureC1PLUS}" th:if="${messagelessonplanfailureC1PLUS ne null}" class="alert"></p>	
+
+           	<form method="post" th:action="@{/admin/uploadlessonplan_c1plus}" enctype="multipart/form-data">								
+               <div class="form__group">
+                   <input type="file" name="file" class="form-control-file">
+               </div>
+               <button type="submit" class="btn btn--info">Upload lesson plan</button>
+           	</form> 
+           	
+           		<h2 class="mb-2 mt-3">Upload C2 lesson plan</h2>
+			<p th:text="${messagelessonplansuccessC2}" th:if="${messagelessonplansuccessC2 ne null}" class="success"></p>
+			<p th:text="${messagelessonplanfailureC2}" th:if="${messagelessonplanfailureC2 ne null}" class="alert"></p>	
+
+           	<form method="post" th:action="@{/admin/uploadlessonplan_c2}" enctype="multipart/form-data">								
+               <div class="form__group">
+                   <input type="file" name="file" class="form-control-file">
+               </div>
+               <button type="submit" class="btn btn--info">Upload lesson plan</button>
+           	</form> 
+           	
+           	
+           	
+           	
+           	
+           	
+           	     
 
 			<h2 class="mb-2 mt-3">Upload picture</h2>
 			<p th:text="${messagepicturesuccess}" th:if="${messagepicturesuccess ne null}" class="success"></p>
 			<p th:text="${messagepicturefailure}" th:if="${messagepicturefailure ne null}" class="alert"></p>		
-             <form method="post" th:action="@{/admin/upload}" enctype="multipart/form-data">				
+             <form method="post" th:action="@{/admin/uploadpicture}" enctype="multipart/form-data">				
                  <div class="form__group">
                      <input type="file" name="file" class="form-control-file">
                  </div>
