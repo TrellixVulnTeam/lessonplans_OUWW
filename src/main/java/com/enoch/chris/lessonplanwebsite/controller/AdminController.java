@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.type.filter.AbstractClassTestingTypeFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -303,7 +304,7 @@ public class AdminController {
 				//get file name without ending
 				int lastIndex = destination.lastIndexOf('/');
 				String fileNameWithoutEnding = destination.substring(lastIndex + 1, destination.lastIndexOf("."));	
-				String newFileName = subscriptionName + "_" + fileNameWithoutEnding + 
+				String newFileName = subscriptionName + "_" + fileNameWithoutEnding + "_" + 
 						LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd--hh-mm-s")) + fileEnding;
 				
 				//build path to deleted lesson plans. Use date to ensure file name is always unique and for ease of reference.
@@ -337,19 +338,21 @@ public class AdminController {
 	        return "redirect:/admin/upload";
 	    }
 
-
-
 	 
 	 /**
 	  * Displays a page where a new picture can be uploaded
 	  * @return the name of the page to be rendered
 	  */
 	 @GetMapping("/admin/upload")
-	    public String uploadFileHome() {      
+	    public String uploadFileHome(Model theModel) {
+		 
+		 List<DeletedLessonPlan> deletedLessonPlans = deletedLessonPlanRepository.findAll();
+		 theModel.addAttribute("deletedLessonPlans", deletedLessonPlans);
 	        
 	        return "adddata";
 	    }
 	
+	 
 	 @PostMapping("/admin/uploadtopic")
 	    public String addTopic(HttpServletRequest request, RedirectAttributes attributes) {
 		 String newTopic = request.getParameter("topic");
@@ -409,15 +412,20 @@ public class AdminController {
 	 
 	 
 
-	     @GetMapping("/admin/download")
+	     @PostMapping("/admin/downloaddeletedlessonplan")
 	     public void downloadPDFResource( HttpServletRequest request,  HttpServletResponse response) {
+	    	 
+	    	 String fileToDownload = request.getParameter("lessonPlanToDownload");
+	    	 System.out.println("fileToDownload " + fileToDownload);
 
 	        // String dataDirectory = request.getServletContext().getRealPath("src/main/resources/templates/deletedlessonplans/ ");
-	         Path file = Paths.get("src/main/resources/templates/deletedlessonplans/A1_index2021-09-15--06-12-32.html");
+	         Path file = Paths.get("src/main/resources/templates/deletedlessonplans/" + fileToDownload);
+	         System.out.println("debugging path: src/main/resources/templates/deletedlessonplans/" + fileToDownload );
+	         
 	         if (Files.exists(file)) {
 	        	
 	             response.setContentType("test/html");
-	             response.addHeader("Content-Disposition", "attachment; filename=A1_index2021-09-15--06-12-32.html");
+	             response.addHeader("Content-Disposition", "attachment; filename=" + fileToDownload);
 	             try{
 	                 Files.copy(file, response.getOutputStream());
 	                 response.getOutputStream().flush();
@@ -448,7 +456,7 @@ public class AdminController {
 				//get file name
 				int lastIndex = destination.lastIndexOf('/');
 				String fileNameWithoutEnding = destination.substring(lastIndex + 1, destination.lastIndexOf("."));
-				String newFilename = subscriptionName + "_" + fileNameWithoutEnding + 
+				String newFilename = subscriptionName + "_" + fileNameWithoutEnding + "_" + 
 						LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd--hh-mm-s")) + fileEnding;
 				//cut off filename
 				//fileNameWithoutEnding = fileNameWithoutEnding.substring(0, fileNameWithoutEnding.lastIndexOf("."));

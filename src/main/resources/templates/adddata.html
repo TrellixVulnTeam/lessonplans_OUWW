@@ -69,7 +69,18 @@
                         <input type="text" name="grammar">
                     </div>
                     <button type="submit" class="btn btn--info">Add Grammar</button>
-             </form>                                    
+             </form>  
+             
+             <h2 class="mb-1 mt-2">Download deleted lesson plan</h2>
+             <form method="post" th:action="@{/admin/downloaddeletedlessonplan}">	
+             <select name = "lessonPlanToDownload">
+			  <option th:each="dlp : ${deletedLessonPlans}" 
+			          th:value="${dlp.filename}" 
+			          th:text="${dlp.filename}" >Filename</option>
+			</select>
+			<input type="submit" value = "Submit">
+			</form>
+                                               
 
 		</div>
 	</div>
