@@ -165,7 +165,7 @@ public class AdminController {
 			+ "/" + titleNoSpace + ".html";
 			
 			try {
-				moveLessonPlanFile(source, destination);
+				moveLessonPlanFile(source, destination, lessonPlanOriginal.getAssignedSubscription().getName());
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -293,9 +293,7 @@ public class AdminController {
 			if (fileDestination.exists()) { //if it does move current file to recycle bin			
 				//build path to deleted lesson plans. Use date to ensure file name is always unique and for ease of reference.
 				String newDestination = "src/main/resources/templates/deletedlessonplans/" + subscriptionName + "_" + fileName + 
-						LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd--hh-mm-s"));
-				
-				System.out.println("debugging - new destination: " + newDestination);
+						LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd--hh-mm-s"));			
 				
 				try {
 					Files.move(Paths.get(destination), Paths.get(newDestination));
@@ -405,16 +403,30 @@ public class AdminController {
 	
 	
 	
-	private void moveLessonPlanFile(String source, String destination) throws Exception {	
+	private void moveLessonPlanFile(String source, String destination, String subscriptionName) throws Exception {	
 			//check if file already exists in destination folder
 			File fileDestination = new File(destination);
 			
-			//if exists, throw exception
+			//if exists, move to deletedlessonplans folder
 			if (fileDestination.exists()) {
-				//throw new Exception ("File already exists in the folder for the level you selected. Changes not saved.");
+				//get file name
+				int lastIndex = destination.lastIndexOf('/');
+				String fileName = destination.substring(lastIndex + 1, destination.length());  
 				
+				System.out.println("debugging calculated file name " + fileName);
+							
+				//save current file to deletedlessonplans folder			
+				String newDestination = "src/main/resources/templates/deletedlessonplans/" + subscriptionName + "_" + fileName + 
+						LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd--hh-mm-s"));			
 				
-				//save current file to recycle bin
+				try {
+					Files.move(Paths.get(destination), Paths.get(newDestination));
+				} catch (IOException e1) {
+					e1.printStackTrace();
+					throw new Exception("Sorry but there was a problem moving"
+		            		+ "the html file for the lesson. The file already exists in the subscription "
+		            		+ "folder you selected and the current file wasn't able to be moved to the recycle bin.");						  
+				}					
 			}
 			
 			//check if file already exists in source folder
