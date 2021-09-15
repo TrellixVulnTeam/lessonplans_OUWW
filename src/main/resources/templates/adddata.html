@@ -10,7 +10,7 @@
 
 <link th:href="@{/css/styles_principal.css}" rel="stylesheet" />
 
-<title>Upload picture</title>
+<title>Manage data</title>
 </head>
 
 <body>
@@ -18,19 +18,9 @@
 	<div class="main-content">
 		<div class="main-content-inner ml-5 mr-5">
 
-			<h1 id="large-header">Add Data</h1>
+			<h1 id="large-header">Manage Data</h1>
 
-			<h2 class="mb-2">Upload picture</h2>
-			<p th:text="${messagepicturesuccess}" th:if="${messagepicturesuccess ne null}" class="success"></p>
-			<p th:text="${messagepicturefailure}" th:if="${messagepicturefailure ne null}" class="alert"></p>		
-             <form method="post" th:action="@{/admin/upload}" enctype="multipart/form-data">				
-                 <div class="form__group">
-                     <input type="file" name="file" class="form-control-file">
-                 </div>
-                 <button type="submit" class="btn btn--info">Upload picture</button>
-             </form>
-             
-            <h2 class="mb-3 mt-3">Upload lesson plan</h2>
+ 			<h2 class="mb-2 mt-3">Upload lesson plan</h2>
 			<p th:text="${messagelessonplansuccess}" th:if="${messagelessonplansuccess ne null}" class="success"></p>
 			<p th:text="${messagelessonplanfailure}" th:if="${messagelessonplanfailure ne null}" class="alert"></p>	
 
@@ -40,7 +30,17 @@
                </div>
                <button type="submit" class="btn btn--info">Upload lesson plan</button>
            	</form>     
-             
+
+			<h2 class="mb-2 mt-3">Upload picture</h2>
+			<p th:text="${messagepicturesuccess}" th:if="${messagepicturesuccess ne null}" class="success"></p>
+			<p th:text="${messagepicturefailure}" th:if="${messagepicturefailure ne null}" class="alert"></p>		
+             <form method="post" th:action="@{/admin/upload}" enctype="multipart/form-data">				
+                 <div class="form__group">
+                     <input type="file" name="file" class="form-control-file">
+                 </div>
+                 <button type="submit" class="btn btn--info">Upload picture</button>
+             </form>
+
              <h2 class="mb-1 mt-2">Upload topic</h2>
              <p th:text="${messagetopicsuccess}" th:if="${messagetopicsuccess ne null}" class="success"></p>	
              <p th:text="${messagetopicfailure}" th:if="${messagetopicfailure ne null}" class="alert"></p>	
@@ -70,8 +70,83 @@
                     </div>
                     <button type="submit" class="btn btn--info">Add Grammar</button>
              </form>  
-             
-             <h2 class="mb-1 mt-2">Download deleted lesson plan</h2>
+
+			 <h2 class="mb-1 mt-2">Edit topic</h2>
+			 <p th:text="${messagetopiceditsuccess}" th:if="${messagetopiceditsuccess ne null}" class="success"></p>	
+             <p th:text="${messagetopiceditfailure}" th:if="${messagetopiceditfailure ne null}" class="alert"></p>	
+             <form method="post" th:action="@{/admin/edittopic}">	
+             <select name = "topicToEdit">
+			  <option th:each="top : ${topics}" 
+			          th:value="${top.id}" 
+			          th:text="${top.name}" >Topic name</option>
+			</select>
+			<label>Edited topic<input type="text" name="editedtopic" value = ""></label>
+			<input type="submit" value = "Submit">
+			</form>
+			
+				 <h2 class="mb-1 mt-2">Edit tag</h2>
+			 <p th:text="${messagetageditsuccess}" th:if="${messagetageditsuccess ne null}" class="success"></p>	
+             <p th:text="${messagetageditfailure}" th:if="${messagetageditfailure ne null}" class="alert"></p>	
+             <form method="post" th:action="@{/admin/edittag}">	
+             <select name = "tagToEdit">
+			  <option th:each="tag : ${tags}" 
+			          th:value="${tag.id}" 
+			          th:text="${tag.name}" >Tag name</option>
+			</select>
+			<label>Edited tag<input type="text" name="editedtag" value = ""></label>
+			<input type="submit" value = "Submit">
+			</form>
+			
+			 <h2 class="mb-1 mt-2">Edit grammar point</h2>
+			 <p th:text="${messagegrammareditsuccess}" th:if="${messagegrammareditsuccess ne null}" class="success"></p>	
+             <p th:text="${messagegrammareditfailure}" th:if="${messagegrammareditfailure ne null}" class="alert"></p>	
+             <form method="post" th:action="@{/admin/editgrammar}">	
+             <select name = "grammarToEdit">
+			  <option th:each="g : ${grammar}" 
+			          th:value="${g.id}" 
+			          th:text="${g.grammarPoint}" >Grammar point</option>
+			</select>
+			<label>Edited grammar point<input type="text" name="editedgrammar" value=""></label>
+			<input type="submit" value = "Submit">
+			</form>
+			
+			<h2 class="mb-1 mt-2">Delete topic</h2>
+			 <p th:text="${messagetopicdeletesuccess}" th:if="${messagetopicdeletesuccess ne null}" class="success"></p>	
+             <p th:text="${messagetopicdeletefailure}" th:if="${messagetopicdeletefailure ne null}" class="alert"></p>	
+             <form method="post" th:action="@{/admin/deletetopic}">	
+             <select name = "topicToDelete">
+			  <option th:each="top : ${topics}" 
+			          th:value="${top.id}" 
+			          th:text="${top.name}" >Topic name</option>
+			</select>
+			<input type="submit" value = "Submit">
+			</form>
+			
+			<h2 class="mb-1 mt-2">Delete tag</h2>
+			 <p th:text="${messagetagdeletesuccess}" th:if="${messagetagdeletesuccess ne null}" class="success"></p>	
+             <p th:text="${messagetagdeletefailure}" th:if="${messagetagdeletefailure ne null}" class="alert"></p>	
+             <form method="post" th:action="@{/admin/deletetag}">	
+             <select name = "tagToDelete">
+			  <option th:each="tag : ${tags}" 
+			          th:value="${tag.id}" 
+			          th:text="${tag.name}" >Tag name</option>
+			</select>
+			<input type="submit" value = "Submit">
+			</form>
+			
+			<h2 class="mb-1 mt-2">Delete grammar point</h2>
+			 <p th:text="${messagegrammardeletesuccess}" th:if="${messagegrammardeletesuccess ne null}" class="success"></p>	
+             <p th:text="${messagegrammardeletefailure}" th:if="${messagegrammardeletefailure ne null}" class="alert"></p>	
+             <form method="post" th:action="@{/admin/deletegrammar}">	
+             <select name = "grammarToDelete">
+			  <option th:each="g : ${grammar}" 
+			          th:value="${g.id}" 
+			          th:text="${g.grammarPoint}" >Grammar point</option>
+			</select>
+			<input type="submit" value = "Submit">
+			</form>
+			
+			 <h2 class="mb-1 mt-2">Download deleted lesson plan</h2>
              <form method="post" th:action="@{/admin/downloaddeletedlessonplan}">	
              <select name = "lessonPlanToDownload">
 			  <option th:each="dlp : ${deletedLessonPlans}" 
@@ -80,7 +155,8 @@
 			</select>
 			<input type="submit" value = "Submit">
 			</form>
-                                               
+                       
+                                            
 
 		</div>
 	</div>

@@ -215,12 +215,7 @@ public class AdminController {
 		return "admin";
 	}
 	
-	/**
-	 * Handles the processing of a new uploaded picture.
-	 * @param file
-	 * @param attributes
-	 * @return the name of the page to be rendered
-	 */
+
 	 @PostMapping("/admin/upload")
 	    public String uploadFile(@RequestParam("file") MultipartFile file, RedirectAttributes attributes) {
 		 System.out.println("in post uploadFile");
@@ -339,16 +334,14 @@ public class AdminController {
 	    }
 
 	 
-	 /**
-	  * Displays a page where a new picture can be uploaded
-	  * @return the name of the page to be rendered
-	  */
+
 	 @GetMapping("/admin/upload")
-	    public String uploadFileHome(Model theModel) {
-		 
+	    public String uploadFileHome(Model theModel) {	 
 		 List<DeletedLessonPlan> deletedLessonPlans = deletedLessonPlanRepository.findAll();
 		 theModel.addAttribute("deletedLessonPlans", deletedLessonPlans);
-	        
+		 theModel.addAttribute("topics", populateTopics());
+		 theModel.addAttribute("tags", populateTags());
+		 theModel.addAttribute("grammar", populateGrammar());        
 	        return "adddata";
 	    }
 	
@@ -356,12 +349,17 @@ public class AdminController {
 	 @PostMapping("/admin/uploadtopic")
 	    public String addTopic(HttpServletRequest request, RedirectAttributes attributes) {
 		 String newTopic = request.getParameter("topic");
-		 String newTopicLowerCase = newTopic.toLowerCase();
 		 
+		//check topic is longer than two characters
+		 if (newTopic.length() < 2) {
+			 attributes.addFlashAttribute("messagetopicfailure", "Topic name must be at least 2 characters. Topic not added.");
+				return "redirect:/admin/upload";
+		 }
+		 
+		//check topic doesn't already exist
+		 String newTopicLowerCase = newTopic.toLowerCase();
 		 List<String> topicsLowercase = populateTopics().stream().map(Topic::getName)
 				 .map(String::toLowerCase).collect(Collectors.toList());
-		 
-		 //check topic doesn't already exist
 		if(topicsLowercase.contains(newTopicLowerCase)) {
 			attributes.addFlashAttribute("messagetopicfailure", "This topic already exists. Topic not added.");
 			return "redirect:/admin/upload";
@@ -375,12 +373,17 @@ public class AdminController {
 	 @PostMapping("/admin/uploadtag")
 	    public String addTag(HttpServletRequest request, RedirectAttributes attributes) {
 		 String newTag = request.getParameter("tag");
-		 String newTagLowerCase = newTag.toLowerCase();
 		 
-		 List<String> tagsLowercase = populateTags().stream().map(Tag::getName)
-				 .map(String::toLowerCase).collect(Collectors.toList());
+		//check tag is longer than two characters
+		 if (newTag.length() < 2) {
+			 attributes.addFlashAttribute("messagetagfailure", "Tag name must be at least 2 characters. Tag not added.");
+				return "redirect:/admin/upload";
+		 }
 		 
 		 //check tag doesn't already exist
+		 String newTagLowerCase = newTag.toLowerCase();	 
+		 List<String> tagsLowercase = populateTags().stream().map(Tag::getName)
+				 .map(String::toLowerCase).collect(Collectors.toList());
 		if(tagsLowercase.contains(newTagLowerCase)) {
 			attributes.addFlashAttribute("messagetagfailure", "This tag already exists. Tag not added.");
 			return "redirect:/admin/upload";
@@ -394,12 +397,17 @@ public class AdminController {
 	 @PostMapping("/admin/uploadgrammar")
 	    public String addGrammar(HttpServletRequest request, RedirectAttributes attributes) {
 		 String newGrammar = request.getParameter("grammar");
-		 String newGrammarLowerCase = newGrammar.toLowerCase();
 		 
-		 List<String> grammarLowerCase = populateGrammar().stream().map(Grammar::getGrammarPoint)
-				 .map(String::toLowerCase).collect(Collectors.toList());
+		//check grammar is longer than two characters
+		 if (newGrammar.length() < 2) {
+			 attributes.addFlashAttribute("messagegrammarfailure", "Grammar point must be at least 2 characters. Grammar point not added.");
+				return "redirect:/admin/upload";
+		 }
 		 
 		 //check tag doesn't already exist
+		 String newGrammarLowerCase = newGrammar.toLowerCase();
+		 List<String> grammarLowerCase = populateGrammar().stream().map(Grammar::getGrammarPoint)
+				 .map(String::toLowerCase).collect(Collectors.toList());
 		if(grammarLowerCase.contains(newGrammarLowerCase)) {
 			attributes.addFlashAttribute("messagegrammarfailure", "This grammar point already exists. Grammar point not added.");
 			return "redirect:/admin/upload";
@@ -407,6 +415,192 @@ public class AdminController {
 		 //save in database
 		grammarRepository.save(new Grammar(newGrammar));
 		attributes.addFlashAttribute("messagegrammarsuccess", "Grammar point added successfully.");
+	     return "redirect:/admin/upload";
+	  }
+	 
+	 @PostMapping("/admin/edittopic")
+	    public String editTopic(HttpServletRequest request, RedirectAttributes attributes) {
+		
+		 Integer topicId = Integer.parseInt(request.getParameter("topicToEdit"));
+		 String newEditedTopic = request.getParameter("editedtopic");
+		 
+		 //check topic is longer than two characters
+		 if (newEditedTopic.length() < 2) {
+			 attributes.addFlashAttribute("messagetopiceditfailure", "Topic name must be at least 2 characters. Topic not edited.");
+				return "redirect:/admin/upload";
+		 }
+		 
+		 //check topic doesn't already exist
+		 String newEditedTopicLowerCase = newEditedTopic.toLowerCase();
+		 List<String> topicsLowercase = populateTopics().stream().map(Topic::getName)
+				 .map(String::toLowerCase).collect(Collectors.toList());
+			if(topicsLowercase.contains(newEditedTopicLowerCase)) {
+				attributes.addFlashAttribute("messagetopiceditfailure", "This topic already exists. Topic not edited.");
+				return "redirect:/admin/upload";
+			}
+			 
+		//get current topic
+		Topic topicOriginal;
+		try {
+			topicOriginal = topicRepository.findById(topicId).orElseThrow(()-> new Exception("Topic not found."));
+		} catch (Exception e) {
+			e.printStackTrace();
+			attributes.addFlashAttribute("messagetopiceditfailure", "Unable to edit topic because topic couldn't be found.");
+		    return "redirect:/admin/upload";
+		}
+		
+		//update topic
+		topicOriginal.setName(newEditedTopic);
+		
+		//save in database
+		topicRepository.save(topicOriginal);
+		
+		attributes.addFlashAttribute("messagetopiceditsuccess", "Topic edited successfully.");
+	     return "redirect:/admin/upload";
+	  }
+	 
+	 @PostMapping("/admin/edittag")
+	    public String editTag(HttpServletRequest request, RedirectAttributes attributes) {
+		
+		 Integer tagId = Integer.parseInt(request.getParameter("tagToEdit"));
+		 String newEditedTag = request.getParameter("editedtag");
+		 
+		 //check tag is longer than two characters
+		 if (newEditedTag.length() < 2) {
+			 attributes.addFlashAttribute("messagetageditfailure", "Tag name must be at least 2 characters. Tag not edited.");
+				return "redirect:/admin/upload";
+		 }
+		 
+		 //check tag doesn't already exist
+		 String newEditedTagLowerCase = newEditedTag.toLowerCase();
+		 List<String> tagsLowercase = populateTags().stream().map(Tag::getName)
+				 .map(String::toLowerCase).collect(Collectors.toList());
+			if(tagsLowercase.contains(newEditedTagLowerCase)) {
+				attributes.addFlashAttribute("messagetageditfailure", "This tag already exists. Tag not edited.");
+				return "redirect:/admin/upload";
+			}
+			 
+		//get current tag
+		Tag tagOriginal;
+		try {
+			tagOriginal = tagRepository.findById(tagId).orElseThrow(()-> new Exception("Tag not found."));
+		} catch (Exception e) {
+			e.printStackTrace();
+			attributes.addFlashAttribute("messagetageditfailure", "Unable to edit tag because tag couldn't be found.");
+		    return "redirect:/admin/upload";
+		}
+		
+		//update tag
+		tagOriginal.setName(newEditedTag);
+		
+		//save in database
+		tagRepository.save(tagOriginal);
+		
+		attributes.addFlashAttribute("messagetageditsuccess", "Tag edited successfully.");
+	     return "redirect:/admin/upload";
+	  }
+	 
+	 @PostMapping("/admin/editgrammar")
+	    public String editGrammar(HttpServletRequest request, RedirectAttributes attributes) {
+		
+		 Integer grammarId = Integer.parseInt(request.getParameter("grammarToEdit"));
+		 String newEditedGrammar = request.getParameter("editedgrammar");
+		 
+		 //check grammar is longer than two characters
+		 if (newEditedGrammar.length() < 2) {
+			 attributes.addFlashAttribute("messagegrammareditfailure", "Grammar point must be at least 2 characters. Grammar point not edited.");
+				return "redirect:/admin/upload";
+		 }
+		 
+		 //check grammar doesn't already exist
+		 String newEditedGrammarLowerCase = newEditedGrammar.toLowerCase();
+		 List<String> grammarLowerCase = populateGrammar().stream().map(Grammar::getGrammarPoint)
+				 .map(String::toLowerCase).collect(Collectors.toList());
+			if(grammarLowerCase.contains(newEditedGrammarLowerCase)) {
+				attributes.addFlashAttribute("messagegrammareditfailure", "This grammar point  already exists. Grammar point not edited.");
+				return "redirect:/admin/upload";
+			}
+			 
+		//get current grammar
+		Grammar grammarOriginal;
+		try {
+			grammarOriginal = grammarRepository.findById(grammarId).orElseThrow(()-> new Exception("Grammar point not found."));
+		} catch (Exception e) {
+			e.printStackTrace();
+			attributes.addFlashAttribute("messagegrammareditfailure", "Unable to edit grammar point because grammar point couldn't be found.");
+		    return "redirect:/admin/upload";
+		}
+		
+		//update grammar
+		grammarOriginal.setGrammarPoint(newEditedGrammar);
+		
+		//save in database
+		grammarRepository.save(grammarOriginal);
+		
+		attributes.addFlashAttribute("messagegrammareditsuccess", "Grammar point edited successfully.");
+	     return "redirect:/admin/upload";
+	  }
+	 
+	 @PostMapping("/admin/deletetopic")
+	    public String deleteTopic(HttpServletRequest request, RedirectAttributes attributes) {	
+		 Integer topicId = Integer.parseInt(request.getParameter("topicToDelete"));
+			 
+		//get current topic
+		Topic topicOriginal;
+		try {
+			topicOriginal = topicRepository.findById(topicId).orElseThrow(()-> new Exception("Topic not found."));
+		} catch (Exception e) {
+			e.printStackTrace();
+			attributes.addFlashAttribute("messagetopicdeletefailure", "Unable to delete topic because topic couldn't be found.");
+		    return "redirect:/admin/upload";
+		}
+		
+		//delete from
+		topicRepository.delete(topicOriginal);
+		
+		attributes.addFlashAttribute("messagetopicdeletesuccess", "Topic deleted successfully.");
+	     return "redirect:/admin/upload";
+	  }
+	 
+	 @PostMapping("/admin/deletetag")
+	    public String deleteTag(HttpServletRequest request, RedirectAttributes attributes) {	
+		 Integer tagId = Integer.parseInt(request.getParameter("tagToDelete"));
+			 
+		//get current topic
+		Tag tagOriginal;
+		try {
+			tagOriginal = tagRepository.findById(tagId).orElseThrow(()-> new Exception("Tag not found."));
+		} catch (Exception e) {
+			e.printStackTrace();
+			attributes.addFlashAttribute("messagetagdeletefailure", "Unable to delete tag because tag couldn't be found.");
+		    return "redirect:/admin/upload";
+		}
+		
+		//delete from
+		tagRepository.delete(tagOriginal);
+		
+		attributes.addFlashAttribute("messagetagdeletesuccess", "Tag deleted successfully.");
+	     return "redirect:/admin/upload";
+	  }
+	 
+	 @PostMapping("/admin/deletegrammar")
+	    public String deleteGrammar(HttpServletRequest request, RedirectAttributes attributes) {	
+		 Integer grammarId = Integer.parseInt(request.getParameter("grammarToDelete"));
+			 
+		//get current topic
+		Grammar grammarOriginal;
+		try {
+			grammarOriginal = grammarRepository.findById(grammarId).orElseThrow(()-> new Exception("Grammar point not found."));
+		} catch (Exception e) {
+			e.printStackTrace();
+			attributes.addFlashAttribute("messagegrammardeletefailure", "Unable to delete grammar point because grammar point couldn't be found.");
+		    return "redirect:/admin/upload";
+		}
+		
+		//delete from
+		grammarRepository.delete(grammarOriginal);
+		
+		attributes.addFlashAttribute("messagegrammardeletesuccess", "Grammar point deleted successfully.");
 	     return "redirect:/admin/upload";
 	  }
 	 
