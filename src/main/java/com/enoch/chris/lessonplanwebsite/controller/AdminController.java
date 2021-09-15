@@ -292,12 +292,17 @@ public class AdminController {
 	        //check if already exists in intended subscription folder
 			File fileDestination = new File(destination);
 			if (fileDestination.exists()) { //if it does move current file to recycle bin			
-				
-				
+							
+				String fileEnding = destination.substring(destination.lastIndexOf("."));
+				System.out.println("debugging filending " + fileEnding);
+
+				//get file name without ending
+				int lastIndex = destination.lastIndexOf('/');
+				String fileNameWithoutEnding = destination.substring(lastIndex + 1, destination.lastIndexOf("."));	
 				
 				//build path to deleted lesson plans. Use date to ensure file name is always unique and for ease of reference.
-				String newDestination = "src/main/resources/templates/deletedlessonplans/" + subscriptionName + "_" + fileName + 
-						LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd--hh-mm-s"));			
+				String newDestination = "src/main/resources/templates/deletedlessonplans/" + subscriptionName + "_" + fileNameWithoutEnding + 
+						LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd--hh-mm-s")) + fileEnding;			
 				
 				try {
 					Files.move(Paths.get(destination), Paths.get(newDestination));
@@ -442,10 +447,10 @@ public class AdminController {
 
 				//get file name
 				int lastIndex = destination.lastIndexOf('/');
-				String fileNameWithoutEnding = destination.substring(lastIndex + 1, destination.length());
+				String fileNameWithoutEnding = destination.substring(lastIndex + 1, destination.lastIndexOf("."));
 				
 				//cut off filename
-				fileNameWithoutEnding = fileNameWithoutEnding.substring(0, fileNameWithoutEnding.lastIndexOf("."));
+				//fileNameWithoutEnding = fileNameWithoutEnding.substring(0, fileNameWithoutEnding.lastIndexOf("."));
 				
 				System.out.println("debugging calculated file name " + fileNameWithoutEnding);
 				System.out.println("debugging calculated file ending " + fileNameWithoutEnding);
