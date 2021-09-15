@@ -292,6 +292,9 @@ public class AdminController {
 	        //check if already exists in intended subscription folder
 			File fileDestination = new File(destination);
 			if (fileDestination.exists()) { //if it does move current file to recycle bin			
+				
+				
+				
 				//build path to deleted lesson plans. Use date to ensure file name is always unique and for ease of reference.
 				String newDestination = "src/main/resources/templates/deletedlessonplans/" + subscriptionName + "_" + fileName + 
 						LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd--hh-mm-s"));			
@@ -425,21 +428,31 @@ public class AdminController {
 	     }
 	 
 	
-	private void moveLessonPlanFile(String source, String destination, String subscriptionName) throws Exception {	
+	private void moveLessonPlanFile(String source, String destination, String subscriptionName) throws Exception {
+		System.out.println("Inside move leson planb file");
+		
 			//check if file already exists in destination folder
 			File fileDestination = new File(destination);
 			
 			//if exists, move to deletedlessonplans folder
 			if (fileDestination.exists()) {
+				
+				String fileEnding = destination.substring(destination.lastIndexOf("."));
+				System.out.println("debugging filending " + fileEnding);
+
 				//get file name
 				int lastIndex = destination.lastIndexOf('/');
-				String fileName = destination.substring(lastIndex + 1, destination.length());  
+				String fileNameWithoutEnding = destination.substring(lastIndex + 1, destination.length());
 				
-				System.out.println("debugging calculated file name " + fileName);
+				//cut off filename
+				fileNameWithoutEnding = fileNameWithoutEnding.substring(0, fileNameWithoutEnding.lastIndexOf("."));
+				
+				System.out.println("debugging calculated file name " + fileNameWithoutEnding);
+				System.out.println("debugging calculated file ending " + fileNameWithoutEnding);
 							
 				//save current file to deletedlessonplans folder			
-				String newDestination = "src/main/resources/templates/deletedlessonplans/" + subscriptionName + "_" + fileName + 
-						LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd--hh-mm-s"));			
+				String newDestination = "src/main/resources/templates/deletedlessonplans/" + subscriptionName + "_" + fileNameWithoutEnding + 
+						LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd--hh-mm-s")) + fileEnding;			
 				
 				try {
 					Files.move(Paths.get(destination), Paths.get(newDestination));
