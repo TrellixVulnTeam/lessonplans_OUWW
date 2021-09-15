@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -393,15 +394,36 @@ public class AdminController {
 	  }
 	 
 	 
-	@GetMapping("/admin/deletelp")
-	public String deleteLessonPlan(Model theModel) {		
 
-		lessonPlanRepository.deleteAll();
-
-		return "admin";
-	}
-	
-	
+	     @GetMapping("/admin/download")
+	     public void downloadPDFResource( HttpServletRequest request,  HttpServletResponse response) 
+	     {
+	         //If user is not authorized - he should be thrown out from here itself
+	          
+	         //Authorized user will download the file
+	        // String dataDirectory = request.getServletContext().getRealPath("src/main/resources/templates/deletedlessonplans/ ");
+	         Path file = Paths.get("src/main/resources/templates/deletedlessonplans/c1advanced3 sample unit.pdf");
+	         if (Files.exists(file)) 
+	         {
+	        	 
+	        	 System.out.println("debugging download file exists");
+	             response.setContentType("test/html");
+	             response.addHeader("Content-Disposition", "attachment; filename=c1advanced3 sample unit.pdf");
+	             try
+	             {
+	                 Files.copy(file, response.getOutputStream());
+	                 response.getOutputStream().flush();
+	             } 
+	             catch (IOException ex) {
+	                 ex.printStackTrace();
+	             }
+	         } else {
+	        	 System.out.println("debugging download file DOES NOT existS");
+	         }
+	         
+	        // return "redirect:/admin/upload";
+	     }
+	 
 	
 	private void moveLessonPlanFile(String source, String destination, String subscriptionName) throws Exception {	
 			//check if file already exists in destination folder
