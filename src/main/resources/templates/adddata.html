@@ -27,8 +27,19 @@
                  <div class="form__group">
                      <input type="file" name="file" class="form-control-file">
                  </div>
-                 <button type="submit" class="btn btn--info">Upload File</button>
-             </form>   
+                 <button type="submit" class="btn btn--info">Upload picture</button>
+             </form>
+             
+            <h2 class="mb-3 mt-3">Upload lesson plan</h2>
+			<p th:text="${messagelessonplansuccess}" th:if="${messagelessonplansuccess ne null}" class="success"></p>
+			<p th:text="${messagelessonplanfailure}" th:if="${messagelessonplanfailure ne null}" class="alert"></p>	
+
+           	<form method="post" th:action="@{/admin/uploadlessonplan}" enctype="multipart/form-data">								
+               <div class="form__group">
+                   <input type="file" name="file" class="form-control-file">
+               </div>
+               <button type="submit" class="btn btn--info">Upload lesson plan</button>
+           	</form>     
              
              <h2 class="mb-1 mt-2">Upload topic</h2>
              <p th:text="${messagetopicsuccess}" th:if="${messagetopicsuccess ne null}" class="success"></p>	
@@ -48,7 +59,17 @@
                         <input type="text" name="tag">
                     </div>
                     <button type="submit" class="btn btn--info">Add Tag</button>
-             </form>                                 
+             </form> 
+             
+             <h2 class="mb-1 mt-2">Upload grammar point</h2>
+             <p th:text="${messagegrammarsuccess}" th:if="${messagegrammarsuccess ne null}" class="success"></p>	
+             <p th:text="${messagegrammarfailure}" th:if="${messagegrammarfailure ne null}" class="alert"></p>	
+             <form method="post" th:action="@{/admin/uploadgrammar}">				
+                    <div class="form__group">
+                        <input type="text" name="grammar">
+                    </div>
+                    <button type="submit" class="btn btn--info">Add Grammar</button>
+             </form>                                    
 
 		</div>
 	</div>

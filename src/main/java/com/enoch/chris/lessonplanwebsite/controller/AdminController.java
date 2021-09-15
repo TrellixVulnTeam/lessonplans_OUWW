@@ -8,6 +8,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -43,7 +45,7 @@ import com.enoch.chris.lessonplanwebsite.entity.Topic;
 @Controller
 public class AdminController {
 	
-	private static final String UPLOAD_DIR = "src/main/resources/static/images/";
+	private static final String IMAGE_UPLOAD_DIR = "src/main/resources/static/images/";
 	private LessonPlanRepository lessonPlanRepository;
 	private PictureRepository pictureRepository;
 	private GrammarRepository grammarRepository;
@@ -236,10 +238,8 @@ public class AdminController {
 	        
 	        // save the file on the local file system
 	        try {
-	            Path path = Paths.get(UPLOAD_DIR + fileName);
-	            
+	            Path path = Paths.get(IMAGE_UPLOAD_DIR + fileName);       
 	            System.out.println("path3    /images/" + fileName);
-
 	            Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
 	            
 	            //save Picture to database
@@ -254,10 +254,76 @@ public class AdminController {
 	            attributes.addFlashAttribute("messagepicturefailure", "Sorry but there was a problem uploading"
 	            		+ " " + fileName + " . Please try again.");       
 	        }
-
-
 	        return "redirect:/admin/upload";
 	    }
+
+	 
+	 @PostMapping("/admin/uploadlessonplan")
+	    public String uploadLessonPlanFile(@RequestParam("file") MultipartFile file, RedirectAttributes attributes
+	    		,HttpServletRequest request) {
+
+	        // check if file is empty
+	        if (file.isEmpty()) {
+	            attributes.addFlashAttribute("messagelessonplanfailure", "Please select a file to upload.");
+	            return "redirect:/admin/upload";
+	        }
+	            
+	        // normalize the file path
+	        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+	        
+	        //only accept html files
+	        String fileExtentions = ".html";   
+	        if (!restrictUploadedFiles(fileName, fileExtentions)) {
+	        	 attributes.addFlashAttribute("messagelessonplanfailure", "We only support files with "
+	 					+ "the html extension.");
+	        	 return "redirect:/admin/upload";
+	        }
+	        
+	        //build file destination path
+	        //Strip title of spaces and convert to lowercase to produce filename
+			String titleNoSpace = fileName.replaceAll("\\s", "").toLowerCase();
+			
+			String subscriptionName = "A1"; //change this
+			
+			String destination = "src/main/resources/templates/lessonplans/"+ subscriptionName
+					+ "/" + titleNoSpace;            
+	        
+	        //check if already exists in intended subscription folder
+			File fileDestination = new File(destination);
+			if (fileDestination.exists()) { //if it does move current file to recycle bin			
+				//build path to deleted lesson plans. Use date to ensure file name is always unique and for ease of reference.
+				String newDestination = "src/main/resources/templates/deletedlessonplans/" + subscriptionName + "_" + fileName + 
+						LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd--hh-mm-s"));
+				
+				System.out.println("debugging - new destination: " + newDestination);
+				
+				try {
+					Files.move(Paths.get(destination), Paths.get(newDestination));
+				} catch (IOException e1) {
+					e1.printStackTrace();
+					attributes.addFlashAttribute("messagelessonplanfailure", "Sorry but there was a problem uploading"
+		            		+ " " + fileName + " . The file already exists in the subscription folder and the current file wasn't able to be moved to the recycle bin.");  				
+					  return "redirect:/admin/upload";
+				}			
+			}			
+			
+			// save the file on the local file system
+	        try {
+	            Path path = Paths.get(destination);       
+	            
+	            Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+	            
+	         // return success response
+		        attributes.addFlashAttribute("messagelessonplansuccess", "You successfully uploaded " + fileName);          
+	            
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	            attributes.addFlashAttribute("messagelessonplanfailure", "Sorry but there was a problem uploading"
+	            		+ " " + fileName + " . Please try again.");       
+	        }
+	        return "redirect:/admin/upload";
+	    }
+
 
 
 	 
@@ -309,6 +375,25 @@ public class AdminController {
 	     return "redirect:/admin/upload";
 	  }
 	 
+	 @PostMapping("/admin/uploadgrammar")
+	    public String addGrammar(HttpServletRequest request, RedirectAttributes attributes) {
+		 String newGrammar = request.getParameter("grammar");
+		 String newGrammarLowerCase = newGrammar.toLowerCase();
+		 
+		 List<String> grammarLowerCase = populateGrammar().stream().map(Grammar::getGrammarPoint)
+				 .map(String::toLowerCase).collect(Collectors.toList());
+		 
+		 //check tag doesn't already exist
+		if(grammarLowerCase.contains(newGrammarLowerCase)) {
+			attributes.addFlashAttribute("messagegrammarfailure", "This grammar point already exists. Grammar point not added.");
+			return "redirect:/admin/upload";
+		} 	 
+		 //save in database
+		grammarRepository.save(new Grammar(newGrammar));
+		attributes.addFlashAttribute("messagegrammarsuccess", "Grammar point added successfully.");
+	     return "redirect:/admin/upload";
+	  }
+	 
 	 
 	@GetMapping("/admin/deletelp")
 	public String deleteLessonPlan(Model theModel) {		
@@ -319,13 +404,17 @@ public class AdminController {
 	}
 	
 	
+	
 	private void moveLessonPlanFile(String source, String destination) throws Exception {	
 			//check if file already exists in destination folder
 			File fileDestination = new File(destination);
 			
 			//if exists, throw exception
 			if (fileDestination.exists()) {
-				throw new Exception ("File already exists in the folder for the level you selected. Changes not saved.");
+				//throw new Exception ("File already exists in the folder for the level you selected. Changes not saved.");
+				
+				
+				//save current file to recycle bin
 			}
 			
 			//check if file already exists in source folder
@@ -337,7 +426,7 @@ public class AdminController {
 			}
 			
 			//attempt move
-			Files.move(Paths.get(source), Paths.get(destination));
+			Files.move(Paths.get(source), Paths.get(destination), StandardCopyOption.REPLACE_EXISTING);
 					
 			//check move
 			File newFile = new File(destination);		
@@ -357,45 +446,6 @@ public class AdminController {
 			return true;
 		}
 	}
-	
-	@GetMapping("testfile")
-	public String testFile(Model theModel) throws IOException {
-		////Strip title of spaces to produce filename
-		//String titleNoSpace = lp.get().getTitle().replaceAll("\\s", "");
-		//convert to html
-		
-		
-		try {
-			System.out.println("Current working directory: " + new File(".").getCanonicalPath());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		File temp;
-		//temp = new File("/../../../../../../resources/templates/lessonplans/B2/beachactivities.html");
-		temp = new File("src/main/resources/templates/lessonplans/B2/beachactivities.html");
-		
-		
-		Files.move(Paths.get("src/main/resources/templates/lessonplans/B2/beachactivities.html")
-				, Paths.get("src/main/resources/templates/lessonplans/C1/beachactivities.html"));
-		
-		boolean exists = temp.exists();
-		System.out.println("Beachactivities exists : " + exists);
-		
-		System.out.println("Directory contents of file referenced");
-		try (Stream<Path> paths = Files.walk(Paths.get("/../"))) {
-		    paths
-		        .filter(Files::isRegularFile)
-		        .forEach(System.out::println);
-		}
-		return "admin";
-	}
-	
-	
-	
-
-	
 	
 }
 
