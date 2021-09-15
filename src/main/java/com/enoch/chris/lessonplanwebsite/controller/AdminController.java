@@ -11,7 +11,10 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -216,13 +219,21 @@ public class AdminController {
 
 	        // check if file is empty
 	        if (file.isEmpty()) {
-	            attributes.addFlashAttribute("message", "Please select a file to upload.");
+	            attributes.addFlashAttribute("messagepicturefailure", "Please select a file to upload.");
 	            return "redirect:/admin/upload";
 	        }
-
+	            
 	        // normalize the file path
 	        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-
+	        
+	        //only accept image files
+	        String fileExtentions = ".jpg,.jpeg,.png,.gif";   
+	        if (!restrictUploadedFiles(fileName, fileExtentions)) {
+	        	 attributes.addFlashAttribute("messagepicturefailure", "We only support files with "
+	 					+ "jpg, jpeg, png and gif extensions.");
+	        	 return "redirect:/admin/upload";
+	        }
+	        
 	        // save the file on the local file system
 	        try {
 	            Path path = Paths.get(UPLOAD_DIR + fileName);
@@ -236,17 +247,19 @@ public class AdminController {
 	            pictureRepository.save(picture);
 	            
 	         // return success response
-		        attributes.addFlashAttribute("message", "You successfully uploaded " + fileName);          
+		        attributes.addFlashAttribute("messagepicturesuccess", "You successfully uploaded " + fileName);          
 	            
 	        } catch (IOException e) {
 	            e.printStackTrace();
-	            attributes.addFlashAttribute("message", "Sorry but there was a problem uploading"
+	            attributes.addFlashAttribute("messagepicturefailure", "Sorry but there was a problem uploading"
 	            		+ " " + fileName + " . Please try again.");       
 	        }
 
 
 	        return "redirect:/admin/upload";
 	    }
+
+
 	 
 	 /**
 	  * Displays a page where a new picture can be uploaded
@@ -255,10 +268,48 @@ public class AdminController {
 	 @GetMapping("/admin/upload")
 	    public String uploadFileHome() {      
 	        
-	        return "uploadpicture";
+	        return "adddata";
 	    }
 	
-	
+	 @PostMapping("/admin/uploadtopic")
+	    public String addTopic(HttpServletRequest request, RedirectAttributes attributes) {
+		 String newTopic = request.getParameter("topic");
+		 String newTopicLowerCase = newTopic.toLowerCase();
+		 
+		 List<String> topicsLowercase = populateTopics().stream().map(Topic::getName)
+				 .map(String::toLowerCase).collect(Collectors.toList());
+		 
+		 //check topic doesn't already exist
+		if(topicsLowercase.contains(newTopicLowerCase)) {
+			attributes.addFlashAttribute("messagetopicfailure", "This topic already exists. Topic not added.");
+			return "redirect:/admin/upload";
+		} 	 
+		 //save in database
+		topicRepository.save(new Topic(newTopic, null));
+		attributes.addFlashAttribute("messagetopicsuccess", "Topic added successfully.");
+	     return "redirect:/admin/upload";
+	  }
+	 
+	 @PostMapping("/admin/uploadtag")
+	    public String addTag(HttpServletRequest request, RedirectAttributes attributes) {
+		 String newTag = request.getParameter("tag");
+		 String newTagLowerCase = newTag.toLowerCase();
+		 
+		 List<String> tagsLowercase = populateTags().stream().map(Tag::getName)
+				 .map(String::toLowerCase).collect(Collectors.toList());
+		 
+		 //check tag doesn't already exist
+		if(tagsLowercase.contains(newTagLowerCase)) {
+			attributes.addFlashAttribute("messagetagfailure", "This tag already exists. Tag not added.");
+			return "redirect:/admin/upload";
+		} 	 
+		 //save in database
+		tagRepository.save(new Tag(newTag));
+		attributes.addFlashAttribute("messagetagsuccess", "Tag added successfully.");
+	     return "redirect:/admin/upload";
+	  }
+	 
+	 
 	@GetMapping("/admin/deletelp")
 	public String deleteLessonPlan(Model theModel) {		
 
@@ -268,9 +319,7 @@ public class AdminController {
 	}
 	
 	
-	private void moveLessonPlanFile(String source, String destination) throws Exception {
-			
-			
+	private void moveLessonPlanFile(String source, String destination) throws Exception {	
 			//check if file already exists in destination folder
 			File fileDestination = new File(destination);
 			
@@ -298,7 +347,16 @@ public class AdminController {
 			
 			//if get to here, file was moved successfully
 	}
-	
+		
+	private boolean restrictUploadedFiles(String fileName, String fileExtentions) {
+		int lastIndex = fileName.lastIndexOf('.');
+		String substring = fileName.substring(lastIndex, fileName.length());           
+		if (!fileExtentions.contains(substring)) {
+			return false;					
+		} else {
+			return true;
+		}
+	}
 	
 	@GetMapping("testfile")
 	public String testFile(Model theModel) throws IOException {

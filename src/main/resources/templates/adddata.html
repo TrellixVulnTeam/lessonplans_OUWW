@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link th:href="@{/css/styles_principal.css}" rel="stylesheet" />
+
+<title>Upload picture</title>
+</head>
+
+<body>
+	<div th:insert="navbar.html :: nav"></div>
+	<div class="main-content">
+		<div class="main-content-inner ml-5 mr-5">
+
+			<h1 id="large-header">Add Data</h1>
+
+			<h2 class="mb-2">Upload picture</h2>
+			<p th:text="${messagepicturesuccess}" th:if="${messagepicturesuccess ne null}" class="success"></p>
+			<p th:text="${messagepicturefailure}" th:if="${messagepicturefailure ne null}" class="alert"></p>		
+             <form method="post" th:action="@{/admin/upload}" enctype="multipart/form-data">				
+                 <div class="form__group">
+                     <input type="file" name="file" class="form-control-file">
+                 </div>
+                 <button type="submit" class="btn btn--info">Upload File</button>
+             </form>   
+             
+             <h2 class="mb-1 mt-2">Upload topic</h2>
+             <p th:text="${messagetopicsuccess}" th:if="${messagetopicsuccess ne null}" class="success"></p>	
+             <p th:text="${messagetopicfailure}" th:if="${messagetopicfailure ne null}" class="alert"></p>	
+             <form method="post" th:action="@{/admin/uploadtopic}">				
+                    <div class="form__group">
+                        <input type="text" name="topic">
+                    </div>
+                    <button type="submit" class="btn btn--info">Add Topic</button>
+             </form>     
+             
+              <h2 class="mb-1 mt-2">Upload tag</h2>
+             <p th:text="${messagetagsuccess}" th:if="${messagetagsuccess ne null}" class="success"></p>	
+             <p th:text="${messagetagfailure}" th:if="${messagetagfailure ne null}" class="alert"></p>	
+             <form method="post" th:action="@{/admin/uploadtag}">				
+                    <div class="form__group">
+                        <input type="text" name="tag">
+                    </div>
+                    <button type="submit" class="btn btn--info">Add Tag</button>
+             </form>                                 
+
+		</div>
+	</div>
+</body>
+</html>
+
+
+
