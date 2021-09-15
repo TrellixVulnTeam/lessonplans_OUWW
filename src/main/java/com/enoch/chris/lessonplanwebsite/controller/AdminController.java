@@ -30,12 +30,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.enoch.chris.lessonplanwebsite.dao.DeletedLessonPlanRepository;
 import com.enoch.chris.lessonplanwebsite.dao.GrammarRepository;
 import com.enoch.chris.lessonplanwebsite.dao.LessonPlanRepository;
 import com.enoch.chris.lessonplanwebsite.dao.PictureRepository;
 import com.enoch.chris.lessonplanwebsite.dao.SubscriptionRepository;
 import com.enoch.chris.lessonplanwebsite.dao.TagRepository;
 import com.enoch.chris.lessonplanwebsite.dao.TopicRepository;
+import com.enoch.chris.lessonplanwebsite.entity.DeletedLessonPlan;
 import com.enoch.chris.lessonplanwebsite.entity.Grammar;
 import com.enoch.chris.lessonplanwebsite.entity.LessonPlan;
 import com.enoch.chris.lessonplanwebsite.entity.Picture;
@@ -53,11 +55,12 @@ public class AdminController {
 	private TopicRepository topicRepository;
 	private TagRepository tagRepository;
 	private SubscriptionRepository subscriptionRepository;
+	private DeletedLessonPlanRepository deletedLessonPlanRepository;
 	
 	@Autowired
 	public AdminController(LessonPlanRepository lessonPlanRepository, PictureRepository pictureRepository,
 			GrammarRepository grammarRepository, TopicRepository topicRepository, TagRepository tagRepository,
-			SubscriptionRepository subscriptionRepository) {
+			SubscriptionRepository subscriptionRepository, DeletedLessonPlanRepository deletedLessonPlanRepository) {
 		super();
 		this.lessonPlanRepository = lessonPlanRepository;
 		this.pictureRepository = pictureRepository;
@@ -65,6 +68,7 @@ public class AdminController {
 		this.topicRepository = topicRepository;
 		this.tagRepository = tagRepository;
 		this.subscriptionRepository = subscriptionRepository;
+		this.deletedLessonPlanRepository = deletedLessonPlanRepository;
 	}
 
 	@ModelAttribute("allTopics")
@@ -299,13 +303,15 @@ public class AdminController {
 				//get file name without ending
 				int lastIndex = destination.lastIndexOf('/');
 				String fileNameWithoutEnding = destination.substring(lastIndex + 1, destination.lastIndexOf("."));	
+				String newFileName = subscriptionName + "_" + fileNameWithoutEnding + 
+						LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd--hh-mm-s")) + fileEnding;
 				
 				//build path to deleted lesson plans. Use date to ensure file name is always unique and for ease of reference.
-				String newDestination = "src/main/resources/templates/deletedlessonplans/" + subscriptionName + "_" + fileNameWithoutEnding + 
-						LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd--hh-mm-s")) + fileEnding;			
-				
+				String newDestination = "src/main/resources/templates/deletedlessonplans/" + newFileName;									
 				try {
 					Files.move(Paths.get(destination), Paths.get(newDestination));
+					deletedLessonPlanRepository.save(new DeletedLessonPlan(newFileName));
+					
 				} catch (IOException e1) {
 					e1.printStackTrace();
 					attributes.addFlashAttribute("messagelessonplanfailure", "Sorry but there was a problem uploading"
@@ -442,7 +448,8 @@ public class AdminController {
 				//get file name
 				int lastIndex = destination.lastIndexOf('/');
 				String fileNameWithoutEnding = destination.substring(lastIndex + 1, destination.lastIndexOf("."));
-				
+				String newFilename = subscriptionName + "_" + fileNameWithoutEnding + 
+						LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd--hh-mm-s")) + fileEnding;
 				//cut off filename
 				//fileNameWithoutEnding = fileNameWithoutEnding.substring(0, fileNameWithoutEnding.lastIndexOf("."));
 				
@@ -450,11 +457,11 @@ public class AdminController {
 				System.out.println("debugging calculated file ending " + fileNameWithoutEnding);
 							
 				//save current file to deletedlessonplans folder			
-				String newDestination = "src/main/resources/templates/deletedlessonplans/" + subscriptionName + "_" + fileNameWithoutEnding + 
-						LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd--hh-mm-s")) + fileEnding;			
+				String newDestination = "src/main/resources/templates/deletedlessonplans/" + newFilename;			
 				
 				try {
 					Files.move(Paths.get(destination), Paths.get(newDestination));
+					deletedLessonPlanRepository.save(new DeletedLessonPlan(newFilename));
 				} catch (IOException e1) {
 					e1.printStackTrace();
 					throw new Exception("Sorry but there was a problem moving"
