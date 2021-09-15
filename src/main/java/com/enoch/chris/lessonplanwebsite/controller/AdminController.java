@@ -404,21 +404,15 @@ public class AdminController {
 	 
 
 	     @GetMapping("/admin/download")
-	     public void downloadPDFResource( HttpServletRequest request,  HttpServletResponse response) 
-	     {
-	         //If user is not authorized - he should be thrown out from here itself
-	          
-	         //Authorized user will download the file
+	     public void downloadPDFResource( HttpServletRequest request,  HttpServletResponse response) {
+
 	        // String dataDirectory = request.getServletContext().getRealPath("src/main/resources/templates/deletedlessonplans/ ");
-	         Path file = Paths.get("src/main/resources/templates/deletedlessonplans/c1advanced3 sample unit.pdf");
-	         if (Files.exists(file)) 
-	         {
-	        	 
-	        	 System.out.println("debugging download file exists");
+	         Path file = Paths.get("src/main/resources/templates/deletedlessonplans/A1_index2021-09-15--06-12-32.html");
+	         if (Files.exists(file)) {
+	        	
 	             response.setContentType("test/html");
-	             response.addHeader("Content-Disposition", "attachment; filename=c1advanced3 sample unit.pdf");
-	             try
-	             {
+	             response.addHeader("Content-Disposition", "attachment; filename=A1_index2021-09-15--06-12-32.html");
+	             try{
 	                 Files.copy(file, response.getOutputStream());
 	                 response.getOutputStream().flush();
 	             } 
