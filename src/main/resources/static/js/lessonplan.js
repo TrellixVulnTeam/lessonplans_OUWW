@@ -8,50 +8,28 @@ console.log("external js loaded");
 
 window.addEventListener("load", showMenuIfAllGrammarCheckboxChecked);
 
-// document.getElementById("showSearch").addEventListener('click', function(event){
-// console.log("debugging event " + event);
-// 		event.preventDefault();
-//         console.log("showSearch click working");
-//     });
+document.getElementById("allGrammar").addEventListener('click', function(){
+    console.log("allGrammar clicked");
+    let allGrammarChildren = allGrammar.children;
+    let isALLGrammarCheckboxSelected = false;
+    for (const ch of allGrammarChildren){
+        let grammarCheckbox = ch.getElementsByTagName('input')[0];
+       if (grammarCheckbox instanceof HTMLInputElement && grammarCheckbox.type === 'checkbox'){
+            if (grammarCheckbox.checked){
+                isALLGrammarCheckboxSelected = true;
+            }
+        }
+    }
+    isALLGrammarCheckboxSelected ? document.getElementById("hideAllGrammar").classList.add("hide") : document.getElementById("hideAllGrammar").classList.remove("hide");
+});
+
+
 
 let allGrammar= document.getElementById("allGrammar");
 console.log("allGrammar" + allGrammar);
 
-let allGrammarChildren = allGrammar.children;
-
-// for (const ch of allGrammarChildren){
-//     let grammarCheckbox = ch.getElementsByTagName('input')[0];
-//    if (grammarCheckbox instanceof HTMLInputElement && grammarCheckbox === 'checkbox'){
-//         console.log("in in in for");
-
-//         if (grammarCheckbox.checked){
-
-//             console.log("about to call showAllGrammar");
-//             showAllGrammar();
-//         }
-//         console.log("Checked? " + ch.getElementsByTagName('input')[0].checked);
-//     } else {
-//         console.log("else entered");
-//     }
-// }
-
-// for (const ch of allGrammarChildren){
-//     let grammarCheckbox = ch.getElementsByTagName('input')[0];
-//    if (ch.getElementsByTagName('input')[0] instanceof HTMLInputElement && ch.getElementsByTagName('input')[0].type === 'checkbox'){
-//         console.log("in in in for");
-
-//         if (ch.getElementsByTagName('input')[0].checked){
-
-//             console.log("about to call showAllGrammar");
-//             showAllGrammar();
-//         }
-//         console.log("Checked? " + ch.getElementsByTagName('input')[0].checked);
-//     } else {
-//         console.log("else entered");
-//     }
-// }
-
 function showMenuIfAllGrammarCheckboxChecked(){
+    let allGrammarChildren = allGrammar.children;
     console.log("debugging:  showMenuIfAllGrammarCheckboxChecked called");
     for (const ch of allGrammarChildren){
         let grammarCheckbox = ch.getElementsByTagName('input')[0];
@@ -61,7 +39,7 @@ function showMenuIfAllGrammarCheckboxChecked(){
             if (grammarCheckbox.checked){
 
                 console.log("about to call showAllGrammar");
-                showAllGrammar();
+                showAllGrammar(null, true);
             }
             console.log("Checked? " + ch.getElementsByTagName('input')[0].checked);
         }
@@ -72,8 +50,11 @@ function showMenuIfAllGrammarCheckboxChecked(){
 
 
 
-
-
+// document.getElementById("showSearch").addEventListener('click', function(event){
+// console.log("debugging event " + event);
+// 		event.preventDefault();
+//         console.log("showSearch click working");
+//     });
 document.getElementById('showSearch').addEventListener('click', (e) => showMenu(e));
 document.getElementById('hideSearch').addEventListener('click', function(event){
         hideMenu(event);
@@ -83,13 +64,22 @@ document.getElementById('hideSearch').addEventListener('click', function(event){
 document.getElementById('showAllGrammar').addEventListener('click', (e) => showAllGrammar(e));
 document.getElementById('hideAllGrammar').addEventListener('click', (e) => hideAllGrammar(e));
 
-function showAllGrammar(e){
+function showAllGrammar(e, hideCloseButton){
     console.log("debugging: howAllGrammar called");
     e?.preventDefault();
     //document.getElementById('grammarSnapshot').classList.add("hide");
     document.getElementById('allGrammar').classList.remove('hide');
     document.getElementById('showAllGrammar').classList.add('hide');
-    document.getElementById('hideAllGrammar').classList.remove('hide');
+
+   console.log("value of hideCloseButton " + hideCloseButton);
+
+    if (!hideCloseButton){ //if hideCloseButton is not set to true, show close Button
+        console.log("in hideClosebutton if");
+        document.getElementById('hideAllGrammar').classList.remove('hide');
+    } else {
+        document.getElementById('hideAllGrammar').classList.add('hide');
+    }
+    
 }
 
 
