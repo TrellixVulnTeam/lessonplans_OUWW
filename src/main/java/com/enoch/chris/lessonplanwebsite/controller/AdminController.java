@@ -138,6 +138,27 @@ public class AdminController {
 		return "admin";
 	}
 	
+	@GetMapping("/admin/delete")
+	public String deleteLessonPlanDisplay(Model theModel) {
+		List<LessonPlan> lessonPlans = lessonPlanRepository.findAll();
+		theModel.addAttribute("lessonPlans", lessonPlans);
+		return "admin_deletelessonplan";
+	}
+	
+	@PostMapping("/admin/delete")
+	public String deleteLessonPlan(Model theModel, HttpServletRequest request, RedirectAttributes attributes) {
+		Integer lessonPlanId = Integer.parseInt(request.getParameter("lessonPlan"));
+		
+		try {
+			lessonPlanRepository.deleteById(lessonPlanId);
+			attributes.addFlashAttribute("success", "Lesson plan was successfully deleted.");
+		} catch (Exception e) {
+			attributes.addFlashAttribute("error", "Lesson plan was not able to be deleted.");
+		}
+
+		return "redirect:/admin/delete";
+	}
+	
 	@GetMapping("/admin/add")
 	public String addLessonPlan(Model theModel) {
 		if (theModel.getAttribute("lessonPlan") == null) {

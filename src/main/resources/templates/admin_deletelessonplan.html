@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link th:href="@{/css/styles_principal.css}" rel="stylesheet" />
+
+	<title>Delete lesson plan</title>
+</head>
+
+<body onload="addChecked(), updatePicture()">
+	<div th:insert="navbar_admin.html :: nav"></div>
+	<div class="main-content">
+		<div class="main-content-inner ml-5 mr-5">
+
+			<h1 id="large-header">Delete lesson plan</h1>
+			
+			<p th:text="${success}" th:if="${success ne null}" class="success"></p>
+			<p th:text="${error}" th:if="${error ne null}" class="alert"></p>	
+
+			<form action="/admin/delete" method="post"	>
+				<div class="form__group">
+					<div class="form__header">Delete Lesson Plan</div>
+
+
+					<select name="lessonPlan">
+						<option value="-1">Select a lesson plan</option>
+						<option th:each="lp : ${lessonPlans}" th:value="${lp.id}"
+							th:text="|${lp.title } - ${lp.id } - ${lp.assignedSubscription.name }|"></option>
+					</select> 
+					<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+					<button type="submit" class="btn btn--info">Delete lesson plan</button>
+				</div>
+			</form>
+
+		</div>
+
+
+
+	</div>
+	
+</body>
+
+</html>
