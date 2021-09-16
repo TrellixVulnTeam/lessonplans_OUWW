@@ -26,6 +26,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -270,60 +271,43 @@ public class AdminController {
 	    }
 
 	 
-	 @PostMapping("/admin/uploadlessonplan_a1")
-	    public String uploadLessonPlanFileA1(@RequestParam("file") MultipartFile file, RedirectAttributes attributes
-	    		,HttpServletRequest request) {
-
-	        return uploadLessonPlan(file, attributes, "A1");
-	  }
-	 
-	 @PostMapping("/admin/uploadlessonplan_a2")
-	    public String uploadLessonPlanFileA2(@RequestParam("file") MultipartFile file, RedirectAttributes attributes
-	    		,HttpServletRequest request) {
-
-	        return uploadLessonPlan(file, attributes, "A2");
-	  }
-	 
-	 @PostMapping("/admin/uploadlessonplan_b1")
-	    public String uploadLessonPlanFileB1(@RequestParam("file") MultipartFile file, RedirectAttributes attributes
-	    		,HttpServletRequest request) {
-
-	        return uploadLessonPlan(file, attributes, "B1");
-	  }
-	 
-	 @PostMapping("/admin/uploadlessonplan_b2")
-	    public String uploadLessonPlanFileB2(@RequestParam("file") MultipartFile file, RedirectAttributes attributes
-	    		,HttpServletRequest request) {
-
-	        return uploadLessonPlan(file, attributes, "B2");
-	  }
-	 
-	 @PostMapping("/admin/uploadlessonplan_b2plus")
-	    public String uploadLessonPlanFileB2Plus(@RequestParam("file") MultipartFile file, RedirectAttributes attributes
-	    		,HttpServletRequest request) {
-
-	        return uploadLessonPlan(file, attributes, "B2PLUS");
-	  }
-	 
-	 @PostMapping("/admin/uploadlessonplan_c1")
-	    public String uploadLessonPlanFileC1(@RequestParam("file") MultipartFile file, RedirectAttributes attributes
-	    		,HttpServletRequest request) {
-
-	        return uploadLessonPlan(file, attributes, "C1");
-	  }
-	 
-	 @PostMapping("/admin/uploadlessonplan_c1plus")
-	    public String uploadLessonPlanFileC1plus(@RequestParam("file") MultipartFile file, RedirectAttributes attributes
-	    		,HttpServletRequest request) {
-
-	        return uploadLessonPlan(file, attributes, "C1PLUS");
-	  }
-	 
-	 @PostMapping("/admin/uploadlessonplan_c2")
+	 @PostMapping("/admin/uploadlessonplan/{subscription}")
 	    public String uploadLessonPlanFile(@RequestParam("file") MultipartFile file, RedirectAttributes attributes
-	    		,HttpServletRequest request) {
-
-	        return uploadLessonPlan(file, attributes, "C2");
+	    		,HttpServletRequest request, @PathVariable String subscription) {
+		 
+		 	if (subscription.equals("A1")) {
+		 		 return uploadLessonPlan(file, attributes, "A1");
+		 	}
+		 	
+		 	if (subscription.equals("A2")) {
+		 		 return uploadLessonPlan(file, attributes, "A2");
+		 	}
+		 	
+		 	if (subscription.equals("B1")) {
+		 		 return uploadLessonPlan(file, attributes, "B1");
+		 	}
+		 	
+		 	if (subscription.equals("B2")) {
+		 		 return uploadLessonPlan(file, attributes, "B2");
+		 	}
+		 	
+		 	if (subscription.equals("B2PLUS")) {
+		 		 return uploadLessonPlan(file, attributes, "B2PLUS");
+		 	}
+		 	
+		 	if (subscription.equals("C1")) {
+		 		 return uploadLessonPlan(file, attributes, "C1");
+		 	}
+		 	
+		 	if (subscription.equals("C1PLUS")) {
+		 		 return uploadLessonPlan(file, attributes, "C1PLUS");
+		 	}
+		 	
+		 	if (subscription.equals("C2")) {
+		 		 return uploadLessonPlan(file, attributes, "C2");
+		 	}
+		 	
+		 	return "redirect:/admin/upload";	       
 	  }
 	 
 
