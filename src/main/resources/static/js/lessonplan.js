@@ -6,7 +6,7 @@ console.log("external js loaded");
 //     console.log("body onload event seems to be working");
 // });
 
-//window.addEventListener("load", addChecked);
+window.addEventListener("load", showMenuIfAllGrammarCheckboxChecked);
 
 // document.getElementById("showSearch").addEventListener('click', function(event){
 // console.log("debugging event " + event);
@@ -19,26 +19,58 @@ console.log("allGrammar" + allGrammar);
 
 let allGrammarChildren = allGrammar.children;
 
-for (const ch of allGrammarChildren){
-//    if ( ch.getElementsByTagName('input')[0]){
-//        console.log("wahoo " + ch.getElementsByTagName('input')[0]);
-//    }
+// for (const ch of allGrammarChildren){
+//     let grammarCheckbox = ch.getElementsByTagName('input')[0];
+//    if (grammarCheckbox instanceof HTMLInputElement && grammarCheckbox === 'checkbox'){
+//         console.log("in in in for");
 
-   if (ch.getElementsByTagName('input')[0] instanceof HTMLInputElement && ch.getElementsByTagName('input')[0].type === 'checkbox'){
-    console.log('type property ' + ch.getElementsByTagName('input')[0]);
-    console.log("Checked? " + ch.getElementsByTagName('input')[0].checked);
+//         if (grammarCheckbox.checked){
+
+//             console.log("about to call showAllGrammar");
+//             showAllGrammar();
+//         }
+//         console.log("Checked? " + ch.getElementsByTagName('input')[0].checked);
+//     } else {
+//         console.log("else entered");
+//     }
+// }
+
+// for (const ch of allGrammarChildren){
+//     let grammarCheckbox = ch.getElementsByTagName('input')[0];
+//    if (ch.getElementsByTagName('input')[0] instanceof HTMLInputElement && ch.getElementsByTagName('input')[0].type === 'checkbox'){
+//         console.log("in in in for");
+
+//         if (ch.getElementsByTagName('input')[0].checked){
+
+//             console.log("about to call showAllGrammar");
+//             showAllGrammar();
+//         }
+//         console.log("Checked? " + ch.getElementsByTagName('input')[0].checked);
+//     } else {
+//         console.log("else entered");
+//     }
+// }
+
+function showMenuIfAllGrammarCheckboxChecked(){
+    console.log("debugging:  showMenuIfAllGrammarCheckboxChecked called");
+    for (const ch of allGrammarChildren){
+        let grammarCheckbox = ch.getElementsByTagName('input')[0];
+       if (grammarCheckbox instanceof HTMLInputElement && grammarCheckbox.type === 'checkbox'){
+            console.log("in in in for");
+
+            if (grammarCheckbox.checked){
+
+                console.log("about to call showAllGrammar");
+                showAllGrammar();
+            }
+            console.log("Checked? " + ch.getElementsByTagName('input')[0].checked);
+        }
     }
-
-
-    // if (ch.lastElementChild instanceof HTMLInputElement ){
-    //     console.log('type property ' + ch.lastElementChild.type);
-    //     console.log("input yeah!");
-    // }
-    
-
 }
 
-let allGrammarElementSelected = false;
+
+
+
 
 
 
@@ -52,20 +84,25 @@ document.getElementById('showAllGrammar').addEventListener('click', (e) => showA
 document.getElementById('hideAllGrammar').addEventListener('click', (e) => hideAllGrammar(e));
 
 function showAllGrammar(e){
-    e.preventDefault();
+    console.log("debugging: howAllGrammar called");
+    e?.preventDefault();
     //document.getElementById('grammarSnapshot').classList.add("hide");
     document.getElementById('allGrammar').classList.remove('hide');
     document.getElementById('showAllGrammar').classList.add('hide');
     document.getElementById('hideAllGrammar').classList.remove('hide');
 }
 
+
 function hideAllGrammar(e){
     e.preventDefault();
     document.getElementById('allGrammar').classList.add("hide");
-   // document.getElementById('grammarSnapshot').classList.remove('hide');
+    // document.getElementById('grammarSnapshot').classList.remove('hide');
     document.getElementById('hideAllGrammar').classList.add('hide');
     document.getElementById('showAllGrammar').classList.remove('hide');
 }
+
+
+
 
 
 
