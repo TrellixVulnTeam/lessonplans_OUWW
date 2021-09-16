@@ -74,7 +74,6 @@ function showAllGrammar(e, hideCloseButton){
    console.log("value of hideCloseButton " + hideCloseButton);
 
     if (!hideCloseButton){ //if hideCloseButton is not set to true, show close Button
-        console.log("in hideClosebutton if");
         document.getElementById('hideAllGrammar').classList.remove('hide');
     } else {
         document.getElementById('hideAllGrammar').classList.add('hide');

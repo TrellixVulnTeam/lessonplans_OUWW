@@ -62,7 +62,7 @@ public class CheckoutController {
 		//check lesson exists
 		if (subscriptionName.isPresent()) {
 			if (subscriptionName.get().equals("all")) {
-				model.addAttribute("subscription", "all");
+				model.addAttribute("subscriptionName", "all");
 				model.addAttribute("amount", 28000); // in cents
 				model.addAttribute("formattedAmount", "280.00"); // in cents
 //		        model.addAttribute("stripePublicKey", stripePublicKey);
@@ -75,7 +75,8 @@ public class CheckoutController {
 				
 				if (subscription.isPresent()) {
 					//session.setAttribute("subscription", subscription.get());	
-					model.addAttribute("subscription", subscription.get().getName());
+					model.addAttribute("subscriptionName", subscription.get().getName());
+					model.addAttribute("subscription", subscription.get());
 					model.addAttribute("amount", subscription.get().getPrice()); // in cents
 					model.addAttribute("formattedAmount", subscription.get().getPriceFormatted()); // in cents
 //					model.addAttribute("stripePublicKey", stripePublicKey);
