@@ -14,6 +14,34 @@ console.log("external js loaded");
 //         console.log("showSearch click working");
 //     });
 
+let allGrammar= document.getElementById("allGrammar");
+console.log("allGrammar" + allGrammar);
+
+let allGrammarChildren = allGrammar.children;
+
+for (const ch of allGrammarChildren){
+//    if ( ch.getElementsByTagName('input')[0]){
+//        console.log("wahoo " + ch.getElementsByTagName('input')[0]);
+//    }
+
+   if (ch.getElementsByTagName('input')[0] instanceof HTMLInputElement && ch.getElementsByTagName('input')[0].type === 'checkbox'){
+    console.log('type property ' + ch.getElementsByTagName('input')[0]);
+    console.log("Checked? " + ch.getElementsByTagName('input')[0].checked);
+    }
+
+
+    // if (ch.lastElementChild instanceof HTMLInputElement ){
+    //     console.log('type property ' + ch.lastElementChild.type);
+    //     console.log("input yeah!");
+    // }
+    
+
+}
+
+let allGrammarElementSelected = false;
+
+
+
 document.getElementById('showSearch').addEventListener('click', (e) => showMenu(e));
 document.getElementById('hideSearch').addEventListener('click', function(event){
         hideMenu(event);

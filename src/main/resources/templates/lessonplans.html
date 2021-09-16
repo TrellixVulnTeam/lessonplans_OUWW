@@ -94,7 +94,7 @@
 						<button id="showAllGrammar" class=" badge badge--tiny-symbol badge--primary-light">+</button> 
 					</div>			
 					<div id="allGrammar" class="form__group form__group--mega-menu hide">
-						<span th:each="g : ${restOfGrammar}"> <label
+						<span id="allGrammarContainer" th:each="g : ${restOfGrammar}"> <label
 							th:for="${#ids.next('grammar')}" th:text="${g.grammarPoint}">Heating</label>
 							<input type="checkbox" th:field="*{grammar}" th:value="${g.id}" />
 						</span>
