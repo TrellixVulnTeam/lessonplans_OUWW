@@ -42,13 +42,19 @@
 </head>
 
 <body onload="addChecked(), updatePicture()">
-	<div th:insert="navbar.html :: nav"></div>
+	<div th:insert="navbar_admin.html :: nav"></div>
 	<div class="main-content">
 		<div class="main-content-inner ml-5 mr-5">
 
 			<h1 id="large-header"  th:text="${editLessonPlan} ? 'Edit Lesson Plan' : 'Add Lesson Plan'">Edit lesson plan</h1>
 			
-			<p class="alert mb-1" th:if="${moveFileError}" th:text="${moveFileError}"></p>
+			<ul class="alert mb-1" th:if="${error}">
+				<li th:text="${error}"></li>
+			</ul>
+			<ul class="alert mb-1" th:if="${errorList}" th:each="err: ${errorList}">
+				<li th:text="${err}"></li>
+			</ul>
+			
 
 
 			<form action="/admin" method="post" th:if="${showExisitngLessons}">
@@ -205,6 +211,8 @@
 					id="dateAdded"> <input type="hidden" th:field="*{age}" id="age"> <input type="hidden"
 					th:field="*{preparationTime}" id="preparationTime">
 
+				<input th:if="${showExisitngLessons == null}" type="hidden" name="addlessonplan" value="true"> 
+				
 				<button class="btn btn--med btn--info" type="submit" name="save">Submit</button>
 
 			</form>
@@ -213,7 +221,7 @@
 
 
 	</div>
-	</div>
+	
 </body>
 
 </html>

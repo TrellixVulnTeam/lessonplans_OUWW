@@ -10,6 +10,7 @@ import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -43,6 +44,7 @@ import com.enoch.chris.lessonplanwebsite.entity.DeletedLessonPlan;
 import com.enoch.chris.lessonplanwebsite.entity.Grammar;
 import com.enoch.chris.lessonplanwebsite.entity.LessonPlan;
 import com.enoch.chris.lessonplanwebsite.entity.Picture;
+import com.enoch.chris.lessonplanwebsite.entity.SpeakingAmount;
 import com.enoch.chris.lessonplanwebsite.entity.Subscription;
 import com.enoch.chris.lessonplanwebsite.entity.Tag;
 import com.enoch.chris.lessonplanwebsite.entity.Topic;
@@ -135,6 +137,18 @@ public class AdminController {
 
 		return "admin";
 	}
+	
+	@GetMapping("/admin/add")
+	public String addLessonPlan(Model theModel) {
+		if (theModel.getAttribute("lessonPlan") == null) {
+			LessonPlan templateLessonPlan = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null).build();
+			theModel.addAttribute("lessonPlan", templateLessonPlan);
+		} else {
+			System.out.println("Debugging lesson plan present");
+		}
+		
+		return "admin";
+	}
 
 	/**
 	 * Handles both the adding and editing of lesson plans. If the dateAdded field of the LessonPlan object is null, a new lesson plan is added
@@ -144,16 +158,59 @@ public class AdminController {
 	 * @return the name of the page to be rendered
 	 */
 	@PostMapping("/admin/edit")
-	public String editOrAddLessonPlan(final LessonPlan lessonPlan, Model theModel, RedirectAttributes attributes) {
+	public String editOrAddLessonPlan(final LessonPlan lessonPlan, Model theModel, RedirectAttributes attributes
+			, HttpServletRequest request) {
 		theModel.addAttribute("lessonPlan", lessonPlan);
 		//theModel.addAttribute("lessonTitle", lessonPlan.getTitle());
 		
 		//if lesson plan does not include date, it is being added not edited. Must include date as date cannot be set to null in database.
-		if (lessonPlan.getDateAdded() == null) {
+		if (request.getParameter("addlessonplan") != null) {
+			List<String> errors = new ArrayList<>();
+			
 			lessonPlan.setDateAdded(LocalDate.now());
+			
+			//check title is more than 2 characters long
+			if (lessonPlan.getTitle().length() < 2) {
+				errors.add("Title must be at least two characters long.");
+			}
+			
+			//check title doesn't already exist for this level if level has been specified
+			if (lessonPlan.getAssignedSubscription() != null) {
+				String titleNoSpace = lessonPlan.getTitle().replaceAll("\\s", "").toLowerCase();			
+				boolean titleExists = lessonPlanRepository.findAll().stream()
+						.filter(lp -> lp.getAssignedSubscription().equals(lessonPlan.getAssignedSubscription()))
+						.map(lp -> lp.getTitle()).anyMatch(title -> title.replaceAll("\\s", "").toLowerCase().equals(titleNoSpace));
+				
+				if (titleExists) {
+					errors.add("Title already exists for this level. Please choose a title which is unique from any other for the level specified");				
+				}
+			}
+			
+			if (errors.size() > 0) {
+				//send the lesson plan so fields remain checked
+				attributes.addFlashAttribute("lessonPlan", lessonPlan);
+				attributes.addFlashAttribute("errorList", errors);
+				return "redirect:/admin/add";	
+			}
+			
+			//If get to here, no errors so far.
+				try {
+					//save new lesson to database
+					lessonPlanRepository.save(lessonPlan);
+				} catch (Exception e) {
+					attributes.addFlashAttribute("error", "Lesson plan not able to be saved in the database. Please note that all fields are obligatory except 'Speaking Only.'");
+				}
+			
+			
+			
+			//send the lesosn plan so fields remain checked
+			attributes.addFlashAttribute("lessonPlan", lessonPlan);
+			
+			return "redirect:/admin/add";		
 		}
 		
-		//compare level field with field from database
+		//if get to here, lesson plan is being edited
+		//check to see if level has been changed. If so, check if the lesson planhtml file already exists in level folder. If so, move current lesson plan file to deletedlessonplans and add the new one
 		LessonPlan lessonPlanOriginal = lessonPlanRepository.findById(lessonPlan.getId()).get();
 		Subscription originalAssignedSubscription = lessonPlanOriginal.getAssignedSubscription();
 		if (originalAssignedSubscription  != 
@@ -174,26 +231,17 @@ public class AdminController {
 			try {
 				moveLessonPlanFile(source, destination, lessonPlanOriginal.getAssignedSubscription().getName());
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
-				//theModel.addAttribute("moveFileError", e.getMessage());
-				attributes.addFlashAttribute("moveFileError", e.getMessage());
+				attributes.addFlashAttribute("error", e.getMessage());
 				
-				//send lessonplans
-//				List<LessonPlan> lessonPlans = lessonPlanRepository.findAll();
-//				theModel.addAttribute("lessonPlans", lessonPlans);
 				return "redirect:/admin/";
 			}
 			
 		}		
 			
-		//save new or updated lesson to database
+		//save updated lesson to database
 		lessonPlanRepository.save(lessonPlan);
 		
-		//send lessonplans
-		
-		//List<LessonPlan> lessonPlans = lessonPlanRepository.findAll();
-		//theModel.addAttribute("lessonPlans", lessonPlans);
 		return "redirect:/admin/";
 	}
 	
@@ -207,14 +255,7 @@ public class AdminController {
 	 * @param theModel
 	 * @return the name of the page to be rendered
 	 */
-	@GetMapping("/admin/add")
-	public String addLessonPlan(Model theModel) {
-		LessonPlan templateLessonPlan = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null).build();
-		theModel.addAttribute("lessonPlan", templateLessonPlan);
 
-
-		return "admin";
-	}
 	
 
 	
@@ -309,78 +350,6 @@ public class AdminController {
 		 	
 		 	return "redirect:/admin/upload";	       
 	  }
-	 
-
-	private String uploadLessonPlan(MultipartFile file, RedirectAttributes attributes, String subscription) {
-		// check if file is empty
-		if (file.isEmpty()) {
-		    attributes.addFlashAttribute("messagelessonplanfailure"+subscription, "Please select a file to upload.");
-		    return "redirect:/admin/upload";
-		}
-		    
-		// normalize the file path
-		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-		
-		//only accept html files
-		String fileExtentions = ".html";   
-		if (!restrictUploadedFiles(fileName, fileExtentions)) {
-			 attributes.addFlashAttribute("messagelessonplanfailure" + subscription, "We only support files with "
-					+ "the html extension.");
-			 return "redirect:/admin/upload";
-		}
-		
-		//build file destination path
-		//Strip title of spaces and convert to lowercase to produce filename
-		String titleNoSpace = fileName.replaceAll("\\s", "").toLowerCase();
-		
-		String subscriptionName = subscription; //change this
-		
-		String destination = "src/main/resources/templates/lessonplans/"+ subscriptionName
-				+ "/" + titleNoSpace;            
-		
-		//check if already exists in intended subscription folder
-		File fileDestination = new File(destination);
-		if (fileDestination.exists()) { //if it does move current file to recycle bin			
-						
-			String fileEnding = destination.substring(destination.lastIndexOf("."));
-			System.out.println("debugging filending " + fileEnding);
-
-			//get file name without ending
-			int lastIndex = destination.lastIndexOf('/');
-			String fileNameWithoutEnding = destination.substring(lastIndex + 1, destination.lastIndexOf("."));	
-			String newFileName = subscriptionName + "_" + fileNameWithoutEnding + "_" + 
-					LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd--hh-mm-s")) + fileEnding;
-			
-			//build path to deleted lesson plans. Use date to ensure file name is always unique and for ease of reference.
-			String newDestination = "src/main/resources/templates/deletedlessonplans/" + newFileName;									
-			try {
-				Files.move(Paths.get(destination), Paths.get(newDestination));
-				deletedLessonPlanRepository.save(new DeletedLessonPlan(newFileName));
-				
-			} catch (IOException e1) {
-				e1.printStackTrace();
-				attributes.addFlashAttribute("messagelessonplanfailure" + subscription, "Sorry but there was a problem uploading"
-		        		+ " " + fileName + " . The file already exists in the subscription folder and the current file wasn't able to be moved to the recycle bin.");  				
-				  return "redirect:/admin/upload";
-			}			
-		}			
-		
-		// save the file on the local file system
-		try {
-		    Path path = Paths.get(destination);       
-		    
-		    Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-		    
-		 // return success response
-		    attributes.addFlashAttribute("messagelessonplansuccess" + subscription, "You successfully uploaded " + fileName);          
-		    
-		} catch (IOException e) {
-		    e.printStackTrace();
-		    attributes.addFlashAttribute("messagelessonplanfailure" + subscription, "Sorry but there was a problem uploading"
-		    		+ " " + fileName + " . Please try again.");       
-		}
-		return "redirect:/admin/upload";
-	}
 
 	 
 	 @PostMapping("/admin/uploadtopic")
@@ -672,6 +641,77 @@ public class AdminController {
 	     }
 	 
 	
+	     
+	 	private String uploadLessonPlan(MultipartFile file, RedirectAttributes attributes, String subscription) {
+			// check if file is empty
+			if (file.isEmpty()) {
+			    attributes.addFlashAttribute("messagelessonplanfailure"+subscription, "Please select a file to upload.");
+			    return "redirect:/admin/upload";
+			}
+			    
+			// normalize the file path
+			String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+			
+			//only accept html files
+			String fileExtentions = ".html";   
+			if (!restrictUploadedFiles(fileName, fileExtentions)) {
+				 attributes.addFlashAttribute("messagelessonplanfailure" + subscription, "We only support files with "
+						+ "the html extension.");
+				 return "redirect:/admin/upload";
+			}
+			
+			//build file destination path
+			//Strip title of spaces and convert to lowercase to produce filename
+			String titleNoSpace = fileName.replaceAll("\\s", "").toLowerCase();
+			
+			String subscriptionName = subscription; //change this
+			
+			String destination = "src/main/resources/templates/lessonplans/"+ subscriptionName
+					+ "/" + titleNoSpace;            
+			
+			//check if already exists in intended subscription folder
+			File fileDestination = new File(destination);
+			if (fileDestination.exists()) { //if it does move current file to recycle bin			
+							
+				String fileEnding = destination.substring(destination.lastIndexOf("."));
+				System.out.println("debugging filending " + fileEnding);
+
+				//get file name without ending
+				int lastIndex = destination.lastIndexOf('/');
+				String fileNameWithoutEnding = destination.substring(lastIndex + 1, destination.lastIndexOf("."));	
+				String newFileName = subscriptionName + "_" + fileNameWithoutEnding + "_" + 
+						LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd--hh-mm-s")) + fileEnding;
+				
+				//build path to deleted lesson plans. Use date to ensure file name is always unique and for ease of reference.
+				String newDestination = "src/main/resources/templates/deletedlessonplans/" + newFileName;									
+				try {
+					Files.move(Paths.get(destination), Paths.get(newDestination));
+					deletedLessonPlanRepository.save(new DeletedLessonPlan(newFileName));
+					
+				} catch (IOException e1) {
+					e1.printStackTrace();
+					attributes.addFlashAttribute("messagelessonplanfailure" + subscription, "Sorry but there was a problem uploading"
+			        		+ " " + fileName + " . The file already exists in the subscription folder and the current file wasn't able to be moved to the recycle bin.");  				
+					  return "redirect:/admin/upload";
+				}			
+			}			
+			
+			// save the file on the local file system
+			try {
+			    Path path = Paths.get(destination);       
+			    
+			    Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+			    
+			 // return success response
+			    attributes.addFlashAttribute("messagelessonplansuccess" + subscription, "You successfully uploaded " + fileName);          
+			    
+			} catch (IOException e) {
+			    e.printStackTrace();
+			    attributes.addFlashAttribute("messagelessonplanfailure" + subscription, "Sorry but there was a problem uploading"
+			    		+ " " + fileName + " . Please try again.");       
+			}
+			return "redirect:/admin/upload";
+		}
 	private void moveLessonPlanFile(String source, String destination, String subscriptionName) throws Exception {
 		System.out.println("Inside move leson planb file");
 		
