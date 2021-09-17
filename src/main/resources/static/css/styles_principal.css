@@ -487,7 +487,8 @@ body {
     border-top-left-radius: 3px;
     border-top-right-radius: 3px; }
   .card__details {
-    padding: 1rem; }
+    padding: 1rem;
+    min-width: 30rem; }
     .card__details ul {
       list-style: none;
       width: 80%;
