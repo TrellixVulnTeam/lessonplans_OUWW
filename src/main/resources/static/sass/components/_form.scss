@@ -47,6 +47,13 @@
 			height: 3rem;		
 		}
 
+		&--file {
+		    & input{
+				width: 20rem;
+				height:initial;	
+			}
+		}
+
 		&--mega-menu{
 			& label{
 				vertical-align:middle;
@@ -83,10 +90,9 @@
 	&__outline {
 		border: .1rem solid rgba(0, 0, 0, .125);
 		background-color: rgb(255, 255, 255);
-		width: 100%;
-		min-width: 31.6rem;
+		min-width: 30rem;
 		margin: 0rem 4rem 1rem 0rem;
-		padding: 4.1rem;
+		padding: 2rem 4rem;
 		border-bottom: .2rem solid rgba(255, 140, 0, 0.5);
 
 	}

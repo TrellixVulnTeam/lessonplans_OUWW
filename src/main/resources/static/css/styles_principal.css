@@ -160,6 +160,9 @@ body {
   display: inline-block;
   margin-right: .3rem; }
 
+.underline-basic {
+  text-decoration: underline; }
+
 .underline {
   border-bottom: 2px solid darkorange;
   padding-bottom: .5rem;
@@ -434,6 +437,9 @@ body {
   .form__group select, .form__group input {
     width: 30rem;
     height: 3rem; }
+  .form__group--file input {
+    width: 20rem;
+    height: initial; }
   .form__group--mega-menu label {
     vertical-align: middle;
     display: inline-block;
@@ -463,10 +469,9 @@ body {
 .form__outline {
   border: 0.1rem solid rgba(0, 0, 0, 0.125);
   background-color: white;
-  width: 100%;
-  min-width: 31.6rem;
+  min-width: 30rem;
   margin: 0rem 4rem 1rem 0rem;
-  padding: 4.1rem;
+  padding: 2rem 4rem;
   border-bottom: 0.2rem solid rgba(255, 140, 0, 0.5); }
 
 .card {
@@ -578,3 +583,14 @@ body {
     .lp-btn-container {
       text-align: center;
       margin-left: 0rem; } }
+
+.md-header {
+  text-decoration: underline;
+  margin-bottom: 3rem; }
+
+.md-msg {
+  margin-bottom: 1rem; }
+  .md-msg--alert {
+    color: #dc3545; }
+  .md-msg--success {
+    color: #28a745; }

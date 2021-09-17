@@ -1,0 +1,17 @@
+.md-header{
+	text-decoration: underline;
+	margin-bottom: 3rem;
+}
+
+.md-msg{
+	margin-bottom: 1rem;
+
+	&--alert{
+		color: $color-alert;
+	}
+	
+	&--success{
+		color: $color-success;
+	}
+}
+
