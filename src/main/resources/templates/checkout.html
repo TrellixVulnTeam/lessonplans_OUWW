@@ -22,22 +22,44 @@
 			<h1 class="large-header large-header--display">Checkout</h1>
 
 
-			<div class="card ml-0">
-				<div class="card__side">
-				<h2 th:text="${subscription.displayName}" class="h2">Subscription</h2>
-					 <div class="card__details">		 
-						 <ul>
-							 <li>60 lessons</li>							 
-							 <li>Save yourself 180 hrs of preparation time</li>	
-							 <li th:text="${'€' + subscription.priceFormatted}" >40 €</li>
-							 <li>1 year's access</li>		
-							 <li ><a id="customSubmit" class="mt-1 ml-auto btn btn--action-tertiary" href="#">Pay with card</a></li>	
-							 
-							 
-						 </ul>						 
-					 </div>
+			<div th:if="${subscriptionUtils ne null}" >
+				<div class="card ml-0">
+					<div class="card__side">
+					<h2 th:text="${subscriptionUtils.subscription.displayName}" class="h2">Subscription</h2>
+						 <div class="card__details">		 
+							 <ul>
+								 <li>60 lessons</li>							 
+								 <li>Save yourself 180 hrs of preparation time</li>	
+								 <li th:text="${'€' + subscriptionUtils.subscription.priceFormatted}" >40 €</li>
+								 <li>1 year's access</li>
+								 <li><small th:text="'Get access until ' + ${#temporals.format(subscriptionUtils.getNextSubscriptionStartDate().plusYears(1L), 'd MMM uuuu')}">+ 1 year's access</small></li>									
+								 <li ><a id="customSubmit" class="mt-1 ml-auto btn btn--action-tertiary" href="#">Pay with card</a></li>						 
+							 </ul>						 
+						 </div>
+					</div>
 				</div>
 			</div>
+			
+			<div th:if="${subscriptionUtils == null}" >
+				<div class="card ml-0">
+					<div class="card__side">
+					<h2 class="h2">All 8 levels</h2>
+						 <div class="card__details">		 
+							 <ul>
+								 <li>480 lessons</li>							 
+								 <li>Save yourself 800+ hrs of preparation time</li>	
+								 <li>280 €</li>
+								 <li>1 year's access</li>
+								 <li><small>Get all subscriptions and extend active subscriptions by 1 year</small></li>									
+								 <li ><a id="customSubmit" class="mt-1 ml-auto btn btn--action-tertiary" href="#">Pay with card</a></li>						 
+							 </ul>						 
+						 </div>
+					</div>
+				</div>
+			</div>
+			
+			
+			
 		</div>
 
 			<form action='/charge' method='POST' id='checkout-form' class="hide">	

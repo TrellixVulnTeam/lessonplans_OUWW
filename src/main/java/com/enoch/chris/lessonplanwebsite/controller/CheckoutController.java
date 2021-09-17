@@ -1,5 +1,6 @@
 package com.enoch.chris.lessonplanwebsite.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,10 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.enoch.chris.lessonplanwebsite.dao.LessonPlanRepository;
+import com.enoch.chris.lessonplanwebsite.dao.PurchaseRepository;
 import com.enoch.chris.lessonplanwebsite.dao.SubscriptionRepository;
 import com.enoch.chris.lessonplanwebsite.entity.LessonPlan;
 import com.enoch.chris.lessonplanwebsite.entity.Subscription;
 import com.enoch.chris.lessonplanwebsite.entity.User;
+import com.enoch.chris.lessonplanwebsite.entity.utils.SubscriptionUtils;
 import com.enoch.chris.lessonplanwebsite.payment.ChargeRequest;
 
 @Controller
@@ -26,15 +29,18 @@ public class CheckoutController {
 	
 	private LessonPlanRepository lessonPlanRepository;
 	private SubscriptionRepository subscriptionRepository;
+	private PurchaseRepository purchaseRepository;
 	
 	@Value("${STRIPE_PUBLIC_KEY}")
 	private String stripePublicKey;
 	
 	@Autowired
-	public CheckoutController(LessonPlanRepository lessonPlanRepository, SubscriptionRepository subscriptionRepository) {
+	public CheckoutController(LessonPlanRepository lessonPlanRepository, SubscriptionRepository subscriptionRepository
+			, PurchaseRepository purchaseRepository) {
 		super();
 		this.lessonPlanRepository = lessonPlanRepository;
 		this.subscriptionRepository = subscriptionRepository;
+		this.purchaseRepository = purchaseRepository;
 	}
 
 	
@@ -76,7 +82,7 @@ public class CheckoutController {
 				if (subscription.isPresent()) {
 					//session.setAttribute("subscription", subscription.get());	
 					model.addAttribute("subscriptionName", subscription.get().getName());
-					model.addAttribute("subscription", subscription.get());
+					model.addAttribute("subscriptionUtils", new SubscriptionUtils(subscription.get(), user, purchaseRepository, LocalDateTime.now()));
 					model.addAttribute("amount", subscription.get().getPrice()); // in cents
 					model.addAttribute("formattedAmount", subscription.get().getPriceFormatted()); // in cents
 //					model.addAttribute("stripePublicKey", stripePublicKey);
