@@ -16,7 +16,7 @@
 	<div th:insert="navbar.html:: nav"></div>
 	<div class="main-content">
 
-		<h1 id="large-header"><span th:text="${lp.title}">Lesson Plan</span><span class="badge">B1</span></h1>
+		<h1 class="large-header large-header--article"><span th:text="${lp.title}">Lesson Plan</span><span class="badge">B1</span></h1>
 
 		<div th:if="${!B1active  || B1active == null}">
 			<p th:if="${session.user == null}">You must be logged in and have a <span th:text="${lp.assignedSubscription.displayName}"></span>

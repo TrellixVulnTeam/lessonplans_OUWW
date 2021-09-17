@@ -46,7 +46,7 @@
 	<div class="main-content">
 		<div class="main-content-inner ml-5 mr-5">
 
-			<h1 id="large-header"  th:text="${editLessonPlan} ? 'Edit Lesson Plan' : 'Add Lesson Plan'">Edit lesson plan</h1>
+			<h1 class="large-header large-header--article"  th:text="${editLessonPlan} ? 'Edit Lesson Plan' : 'Add Lesson Plan'">Edit lesson plan</h1>
 			
 			<ul class="alert mb-1" th:if="${error}">
 				<li th:text="${error}"></li>
