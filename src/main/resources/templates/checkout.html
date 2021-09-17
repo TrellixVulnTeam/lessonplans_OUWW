@@ -33,7 +33,7 @@
 								 <li th:text="${'€' + subscriptionUtils.subscription.priceFormatted}" >40 €</li>
 								 <li>1 year's access</li>
 								 <li><small th:text="'Get access until ' + ${#temporals.format(subscriptionUtils.getNextSubscriptionStartDate().plusYears(1L), 'd MMM uuuu')}">+ 1 year's access</small></li>									
-								 <li ><a id="customSubmit" class="mt-1 ml-auto btn btn--action-tertiary" href="#">Pay with card</a></li>						 
+								 <li ><a id="customSubmit" class="mt-1 ml-auto btn btn--checkout-stripe" href="#">Pay with card</a></li>						 
 							 </ul>						 
 						 </div>
 					</div>
