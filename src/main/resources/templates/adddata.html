@@ -19,273 +19,306 @@
 
 			<h1 class="large-header large-header--article">Manage Data</h1>
 
+			<div class="lp-container">
+
+				<form method="post" th:action="@{/admin/uploadlessonplan/A1}" enctype="multipart/form-data"
+					class="form__outline">
+					<p th:text="${messagelessonplansuccessA1}" th:if="${messagelessonplansuccessA1 ne null}"
+						class="md-msg md-msg--success"></p>
+					<p th:text="${messagelessonplanfailureA1}" th:if="${messagelessonplanfailureA1 ne null}"
+						class="md-msg md-msg--alert"></p>
+					<h2 class="md-header">Upload A1 lesson plan</h2>
+					<div class="form__group form__group--file">
+						<input type="file" name="file" class="form-control-file">
+						<button type="submit" class="btn btn--info">Upload</button>
+					</div>
+
+				</form>
+
+				<form method="post" th:action="@{/admin/uploadlessonplan/A2}" enctype="multipart/form-data"
+					class="form__outline">
+					<p th:text="${messagelessonplansuccessA2}" th:if="${messagelessonplansuccessA2 ne null}"
+						class="md-msg md-msg--success"></p>
+					<p th:text="${messagelessonplanfailureA2}" th:if="${messagelessonplanfailureA2 ne null}"
+						class="md-msg md-msg--alert"></p>
+					<h2 class="md-header">Upload A2 lesson plan</h2>
+
+					<div class="form__group form__group--file">
+						<input type="file" name="file">
+						<button type="submit" class="btn btn--info">Upload</button>
+					</div>
 
 
-			<form method="post" th:action="@{/admin/uploadlessonplan/A1}" enctype="multipart/form-data"
-				class="form__outline">
-				<p th:text="${messagelessonplansuccessA1}" th:if="${messagelessonplansuccessA1 ne null}"
-					class="md-msg md-msg--success"></p>
-				<p th:text="${messagelessonplanfailureA1}" th:if="${messagelessonplanfailureA1 ne null}"
-					class="md-msg md-msg--alert"></p>
-				<h2 class="md-header">Upload A1 lesson plan</h2>
-				<div class="form__group form__group--file">
-					<input type="file" name="file" class="form-control-file">
-					<button type="submit" class="btn btn--primary">Upload</button>
-				</div>
-
-			</form>
-
-			<form method="post" th:action="@{/admin/uploadlessonplan/A2}" enctype="multipart/form-data"
-				class="form__outline">
-				<p th:text="${messagelessonplansuccessA2}" th:if="${messagelessonplansuccessA2 ne null}"
-					class="md-msg md-msg--success"></p>
-				<p th:text="${messagelessonplanfailureA2}" th:if="${messagelessonplanfailureA2 ne null}"
-					class="md-msg md-msg--alert"></p>
-				<h2 class="md-header">Upload A2 lesson plan</h2>
-
-				<div class="form__group form__group--file">
-					<input type="file" name="file">
-					<button type="submit" class="btn btn--primary">Upload</button>
-				</div>
-
-
-			</form>
-
-
-
-			<form method="post" th:action="@{/admin/uploadlessonplan/B1}" enctype="multipart/form-data"
-				class="form__outline">
-				<p th:text="${messagelessonplansuccessB1}" th:if="${messagelessonplansuccessB1 ne null}"
-					class="md-msg md-msg--success"></p>
-				<p th:text="${messagelessonplanfailureB1}" th:if="${messagelessonplanfailureB1 ne null}"
-					class="md-msg md-msg--alert"></p>
-				<h2 class="md-header">Upload B1 lesson plan</h2>
-				<div class="form__group form__group--file">
-					<input type="file" name="file">
-					<button type="submit" class="btn btn--primary">Upload</button>
-				</div>
-			</form>
+				</form>
 
 
 
-
-			<form method="post" th:action="@{/admin/uploadlessonplan/B2}" enctype="multipart/form-data"
-				class="form__outline">
-				<p th:text="${messagelessonplansuccessB2}" th:if="${messagelessonplansuccessB2 ne null}"
-					class="md-msg md-msg--success"></p>
-				<p th:text="${messagelessonplanfailureB2}" th:if="${messagelessonplanfailureB2 ne null}"
-					class="md-msg md-msg--alert"></p>
-				<h2 class="md-header">Upload B2 lesson plan</h2>
-				<div class="form__group form__group--file">
-					<input type="file" name="file">
-					<button type="submit" class="btn btn--primary">Upload</button>
-				</div>
-			</form>
+				<form method="post" th:action="@{/admin/uploadlessonplan/B1}" enctype="multipart/form-data"
+					class="form__outline">
+					<p th:text="${messagelessonplansuccessB1}" th:if="${messagelessonplansuccessB1 ne null}"
+						class="md-msg md-msg--success"></p>
+					<p th:text="${messagelessonplanfailureB1}" th:if="${messagelessonplanfailureB1 ne null}"
+						class="md-msg md-msg--alert"></p>
+					<h2 class="md-header">Upload B1 lesson plan</h2>
+					<div class="form__group form__group--file">
+						<input type="file" name="file">
+						<button type="submit" class="btn btn--info">Upload</button>
+					</div>
+				</form>
 
 
 
 
-			<form method="post" th:action="@{/admin/uploadlessonplan/B2PLUS}" enctype="multipart/form-data"
-				class="form__outline">
-				<p th:text="${messagelessonplansuccessB2PLUS}" th:if="${messagelessonplansuccessB2PLUS ne null}"
-					class="md-msg md-msg--success"></p>
-				<p th:text="${messagelessonplanfailureB2PLUS}" th:if="${messagelessonplanfailureB2PLUS ne null}"
-					class="md-msg md-msg--alert"></p>
-				<h2 class="md-header">Upload B2+ lesson plan</h2>
-				<div class="form__group form__group--file">
-					<input type="file" name="file">
-					<button type="submit" class="btn btn--primary">Upload</button>
-				</div>
-			</form>
+				<form method="post" th:action="@{/admin/uploadlessonplan/B2}" enctype="multipart/form-data"
+					class="form__outline">
+					<p th:text="${messagelessonplansuccessB2}" th:if="${messagelessonplansuccessB2 ne null}"
+						class="md-msg md-msg--success"></p>
+					<p th:text="${messagelessonplanfailureB2}" th:if="${messagelessonplanfailureB2 ne null}"
+						class="md-msg md-msg--alert"></p>
+					<h2 class="md-header">Upload B2 lesson plan</h2>
+					<div class="form__group form__group--file">
+						<input type="file" name="file">
+						<button type="submit" class="btn btn--info">Upload</button>
+					</div>
+				</form>
 
 
 
 
-			<form method="post" th:action="@{/admin/uploadlessonplan/C1}" enctype="multipart/form-data"
-				class="form__outline">
-				<p th:text="${messagelessonplansuccessC1}" th:if="${messagelessonplansuccessC1 ne null}"
-					class="md-msg md-msg--success"></p>
-				<p th:text="${messagelessonplanfailureC1}" th:if="${messagelessonplanfailureC1 ne null}"
-					class="md-msg md-msg--alert"></p>
-				<h2 class="md-header">Upload C1 lesson plan</h2>
-				<div class="form__group form__group--file">
-					<input type="file" name="file">
-					<button type="submit" class="btn btn--primary">Upload</button>
-				</div>
-			</form>
+				<form method="post" th:action="@{/admin/uploadlessonplan/B2PLUS}" enctype="multipart/form-data"
+					class="form__outline">
+					<p th:text="${messagelessonplansuccessB2PLUS}" th:if="${messagelessonplansuccessB2PLUS ne null}"
+						class="md-msg md-msg--success"></p>
+					<p th:text="${messagelessonplanfailureB2PLUS}" th:if="${messagelessonplanfailureB2PLUS ne null}"
+						class="md-msg md-msg--alert"></p>
+					<h2 class="md-header">Upload B2+ lesson plan</h2>
+					<div class="form__group form__group--file">
+						<input type="file" name="file">
+						<button type="submit" class="btn btn--info">Upload</button>
+					</div>
+				</form>
 
 
 
 
-			<form method="post" th:action="@{/admin/uploadlessonplan/C1PLUS}" enctype="multipart/form-data"
-				class="form__outline">
-				<p th:text="${messagelessonplansuccessC1PLUS}" th:if="${messagelessonplansuccessC1PLUS ne null}"
-					class="md-msg md-msg--success"></p>
-				<p th:text="${messagelessonplanfailureC1PLUS}" th:if="${messagelessonplanfailureC1PLUS ne null}"
-					class="md-msg md-msg--alert"></p>
-				<h2 class="md-header">Upload C1+ lesson plan</h2>
-
-				<div class="form__group form__group--file">
-					<input type="file" name="file">
-					<button type="submit" class="btn btn--primary">Upload</button>
-				</div>
-			</form>
-
-
-
-
-			<form method="post" th:action="@{/admin/uploadlessonplan/C2}" enctype="multipart/form-data"
-				class="form__outline">
-				<p th:text="${messagelessonplansuccessC2}" th:if="${messagelessonplansuccessC2 ne null}"
-					class="md-msg md-msg--success"></p>
-				<p th:text="${messagelessonplanfailureC2}" th:if="${messagelessonplanfailureC2 ne null}"
-					class="md-msg md-msg--alert"></p>
-				<h2 class="md-header">Upload C2 lesson plan</h2>
-				<div class="form__group form__group--file">
-					<input type="file" name="file">
-					<button type="submit" class="btn btn--primary">Upload</button>
-				</div>
-			</form>
+				<form method="post" th:action="@{/admin/uploadlessonplan/C1}" enctype="multipart/form-data"
+					class="form__outline">
+					<p th:text="${messagelessonplansuccessC1}" th:if="${messagelessonplansuccessC1 ne null}"
+						class="md-msg md-msg--success"></p>
+					<p th:text="${messagelessonplanfailureC1}" th:if="${messagelessonplanfailureC1 ne null}"
+						class="md-msg md-msg--alert"></p>
+					<h2 class="md-header">Upload C1 lesson plan</h2>
+					<div class="form__group form__group--file">
+						<input type="file" name="file">
+						<button type="submit" class="btn btn--info">Upload</button>
+					</div>
+				</form>
 
 
 
 
+				<form method="post" th:action="@{/admin/uploadlessonplan/C1PLUS}" enctype="multipart/form-data"
+					class="form__outline">
+					<p th:text="${messagelessonplansuccessC1PLUS}" th:if="${messagelessonplansuccessC1PLUS ne null}"
+						class="md-msg md-msg--success"></p>
+					<p th:text="${messagelessonplanfailureC1PLUS}" th:if="${messagelessonplanfailureC1PLUS ne null}"
+						class="md-msg md-msg--alert"></p>
+					<h2 class="md-header">Upload C1+ lesson plan</h2>
+
+					<div class="form__group form__group--file">
+						<input type="file" name="file">
+						<button type="submit" class="btn btn--info">Upload</button>
+					</div>
+				</form>
 
 
 
 
-			<h2 class="mb-2 mt-3">Upload picture</h2>
-			<p th:text="${messagepicturesuccess}" th:if="${messagepicturesuccess ne null}"
-				class="md-msg md-msg--success"></p>
-			<p th:text="${messagepicturefailure}" th:if="${messagepicturefailure ne null}" class="md-msg md-msg--alert">
-			</p>
-			<form method="post" th:action="@{/admin/uploadpicture}" enctype="multipart/form-data">
-				<div class="form__group">
-					<input type="file" name="file" class="form-control-file">
-				</div>
-				<button type="submit" class="btn btn--info">Upload picture</button>
-			</form>
-
-			<h2 class="mb-1 mt-2">Upload topic</h2>
-			<p th:text="${messagetopicsuccess}" th:if="${messagetopicsuccess ne null}" class="md-msg md-msg--success">
-			</p>
-			<p th:text="${messagetopicfailure}" th:if="${messagetopicfailure ne null}" class="md-msg md-msg--alert"></p>
-			<form method="post" th:action="@{/admin/uploadtopic}">
-				<div class="form__group">
-					<input type="text" name="topic">
-				</div>
-				<button type="submit" class="btn btn--info">Add Topic</button>
-			</form>
-
-			<h2 class="mb-1 mt-2">Upload tag</h2>
-			<p th:text="${messagetagsuccess}" th:if="${messagetagsuccess ne null}" class="md-msg md-msg--success"></p>
-			<p th:text="${messagetagfailure}" th:if="${messagetagfailure ne null}" class="md-msg md-msg--alert"></p>
-			<form method="post" th:action="@{/admin/uploadtag}">
-				<div class="form__group">
-					<input type="text" name="tag">
-				</div>
-				<button type="submit" class="btn btn--info">Add Tag</button>
-			</form>
-
-			<h2 class="mb-1 mt-2">Upload grammar point</h2>
-			<p th:text="${messagegrammarsuccess}" th:if="${messagegrammarsuccess ne null}"
-				class="md-msg md-msg--success"></p>
-			<p th:text="${messagegrammarfailure}" th:if="${messagegrammarfailure ne null}" class="md-msg md-msg--alert">
-			</p>
-			<form method="post" th:action="@{/admin/uploadgrammar}">
-				<div class="form__group">
-					<input type="text" name="grammar">
-				</div>
-				<button type="submit" class="btn btn--info">Add Grammar</button>
-			</form>
-
-			<h2 class="mb-1 mt-2">Edit topic</h2>
-			<p th:text="${messagetopiceditsuccess}" th:if="${messagetopiceditsuccess ne null}"
-				class="md-msg md-msg--success"></p>
-			<p th:text="${messagetopiceditfailure}" th:if="${messagetopiceditfailure ne null}"
-				class="md-msg md-msg--alert"></p>
-			<form method="post" th:action="@{/admin/edittopic}">
-				<select name="topicToEdit">
-					<option th:each="top : ${topics}" th:value="${top.id}" th:text="${top.name}">Topic name</option>
-				</select>
-				<label>Edited topic<input type="text" name="editedtopic" value=""></label>
-				<input type="submit" value="Submit">
-			</form>
-
-			<h2 class="mb-1 mt-2">Edit tag</h2>
-			<p th:text="${messagetageditsuccess}" th:if="${messagetageditsuccess ne null}"
-				class="md-msg md-msg--success"></p>
-			<p th:text="${messagetageditfailure}" th:if="${messagetageditfailure ne null}" class="md-msg md-msg--alert">
-			</p>
-			<form method="post" th:action="@{/admin/edittag}">
-				<select name="tagToEdit">
-					<option th:each="tag : ${tags}" th:value="${tag.id}" th:text="${tag.name}">Tag name</option>
-				</select>
-				<label>Edited tag<input type="text" name="editedtag" value=""></label>
-				<input type="submit" value="Submit">
-			</form>
-
-			<h2 class="mb-1 mt-2">Edit grammar point</h2>
-			<p th:text="${messagegrammareditsuccess}" th:if="${messagegrammareditsuccess ne null}"
-				class="md-msg md-msg--success"></p>
-			<p th:text="${messagegrammareditfailure}" th:if="${messagegrammareditfailure ne null}"
-				class="md-msg md-msg--alert"></p>
-			<form method="post" th:action="@{/admin/editgrammar}">
-				<select name="grammarToEdit">
-					<option th:each="g : ${grammar}" th:value="${g.id}" th:text="${g.grammarPoint}">Grammar point
-					</option>
-				</select>
-				<label>Edited grammar point<input type="text" name="editedgrammar" value=""></label>
-				<input type="submit" value="Submit">
-			</form>
-
-			<h2 class="mb-1 mt-2">Delete topic</h2>
-			<p th:text="${messagetopicdeletesuccess}" th:if="${messagetopicdeletesuccess ne null}"
-				class="md-msg md-msg--success"></p>
-			<p th:text="${messagetopicdeletefailure}" th:if="${messagetopicdeletefailure ne null}"
-				class="md-msg md-msg--alert"></p>
-			<form method="post" th:action="@{/admin/deletetopic}">
-				<select name="topicToDelete">
-					<option th:each="top : ${topics}" th:value="${top.id}" th:text="${top.name}">Topic name</option>
-				</select>
-				<input type="submit" value="Submit">
-			</form>
-
-			<h2 class="mb-1 mt-2">Delete tag</h2>
-			<p th:text="${messagetagdeletesuccess}" th:if="${messagetagdeletesuccess ne null}"
-				class="md-msg md-msg--success"></p>
-			<p th:text="${messagetagdeletefailure}" th:if="${messagetagdeletefailure ne null}"
-				class="md-msg md-msg--alert"></p>
-			<form method="post" th:action="@{/admin/deletetag}">
-				<select name="tagToDelete">
-					<option th:each="tag : ${tags}" th:value="${tag.id}" th:text="${tag.name}">Tag name</option>
-				</select>
-				<input type="submit" value="Submit">
-			</form>
-
-			<h2 class="mb-1 mt-2">Delete grammar point</h2>
-			<p th:text="${messagegrammardeletesuccess}" th:if="${messagegrammardeletesuccess ne null}"
-				class="md-msg md-msg--success"></p>
-			<p th:text="${messagegrammardeletefailure}" th:if="${messagegrammardeletefailure ne null}"
-				class="md-msg md-msg--alert"></p>
-			<form method="post" th:action="@{/admin/deletegrammar}">
-				<select name="grammarToDelete">
-					<option th:each="g : ${grammar}" th:value="${g.id}" th:text="${g.grammarPoint}">Grammar point
-					</option>
-				</select>
-				<input type="submit" value="Submit">
-			</form>
-
-			<h2 class="mb-1 mt-2">Download deleted lesson plan</h2>
-			<form method="post" th:action="@{/admin/downloaddeletedlessonplan}">
-				<select name="lessonPlanToDownload">
-					<option th:each="dlp : ${deletedLessonPlans}" th:value="${dlp.filename}" th:text="${dlp.filename}">
-						Filename</option>
-				</select>
-				<input type="submit" value="Submit">
-			</form>
+				<form method="post" th:action="@{/admin/uploadlessonplan/C2}" enctype="multipart/form-data"
+					class="form__outline">
+					<p th:text="${messagelessonplansuccessC2}" th:if="${messagelessonplansuccessC2 ne null}"
+						class="md-msg md-msg--success"></p>
+					<p th:text="${messagelessonplanfailureC2}" th:if="${messagelessonplanfailureC2 ne null}"
+						class="md-msg md-msg--alert"></p>
+					<h2 class="md-header">Upload C2 lesson plan</h2>
+					<div class="form__group form__group--file">
+						<input type="file" name="file">
+						<button type="submit" class="btn btn--info">Upload</button>
+					</div>
+				</form>
 
 
+				<form method="post" th:action="@{/admin/uploadpicture}" enctype="multipart/form-data"
+					class="form__outline">
+					<p th:text="${messagepicturesuccess}" th:if="${messagepicturesuccess ne null}"
+						class="md-msg md-msg--success"></p>
+					<p th:text="${messagepicturefailure}" th:if="${messagepicturefailure ne null}"
+						class="md-msg md-msg--alert">
+					</p>
+					<h2 class="md-header">Upload picture</h2>
+					<div class="form__group">
+						<input type="file" name="file" class="form-control-file">
+					</div>
+					<button type="submit" class="btn btn--info">Upload picture</button>
+				</form>
+
+
+				<form method="post" th:action="@{/admin/uploadtopic}" class="form__outline">
+					<p th:text="${messagetopicsuccess}" th:if="${messagetopicsuccess ne null}"
+						class="md-msg md-msg--success">
+					</p>
+					<p th:text="${messagetopicfailure}" th:if="${messagetopicfailure ne null}"
+						class="md-msg md-msg--alert"></p>
+					<h2 class="md-header">Upload topic</h2>
+					<div class="form__group">
+						<input type="text" name="topic">
+					</div>
+					<button type="submit" class="btn btn--info">Add Topic</button>
+				</form>
+
+
+
+				<form method="post" th:action="@{/admin/uploadtag}" class="form__outline">
+					<p th:text="${messagetagsuccess}" th:if="${messagetagsuccess ne null}"
+						class="md-msg md-msg--success"></p>
+					<p th:text="${messagetagfailure}" th:if="${messagetagfailure ne null}" class="md-msg md-msg--alert">
+					</p>
+					<h2 class="md-header">Upload tag</h2>
+					<div class="form__group">
+						<input type="text" name="tag">
+					</div>
+					<button type="submit" class="btn btn--info">Add Tag</button>
+				</form>
+
+
+
+				<form method="post" th:action="@{/admin/uploadgrammar}" class="form__outline">
+					<p th:text="${messagegrammarsuccess}" th:if="${messagegrammarsuccess ne null}"
+						class="md-msg md-msg--success"></p>
+					<p th:text="${messagegrammarfailure}" th:if="${messagegrammarfailure ne null}"
+						class="md-msg md-msg--alert">
+					</p>
+					<h2 class="md-header">Upload grammar point</h2>
+					<div class="form__group">
+						<input type="text" name="grammar">
+					</div>
+					<button type="submit" class="btn btn--info">Add Grammar</button>
+				</form>
+
+
+
+				<form method="post" th:action="@{/admin/edittopic}" class="form__outline">
+					<p th:text="${messagetopiceditsuccess}" th:if="${messagetopiceditsuccess ne null}"
+						class="md-msg md-msg--success"></p>
+					<p th:text="${messagetopiceditfailure}" th:if="${messagetopiceditfailure ne null}"
+						class="md-msg md-msg--alert"></p>
+					<h2 class="md-header">Edit topic</h2>
+					<div class="form__stack">
+						<label>Topic
+							<select name="topicToEdit">
+								<option th:each="top : ${topics}" th:value="${top.id}" th:text="${top.name}">Topic name
+								</option>
+							</select>
+						</label>
+						<label Edited topic>Edited Topic<input type="text" name="editedtopic" id="editedTopic" value=""></label>
+						<input type="text" name="editedtopic" id="editedTopic" value="hello test">
+						<input type="submit" value="Submit">
+					</div>
+				</form>
+
+
+
+				<form method="post" th:action="@{/admin/edittag}" class="form__outline">
+					<p th:text="${messagetageditsuccess}" th:if="${messagetageditsuccess ne null}"
+						class="md-msg md-msg--success"></p>
+					<p th:text="${messagetageditfailure}" th:if="${messagetageditfailure ne null}"
+						class="md-msg md-msg--alert">
+					</p>
+					<h2 class="md-header">Edit tag</h2>
+						<label>Tag
+							<select name="tagToEdit">
+								<option th:each="tag : ${tags}" th:value="${tag.id}" th:text="${tag.name}">Tag name</option>
+							</select>
+						</label>
+					<label for="editedTag">Edited tag</label>
+							<input type="submit" value="Submit" id="editedTag">
+				</form>
+
+
+
+				<form method="post" th:action="@{/admin/editgrammar}" class="form__outline">
+					<p th:text="${messagegrammareditsuccess}" th:if="${messagegrammareditsuccess ne null}"
+						class="md-msg md-msg--success"></p>
+					<p th:text="${messagegrammareditfailure}" th:if="${messagegrammareditfailure ne null}"
+						class="md-msg md-msg--alert"></p>
+					<h2 class="md-header">Edit grammar point</h2>
+
+					<select name="grammarToEdit">
+						<option th:each="g : ${grammar}" th:value="${g.id}" th:text="${g.grammarPoint}">Grammar point
+						</option>
+					</select>
+					<label>Edited grammar point<input type="text" name="editedgrammar" value=""></label>
+					<input type="submit" value="Submit">
+				</form>
+
+
+
+				<form method="post" th:action="@{/admin/deletetopic}" class="form__outline">
+					<p th:text="${messagetopicdeletesuccess}" th:if="${messagetopicdeletesuccess ne null}"
+						class="md-msg md-msg--success"></p>
+					<p th:text="${messagetopicdeletefailure}" th:if="${messagetopicdeletefailure ne null}"
+						class="md-msg md-msg--alert"></p>
+					<h2 class="md-header">Delete topic</h2>
+
+					<select name="topicToDelete">
+						<option th:each="top : ${topics}" th:value="${top.id}" th:text="${top.name}">Topic name</option>
+					</select>
+					<input type="submit" value="Submit">
+				</form>
+
+
+
+				<form method="post" th:action="@{/admin/deletetag}" class="form__outline">
+					<p th:text="${messagetagdeletesuccess}" th:if="${messagetagdeletesuccess ne null}"
+						class="md-msg md-msg--success"></p>
+					<p th:text="${messagetagdeletefailure}" th:if="${messagetagdeletefailure ne null}"
+						class="md-msg md-msg--alert"></p>
+					<h2 class="md-header">Delete tag</h2>
+					<select name="tagToDelete">
+						<option th:each="tag : ${tags}" th:value="${tag.id}" th:text="${tag.name}">Tag name</option>
+					</select>
+					<input type="submit" value="Submit">
+				</form>
+
+
+
+				<form method="post" th:action="@{/admin/deletegrammar}" class="form__outline">
+					<p th:text="${messagegrammardeletesuccess}" th:if="${messagegrammardeletesuccess ne null}"
+						class="md-msg md-msg--success"></p>
+					<p th:text="${messagegrammardeletefailure}" th:if="${messagegrammardeletefailure ne null}"
+						class="md-msg md-msg--alert"></p>
+					<h2 class="md-header">Delete grammar point</h2>
+
+					<select name="grammarToDelete">
+						<option th:each="g : ${grammar}" th:value="${g.id}" th:text="${g.grammarPoint}">Grammar point
+						</option>
+					</select>
+					<input type="submit" value="Submit">
+				</form>
+
+
+				<form method="post" th:action="@{/admin/downloaddeletedlessonplan}" class="form__outline">
+					<h2 class="md-header">Download deleted lesson plan</h2>
+					<select name="lessonPlanToDownload">
+						<option th:each="dlp : ${deletedLessonPlans}" th:value="${dlp.filename}"
+							th:text="${dlp.filename}">
+							Filename</option>
+					</select>
+					<input type="submit" value="Submit">
+				</form>
+
+
+			</div>
 
 		</div>
 	</div>

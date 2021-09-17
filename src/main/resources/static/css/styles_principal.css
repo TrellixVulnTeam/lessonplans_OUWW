@@ -427,6 +427,27 @@ body {
     font-size: 1.8rem;
     padding-left: 1rem; }
 
+.form__stack {
+  font-size: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  background-color: white;
+  margin: 0rem 1rem 1rem 0rem; }
+  .form__stack select, .form__stack input {
+    width: 20rem;
+    height: 3rem;
+    margin-left: auto; }
+  .form__stack label {
+    width: 30rem;
+    display: block;
+    margin-left: auto; }
+    .form__stack label input {
+      width: 20rem;
+      height: 3rem;
+      margin-left: auto; }
+
 .form__group {
   font-size: 1.5rem;
   display: flex;

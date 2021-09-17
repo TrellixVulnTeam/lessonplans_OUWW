@@ -33,6 +33,34 @@
 		
 	}
 
+	&__stack{
+		font-size:1.5rem;
+		display: flex;
+		flex-wrap: wrap;
+		flex-direction: column;
+		justify-content: center;
+		background-color: rgb(255, 255, 255);
+		margin: 0rem 1rem 1rem 0rem;
+
+		& select, & input{
+			width: 20rem;
+			height: 3rem;	
+			margin-left: auto;
+		}
+
+		& label {
+			width:30rem;
+			display: block;
+			margin-left: auto;
+
+			& input {
+				width: 20rem;
+				height: 3rem;	
+				margin-left: auto;
+			}
+		}
+	}
+
 
 	&__group{
 		font-size:1.5rem;
@@ -47,6 +75,7 @@
 			height: 3rem;		
 		}
 
+	
 		&--file {
 		    & input{
 				width: 20rem;
