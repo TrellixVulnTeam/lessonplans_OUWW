@@ -7,12 +7,10 @@
 
 	<div class="flex flex--hides">
 		<ul class="navigation__navlinks navigation__navlinks--right">
-
-			<li ><a class="navigation__item navigation__item--right" href="/admin/delete">Delete</a></li>
-			<li ><a class="navigation__item navigation__item--right" href="/admin">Edit</a></li>
 			<li ><a class="navigation__item navigation__item--right" href="/admin/add">Add</a></li>
+			<li ><a class="navigation__item navigation__item--right" href="/admin">Edit</a></li>
+			<li ><a class="navigation__item navigation__item--right" href="/admin/delete">Delete</a></li>		
 			<li><a class="navigation__item navigation__item--right" href="/admin/upload">Manage Data</a></li>
-
 
 			<li th:if="${session.user != null }" ><a
 				class="navigation__item navigation__item--right"
@@ -20,12 +18,33 @@
 				
 			<li th:if="${session.user == null }"><a
 			class="navigation__item navigation__item--right"
+			href="/showMyLoginPage" role="menuitem"> Login</a></li>		
+	
+		</ul>
+	</div>
+	
+	<div class="flex-col flex-col--hides">
+		<ul class="navigation__navlinks navigation__navlinks--right navigation__navlinks--left-smaller-screen ">
+			<li ><a class="navigation__item navigation__item--right" href="/admin/add">Add</a></li>	
+			<li ><a class="navigation__item navigation__item--right" href="/admin">Edit</a></li>
+			<li ><a class="navigation__item navigation__item--right" href="/admin/delete">Delete</a></li>				
+		</ul>
+		
+		<ul class="navigation__navlinks navigation__navlinks--right navigation__navlinks--left-smaller-screen">
+			<li><a class="navigation__item navigation__item--right" href="/admin/upload">Manage Data</a></li>
+			<li th:if="${session.user != null }" ><a
+				class="navigation__item navigation__item--right"
+				href="javascript: document.logoutForm.submit()" role="menuitem"> Logout</a></li>
+			<li th:if="${session.user == null }"><a
+			class="navigation__item navigation__item--right"
 			href="/showMyLoginPage" role="menuitem"> Login</a></li>
-
-
 			
 		</ul>
 	</div>
+	
+	
+	
+	
 
 	<form th:if="${session.user != null}" name="logoutForm" style="display: none"
 		method="POST" th:action="@{/logout}">
