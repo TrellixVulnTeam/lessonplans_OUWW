@@ -9,27 +9,6 @@
 
 	<link th:href="@{/css/styles_principal.css}" rel="stylesheet" />
 	<script>
-		function addChecked() {
-			let checkboxesToCheck = "[[${checkboxesToCheck}]]";
-
-			if (checkboxesToCheck) {
-				checkboxesToCheck = checkboxesToCheck.slice(1, checkboxesToCheck.length - 1);
-				checkboxesToCheck = checkboxesToCheck.split(',');
-				checkboxesToCheck.forEach(element => console.log(element));
-
-				//loop over and add checkbox          	
-				console.log(checkboxesToCheck.length)
-				console.log("hello");
-				checkboxesToCheck.forEach(element => {
-					element = element.trim();
-					if (document.getElementById(element)) {
-						document.getElementById(element).checked = true
-					}
-
-				});
-			}
-		}
-
 		function updatePicture(id) {
 			let select = document.getElementById('picture');
 			let name = select.options[select.selectedIndex].getAttribute('name');
@@ -41,7 +20,7 @@
 	<title th:text="${editLessonPlan} ? 'Edit Lesson Plan' : 'Add Lesson Plan'">Edit lesson plan</title>
 </head>
 
-<body onload="addChecked(), updatePicture()">
+<body onload="updatePicture()">
 	<div th:insert="navbar_admin.html :: nav"></div>
 	<div class="main-content">
 		<div class="main-content-inner ml-5 mr-5">

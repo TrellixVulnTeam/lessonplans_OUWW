@@ -207,13 +207,28 @@ public class AdminController {
 				}
 			}
 			
+			//check obligatory fields
+			//topic, subscription, lessontime, type - extract to method
+			if (lessonPlan.getTopics() == null || lessonPlan.getTopics().size() < 1) {
+				errors.add("Please add at least one topic.");
+			}
+			if (lessonPlan.getAssignedSubscription() == null) {
+				errors.add("Please add a level.");
+			}
+			if (lessonPlan.getLessonTime() == null) {
+				errors.add("Please add the lesson time.");
+			}
+			if (lessonPlan.getType() == null) {
+				errors.add("Please specifiy the type.");
+			}
+			
 			if (errors.size() > 0) {
 				//send the lesson plan so fields remain checked
 				attributes.addFlashAttribute("lessonPlan", lessonPlan);
 				attributes.addFlashAttribute("errorList", errors);
 				return "redirect:/admin/add";	
 			}
-			
+					
 			//If get to here, no errors so far.
 				try {
 					//save new lesson to database
