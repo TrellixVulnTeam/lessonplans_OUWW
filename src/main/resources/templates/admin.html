@@ -48,10 +48,10 @@
 
 			<h1 class="large-header large-header--article"  th:text="${editLessonPlan} ? 'Edit Lesson Plan' : 'Add Lesson Plan'">Edit lesson plan</h1>
 			
-			<ul class="alert mb-1" th:if="${error}">
+			<ul class="alert mb-1 list-plain" th:if="${error}">
 				<li th:text="${error}"></li>
 			</ul>
-			<ul class="alert mb-1" th:if="${errorList}" th:each="err: ${errorList}">
+			<ul class="alert mb-1 list-plain" th:if="${errorList}" th:each="err: ${errorList}">
 				<li th:text="${err}"></li>
 			</ul>
 			
