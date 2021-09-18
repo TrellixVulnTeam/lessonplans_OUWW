@@ -236,13 +236,16 @@
 						class="md-msg md-msg--alert">
 					</p>
 					<h2 class="md-header">Edit tag</h2>
-						<label>Tag
-							<select name="tagToEdit">
+					<div class="form__stack">
+					<div class="form__inline-label form__inline-label--med">
+						<label for="tag">Tag</label>
+							<select name="tagToEdit" id="tag">
 								<option th:each="tag : ${tags}" th:value="${tag.id}" th:text="${tag.name}">Tag name</option>
-							</select>
-						</label>
-					<label for="editedTag">Edited tag</label>
-							<input type="submit" value="Submit" id="editedTag">
+							</select>	
+					</div>		
+							<div class="form__inline-label form__inline-label--med"><label for="editedTag">Edited tag</label><input type="text" name="editedtag" value="" id="editedTag"></div>
+						<div class="center-flex mt-1"><input type="submit" value="Submit" id="editedTag"></div>
+					</div>
 				</form>
 
 
