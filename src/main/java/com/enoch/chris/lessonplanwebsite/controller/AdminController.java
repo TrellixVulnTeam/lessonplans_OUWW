@@ -184,43 +184,12 @@ public class AdminController {
 		theModel.addAttribute("lessonPlan", lessonPlan);
 		//theModel.addAttribute("lessonTitle", lessonPlan.getTitle());
 		
-		//if lesson plan does not include date, it is being added not edited. Must include date as date cannot be set to null in database.
+		//if lesson plan is being added....
 		if (request.getParameter("addlessonplan") != null) {
-			List<String> errors = new ArrayList<>();
-			
-			lessonPlan.setDateAdded(LocalDate.now());
-			
-			//check title is more than 2 characters long
-			if (lessonPlan.getTitle().length() < 2) {
-				errors.add("Title must be at least two characters long.");
-			}
-			
-			//check title doesn't already exist for this level if level has been specified
-			if (lessonPlan.getAssignedSubscription() != null) {
-				String titleNoSpace = lessonPlan.getTitle().replaceAll("\\s", "").toLowerCase();			
-				boolean titleExists = lessonPlanRepository.findAll().stream()
-						.filter(lp -> lp.getAssignedSubscription().equals(lessonPlan.getAssignedSubscription()))
-						.map(lp -> lp.getTitle()).anyMatch(title -> title.replaceAll("\\s", "").toLowerCase().equals(titleNoSpace));
 				
-				if (titleExists) {
-					errors.add("Title already exists for this level. Please choose a title which is unique from any other for the level specified");				
-				}
-			}
-			
-			//check obligatory fields
-			//topic, subscription, lessontime, type - extract to method
-			if (lessonPlan.getTopics() == null || lessonPlan.getTopics().size() < 1) {
-				errors.add("Please add at least one topic.");
-			}
-			if (lessonPlan.getAssignedSubscription() == null) {
-				errors.add("Please add a level.");
-			}
-			if (lessonPlan.getLessonTime() == null) {
-				errors.add("Please add the lesson time.");
-			}
-			if (lessonPlan.getType() == null) {
-				errors.add("Please specifiy the type.");
-			}
+			//Must include date as date cannot be set to null in database.
+			lessonPlan.setDateAdded(LocalDate.now());	
+			List<String> errors = validateAddedLessonPlan(lessonPlan);
 			
 			if (errors.size() > 0) {
 				//send the lesson plan so fields remain checked
@@ -234,7 +203,7 @@ public class AdminController {
 					//save new lesson to database
 					lessonPlanRepository.save(lessonPlan);
 				} catch (Exception e) {
-					attributes.addFlashAttribute("error", "Lesson plan not able to be saved in the database. Please note that all fields are obligatory except 'Speaking Only.'");
+					attributes.addFlashAttribute("error", "There was an error attempting to save the lesson plan to the database. Please contact the system administrator.");
 				}
 			
 			
@@ -279,6 +248,43 @@ public class AdminController {
 		lessonPlanRepository.save(lessonPlan);
 		
 		return "redirect:/admin/";
+	}
+
+	private List<String> validateAddedLessonPlan(final LessonPlan lessonPlan) {
+		List<String> errors = new ArrayList<>();
+		//check title is more than 2 characters long
+		if (lessonPlan.getTitle().length() < 2) {
+			errors.add("Title must be at least two characters long.");
+		}
+		
+		//check title doesn't already exist for this level if level has been specified
+		if (lessonPlan.getAssignedSubscription() != null) {
+			String titleNoSpace = lessonPlan.getTitle().replaceAll("\\s", "").toLowerCase();			
+			boolean titleExists = lessonPlanRepository.findAll().stream()
+					.filter(lp -> lp.getAssignedSubscription().equals(lessonPlan.getAssignedSubscription()))
+					.map(lp -> lp.getTitle()).anyMatch(title -> title.replaceAll("\\s", "").toLowerCase().equals(titleNoSpace));
+			
+			if (titleExists) {
+				errors.add("Title already exists for this level. Please choose a title which is unique from any other for the level specified");				
+			}
+		}
+		
+		//check obligatory fields
+		//topic, subscription, lessontime, type - extract to method
+		if (lessonPlan.getTopics() == null || lessonPlan.getTopics().size() < 1) {
+			errors.add("Please add at least one topic.");
+		}
+		if (lessonPlan.getAssignedSubscription() == null) {
+			errors.add("Please add a level.");
+		}
+		if (lessonPlan.getLessonTime() == null) {
+			errors.add("Please add the lesson time.");
+		}
+		if (lessonPlan.getType() == null) {
+			errors.add("Please specifiy the type.");
+		}
+		
+		return errors;
 	}
 	
 	
