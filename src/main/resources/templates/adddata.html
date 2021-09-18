@@ -214,14 +214,16 @@
 						class="md-msg md-msg--alert"></p>
 					<h2 class="md-header">Edit topic</h2>
 					<div class="form__stack">
-						<label>Topic
-							<select name="topicToEdit">
+						<div class="form__inline-label form__inline-label--med">
+						<label for="topic">Topic</label>
+							<select name="topicToEdit" id="topic">
 								<option th:each="top : ${topics}" th:value="${top.id}" th:text="${top.name}">Topic name
 								</option>
 							</select>
-						</label>
-						<div><label Edited topic>Edited Topic<input type="text" name="editedtopic" id="editedTopic" value=""></label></div>
-						<input type="submit" value="Submit">
+						</div>
+						
+						<div class="form__inline-label form__inline-label--med"><label for="editedTopic">Edited topic</label><input type="text" name="editedtopic" id="editedTopic" value=""></div>
+						<div class="center-flex mt-1"><input type="submit" value="Submit"></div>
 					</div>
 				</form>
 

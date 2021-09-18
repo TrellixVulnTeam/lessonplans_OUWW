@@ -427,6 +427,14 @@ body {
     font-size: 1.8rem;
     padding-left: 1rem; }
 
+.form__inline-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem; }
+  .form__inline-label--med {
+    width: 30rem; }
+
 .form__stack {
   font-size: 1.5rem;
   display: flex;
@@ -437,14 +445,7 @@ body {
   margin: 0rem 1rem 1rem 0rem; }
   .form__stack select, .form__stack input {
     width: 20rem;
-    height: 3rem;
-    margin-left: auto;
-    display: block; }
-  .form__stack label {
-    width: 30rem;
-    margin-left: auto; }
-    .form__stack label input {
-      height: 3rem; }
+    height: 3rem; }
 
 .form__group {
   font-size: 1.5rem;

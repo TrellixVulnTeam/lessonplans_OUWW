@@ -28,10 +28,21 @@
 			height: 5rem;
 			font-size:1.8rem;	
 			padding-left: 1rem;
-		}
-
-		
+		}		
 	}
+
+	&__inline-label {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 1rem;
+
+		&--med{
+			width: 30rem;				
+		}
+	}
+
+
 
 	&__stack{
 		font-size:1.5rem;
@@ -45,21 +56,24 @@
 		& select, & input{
 			width: 20rem;
 			height: 3rem;	
-			margin-left: auto;
-			display:block;
+			// margin-left: auto;
+			// display:block;
 		}
 
-		& label {
-			width:30rem;
-			//display: block;
-			margin-left: auto;
+	
 
-			& input {
-				//width: 20rem;
-				height: 3rem;	
-				//margin-left: auto;
-			}
-		}
+
+		// & label {
+		// 	width:30rem;
+			
+		// 	margin-left: auto;
+
+		// 	& input {
+			
+		// 		height: 3rem;	
+		// 		margin-left: auto;
+		// 	}
+		// }
 	}
 
 
