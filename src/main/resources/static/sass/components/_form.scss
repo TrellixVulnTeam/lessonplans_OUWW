@@ -63,7 +63,8 @@
 
 		&--hr-med{
 			& select, & input{
-				width: 20rem;
+				min-width: 20rem;
+				max-width: 20rem;
 				//height: 3rem;	
 				// margin-left: auto;
 				// display:block;

@@ -448,7 +448,8 @@ body {
   background-color: white;
   margin: 0rem 1rem 1rem 0rem; }
   .form__stack--hr-med select, .form__stack--hr-med input {
-    width: 20rem; }
+    min-width: 20rem;
+    max-width: 20rem; }
   .form__stack--v-med select, .form__stack--v-med input {
     height: 3rem; }
 
