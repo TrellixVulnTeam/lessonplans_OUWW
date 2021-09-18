@@ -213,16 +213,17 @@
 					<p th:text="${messagetopiceditfailure}" th:if="${messagetopiceditfailure ne null}"
 						class="md-msg md-msg--alert"></p>
 					<h2 class="md-header">Edit topic</h2>
-					<div class="form__stack">
+					<div class="form__stack form__stack--v-med form__stack--hr-med">
 						<div class="form__inline-label form__inline-label--med">
-						<label for="topic">Topic</label>
+							<label for="topic">Topic</label>
 							<select name="topicToEdit" id="topic">
 								<option th:each="top : ${topics}" th:value="${top.id}" th:text="${top.name}">Topic name
 								</option>
 							</select>
 						</div>
-						
-						<div class="form__inline-label form__inline-label--med"><label for="editedTopic">Edited topic</label><input type="text" name="editedtopic" id="editedTopic" value=""></div>
+
+						<div class="form__inline-label form__inline-label--med"><label for="editedTopic">Edited
+								topic</label><input type="text" name="editedtopic" id="editedTopic" value=""></div>
 						<div class="center-flex mt-1"><input type="submit" value="Submit"></div>
 					</div>
 				</form>
@@ -236,14 +237,16 @@
 						class="md-msg md-msg--alert">
 					</p>
 					<h2 class="md-header">Edit tag</h2>
-					<div class="form__stack">
-					<div class="form__inline-label form__inline-label--med">
-						<label for="tag">Tag</label>
+					<div class="form__stack form__stack--v-med form__stack--hr-med">
+						<div class="form__inline-label form__inline-label--med">
+							<label for="tag">Tag</label>
 							<select name="tagToEdit" id="tag">
-								<option th:each="tag : ${tags}" th:value="${tag.id}" th:text="${tag.name}">Tag name</option>
-							</select>	
-					</div>		
-							<div class="form__inline-label form__inline-label--med"><label for="editedTag">Edited tag</label><input type="text" name="editedtag" value="" id="editedTag"></div>
+								<option th:each="tag : ${tags}" th:value="${tag.id}" th:text="${tag.name}">Tag name
+								</option>
+							</select>
+						</div>
+						<div class="form__inline-label form__inline-label--med"><label for="editedTag">Edited
+								tag</label><input type="text" name="editedtag" value="" id="editedTag"></div>
 						<div class="center-flex mt-1"><input type="submit" value="Submit" id="editedTag"></div>
 					</div>
 				</form>
@@ -256,13 +259,20 @@
 					<p th:text="${messagegrammareditfailure}" th:if="${messagegrammareditfailure ne null}"
 						class="md-msg md-msg--alert"></p>
 					<h2 class="md-header">Edit grammar point</h2>
-
-					<select name="grammarToEdit">
-						<option th:each="g : ${grammar}" th:value="${g.id}" th:text="${g.grammarPoint}">Grammar point
-						</option>
-					</select>
-					<label>Edited grammar point<input type="text" name="editedgrammar" value=""></label>
-					<input type="submit" value="Submit">
+					<div class="form__stack form__stack--v-med form__stack--hr-med">
+						<div class="form__inline-label form__inline-label--med">
+							<label for="grammarPoint">Grammar</label>
+							<select name="grammarToEdit" id="grammarPoint">
+								<option th:each="g : ${grammar}" th:value="${g.id}" th:text="${g.grammarPoint}">Grammar
+									point
+								</option>
+							</select>
+						</div>
+						<div class="form__inline-label form__inline-label--med"><label for="editedGrammarPoint">Edited
+								grammar</label><input type="text" name="editedgrammar" value="" id="editedGrammarPoint">
+						</div>
+						<div class="center-flex mt-1"><input type="submit" value="Submit"></div>
+					</div>
 				</form>
 
 
@@ -273,11 +283,16 @@
 					<p th:text="${messagetopicdeletefailure}" th:if="${messagetopicdeletefailure ne null}"
 						class="md-msg md-msg--alert"></p>
 					<h2 class="md-header">Delete topic</h2>
-
-					<select name="topicToDelete">
-						<option th:each="top : ${topics}" th:value="${top.id}" th:text="${top.name}">Topic name</option>
-					</select>
-					<input type="submit" value="Submit">
+					<div class="form__stack form__stack--v-med form__stack--hr-med">
+						<div class="form__inline-label form__inline-label--sm-3">
+							<label for="topicToDelete">Topic</label>
+							<select name="topicToDelete" id="topicToDelete">
+								<option th:each="top : ${topics}" th:value="${top.id}" th:text="${top.name}">Topic name
+								</option>
+							</select>
+						</div>
+						<div class="center-flex mt-1"><input type="submit" value="Delete"></div>
+					</div>
 				</form>
 
 
@@ -288,10 +303,16 @@
 					<p th:text="${messagetagdeletefailure}" th:if="${messagetagdeletefailure ne null}"
 						class="md-msg md-msg--alert"></p>
 					<h2 class="md-header">Delete tag</h2>
-					<select name="tagToDelete">
-						<option th:each="tag : ${tags}" th:value="${tag.id}" th:text="${tag.name}">Tag name</option>
-					</select>
-					<input type="submit" value="Submit">
+					<div class="form__stack form__stack--v-med form__stack--hr-med">
+						<div class="form__inline-label form__inline-label--sm-3">
+							<label for="tagToDelete">Tag</label>
+							<select name="tagToDelete" id="tagToDelete">
+								<option th:each="tag : ${tags}" th:value="${tag.id}" th:text="${tag.name}">Tag name
+								</option>
+							</select>
+						</div>
+						<div class="center-flex mt-1"><input type="submit" value="Delete"></div>
+					</div>
 				</form>
 
 
@@ -302,23 +323,33 @@
 					<p th:text="${messagegrammardeletefailure}" th:if="${messagegrammardeletefailure ne null}"
 						class="md-msg md-msg--alert"></p>
 					<h2 class="md-header">Delete grammar point</h2>
-
-					<select name="grammarToDelete">
-						<option th:each="g : ${grammar}" th:value="${g.id}" th:text="${g.grammarPoint}">Grammar point
-						</option>
-					</select>
-					<input type="submit" value="Submit">
+					<div class="form__stack form__stack--v-med form__stack--hr-med">
+						<div class="form__inline-label form__inline-label--med">
+							<label for="grammarToDelete">Grammar</label>
+							<select name="grammarToDelete" id="grammarToDelete">
+								<option th:each="g : ${grammar}" th:value="${g.id}" th:text="${g.grammarPoint}">Grammar
+									point
+								</option>
+							</select>
+						</div>
+						<div class="center-flex mt-1"><input type="submit" value="Delete"></div>
+					</div>
 				</form>
 
 
 				<form method="post" th:action="@{/admin/downloaddeletedlessonplan}" class="form__outline">
 					<h2 class="md-header">Download deleted lesson plan</h2>
-					<select name="lessonPlanToDownload">
-						<option th:each="dlp : ${deletedLessonPlans}" th:value="${dlp.filename}"
-							th:text="${dlp.filename}">
-							Filename</option>
-					</select>
-					<input type="submit" value="Submit">
+					<div class="form__stack form__stack--v-med">
+						<div class="form__inline-label form__inline-label--lg-1">
+							<label for="lpToDownload">Lesson plan</label>
+							<select name="lessonPlanToDownload" id="lpToDownload">
+								<option th:each="dlp : ${deletedLessonPlans}" th:value="${dlp.filename}"
+									th:text="${dlp.filename}">
+									Filename</option>
+							</select>
+						</div>
+						<div class="center-flex mt-1 form__stack--v-med form__stack--hr-med"><input type="submit" value="Submit"></div>
+					</div>
 				</form>
 
 

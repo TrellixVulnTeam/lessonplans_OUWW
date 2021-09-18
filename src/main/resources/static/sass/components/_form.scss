@@ -37,8 +37,16 @@
 		align-items: center;
 		margin-bottom: 1rem;
 
+		&--sm-3{
+			width: 25rem;				
+		}
+
 		&--med{
 			width: 30rem;				
+		}
+
+		&--lg-1{
+			width: 42rem;				
 		}
 	}
 
@@ -53,12 +61,25 @@
 		background-color: rgb(255, 255, 255);
 		margin: 0rem 1rem 1rem 0rem;
 
-		& select, & input{
-			width: 20rem;
-			height: 3rem;	
-			// margin-left: auto;
-			// display:block;
+		&--hr-med{
+			& select, & input{
+				width: 20rem;
+				//height: 3rem;	
+				// margin-left: auto;
+				// display:block;
+			}
 		}
+
+		&--v-med {
+			& select, & input{
+				//width: 20rem;
+				height: 3rem;	
+				// margin-left: auto;
+				// display:block;
+			}
+		}
+
+		
 
 	
 

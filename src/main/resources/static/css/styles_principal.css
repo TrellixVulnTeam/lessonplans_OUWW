@@ -432,8 +432,12 @@ body {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1rem; }
+  .form__inline-label--sm-3 {
+    width: 25rem; }
   .form__inline-label--med {
     width: 30rem; }
+  .form__inline-label--lg-1 {
+    width: 42rem; }
 
 .form__stack {
   font-size: 1.5rem;
@@ -443,8 +447,9 @@ body {
   justify-content: center;
   background-color: white;
   margin: 0rem 1rem 1rem 0rem; }
-  .form__stack select, .form__stack input {
-    width: 20rem;
+  .form__stack--hr-med select, .form__stack--hr-med input {
+    width: 20rem; }
+  .form__stack--v-med select, .form__stack--v-med input {
     height: 3rem; }
 
 .form__group {
