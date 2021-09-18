@@ -438,15 +438,13 @@ body {
   .form__stack select, .form__stack input {
     width: 20rem;
     height: 3rem;
-    margin-left: auto; }
+    margin-left: auto;
+    display: block; }
   .form__stack label {
     width: 30rem;
-    display: block;
     margin-left: auto; }
     .form__stack label input {
-      width: 20rem;
-      height: 3rem;
-      margin-left: auto; }
+      height: 3rem; }
 
 .form__group {
   font-size: 1.5rem;

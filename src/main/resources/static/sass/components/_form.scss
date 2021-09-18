@@ -46,17 +46,18 @@
 			width: 20rem;
 			height: 3rem;	
 			margin-left: auto;
+			display:block;
 		}
 
 		& label {
 			width:30rem;
-			display: block;
+			//display: block;
 			margin-left: auto;
 
 			& input {
-				width: 20rem;
+				//width: 20rem;
 				height: 3rem;	
-				margin-left: auto;
+				//margin-left: auto;
 			}
 		}
 	}
