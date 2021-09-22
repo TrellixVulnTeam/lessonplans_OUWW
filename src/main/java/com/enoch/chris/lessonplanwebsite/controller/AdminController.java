@@ -100,7 +100,27 @@ public class AdminController {
 		return pictureRepository.findAll();
 	}
 
+	@PostMapping("/admin")
+	public String displayLessonPlanInfo(Model theModel, @RequestParam(name = "lessonPlan", required = false)String lessonPlanId) {
+		LessonPlan lessonPlan = lessonPlanRepository.findById(Integer.parseInt(lessonPlanId)).get();
+		theModel.addAttribute("lessonPlan", lessonPlan);
+		theModel.addAttribute("showExisitngLessons", "showExisitngLessons");
+		theModel.addAttribute("editLessonPlan", "editLessonPlan");
+		
+		System.out.println("Picture information " + lessonPlan.getPicture());
+
+		//send lessonplans
+		List<LessonPlan> lessonPlans = lessonPlanRepository.findAll();
+		theModel.addAttribute("lessonPlans", lessonPlans);
+
+		return "admin";
+	}
 	
+	/**
+	 * A page where a new lesson plan can be added.
+	 * @param theModel
+	 * @return the name of the page to be rendered
+	 */
 	@GetMapping({"/admin", "/admin/edit"})
 	public String displayLessonPlans(Model theModel) {
 		//send lessonplans
@@ -121,56 +141,6 @@ public class AdminController {
 		return "admin";
 	}
 	
-	
-	@PostMapping("/admin")
-	public String displayLessonPlanInfo(Model theModel, @RequestParam(name = "lessonPlan", required = false)String lessonPlanId) {
-		LessonPlan lessonPlan = lessonPlanRepository.findById(Integer.parseInt(lessonPlanId)).get();
-		theModel.addAttribute("lessonPlan", lessonPlan);
-		theModel.addAttribute("showExisitngLessons", "showExisitngLessons");
-		theModel.addAttribute("editLessonPlan", "editLessonPlan");
-		
-		System.out.println("Picture information " + lessonPlan.getPicture());
-
-		//send lessonplans
-		List<LessonPlan> lessonPlans = lessonPlanRepository.findAll();
-		theModel.addAttribute("lessonPlans", lessonPlans);
-
-		return "admin";
-	}
-	
-	@GetMapping("/admin/delete")
-	public String deleteLessonPlanDisplay(Model theModel) {
-		List<LessonPlan> lessonPlans = lessonPlanRepository.findAll();
-		theModel.addAttribute("lessonPlans", lessonPlans);
-		return "admin_deletelessonplan";
-	}
-	
-	@PostMapping("/admin/delete")
-	public String deleteLessonPlan(Model theModel, HttpServletRequest request, RedirectAttributes attributes) {
-		Integer lessonPlanId = Integer.parseInt(request.getParameter("lessonPlan"));
-		
-		try {
-			lessonPlanRepository.deleteById(lessonPlanId);
-			attributes.addFlashAttribute("success", "Lesson plan was successfully deleted.");
-		} catch (Exception e) {
-			attributes.addFlashAttribute("error", "Lesson plan was not able to be deleted.");
-		}
-
-		return "redirect:/admin/delete";
-	}
-	
-	@GetMapping("/admin/add")
-	public String addLessonPlan(Model theModel) {
-		if (theModel.getAttribute("lessonPlan") == null) {
-			LessonPlan templateLessonPlan = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null).build();
-			theModel.addAttribute("lessonPlan", templateLessonPlan);
-		} else {
-			System.out.println("Debugging lesson plan present");
-		}
-		
-		return "admin";
-	}
-
 	/**
 	 * Handles both the adding and editing of lesson plans. If the dateAdded field of the LessonPlan object is null, a new lesson plan is added
 	 * and dateAdded will be equivalent to the date when the lesson plan is added. If dateAdded is not present, the lesson plan is edited.
@@ -250,76 +220,42 @@ public class AdminController {
 		
 		return "redirect:/admin/";
 	}
-
-	private List<String> validateAddedLessonPlan(final LessonPlan lessonPlan) {
-		List<String> errors = new ArrayList<>();
-		//check title is more than 2 characters long
-		if (lessonPlan.getTitle().length() < 2) {
-			errors.add("Title must be at least two characters long.");
+	
+	@GetMapping("/admin/add")
+	public String addLessonPlan(Model theModel) {
+		if (theModel.getAttribute("lessonPlan") == null) {
+			LessonPlan templateLessonPlan = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null).build();
+			theModel.addAttribute("lessonPlan", templateLessonPlan);
+		} else {
+			System.out.println("Debugging lesson plan present");
 		}
 		
-		//check title doesn't already exist for this level if level has been specified
-		if (lessonPlan.getAssignedSubscription() != null) {
-			String titleNoSpace = lessonPlan.getTitle().replaceAll("\\s", "").toLowerCase();			
-			boolean titleExists = lessonPlanRepository.findAll().stream()
-					.filter(lp -> lp.getAssignedSubscription().equals(lessonPlan.getAssignedSubscription()))
-					.map(lp -> lp.getTitle()).anyMatch(title -> title.replaceAll("\\s", "").toLowerCase().equals(titleNoSpace));
-			
-			if (titleExists) {
-				errors.add("Title already exists for this level. Please choose a title which is unique from any other for the level specified");				
-			}
-		}
-		
-		//check obligatory fields
-		//topic, subscription, lessontime, type - extract to method
-		if (lessonPlan.getTopics() == null || lessonPlan.getTopics().size() < 1) {
-			errors.add("Please add at least one topic.");
-		}
-		if (lessonPlan.getAssignedSubscription() == null) {
-			errors.add("Please add a level.");
-		}
-		if (lessonPlan.getLessonTime() == null) {
-			errors.add("Please add the lesson time.");
-		}
-		if (lessonPlan.getType() == null) {
-			errors.add("Please specifiy the type.");
-		}
-		
-		
-		if (lessonPlan.getAssignedSubscription() != null) { 
-			//check lesson plan html file exists for the lesson plan details added
-			//Strip title of spaces and convert to lowercase to produce filename
-			String titleNoSpace = lessonPlan.getTitle().replaceAll("\\s", "").toLowerCase();
-			//build source path
-			String destination = "src/main/resources/templates/lessonplans/"+ lessonPlan.getAssignedSubscription().getName() 
-					+ "/" + titleNoSpace + ".html";
-					
-			//check if file already exists in destination folder
-			File correspondingHTMlFile = new File(destination);
-			if (!correspondingHTMlFile.exists()) {
-				errors.add("No html file for this title and level exists. When the lesson plan details are added, the lesson plan goes live on the website. Therefore, "
-						+ "a corresponding html file must be uploaded before the lesson plan details can be added.");	
-			}		
-		}
-		
-		
-		return errors;
+		return "admin";
 	}
 	
+	@GetMapping("/admin/delete")
+	public String deleteLessonPlanDisplay(Model theModel) {
+		List<LessonPlan> lessonPlans = lessonPlanRepository.findAll();
+		theModel.addAttribute("lessonPlans", lessonPlans);
+		return "admin_deletelessonplan";
+	}
 	
-	
-	
-	
-	
-	/**
-	 * A page where a new lesson plan can be added.
-	 * @param theModel
-	 * @return the name of the page to be rendered
-	 */
+	@PostMapping("/admin/delete")
+	public String deleteLessonPlan(Model theModel, HttpServletRequest request, RedirectAttributes attributes) {
+		Integer lessonPlanId = Integer.parseInt(request.getParameter("lessonPlan"));
+		
+		try {
+			lessonPlanRepository.deleteById(lessonPlanId);
+			attributes.addFlashAttribute("success", "Lesson plan was successfully deleted.");
+		} catch (Exception e) {
+			attributes.addFlashAttribute("error", "Lesson plan was not able to be deleted.");
+		}
 
+		return "redirect:/admin/delete";
+	}
 	
 
-	
+
 	 @GetMapping("/admin/upload")
 	    public String uploadFileHome(Model theModel) {	 
 		 List<DeletedLessonPlan> deletedLessonPlans = deletedLessonPlanRepository.findAll();
@@ -702,6 +638,73 @@ public class AdminController {
 	     }
 	 
 	
+
+	 	private List<String> validateAddedLessonPlan(final LessonPlan lessonPlan) {
+	 		List<String> errors = new ArrayList<>();
+	 		//check title is more than 2 characters long
+	 		if (lessonPlan.getTitle().length() < 2) {
+	 			errors.add("Title must be at least two characters long.");
+	 		}
+	 		
+	 		//check title doesn't already exist for this level if level has been specified
+	 		if (lessonPlan.getAssignedSubscription() != null) {
+	 			String titleNoSpace = lessonPlan.getTitle().replaceAll("\\s", "").toLowerCase();			
+	 			boolean titleExists = lessonPlanRepository.findAll().stream()
+	 					.filter(lp -> lp.getAssignedSubscription().equals(lessonPlan.getAssignedSubscription()))
+	 					.map(lp -> lp.getTitle()).anyMatch(title -> title.replaceAll("\\s", "").toLowerCase().equals(titleNoSpace));
+	 			
+	 			if (titleExists) {
+	 				errors.add("Title already exists for this level. Please choose a title which is unique from any other for the level specified");				
+	 			}
+	 		}
+	 		
+	 		//check obligatory fields
+	 		if (lessonPlan.getTopics() == null || lessonPlan.getTopics().size() < 1) {
+	 			errors.add("Please add at least one topic.");
+	 		}
+	 		if (lessonPlan.getAssignedSubscription() == null) {
+	 			errors.add("Please add a level.");
+	 		}
+	 		if (lessonPlan.getLessonTime() == null) {
+	 			errors.add("Please add the lesson time.");
+	 		}
+	 		if (lessonPlan.getType() == null) {
+	 			errors.add("Please specifiy the type.");
+	 		}
+	 		
+	 		//ensure no other conflicting fields are selected if "speaking only" is selected
+	 		if (lessonPlan.getSpeakingAmount() ==SpeakingAmount.SPEAKING_ONLY) {
+	 			boolean isSpeakingOnlyError = false;
+	 			if (lessonPlan.getVocabulary() || lessonPlan.getListening() || lessonPlan.getReading() || 
+	 					lessonPlan.getWriting() || lessonPlan.getVideo() || lessonPlan.getSong()) {				
+	 				isSpeakingOnlyError = true;
+	 			}
+	 			if (isSpeakingOnlyError) {
+	 				errors.add("When selecting \"Speaking Only,\" vocabulary, listening, reading, writing, video and song must not be selected.  ");
+	 			}	
+	 		}
+	 		
+	 		
+	 		if (lessonPlan.getAssignedSubscription() != null) { 
+	 			//check lesson plan html file exists for the lesson plan details added
+	 			//Strip title of spaces and convert to lowercase to produce filename
+	 			String titleNoSpace = lessonPlan.getTitle().replaceAll("\\s", "").toLowerCase();
+	 			//build source path
+	 			String destination = "src/main/resources/templates/lessonplans/"+ lessonPlan.getAssignedSubscription().getName() 
+	 					+ "/" + titleNoSpace + ".html";
+	 					
+	 			//check if file already exists in destination folder
+	 			File correspondingHTMlFile = new File(destination);
+	 			if (!correspondingHTMlFile.exists()) {
+	 				errors.add("No html file for this title and level exists. When the lesson plan details are added, the lesson plan goes live on the website. Therefore, "
+	 						+ "a corresponding html file must be uploaded before the lesson plan details can be added.");	
+	 			}		
+	 		}
+	 		
+	 		
+	 		return errors;
+	 	}
+	 	
 	     
 	 	private String uploadLessonPlan(MultipartFile file, RedirectAttributes attributes, String subscription) {
 			// check if file is empty
