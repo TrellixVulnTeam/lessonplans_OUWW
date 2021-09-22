@@ -48,6 +48,7 @@ import com.enoch.chris.lessonplanwebsite.entity.SpeakingAmount;
 import com.enoch.chris.lessonplanwebsite.entity.Subscription;
 import com.enoch.chris.lessonplanwebsite.entity.Tag;
 import com.enoch.chris.lessonplanwebsite.entity.Topic;
+import com.enoch.chris.lessonplanwebsite.utils.FileUtils;
 
 @Controller
 public class AdminController {
@@ -193,7 +194,7 @@ public class AdminController {
 				lessonPlan.getAssignedSubscription()) {  //means assignedSubscription has been changed
 			
 			//Strip title of spaces and convert to lowercase to produce filename
-			String titleNoSpace = titleNoSpaceLower(lessonPlan.getTitle());
+			String titleNoSpace = FileUtils.stripSpacesConvertToLower(lessonPlan.getTitle());
 					
 			//build source path
 			String source = "src/main/resources/templates/lessonplans/"+ lessonPlanOriginal.getAssignedSubscription().getName() 
@@ -282,7 +283,7 @@ public class AdminController {
 	        
 	        //only accept image files
 	        String fileExtentions = ".jpg,.jpeg,.png,.gif";   
-	        if (!restrictUploadedFiles(fileName, fileExtentions)) {
+	        if (!FileUtils.restrictUploadedFiles(fileName, fileExtentions)) {
 	        	 attributes.addFlashAttribute("messagepicturefailure", "We only support files with "
 	 					+ "jpg, jpeg, png and gif extensions.");
 	        	 return "redirect:/admin/upload";
@@ -651,7 +652,7 @@ public class AdminController {
 	 		
 	 		//check title doesn't already exist for this level if level has been specified
 	 		if (lessonPlan.getAssignedSubscription() != null) {
-	 			String titleNoSpace = titleNoSpaceLower(lessonPlan.getTitle());
+	 			String titleNoSpace = FileUtils.stripSpacesConvertToLower(lessonPlan.getTitle());
 	 								
 	 			boolean titleExists = lessonPlanRepository.findAll().stream()
 	 					.filter(lp -> lp.getAssignedSubscription().equals(lessonPlan.getAssignedSubscription()))
@@ -692,7 +693,7 @@ public class AdminController {
 	 		if (lessonPlan.getAssignedSubscription() != null) { 
 	 			//check lesson plan html file exists for the lesson plan details added
 	 			//Strip title of spaces and convert to lowercase to produce filename
-	 			String titleNoSpace = titleNoSpaceLower(lessonPlan.getTitle());
+	 			String titleNoSpace = FileUtils.stripSpacesConvertToLower(lessonPlan.getTitle());
 	 								
 	 			//build source path
 	 			String destination = "src/main/resources/templates/lessonplans/"+ lessonPlan.getAssignedSubscription().getName() 
@@ -724,7 +725,7 @@ public class AdminController {
 			
 			//only accept html files
 			String fileExtentions = ".html";   
-			if (!restrictUploadedFiles(fileName, fileExtentions)) {
+			if (!FileUtils.restrictUploadedFiles(fileName, fileExtentions)) {
 				 attributes.addFlashAttribute("messagelessonplanfailure" + subscription, "We only support files with "
 						+ "the html extension.");
 				 return "redirect:/admin/upload";
@@ -732,7 +733,7 @@ public class AdminController {
 			
 			//build file destination path
 			//Strip title of spaces and convert to lowercase to produce filename
-			String titleNoSpace = titleNoSpaceLower(fileName);				
+			String titleNoSpace = FileUtils.stripSpacesConvertToLower(fileName);				
 			
 			String subscriptionName = subscription; //change this
 			
@@ -842,20 +843,6 @@ public class AdminController {
 			//if get to here, file was moved successfully
 	}
 	
-	private String titleNoSpaceLower(String title) {
-		return title.replaceAll("\\s", "").toLowerCase();
-		
-	}
-		
-	private boolean restrictUploadedFiles(String fileName, String fileExtentions) {
-		int lastIndex = fileName.lastIndexOf('.');
-		String substring = fileName.substring(lastIndex, fileName.length());           
-		if (!fileExtentions.contains(substring)) {
-			return false;					
-		} else {
-			return true;
-		}
-	}
 	
 }
 
