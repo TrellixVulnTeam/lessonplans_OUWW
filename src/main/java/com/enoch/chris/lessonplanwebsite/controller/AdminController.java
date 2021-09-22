@@ -193,7 +193,8 @@ public class AdminController {
 				lessonPlan.getAssignedSubscription()) {  //means assignedSubscription has been changed
 			
 			//Strip title of spaces and convert to lowercase to produce filename
-			String titleNoSpace = lessonPlan.getTitle().replaceAll("\\s", "").toLowerCase();
+			String titleNoSpace = titleNoSpaceLower(lessonPlan.getTitle());
+					
 			//build source path
 			String source = "src/main/resources/templates/lessonplans/"+ lessonPlanOriginal.getAssignedSubscription().getName() 
 					+ "/" + titleNoSpace + ".html";
@@ -648,7 +649,8 @@ public class AdminController {
 	 		
 	 		//check title doesn't already exist for this level if level has been specified
 	 		if (lessonPlan.getAssignedSubscription() != null) {
-	 			String titleNoSpace = lessonPlan.getTitle().replaceAll("\\s", "").toLowerCase();			
+	 			String titleNoSpace = titleNoSpaceLower(lessonPlan.getTitle());
+	 								
 	 			boolean titleExists = lessonPlanRepository.findAll().stream()
 	 					.filter(lp -> lp.getAssignedSubscription().equals(lessonPlan.getAssignedSubscription()))
 	 					.map(lp -> lp.getTitle()).anyMatch(title -> title.replaceAll("\\s", "").toLowerCase().equals(titleNoSpace));
@@ -688,7 +690,8 @@ public class AdminController {
 	 		if (lessonPlan.getAssignedSubscription() != null) { 
 	 			//check lesson plan html file exists for the lesson plan details added
 	 			//Strip title of spaces and convert to lowercase to produce filename
-	 			String titleNoSpace = lessonPlan.getTitle().replaceAll("\\s", "").toLowerCase();
+	 			String titleNoSpace = titleNoSpaceLower(lessonPlan.getTitle());
+	 								
 	 			//build source path
 	 			String destination = "src/main/resources/templates/lessonplans/"+ lessonPlan.getAssignedSubscription().getName() 
 	 					+ "/" + titleNoSpace + ".html";
@@ -726,7 +729,7 @@ public class AdminController {
 			
 			//build file destination path
 			//Strip title of spaces and convert to lowercase to produce filename
-			String titleNoSpace = fileName.replaceAll("\\s", "").toLowerCase();
+			String titleNoSpace = titleNoSpaceLower(fileName);				
 			
 			String subscriptionName = subscription; //change this
 			
@@ -831,6 +834,11 @@ public class AdminController {
 			}	
 			
 			//if get to here, file was moved successfully
+	}
+	
+	private String titleNoSpaceLower(String title) {
+		return title.replaceAll("\\s", "").toLowerCase();
+		
 	}
 		
 	private boolean restrictUploadedFiles(String fileName, String fileExtentions) {
