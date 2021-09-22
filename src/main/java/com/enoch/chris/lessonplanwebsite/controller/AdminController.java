@@ -206,7 +206,7 @@ public class AdminController {
 			+ "/" + titleNoSpace + ".html";
 			
 			try {
-				moveLessonPlanFile(source, destination, lessonPlanOriginal.getAssignedSubscription().getName());
+				moveLessonPlanFile(source, destination, lessonPlanOriginal.getAssignedSubscription().getName(), "src/main/resources/templates/deletedlessonplans/");
 			} catch (Exception e) {
 				e.printStackTrace();
 				attributes.addFlashAttribute("error", e.getMessage());
@@ -779,7 +779,8 @@ public class AdminController {
 			}
 			return "redirect:/admin/upload";
 		}
-	private void moveLessonPlanFile(String source, String destination, String subscriptionName) throws Exception {
+	 	
+	private void moveLessonPlanFile(String source, String destination, String subscriptionName, String newDestinationFolder) throws Exception {
 		System.out.println("Inside move leson planb file");
 		
 			//check if file already exists in destination folder
@@ -803,8 +804,8 @@ public class AdminController {
 				System.out.println("debugging calculated file ending " + fileNameWithoutEnding);
 							
 				//save current file to deletedlessonplans folder			
-				String newDestination = "src/main/resources/templates/deletedlessonplans/" + newFilename;			
-				
+				String newDestination = newDestinationFolder + newFilename;			
+				//String newDestination = "src/main/resources/templates/deletedlessonplans/" + newFilename;	
 				try {
 					Files.move(Paths.get(destination), Paths.get(newDestination));
 					deletedLessonPlanRepository.save(new DeletedLessonPlan(newFilename));
