@@ -314,36 +314,38 @@ public class AdminController {
 	    public String uploadLessonPlanFile(@RequestParam("file") MultipartFile file, RedirectAttributes attributes
 	    		,HttpServletRequest request, @PathVariable String subscription) {
 		 
+		 	String newDestinationFolder = "src/main/resources/templates/lessonplans/";
+		 
 		 	if (subscription.equals("A1")) {
-		 		 return uploadLessonPlan(file, attributes, "A1");
+		 		 return uploadLessonPlan(file, attributes, "A1", newDestinationFolder);
 		 	}
 		 	
 		 	if (subscription.equals("A2")) {
-		 		 return uploadLessonPlan(file, attributes, "A2");
+		 		 return uploadLessonPlan(file, attributes, "A2", newDestinationFolder);
 		 	}
 		 	
 		 	if (subscription.equals("B1")) {
-		 		 return uploadLessonPlan(file, attributes, "B1");
+		 		 return uploadLessonPlan(file, attributes, "B1", newDestinationFolder);
 		 	}
 		 	
 		 	if (subscription.equals("B2")) {
-		 		 return uploadLessonPlan(file, attributes, "B2");
+		 		 return uploadLessonPlan(file, attributes, "B2", newDestinationFolder);
 		 	}
 		 	
 		 	if (subscription.equals("B2PLUS")) {
-		 		 return uploadLessonPlan(file, attributes, "B2PLUS");
+		 		 return uploadLessonPlan(file, attributes, "B2PLUS", newDestinationFolder);
 		 	}
 		 	
 		 	if (subscription.equals("C1")) {
-		 		 return uploadLessonPlan(file, attributes, "C1");
+		 		 return uploadLessonPlan(file, attributes, "C1", newDestinationFolder);
 		 	}
 		 	
 		 	if (subscription.equals("C1PLUS")) {
-		 		 return uploadLessonPlan(file, attributes, "C1PLUS");
+		 		 return uploadLessonPlan(file, attributes, "C1PLUS", newDestinationFolder );
 		 	}
 		 	
 		 	if (subscription.equals("C2")) {
-		 		 return uploadLessonPlan(file, attributes, "C2");
+		 		 return uploadLessonPlan(file, attributes, "C2", newDestinationFolder );
 		 	}
 		 	
 		 	return "redirect:/admin/upload";	       
@@ -709,7 +711,8 @@ public class AdminController {
 	 	}
 	 	
 	     
-	 	private String uploadLessonPlan(MultipartFile file, RedirectAttributes attributes, String subscription) {
+	 	private String uploadLessonPlan(MultipartFile file, RedirectAttributes attributes, String subscription
+	 			,String newDestinationFolder) {
 			// check if file is empty
 			if (file.isEmpty()) {
 			    attributes.addFlashAttribute("messagelessonplanfailure"+subscription, "Please select a file to upload.");
@@ -733,8 +736,10 @@ public class AdminController {
 			
 			String subscriptionName = subscription; //change this
 			
-			String destination = "src/main/resources/templates/lessonplans/"+ subscriptionName
-					+ "/" + titleNoSpace;            
+//			String destination = "src/main/resources/templates/lessonplans/"+ subscriptionName
+//					+ "/" + titleNoSpace;   
+			String destination = newDestinationFolder + subscriptionName
+					+ "/" + titleNoSpace;   
 			
 			//check if already exists in intended subscription folder
 			File fileDestination = new File(destination);
