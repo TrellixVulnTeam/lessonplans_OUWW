@@ -185,7 +185,7 @@ public class AdminController {
 		//theModel.addAttribute("lessonTitle", lessonPlan.getTitle());
 		
 		//if lesson plan is being added....
-		if (request.getParameter("addlessonplan") != null) {
+		if (request.getParameter("addlessonplan") != null) {	
 				
 			//Must include date as date cannot be set to null in database.
 			lessonPlan.setDateAdded(LocalDate.now());	
@@ -202,6 +202,7 @@ public class AdminController {
 				try {
 					//save new lesson to database
 					lessonPlanRepository.save(lessonPlan);
+					attributes.addFlashAttribute("success", "The lesson plan was added successfully.");
 				} catch (Exception e) {
 					attributes.addFlashAttribute("error", "There was an error attempting to save the lesson plan to the database. Please contact the system administrator.");
 				}
@@ -283,6 +284,24 @@ public class AdminController {
 		if (lessonPlan.getType() == null) {
 			errors.add("Please specifiy the type.");
 		}
+		
+		
+		if (lessonPlan.getAssignedSubscription() != null) { 
+			//check lesson plan html file exists for the lesson plan details added
+			//Strip title of spaces and convert to lowercase to produce filename
+			String titleNoSpace = lessonPlan.getTitle().replaceAll("\\s", "").toLowerCase();
+			//build source path
+			String destination = "src/main/resources/templates/lessonplans/"+ lessonPlan.getAssignedSubscription().getName() 
+					+ "/" + titleNoSpace + ".html";
+					
+			//check if file already exists in destination folder
+			File correspondingHTMlFile = new File(destination);
+			if (!correspondingHTMlFile.exists()) {
+				errors.add("No html file for this title and level exists. When the lesson plan details are added, the lesson plan goes live on the website. Therefore, "
+						+ "a corresponding html file must be uploaded before the lesson plan details can be added.");	
+			}		
+		}
+		
 		
 		return errors;
 	}

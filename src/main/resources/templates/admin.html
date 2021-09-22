@@ -33,6 +33,7 @@
 			<ul class="alert mb-1 list-plain" th:if="${errorList}" th:each="err: ${errorList}">
 				<li th:text="${err}"></li>
 			</ul>
+			<p class="success mb-1" th:if="${success}" th:text="${success}"></p>
 			
 
 

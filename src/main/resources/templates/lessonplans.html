@@ -161,12 +161,13 @@
 					</div>
 			
 
-					<div class="lp-btn-container"><button class=" mb-3 btn btn--action-secondary btn--med " type="submit" name="save">Search</button></div>
+					<div class="lp-btn-container"><button class=" mb-3 btn btn--action-secondary btn--med-2 " type="submit" name="save">Search</button></div>
 
 				</form>
 
 			</div>
 		
+		<p th:if="${lessonPlans.size < 1} ">No matching lesson plans. Please change or reduce the number of search filters.</p>
 
 		<div class="mt-1 lp-container">
 			<div class="card" th:each="lp : ${lessonPlans}">
