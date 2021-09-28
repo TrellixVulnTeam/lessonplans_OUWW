@@ -3,6 +3,8 @@ package com.enoch.chris.lessonplanwebsite;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.validateMockitoUsage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -12,8 +14,18 @@ import java.util.Set;
 import org.assertj.core.util.Arrays;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-
+import org.mockito.Mockito;
+import org.mockito.Spy;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.enoch.chris.lessonplanwebsite.dao.DeletedLessonPlanRepository;
 import com.enoch.chris.lessonplanwebsite.entity.Grammar;
 import com.enoch.chris.lessonplanwebsite.entity.LessonPlan;
 import com.enoch.chris.lessonplanwebsite.entity.LessonTime;
@@ -23,12 +35,82 @@ import com.enoch.chris.lessonplanwebsite.entity.Subscription;
 import com.enoch.chris.lessonplanwebsite.entity.Tag;
 import com.enoch.chris.lessonplanwebsite.entity.Topic;
 import com.enoch.chris.lessonplanwebsite.entity.Type;
+import com.enoch.chris.lessonplanwebsite.entity.utils.LessonPlanFiles;
 import com.enoch.chris.lessonplanwebsite.entity.utils.LessonPlanUtils;
 import com.enoch.chris.lessonplanwebsite.utils.FileUtils;
 
 
 @SpringBootTest
 public class UnitTests {
+	
+	@Autowired
+	private WebApplicationContext webApplicationContext;
+	
+	@Autowired
+	DeletedLessonPlanRepository deletedLessonPlanRepository;
+	
+	@Spy
+	RedirectAttributes redirectAttributes;
+	
+	@Test
+	public void shouldAddCorrectFlashAttributesAndReturnCorrectStringWhenFileIsEmpty() {
+		//ARRANGE
+		String subscription = "B2test";
+		String newDestinationFolder = "src/main/resources/templates/unittests/lessonplanstest/";
+	    MockMultipartFile file 
+	      = new MockMultipartFile("file", "hello.html", MediaType.TEXT_HTML_VALUE, "".getBytes());
+	    
+	    //ACT
+	    String returnPath = LessonPlanFiles.uploadLessonPlan(file, redirectAttributes, subscription, newDestinationFolder
+	    		, deletedLessonPlanRepository);
+	    
+	    //ASSERT
+	   boolean isEmpty = file.isEmpty();
+	   assertEquals(true, isEmpty);
+	   
+	   Mockito.verify(redirectAttributes).addFlashAttribute("messagelessonplanfailure"+subscription, "Please select a file to upload.");
+	   assertEquals("redirect:/admin/upload", returnPath);
+	   Mockito.verifyNoMoreInteractions(redirectAttributes);	   
+	}
+	
+	@Test
+	public void shouldAddCorrectFlashAttributesAndReturnCorrectStringWhenWrongFileType() {
+		//ARRANGE
+		String subscription = "B2test";
+		String newDestinationFolder = "src/main/resources/templates/unittests/lessonplanstest/";
+	    MockMultipartFile file 
+	      = new MockMultipartFile("file", "hello.txt", MediaType.TEXT_PLAIN_VALUE, "Content".getBytes());
+	    
+	    //ACT
+	    String returnPath = LessonPlanFiles.uploadLessonPlan(file, redirectAttributes, subscription, newDestinationFolder
+	    		, deletedLessonPlanRepository);
+	    
+	    //ASSERT
+	   boolean isEmpty = file.isEmpty();
+	   assertEquals(false, isEmpty);
+	   
+	   Mockito.verify(redirectAttributes).addFlashAttribute("messagelessonplanfailure" + subscription, "We only support files with "
+				+ "the html extension.");
+	   assertEquals("redirect:/admin/upload", returnPath);
+	   Mockito.verifyNoMoreInteractions(redirectAttributes);	   
+	}
+	
+//	@Test
+//	public void whenFileUploaded_thenVerifyStatus() 
+//	  throws Exception {
+//	    MockMultipartFile file 
+//	      = new MockMultipartFile(
+//	        "file", 
+//	        "hello.txt", 
+//	        MediaType.TEXT_PLAIN_VALUE, 
+//	        "Hello, World!".getBytes()
+//	      );
+//
+//	    MockMvc mockMvc 
+//	      = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+//	    mockMvc.perform(multipart("/upload").file(file))
+//	      .andExpect(status().isOk());
+//	}
 	
 	@Test
 	public void shouldReturnStringInLowerCaseWithNoSpaces(){
