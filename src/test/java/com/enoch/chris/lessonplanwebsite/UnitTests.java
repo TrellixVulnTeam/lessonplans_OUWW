@@ -2,6 +2,7 @@ package com.enoch.chris.lessonplanwebsite;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.validateMockitoUsage;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -9,9 +10,10 @@ import java.util.List;
 import java.util.Set;
 
 import org.assertj.core.util.Arrays;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
+import org.springframework.boot.test.context.SpringBootTest;
 import com.enoch.chris.lessonplanwebsite.entity.Grammar;
 import com.enoch.chris.lessonplanwebsite.entity.LessonPlan;
 import com.enoch.chris.lessonplanwebsite.entity.LessonTime;
@@ -22,12 +24,48 @@ import com.enoch.chris.lessonplanwebsite.entity.Tag;
 import com.enoch.chris.lessonplanwebsite.entity.Topic;
 import com.enoch.chris.lessonplanwebsite.entity.Type;
 import com.enoch.chris.lessonplanwebsite.entity.utils.LessonPlanUtils;
+import com.enoch.chris.lessonplanwebsite.utils.FileUtils;
 
 
 @SpringBootTest
 public class UnitTests {
 	
 	@Test
+	public void shouldReturnStringInLowerCaseWithNoSpaces(){
+		String originalContent = " This Should Be Converted To LowerCase ";
+		String newContent = FileUtils.stripSpacesConvertToLower(originalContent);
+		String expected = "thisshouldbeconvertedtolowercase";
+		assertEquals(expected, newContent);
+		
+	}
+	
+	//String .html.html
+	@Test
+	public void shouldReturnFalseForInvalidFile(){
+		String validFileExtensions = ".jpg,.jpeg,.png,.gif"; 
+		String fileName = "test.html";
+		boolean isValid = FileUtils.restrictUploadedFiles(fileName, validFileExtensions);
+		assertEquals(false, isValid);	
+	}
+	
+	@Test
+	public void shouldReturnTrueForValidFile(){
+		String validFileExtensions = ".jpg,.jpeg,.png,.gif"; 
+		String fileName = "test.jpg";
+		boolean isValid = FileUtils.restrictUploadedFiles(fileName, validFileExtensions);
+		assertEquals(true, isValid);	
+	}
+	
+	@Test
+	public void shouldReturnFalseForValidFileWithEmbeddedExtension(){
+		String validFileExtensions = ".jpg,.jpeg,.png,.gif"; 
+		String fileName = "test.jpg.html";
+		boolean isValid = FileUtils.restrictUploadedFiles(fileName, validFileExtensions);
+		assertEquals(false, isValid);	
+	}
+	
+	@Test
+	@Disabled // method is no longer used. Test saved in case Thymeleaf ceases to be used and method is necessary.
 	public void shouldReturnListWithAllParamasExceptCollectionsSelected(){
 		
 		//ARRANGE
@@ -67,6 +105,7 @@ public class UnitTests {
 	}
 	
 	@Test
+	@Disabled // method is no longer used. Test saved in case Thymeleaf ceases to be used and method is necessary.
 	public void shouldReturnListWithAllVariousParamsTwoTopicsAndTwoGrammarSelected(){
 		
 		//ARRANGE
@@ -101,6 +140,7 @@ public class UnitTests {
 	}
 	
 	@Test
+	@Disabled // method is no longer used. Test saved in case Thymeleaf ceases to be used and method is necessary.
 	public void shouldReturnListWithAllVariousParamsTwoTopicsTwoGrammarTwoTagsSelected(){
 		
 		//ARRANGE
