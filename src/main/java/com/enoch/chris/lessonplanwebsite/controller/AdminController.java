@@ -321,35 +321,43 @@ public class AdminController {
 		 	String newDestinationFolder = "src/main/resources/templates/lessonplans/";
 		 
 		 	if (subscription.equals("A1")) {
-		 		 return LessonPlanFiles.uploadLessonPlan(file, attributes, "A1", newDestinationFolder, deletedLessonPlanRepository);
+		 		 return LessonPlanFiles.uploadLessonPlan(file, attributes, "A1", newDestinationFolder, deletedLessonPlanRepository
+		 				 , "src/main/resources/templates/deletedlessonplans/");
 		 	}
 		 	
 		 	if (subscription.equals("A2")) {
-		 		 return LessonPlanFiles.uploadLessonPlan(file, attributes, "A2", newDestinationFolder, deletedLessonPlanRepository);
+		 		 return LessonPlanFiles.uploadLessonPlan(file, attributes, "A2", newDestinationFolder, deletedLessonPlanRepository
+		 				 , "src/main/resources/templates/deletedlessonplans/");
 		 	}
 		 	
 		 	if (subscription.equals("B1")) {
-		 		 return LessonPlanFiles.uploadLessonPlan(file, attributes, "B1", newDestinationFolder, deletedLessonPlanRepository);
+		 		 return LessonPlanFiles.uploadLessonPlan(file, attributes, "B1", newDestinationFolder, deletedLessonPlanRepository
+		 				 , "src/main/resources/templates/deletedlessonplans/");
 		 	}
 		 	
 		 	if (subscription.equals("B2")) {
-		 		 return LessonPlanFiles.uploadLessonPlan(file, attributes, "B2", newDestinationFolder, deletedLessonPlanRepository);
+		 		 return LessonPlanFiles.uploadLessonPlan(file, attributes, "B2", newDestinationFolder, deletedLessonPlanRepository, 
+		 				"src/main/resources/templates/deletedlessonplans/");
 		 	}
 		 	
 		 	if (subscription.equals("B2PLUS")) {
-		 		 return LessonPlanFiles.uploadLessonPlan(file, attributes, "B2PLUS", newDestinationFolder, deletedLessonPlanRepository);
+		 		 return LessonPlanFiles.uploadLessonPlan(file, attributes, "B2PLUS", newDestinationFolder, deletedLessonPlanRepository
+		 				 , "src/main/resources/templates/deletedlessonplans/");
 		 	}
 		 	
 		 	if (subscription.equals("C1")) {
-		 		 return LessonPlanFiles.uploadLessonPlan(file, attributes, "C1", newDestinationFolder, deletedLessonPlanRepository);
+		 		 return LessonPlanFiles.uploadLessonPlan(file, attributes, "C1", newDestinationFolder, deletedLessonPlanRepository
+		 				,"src/main/resources/templates/deletedlessonplans/");
 		 	}
 		 	
 		 	if (subscription.equals("C1PLUS")) {
-		 		 return LessonPlanFiles.uploadLessonPlan(file, attributes, "C1PLUS", newDestinationFolder, deletedLessonPlanRepository);
+		 		 return LessonPlanFiles.uploadLessonPlan(file, attributes, "C1PLUS", newDestinationFolder, deletedLessonPlanRepository
+		 				 , "src/main/resources/templates/deletedlessonplans/");
 		 	}
 		 	
 		 	if (subscription.equals("C2")) {
-		 		 return LessonPlanFiles.uploadLessonPlan(file, attributes, "C2", newDestinationFolder, deletedLessonPlanRepository );
+		 		 return LessonPlanFiles.uploadLessonPlan(file, attributes, "C2", newDestinationFolder, deletedLessonPlanRepository
+		 				 , "src/main/resources/templates/deletedlessonplans/");
 		 	}
 		 	
 		 	return "redirect:/admin/upload";	       

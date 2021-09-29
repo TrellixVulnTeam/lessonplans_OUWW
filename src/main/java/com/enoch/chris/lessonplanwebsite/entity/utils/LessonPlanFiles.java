@@ -20,7 +20,8 @@ import com.enoch.chris.lessonplanwebsite.utils.FileUtils;
 public class LessonPlanFiles {
 	
 	public static String uploadLessonPlan(MultipartFile file, RedirectAttributes attributes, String subscription
- 			,String newDestinationFolder, DeletedLessonPlanRepository deletedLessonPlanRepository) {
+ 			,String newDestinationFolder, DeletedLessonPlanRepository deletedLessonPlanRepository
+ 			, String deletedLessonPlansFolder) {
 		// check if file is empty
 		if (file.isEmpty()) {
 		    attributes.addFlashAttribute("messagelessonplanfailure"+subscription, "Please select a file to upload.");
@@ -61,7 +62,10 @@ public class LessonPlanFiles {
 					LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd--hh-mm-s")) + fileEnding;
 			
 			//build path to deleted lesson plans. Use date to ensure file name is always unique and for ease of reference.
-			String newDestination = "src/main/resources/templates/deletedlessonplans/" + newFileName;									
+			String newDestination = deletedLessonPlansFolder + newFileName;	
+			
+			System.out.println("debugging file move " + newDestination);
+			
 			try {
 				Files.move(Paths.get(destination), Paths.get(newDestination));
 				deletedLessonPlanRepository.save(new DeletedLessonPlan(newFileName));

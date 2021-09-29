@@ -1,19 +1,43 @@
 package com.enoch.chris.lessonplanwebsite;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mockitoSession;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.validateMockitoUsage;
+
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.anyObject;
+
+
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import org.assertj.core.util.Arrays;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.Spy;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +46,8 @@ import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -41,17 +67,87 @@ import com.enoch.chris.lessonplanwebsite.utils.FileUtils;
 
 
 @SpringBootTest
+@TestMethodOrder(OrderAnnotation.class)
 public class UnitTests {
 	
 	@Autowired
 	private WebApplicationContext webApplicationContext;
 	
-	@Autowired
+	@Mock
 	DeletedLessonPlanRepository deletedLessonPlanRepository;
 	
 	@Spy
 	RedirectAttributes redirectAttributes;
 	
+	@BeforeAll
+	public static void deleteDeletedlessonPlansFolder() {	
+		File deletedLessonPlansDir = new File("src/main/resources/templates/unittests/lessonplanstest/deletedlessonplanstest");
+		String[] files = deletedLessonPlansDir.list();
+		System.out.println("files array length " + files.length);
+			
+		deleteDir(new File("src/main/resources/templates/unittests/lessonplanstest/deletedlessonplanstest/"));
+		deleteDir(new File("src/main/resources/templates/unittests/lessonplanstest/B2test/"));
+		
+	}
+	
+	@Test
+	@Order(1)
+	public void shouldAddCorrectFlashAttributesAndInvokeFilesMoveUponSuccess() throws IOException {
+		System.out.println("test order 1");
+		
+		//ARRANGE
+		String subscription = "B2test";
+		String newDestinationFolder = "src/main/resources/templates/unittests/lessonplanstest/";
+	    MockMultipartFile file 
+	      = new MockMultipartFile("file", "hello.html", MediaType.TEXT_HTML_VALUE, "Content".getBytes());
+	    
+	    //ACT
+	    String returnPath = LessonPlanFiles.uploadLessonPlan(file, redirectAttributes, subscription, newDestinationFolder
+	    		, deletedLessonPlanRepository, "src/main/resources/templates/unittests/lessonplanstest/deletedlessonplanstest/");
+	    
+	    //ASSERT
+	   boolean isEmpty = file.isEmpty();
+	   assertEquals(false, isEmpty);
+	   
+	   String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+	   verify(redirectAttributes).addFlashAttribute("messagelessonplansuccess" + subscription, "You successfully uploaded " + fileName);
+	   assertEquals("redirect:/admin/upload", returnPath);
+	   verifyNoMoreInteractions(redirectAttributes);
+	}
+	
+	@Test
+	@Order(2)
+	public void shouldReturnSuccessfulAndMoveoldFileToDeletedLessonPlansTestWhenFileAlreadyExistsInFolder() throws IOException, InterruptedException {
+		System.out.println("test order 2");
+		// ARRANGE
+		String subscription = "B2test";
+		String newDestinationFolder = "src/main/resources/templates/unittests/lessonplanstest/";
+		MockMultipartFile file = new MockMultipartFile("file", "hello.html", MediaType.TEXT_HTML_VALUE,
+				"Content".getBytes());
+		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+		LocalDate currentdate = LocalDate.now();
+		String fileStart = subscription + "_hello_" + currentdate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+		// ACT
+		String returnPath = LessonPlanFiles.uploadLessonPlan(file, redirectAttributes, subscription,
+				newDestinationFolder, deletedLessonPlanRepository,
+				"src/main/resources/templates/unittests/lessonplanstest/deletedlessonplanstest/");
+
+		//Check to see that the file was moved to deletedlessonplanstest folder
+		File deletedLessonPlansDir = new File(
+				"src/main/resources/templates/unittests/lessonplanstest/deletedlessonplanstest/");
+		String[] files = deletedLessonPlansDir.list();
+	
+		// ASSERT	
+		verify(redirectAttributes).addFlashAttribute("messagelessonplansuccess" + subscription,
+				"You successfully uploaded " + fileName);
+		assertEquals(1, files.length);
+		assertThat(files[0]).contains(fileStart);
+		assertEquals("redirect:/admin/upload", returnPath);
+		verifyNoMoreInteractions(redirectAttributes);
+
+	}
+		
 	@Test
 	public void shouldAddCorrectFlashAttributesAndReturnCorrectStringWhenFileIsEmpty() {
 		//ARRANGE
@@ -62,15 +158,15 @@ public class UnitTests {
 	    
 	    //ACT
 	    String returnPath = LessonPlanFiles.uploadLessonPlan(file, redirectAttributes, subscription, newDestinationFolder
-	    		, deletedLessonPlanRepository);
+	    		, deletedLessonPlanRepository, "src/main/resources/templates/unittests/lessonplanstest/deletedlessonplanstest/");
 	    
 	    //ASSERT
 	   boolean isEmpty = file.isEmpty();
 	   assertEquals(true, isEmpty);
 	   
-	   Mockito.verify(redirectAttributes).addFlashAttribute("messagelessonplanfailure"+subscription, "Please select a file to upload.");
+	   verify(redirectAttributes).addFlashAttribute("messagelessonplanfailure"+subscription, "Please select a file to upload.");
 	   assertEquals("redirect:/admin/upload", returnPath);
-	   Mockito.verifyNoMoreInteractions(redirectAttributes);	   
+	   verifyNoMoreInteractions(redirectAttributes);	   
 	}
 	
 	@Test
@@ -83,16 +179,16 @@ public class UnitTests {
 	    
 	    //ACT
 	    String returnPath = LessonPlanFiles.uploadLessonPlan(file, redirectAttributes, subscription, newDestinationFolder
-	    		, deletedLessonPlanRepository);
+	    		, deletedLessonPlanRepository, "src/main/resources/templates/unittests/lessonplanstest/deletedlessonplanstest/");
 	    
 	    //ASSERT
 	   boolean isEmpty = file.isEmpty();
 	   assertEquals(false, isEmpty);
 	   
-	   Mockito.verify(redirectAttributes).addFlashAttribute("messagelessonplanfailure" + subscription, "We only support files with "
+	   verify(redirectAttributes).addFlashAttribute("messagelessonplanfailure" + subscription, "We only support files with "
 				+ "the html extension.");
 	   assertEquals("redirect:/admin/upload", returnPath);
-	   Mockito.verifyNoMoreInteractions(redirectAttributes);	   
+	   verifyNoMoreInteractions(redirectAttributes);	   
 	}
 	
 //	@Test
@@ -265,7 +361,19 @@ public class UnitTests {
 	}
 	
 
-	
+	private static void deleteDir(File file) {
+		System.out.println("deleteDir invoked");
+	    File[] contents = file.listFiles();
+		    if (contents != null) {
+		        for (File f : contents) {
+		            deleteDir(f);
+		        }
+		    }
+		    if (!file.isDirectory()) {
+		    	file.delete();
+		    }	    
+		    //System.out.println("file to delete " + file.getAbsolutePath());
+	}
 	
 
 	
