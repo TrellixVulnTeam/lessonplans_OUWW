@@ -132,9 +132,7 @@ class ControllerIntegrationTests {
 		this.mockMvc.perform(get("/lessonplans/test/withListening")).andExpect(content()
 				.string(containsString("Famous People")))
 		.andExpect(content()
-				.string(containsString("Driverless Cars")))
-		.andExpect(content()
-				.string(containsString("Daredevils")))			
+				.string(containsString("Driverless Cars")))		
 		.andExpect(content()		
 				.string(containsString("Beach Activities")))
 		.andExpect(content()	
@@ -152,7 +150,7 @@ class ControllerIntegrationTests {
 	@Test
 	public void shouldReturnSpeakingOnlyAndNoPrintedLessonPlans() throws Exception {
 		this.mockMvc.perform(get("/lessonplans/test/withSpeakingOnlyAndNoPrinted")).andExpect(content()
-				.string(containsString("Famous People")))	
+				.string(containsString("Daredevils")))	
 		.andDo(print()).andExpect(status().isOk());	
 	}
 	

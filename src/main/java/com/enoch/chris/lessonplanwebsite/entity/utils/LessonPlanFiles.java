@@ -95,7 +95,7 @@ public class LessonPlanFiles {
 		return "redirect:/admin/upload";
 	}
 	
-	public static void moveLessonPlanFile(String source, String destination, String subscriptionName
+	public static void moveLessonPlanFile(String source, String destination, String subscriptionNameOfSource
 			, String newDestinationFolder, DeletedLessonPlanRepository deletedLessonPlanRepository) throws Exception {
 		System.out.println("Inside move leson planb file");
 		
@@ -111,7 +111,7 @@ public class LessonPlanFiles {
 				//get file name
 				int lastIndex = destination.lastIndexOf('/');
 				String fileNameWithoutEnding = destination.substring(lastIndex + 1, destination.lastIndexOf("."));
-				String newFilename = subscriptionName + "_" + fileNameWithoutEnding + "_" + 
+				String newFilename = subscriptionNameOfSource + "_" + fileNameWithoutEnding + "_" + 
 						LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd--hh-mm-s")) + fileEnding;
 				//cut off filename
 				//fileNameWithoutEnding = fileNameWithoutEnding.substring(0, fileNameWithoutEnding.lastIndexOf("."));

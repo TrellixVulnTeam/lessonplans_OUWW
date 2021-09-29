@@ -160,71 +160,14 @@ public class AdminController {
 		//if lesson plan is being added....
 		if (request.getParameter("addlessonplan") != null) {	
 				
-			//Must include date as date cannot be set to null in database.
-			lessonPlan.setDateAdded(LocalDate.now());	
-			List<String> errors = validateAddedLessonPlan(lessonPlan);
-			
-			if (errors.size() > 0) {
-				//send the lesson plan so fields remain checked
-				attributes.addFlashAttribute("lessonPlan", lessonPlan);
-				attributes.addFlashAttribute("errorList", errors);
-				return "redirect:/admin/add";	
-			}
-					
-			//If get to here, no errors so far.
-				try {
-					//save new lesson to database
-					lessonPlanRepository.save(lessonPlan);
-					attributes.addFlashAttribute("success", "The lesson plan was added successfully.");
-				} catch (Exception e) {
-					attributes.addFlashAttribute("error", "There was an error attempting to save the lesson plan to the database. Please contact the system administrator.");
-				}
-			
-			
-			
-			//send the lesosn plan so fields remain checked
-			attributes.addFlashAttribute("lessonPlan", lessonPlan);
-			
-			return "redirect:/admin/add";		
+			return addLessonPlan(lessonPlan, attributes);		
 		}
 		
 		//if get to here, lesson plan is being edited
-		//check to see if level has been changed. If so, check if the lesson planhtml file already exists in level folder. If so, move current lesson plan file to deletedlessonplans and add the new one
-		LessonPlan lessonPlanOriginal = lessonPlanRepository.findById(lessonPlan.getId()).get();
-		Subscription originalAssignedSubscription = lessonPlanOriginal.getAssignedSubscription();
-		if (originalAssignedSubscription  != 
-				lessonPlan.getAssignedSubscription()) {  //means assignedSubscription has been changed
-			
-			//Strip title of spaces and convert to lowercase to produce filename
-			String titleNoSpace = FileUtils.stripSpacesConvertToLower(lessonPlan.getTitle());
-					
-			//build source path
-			String source = "src/main/resources/templates/lessonplans/"+ lessonPlanOriginal.getAssignedSubscription().getName() 
-					+ "/" + titleNoSpace + ".html";
-			
-			System.out.println("debugging Source file " + source);
-			
-			//build destination path
-			String destination = "src/main/resources/templates/lessonplans/"+ lessonPlan.getAssignedSubscription().getName() 
-			+ "/" + titleNoSpace + ".html";
-			
-			try {
-				LessonPlanFiles.moveLessonPlanFile(source, destination, lessonPlanOriginal.getAssignedSubscription().getName()
-						, "src/main/resources/templates/deletedlessonplans/", deletedLessonPlanRepository);
-			} catch (Exception e) {
-				e.printStackTrace();
-				attributes.addFlashAttribute("error", e.getMessage());
-				
-				return "redirect:/admin/";
-			}
-			
-		}		
-			
-		//save updated lesson to database
-		lessonPlanRepository.save(lessonPlan);
-		
-		return "redirect:/admin/";
+		return editLessonPlan(lessonPlan, attributes);
 	}
+
+	
 	
 	@GetMapping("/admin/add")
 	public String addLessonPlan(Model theModel) {
@@ -652,27 +595,108 @@ public class AdminController {
 	        // return "redirect:/admin/upload";
 	     }
 	 
-	
+	     private String editLessonPlan(final LessonPlan lessonPlan, RedirectAttributes attributes) {
+	 		//validate
+	 		List<String> errors = validateAddedLessonPlan(lessonPlan, false);	
+	 		if (errors.size() > 0) {
+	 			//send the lesson plan so fields remain checked
+	 			attributes.addFlashAttribute("lessonPlan", lessonPlan);
+	 			attributes.addFlashAttribute("errorList", errors);
+	 			return "redirect:/admin/";	
+	 		}
+	 				
+	 		//If get to here, no errors so far.	
+	 		
+	 		//check to see if level has been changed. If so, check if the lesson planhtml file already exists in level folder. If so, move current lesson plan file to deletedlessonplans and add the new one
+	 		LessonPlan lessonPlanOriginal = lessonPlanRepository.findById(lessonPlan.getId()).get();
+	 		Subscription originalAssignedSubscription = lessonPlanOriginal.getAssignedSubscription();
+	 		if (originalAssignedSubscription  != 
+	 				lessonPlan.getAssignedSubscription()) {  //means assignedSubscription has been changed
+	 			
+	 			//Strip title of spaces and convert to lowercase to produce filename
+	 			String titleNoSpace = FileUtils.stripSpacesConvertToLower(lessonPlan.getTitle());
+	 					
+	 			//build source path
+	 			String source = "src/main/resources/templates/lessonplans/"+ lessonPlanOriginal.getAssignedSubscription().getName() 
+	 					+ "/" + titleNoSpace + ".html";
+	 			
+	 			System.out.println("debugging Source file " + source);
+	 			
+	 			//build destination path
+	 			String destination = "src/main/resources/templates/lessonplans/"+ lessonPlan.getAssignedSubscription().getName() 
+	 			+ "/" + titleNoSpace + ".html";
+	 			
+	 			try {
+	 				LessonPlanFiles.moveLessonPlanFile(source, destination, lessonPlanOriginal.getAssignedSubscription().getName()
+	 						, "src/main/resources/templates/deletedlessonplans/", deletedLessonPlanRepository);
+	 			} catch (Exception e) {
+	 				e.printStackTrace();
+	 				attributes.addFlashAttribute("error", e.getMessage());
+	 				
+	 				return "redirect:/admin/";
+	 			}
+	 			
+	 		}		
+	 			
+	 		//save updated lesson to database
+	 		lessonPlanRepository.save(lessonPlan);
+	 		
+	 		return "redirect:/admin/";
+	 	}
 
-	 	private List<String> validateAddedLessonPlan(final LessonPlan lessonPlan) {
+	 	private String addLessonPlan(final LessonPlan lessonPlan, RedirectAttributes attributes) {
+	 		//Must include date as date cannot be set to null in database.
+	 		lessonPlan.setDateAdded(LocalDate.now());	
+	 		List<String> errors = validateAddedLessonPlan(lessonPlan, true);
+	 		
+	 		if (errors.size() > 0) {
+	 			//send the lesson plan so fields remain checked
+	 			attributes.addFlashAttribute("lessonPlan", lessonPlan);
+	 			attributes.addFlashAttribute("errorList", errors);
+	 			return "redirect:/admin/add";	
+	 		}
+	 				
+	 		//If get to here, no errors so far.
+	 			try {
+	 				//save new lesson to database
+	 				lessonPlanRepository.save(lessonPlan);
+	 				attributes.addFlashAttribute("success", "The lesson plan was added successfully.");
+	 			} catch (Exception e) {
+	 				attributes.addFlashAttribute("error", "There was an error attempting to save the lesson plan to the database. Please contact the system administrator.");
+	 			}
+	 		
+	 		
+	 		
+	 		//send the lesosn plan so fields remain checked
+	 		attributes.addFlashAttribute("lessonPlan", lessonPlan);
+	 		
+	 		return "redirect:/admin/add";
+	 	}
+
+	 	private List<String> validateAddedLessonPlan(final LessonPlan lessonPlan, boolean disallowDuplicateTitle) {
 	 		List<String> errors = new ArrayList<>();
 	 		//check title is more than 2 characters long
 	 		if (lessonPlan.getTitle().length() < 2) {
 	 			errors.add("Title must be at least two characters long.");
 	 		}
 	 		
-	 		//check title doesn't already exist for this level if level has been specified
-	 		if (lessonPlan.getAssignedSubscription() != null) {
-	 			String titleNoSpace = FileUtils.stripSpacesConvertToLower(lessonPlan.getTitle());
-	 								
-	 			boolean titleExists = lessonPlanRepository.findAll().stream()
-	 					.filter(lp -> lp.getAssignedSubscription().equals(lessonPlan.getAssignedSubscription()))
-	 					.map(lp -> lp.getTitle()).anyMatch(title -> title.replaceAll("\\s", "").toLowerCase().equals(titleNoSpace));
-	 			
-	 			if (titleExists) {
-	 				errors.add("Title already exists for this level. Please choose a title which is unique from any other for the level specified");				
-	 			}
+	 		//Only disallow duplicate title if lesson is being added. If lesson is beign edited, it is OK for the title to be the same as before.
+	 		if (disallowDuplicateTitle) {
+	 			//check title doesn't already exist for this level if level has been specified
+		 		if (lessonPlan.getAssignedSubscription() != null) {
+		 			String titleNoSpace = FileUtils.stripSpacesConvertToLower(lessonPlan.getTitle());
+		 								
+		 			boolean titleExists = lessonPlanRepository.findAll().stream()
+		 					.filter(lp -> lp.getAssignedSubscription().equals(lessonPlan.getAssignedSubscription()))
+		 					.map(lp -> lp.getTitle()).anyMatch(title -> title.replaceAll("\\s", "").toLowerCase().equals(titleNoSpace));
+		 			
+		 			if (titleExists) {
+		 				errors.add("Title already exists for this level. Please choose a title which is unique from any other for the level specified");				
+		 			}
+		 		} 			
 	 		}
+	 		
+	 	
 	 		
 	 		//check obligatory fields
 	 		if (lessonPlan.getTopics() == null || lessonPlan.getTopics().size() < 1) {
@@ -692,11 +716,13 @@ public class AdminController {
 	 		if (lessonPlan.getSpeakingAmount() ==SpeakingAmount.SPEAKING_ONLY) {
 	 			boolean isSpeakingOnlyError = false;
 	 			if (lessonPlan.getVocabulary() || lessonPlan.getListening() || lessonPlan.getReading() || 
-	 					lessonPlan.getWriting() || lessonPlan.getVideo() || lessonPlan.getSong()) {				
+	 					lessonPlan.getWriting() || lessonPlan.getVideo() || lessonPlan.getSong()
+	 					|| (lessonPlan.getGrammar() != null && lessonPlan.getGrammar().size() > 0)
+	 					) {				
 	 				isSpeakingOnlyError = true;
 	 			}
 	 			if (isSpeakingOnlyError) {
-	 				errors.add("When selecting \"Speaking Only,\" vocabulary, listening, reading, writing, video and song must not be selected.  ");
+	 				errors.add("When selecting \"Speaking Only,\" grammar, vocabulary, listening, reading, writing, video and song must not be selected.  ");
 	 			}	
 	 		}
 	 		

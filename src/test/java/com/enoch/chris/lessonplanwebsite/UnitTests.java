@@ -62,17 +62,16 @@ import com.enoch.chris.lessonplanwebsite.entity.Subscription;
 import com.enoch.chris.lessonplanwebsite.entity.Tag;
 import com.enoch.chris.lessonplanwebsite.entity.Topic;
 import com.enoch.chris.lessonplanwebsite.entity.Type;
+import com.enoch.chris.lessonplanwebsite.entity.User;
 import com.enoch.chris.lessonplanwebsite.entity.utils.LessonPlanFiles;
 import com.enoch.chris.lessonplanwebsite.entity.utils.LessonPlanUtils;
+import com.enoch.chris.lessonplanwebsite.entity.utils.SubscriptionUtils;
 import com.enoch.chris.lessonplanwebsite.utils.FileUtils;
 
 
 @SpringBootTest
 @TestMethodOrder(OrderAnnotation.class)
 public class UnitTests {
-	
-	@Autowired
-	private WebApplicationContext webApplicationContext;
 	
 	@Mock
 	DeletedLessonPlanRepository deletedLessonPlanRepository;
@@ -98,6 +97,8 @@ public class UnitTests {
 		deleteDir(new File("src/main/resources/templates/unittests/lessonplanstest/B2test/"));
 		
 	}
+	
+
 	
 	@Test
 	@Order(1)
