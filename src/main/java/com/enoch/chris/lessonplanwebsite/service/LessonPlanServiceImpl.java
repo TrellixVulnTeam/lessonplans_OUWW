@@ -45,6 +45,7 @@ public class LessonPlanServiceImpl implements LessonPlanService {
 		this.lessonPlanRepository = lessonPlanRepository;
 	}
 	
+	@Override
  	public List<String> validateLessonPlan(final LessonPlan lessonPlan, boolean disallowDuplicateTitle) {
  		List<String> errors = new ArrayList<>();
  		//check title is more than 2 characters long

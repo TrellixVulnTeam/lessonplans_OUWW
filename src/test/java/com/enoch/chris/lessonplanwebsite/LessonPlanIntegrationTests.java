@@ -143,24 +143,10 @@ public class LessonPlanIntegrationTests {
 		List<LessonPlan> expectedValues = new ArrayList<>();
 		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
 				.lessonTime(null).preparationTime(null).build();
-		lp1.setId(48);
-		
-		LessonPlan lp2 = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
-				.lessonTime(null).preparationTime(null).build();
-		lp2.setId(49);
-		
-		LessonPlan lp3 = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
-				.lessonTime(null).preparationTime(null).build();
-		lp3.setId(50);
-		
-		LessonPlan lp4 = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
-				.lessonTime(null).preparationTime(null).build();
-		lp4.setId(44);
-		
+		lp1.setId(51);
+			
 		expectedValues.add(lp1);
-		expectedValues.add(lp2);
-		expectedValues.add(lp3);
-		expectedValues.add(lp4);
+
 
 		//ACT
 		LessonPlan lpSearchParams = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, SpeakingAmount.SPEAKING_ONLY, null, null)
@@ -179,23 +165,19 @@ public class LessonPlanIntegrationTests {
 		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
 				.lessonTime(null).preparationTime(null).build();
 		lp1.setId(45);	
-		
+					
 		LessonPlan lp2 = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
 				.lessonTime(null).preparationTime(null).build();
-		lp2.setId(51);	
-				
+		lp2.setId(53);	
+		
 		LessonPlan lp3 = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
 				.lessonTime(null).preparationTime(null).build();
-		lp3.setId(53);	
-		
-		LessonPlan lp4 = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
-				.lessonTime(null).preparationTime(null).build();
-		lp4.setId(54);		
+		lp3.setId(54);		
 
 		expectedValues.add(lp1);
 		expectedValues.add(lp2);
 		expectedValues.add(lp3);
-		expectedValues.add(lp4);
+		
 
 		//ACT
 		LessonPlan lpSearchParams = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
