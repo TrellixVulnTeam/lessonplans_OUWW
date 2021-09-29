@@ -132,15 +132,18 @@ public class AdminController {
 		theModel.addAttribute("showExisitngLessons", "showExisitngLessons");
 		theModel.addAttribute("editLessonPlan", "editLessonPlan");
 		
+		if (theModel.getAttribute("lessonPlan") == null) {
+			//populate checkboxes for first lesson plan in the list
+			LessonPlan firstLessonPlan = lessonPlans.get(0);
+			theModel.addAttribute("lessonPlan", firstLessonPlan);
+			theModel.addAttribute("lessonTitle", firstLessonPlan.getTitle());
+		} 
+			
 		//populate checkboxes for first lesson plan in the list
-		LessonPlan firstLessonPlan = lessonPlans.get(0);
-		theModel.addAttribute("lessonPlan", firstLessonPlan);
-		theModel.addAttribute("lessonTitle", firstLessonPlan.getTitle());
-	
-		System.out.println("values of checkboxes");
-		System.out.println("Values tostring " + firstLessonPlan);
-		System.out.println("reading " + firstLessonPlan.getReading());
-
+//		LessonPlan firstLessonPlan = lessonPlans.get(0);
+//		theModel.addAttribute("lessonPlan", firstLessonPlan);
+//		theModel.addAttribute("lessonTitle", firstLessonPlan.getTitle());
+//	
 		return "admin";
 	}
 	
@@ -596,11 +599,14 @@ public class AdminController {
 	     }
 	 
 	     private String editLessonPlan(final LessonPlan lessonPlan, RedirectAttributes attributes) {
+	    	//always display lesson plan that the user was just editing so fields remain checked if an error and for convenience if no errors
+	    	attributes.addFlashAttribute("lessonPlan", lessonPlan);
+	 		attributes.addFlashAttribute("lessonTitle", lessonPlan.getTitle()); 
+	    	 
 	 		//validate
 	 		List<String> errors = validateAddedLessonPlan(lessonPlan, false);	
 	 		if (errors.size() > 0) {
-	 			//send the lesson plan so fields remain checked
-	 			attributes.addFlashAttribute("lessonPlan", lessonPlan);
+	 			//send the errors 		
 	 			attributes.addFlashAttribute("errorList", errors);
 	 			return "redirect:/admin/";	
 	 		}
@@ -722,7 +728,7 @@ public class AdminController {
 	 				isSpeakingOnlyError = true;
 	 			}
 	 			if (isSpeakingOnlyError) {
-	 				errors.add("When selecting \"Speaking Only,\" grammar, vocabulary, listening, reading, writing, video and song must not be selected.  ");
+	 				errors.add("When selecting \"Speaking Only,\" grammar,  vocabulary, listening, reading, writing, video and song must not be selected.  ");
 	 			}	
 	 		}
 	 		
