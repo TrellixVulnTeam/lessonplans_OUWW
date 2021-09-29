@@ -50,6 +50,7 @@ import com.enoch.chris.lessonplanwebsite.entity.Tag;
 import com.enoch.chris.lessonplanwebsite.entity.Topic;
 import com.enoch.chris.lessonplanwebsite.entity.utils.LessonPlanFiles;
 import com.enoch.chris.lessonplanwebsite.entity.utils.LessonPlanUtils;
+import com.enoch.chris.lessonplanwebsite.service.LessonPlanService;
 import com.enoch.chris.lessonplanwebsite.utils.FileUtils;
 
 @Controller
@@ -57,6 +58,7 @@ public class AdminController {
 	
 	private static final String IMAGE_UPLOAD_DIR = "src/main/resources/static/images/";
 	private LessonPlanRepository lessonPlanRepository;
+	private LessonPlanService lessonPlanService;
 	private PictureRepository pictureRepository;
 	private GrammarRepository grammarRepository;
 	private TopicRepository topicRepository;
@@ -65,11 +67,14 @@ public class AdminController {
 	private DeletedLessonPlanRepository deletedLessonPlanRepository;
 	
 	@Autowired
-	public AdminController(LessonPlanRepository lessonPlanRepository, PictureRepository pictureRepository,
-			GrammarRepository grammarRepository, TopicRepository topicRepository, TagRepository tagRepository,
-			SubscriptionRepository subscriptionRepository, DeletedLessonPlanRepository deletedLessonPlanRepository) {
+	public AdminController(LessonPlanRepository lessonPlanRepository, LessonPlanService lessonPlanService
+			,PictureRepository pictureRepository, GrammarRepository grammarRepository, TopicRepository topicRepository
+			,TagRepository tagRepository, SubscriptionRepository subscriptionRepository
+			, DeletedLessonPlanRepository deletedLessonPlanRepository
+			) {
 		super();
 		this.lessonPlanRepository = lessonPlanRepository;
+		this.lessonPlanService = lessonPlanService;
 		this.pictureRepository = pictureRepository;
 		this.grammarRepository = grammarRepository;
 		this.topicRepository = topicRepository;
@@ -604,7 +609,7 @@ public class AdminController {
 	 		attributes.addFlashAttribute("lessonTitle", lessonPlan.getTitle()); 
 	    	 
 	 		//validate
-	 		List<String> errors = validateAddedLessonPlan(lessonPlan, false);	
+	 		List<String> errors = lessonPlanService.validateLessonPlan(lessonPlan, false);	
 	 		if (errors.size() > 0) {
 	 			//send the errors 		
 	 			attributes.addFlashAttribute("errorList", errors);
@@ -653,7 +658,7 @@ public class AdminController {
 	 	private String addLessonPlan(final LessonPlan lessonPlan, RedirectAttributes attributes) {
 	 		//Must include date as date cannot be set to null in database.
 	 		lessonPlan.setDateAdded(LocalDate.now());	
-	 		List<String> errors = validateAddedLessonPlan(lessonPlan, true);
+	 		List<String> errors = lessonPlanService.validateLessonPlan(lessonPlan, true);
 	 		
 	 		if (errors.size() > 0) {
 	 			//send the lesson plan so fields remain checked
@@ -677,81 +682,6 @@ public class AdminController {
 	 		attributes.addFlashAttribute("lessonPlan", lessonPlan);
 	 		
 	 		return "redirect:/admin/add";
-	 	}
-
-	 	private List<String> validateAddedLessonPlan(final LessonPlan lessonPlan, boolean disallowDuplicateTitle) {
-	 		List<String> errors = new ArrayList<>();
-	 		//check title is more than 2 characters long
-	 		if (lessonPlan.getTitle().length() < 2) {
-	 			errors.add("Title must be at least two characters long.");
-	 		}
-	 		
-	 		//Only disallow duplicate title if lesson is being added. If lesson is beign edited, it is OK for the title to be the same as before.
-	 		if (disallowDuplicateTitle) {
-	 			//check title doesn't already exist for this level if level has been specified
-		 		if (lessonPlan.getAssignedSubscription() != null) {
-		 			String titleNoSpace = FileUtils.stripSpacesConvertToLower(lessonPlan.getTitle());
-		 								
-		 			boolean titleExists = lessonPlanRepository.findAll().stream()
-		 					.filter(lp -> lp.getAssignedSubscription().equals(lessonPlan.getAssignedSubscription()))
-		 					.map(lp -> lp.getTitle()).anyMatch(title -> title.replaceAll("\\s", "").toLowerCase().equals(titleNoSpace));
-		 			
-		 			if (titleExists) {
-		 				errors.add("Title already exists for this level. Please choose a title which is unique from any other for the level specified");				
-		 			}
-		 		} 			
-	 		}
-	 		
-	 	
-	 		
-	 		//check obligatory fields
-	 		if (lessonPlan.getTopics() == null || lessonPlan.getTopics().size() < 1) {
-	 			errors.add("Please add at least one topic.");
-	 		}
-	 		if (lessonPlan.getAssignedSubscription() == null) {
-	 			errors.add("Please add a level.");
-	 		}
-	 		if (lessonPlan.getLessonTime() == null) {
-	 			errors.add("Please add the lesson time.");
-	 		}
-	 		if (lessonPlan.getType() == null) {
-	 			errors.add("Please specifiy the type.");
-	 		}
-	 		
-	 		//ensure no other conflicting fields are selected if "speaking only" is selected
-	 		if (lessonPlan.getSpeakingAmount() ==SpeakingAmount.SPEAKING_ONLY) {
-	 			boolean isSpeakingOnlyError = false;
-	 			if (lessonPlan.getVocabulary() || lessonPlan.getListening() || lessonPlan.getReading() || 
-	 					lessonPlan.getWriting() || lessonPlan.getVideo() || lessonPlan.getSong()
-	 					|| (lessonPlan.getGrammar() != null && lessonPlan.getGrammar().size() > 0)
-	 					) {				
-	 				isSpeakingOnlyError = true;
-	 			}
-	 			if (isSpeakingOnlyError) {
-	 				errors.add("When selecting \"Speaking Only,\" grammar,  vocabulary, listening, reading, writing, video and song must not be selected.  ");
-	 			}	
-	 		}
-	 		
-	 		
-	 		if (lessonPlan.getAssignedSubscription() != null) { 
-	 			//check lesson plan html file exists for the lesson plan details added
-	 			//Strip title of spaces and convert to lowercase to produce filename
-	 			String titleNoSpace = FileUtils.stripSpacesConvertToLower(lessonPlan.getTitle());
-	 								
-	 			//build source path
-	 			String destination = "src/main/resources/templates/lessonplans/"+ lessonPlan.getAssignedSubscription().getName() 
-	 					+ "/" + titleNoSpace + ".html";
-	 					
-	 			//check if file already exists in destination folder
-	 			File correspondingHTMlFile = new File(destination);
-	 			if (!correspondingHTMlFile.exists()) {
-	 				errors.add("No html file for this title and level exists. When the lesson plan details are added, the lesson plan goes live on the website. Therefore, "
-	 						+ "a corresponding html file must be uploaded before the lesson plan details can be added.");	
-	 			}		
-	 		}
-	 		
-	 		
-	 		return errors;
 	 	}
 
 	

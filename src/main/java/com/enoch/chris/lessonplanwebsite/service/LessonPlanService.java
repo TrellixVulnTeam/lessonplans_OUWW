@@ -10,4 +10,6 @@ public interface LessonPlanService {
 
 	List<LessonPlan> findSearchedLessonPlans(LessonPlan searchParameters);
 
+	List<String> validateLessonPlan(LessonPlan lessonPlan, boolean disallowDuplicateTitle);
+
 }
