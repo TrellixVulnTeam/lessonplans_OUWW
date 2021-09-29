@@ -90,19 +90,8 @@ public class UnitTests {
 		deleteDir(new File("src/main/resources/templates/unittests/lessonplanstest/A1test/"));
 		deleteDir(new File("src/main/resources/templates/unittests/lessonplanstest/A2test/"));
 		
-		//populate A1 test with index.html
-		File file = new File("src/main/resources/templates/unittests/lessonplanstest/A1test/index.html");
-		boolean fileCreated;
-		try {
-			fileCreated = file.createNewFile();
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new Exception("index.html not able to be created in A1test folder during setup for test. Test setup incomplete");
-		}
-		//Abort test if setup fails.
-		if (!fileCreated) {
-			throw new Exception("index.html not able to be created in A1test folder during setup for test. Test setup incomplete");
-		}
+		//populate A1test folder with index.html
+		createFile("src/main/resources/templates/unittests/lessonplanstest/A1test/index.html");
 		
 		//Ensure below directories exist, but are empty
 		deleteDir(new File("src/main/resources/templates/unittests/lessonplanstest/deletedlessonplanstest/"));
@@ -111,7 +100,34 @@ public class UnitTests {
 	}
 	
 	@Test
+	@Order(1)
 	public void shouldMoveIndexHTMLFromA1testToA2testWhenA2testIsEmpty() throws Exception{
+		//ARRANGE
+		File a1TestDir = new File("src/main/resources/templates/unittests/lessonplanstest/A1test/");
+		File a2TestDir = new File("src/main/resources/templates/unittests/lessonplanstest/A2test/");
+		
+		//ACT
+		LessonPlanFiles.moveLessonPlanFile("src/main/resources/templates/unittests/lessonplanstest/A1test/index.html"
+				, "src/main/resources/templates/unittests/lessonplanstest/A2test/index.html", "A1"
+				, "src/main/resources/templates/deletedlessonplans/", deletedLessonPlanRepository);
+		
+		//ASSERT
+		//check A1test is empty
+		String[] a1TestDirFiles = a1TestDir.list();
+		assertEquals(0, a1TestDirFiles.length);
+		
+		//check A2test contains index.html	
+		String[] a2TestDirFiles = a2TestDir.list();
+		assertEquals(1, a2TestDirFiles.length);
+		assertEquals("index.html", a2TestDirFiles[0]);	
+	}
+	
+	@Test
+	@Order(2)
+	public void shouldMoveIndexHTMLFromA1testToA2testWhenA2testContainsSameFileName() throws Exception{
+		//populate A1test folder with index.html - this will have been emptied by shouldMoveIndexHTMLFromA1testToA2testWhenA2testIsEmpty() 
+				createFile("src/main/resources/templates/unittests/lessonplanstest/A1test/index.html");
+		
 		//ARRANGE
 		File a1TestDir = new File("src/main/resources/templates/unittests/lessonplanstest/A1test/");
 		File a2TestDir = new File("src/main/resources/templates/unittests/lessonplanstest/A2test/");
@@ -417,6 +433,20 @@ public class UnitTests {
 		    //System.out.println("file to delete " + file.getAbsolutePath());
 	}
 	
+	private static void createFile(String filePath) throws Exception {
+		File file = new File(filePath);
+		boolean fileCreated;
+		try {
+			fileCreated = file.createNewFile();
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new Exception("index.html not able to be created in designated folder during setup for test. Test setup incomplete");
+		}
+		//Abort test if setup fails.
+		if (!fileCreated) {
+			throw new Exception("index.html not able to be created in designated folder during setup for test. Test setup incomplete");
+		}
+	}
 
 	
 }
