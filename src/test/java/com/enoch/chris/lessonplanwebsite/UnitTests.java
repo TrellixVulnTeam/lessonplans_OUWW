@@ -13,6 +13,7 @@ import static org.mockito.Mockito.anyObject;
 
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -80,14 +81,55 @@ public class UnitTests {
 	RedirectAttributes redirectAttributes;
 	
 	@BeforeAll
-	public static void deleteDeletedlessonPlansFolder() {	
-		File deletedLessonPlansDir = new File("src/main/resources/templates/unittests/lessonplanstest/deletedlessonplanstest");
+	public static void deleteDeletedlessonPlansFolder() throws Exception {	
+		File deletedLessonPlansDir = new File("src/main/resources/templates/unittests/lessonplanstest/deletedlessonplanstest/");
 		String[] files = deletedLessonPlansDir.list();
 		System.out.println("files array length " + files.length);
 			
+		//Empty A1test and A2test
+		deleteDir(new File("src/main/resources/templates/unittests/lessonplanstest/A1test/"));
+		deleteDir(new File("src/main/resources/templates/unittests/lessonplanstest/A2test/"));
+		
+		//populate A1 test with index.html
+		File file = new File("src/main/resources/templates/unittests/lessonplanstest/A1test/index.html");
+		boolean fileCreated;
+		try {
+			fileCreated = file.createNewFile();
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new Exception("index.html not able to be created in A1test folder during setup for test. Test setup incomplete");
+		}
+		//Abort test if setup fails.
+		if (!fileCreated) {
+			throw new Exception("index.html not able to be created in A1test folder during setup for test. Test setup incomplete");
+		}
+		
+		//Ensure below directories exist, but are empty
 		deleteDir(new File("src/main/resources/templates/unittests/lessonplanstest/deletedlessonplanstest/"));
 		deleteDir(new File("src/main/resources/templates/unittests/lessonplanstest/B2test/"));
 		
+	}
+	
+	@Test
+	public void shouldMoveIndexHTMLFromA1testToA2testWhenA2testIsEmpty() throws Exception{
+		//ARRANGE
+		File a1TestDir = new File("src/main/resources/templates/unittests/lessonplanstest/A1test/");
+		File a2TestDir = new File("src/main/resources/templates/unittests/lessonplanstest/A2test/");
+		
+		//ACT
+		LessonPlanFiles.moveLessonPlanFile("src/main/resources/templates/unittests/lessonplanstest/A1test/index.html"
+				, "src/main/resources/templates/unittests/lessonplanstest/A2test/index.html", "A1"
+				, "src/main/resources/templates/deletedlessonplans/", deletedLessonPlanRepository);
+		
+		//ASSERT
+		//check A1test is empty
+		String[] a1TestDirFiles = a1TestDir.list();
+		assertEquals(0, a1TestDirFiles.length);
+		
+		//check A2test contains index.html	
+		String[] a2TestDirFiles = a2TestDir.list();
+		assertEquals(1, a2TestDirFiles.length);
+		assertEquals("index.html", a2TestDirFiles[0]);	
 	}
 	
 	@Test
