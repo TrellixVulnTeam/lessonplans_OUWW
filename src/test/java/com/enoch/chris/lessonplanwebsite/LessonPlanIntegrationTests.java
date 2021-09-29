@@ -15,6 +15,7 @@ import java.util.Set;
 
 import org.assertj.core.util.Arrays;
 import org.hibernate.Hibernate;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,7 @@ import com.enoch.chris.lessonplanwebsite.entity.SpeakingAmount;
 import com.enoch.chris.lessonplanwebsite.entity.Subscription;
 import com.enoch.chris.lessonplanwebsite.entity.Tag;
 import com.enoch.chris.lessonplanwebsite.entity.Topic;
+import com.enoch.chris.lessonplanwebsite.entity.Type;
 import com.enoch.chris.lessonplanwebsite.entity.User;
 import com.enoch.chris.lessonplanwebsite.entity.utils.SubscriptionUtils;
 import com.enoch.chris.lessonplanwebsite.service.LessonPlanService;
@@ -52,6 +54,172 @@ public class LessonPlanIntegrationTests {
 		this.lessonPlanRepository = lessonPlanRepository;
 
 	}
+	
+	@Test
+	@DisplayName("Should return the following errors: Title too small, topic, level, lesson time, type.")
+	public void shouldReturnTitleTooSmallTopicLevelLessonTimeTypeError(){
+		//ARRANGE
+		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder("O", null, null, null, 0, null, null, null)
+				.lessonTime(null).preparationTime(null).build();
+		
+		//ACT
+		List<String> errors = lessonPlanService.validateLessonPlan(lp1, false);
+		
+		//ASSERT
+		assertThat(errors).hasSize(5);
+		assertThat(errors).contains("Title must be at least two characters long.", "Please add at least one topic."
+				, "Please add a level.", "Please add the lesson time.", "Please specify the type.");	
+	}
+	
+	@Test
+	public void shouldReturnDuplicateTitleError(){
+		//ARRANGE
+		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder("Famous People", null, new Subscription("C1PLUS"), null, 0, null, null, null)
+				.lessonTime(null).preparationTime(null).build();
+		String duplicateTitleError = "Title already exists for this level. Please choose a title which is unique from any other"
+				+ " for the level specified.";
+		
+		//ACT
+		List<String> errors = lessonPlanService.validateLessonPlan(lp1, true);
+		
+		//ASSERT
+		assertThat(errors).hasSize(4);
+		assertThat(errors).contains(duplicateTitleError
+				, "Please add at least one topic.", "Please add the lesson time.", "Please specify the type.");
+	}
+	
+	@Test
+	public void shouldReturnOnlySpeakingErrorBecauseGrammarIncluded(){
+		//ARRANGE
+		Set<Topic> topics = new HashSet<Topic>();
+		topics.add(new Topic("Sport", null));
+		
+		Set<Grammar> grammar = new HashSet<Grammar>();
+		grammar.add(new Grammar("First Conditional"));
+		
+		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder("New title", null, new Subscription("C1PLUS"), Type.BUSINESS, 0, SpeakingAmount.SPEAKING_ONLY
+				, topics, null).grammar(grammar).build();
+		
+		//ACT
+		List<String> errors = lessonPlanService.validateLessonPlan(lp1, false);
+		
+		//ASSERT
+		assertThat(errors).containsAnyOf("When selecting \"Speaking Only,\" grammar,  vocabulary, listening, reading, writing, video and song must not be selected.  ");
+	}
+	
+	@Test
+	public void shouldReturnOnlySpeakingErrorBecauseListeningIsTrue(){
+		//ARRANGE
+		Set<Topic> topics = new HashSet<Topic>();
+		topics.add(new Topic("Sport", null));
+			
+		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder("New title", null, new Subscription("C1PLUS"), Type.BUSINESS, 0, SpeakingAmount.SPEAKING_ONLY
+				, topics, null).isListening(true).build();
+		
+		//ACT
+		List<String> errors = lessonPlanService.validateLessonPlan(lp1, false);
+		
+		//ASSERT
+		assertThat(errors).containsAnyOf("When selecting \"Speaking Only,\" grammar,  vocabulary, listening, reading, writing, video and song must not be selected.  ");
+	}
+	
+	@Test
+	public void shouldReturnOnlySpeakingErrorBecauseReadingIsTrue(){
+		//ARRANGE
+		Set<Topic> topics = new HashSet<Topic>();
+		topics.add(new Topic("Sport", null));
+			
+		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder("New title", null, new Subscription("C1PLUS"), Type.BUSINESS, 0, SpeakingAmount.SPEAKING_ONLY
+				, topics, null).isReading(true).build();
+		
+		//ACT
+		List<String> errors = lessonPlanService.validateLessonPlan(lp1, false);
+		
+		//ASSERT
+		assertThat(errors).containsAnyOf("When selecting \"Speaking Only,\" grammar,  vocabulary, listening, reading, writing, video and song must not be selected.  ");
+	}
+	
+	@Test
+	public void shouldReturnOnlySpeakingErrorBecauseWritingIsTrue(){
+		//ARRANGE
+		Set<Topic> topics = new HashSet<Topic>();
+		topics.add(new Topic("Sport", null));
+			
+		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder("New title", null, new Subscription("C1PLUS"), Type.BUSINESS, 0, SpeakingAmount.SPEAKING_ONLY
+				, topics, null).isWriting(true).build();
+		
+		//ACT
+		List<String> errors = lessonPlanService.validateLessonPlan(lp1, false);
+		
+		//ASSERT
+		assertThat(errors).containsAnyOf("When selecting \"Speaking Only,\" grammar,  vocabulary, listening, reading, writing, video and song must not be selected.  ");
+	}
+	
+	@Test
+	public void shouldReturnOnlySpeakingErrorBecauseVideoIsTrue(){
+		//ARRANGE
+		Set<Topic> topics = new HashSet<Topic>();
+		topics.add(new Topic("Sport", null));
+			
+		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder("New title", null, new Subscription("C1PLUS"), Type.BUSINESS, 0, SpeakingAmount.SPEAKING_ONLY
+				, topics, null).isVideo(true).build();
+		
+		//ACT
+		List<String> errors = lessonPlanService.validateLessonPlan(lp1, false);
+		
+		//ASSERT
+		assertThat(errors).containsAnyOf("When selecting \"Speaking Only,\" grammar,  vocabulary, listening, reading, writing, video and song must not be selected.  ");
+	}
+	
+	@Test
+	public void shouldReturnOnlySpeakingErrorBecauseSongIsTrue(){
+		//ARRANGE
+		Set<Topic> topics = new HashSet<Topic>();
+		topics.add(new Topic("Sport", null));
+			
+		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder("New title", null, new Subscription("C1PLUS"), Type.BUSINESS, 0, SpeakingAmount.SPEAKING_ONLY
+				, topics, null).isSong(true).build();
+		
+		//ACT
+		List<String> errors = lessonPlanService.validateLessonPlan(lp1, false);
+		
+		//ASSERT
+		assertThat(errors).containsAnyOf("When selecting \"Speaking Only,\" grammar,  vocabulary, listening, reading, writing, video and song must not be selected.  ");
+	}
+	
+	@Test
+	public void shouldReturnNoHTMLFileError(){
+		//ARRANGE
+		Set<Topic> topics = new HashSet<Topic>();
+		topics.add(new Topic("Sport", null));
+			
+		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder("New title", null, new Subscription("C1PLUS"), Type.BUSINESS, 0, SpeakingAmount.SPEAKING_ONLY
+				, topics, null).isSong(true).build();
+		
+		//ACT
+		List<String> errors = lessonPlanService.validateLessonPlan(lp1, false);
+		
+		//ASSERT
+		assertThat(errors).contains("No html file for this title and level exists. When the lesson plan details are added, the lesson plan goes live on the website. Therefore, "
+				+ "a corresponding html file must be uploaded before the lesson plan details can be added.");
+	}
+	
+	@Test
+	public void shouldReturnNoErrorrs(){
+		//ARRANGE
+		Set<Topic> topics = new HashSet<Topic>();
+		topics.add(new Topic("Sport", null));
+			
+		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder("Unit_test_deleting_affects_tests", null
+				, new Subscription("C1PLUS"), Type.BUSINESS, 0, null, topics, null).isSong(true).build();
+		
+		//ACT
+		List<String> errors = lessonPlanService.validateLessonPlan(lp1, true);
+		
+		//ASSERT
+		assertThat(errors).hasSize(0);
+	}
+	
 	
 	@Test
 	public void shouldReturnThreePlansThatMatchTitle(){

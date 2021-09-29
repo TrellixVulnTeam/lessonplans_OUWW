@@ -53,7 +53,7 @@ public class LessonPlanServiceImpl implements LessonPlanService {
  			errors.add("Title must be at least two characters long.");
  		}
  		
- 		//Only disallow duplicate title if lesson is being added. If lesson is beign edited, it is OK for the title to be the same as before.
+ 		//Only disallow duplicate title if lesson is being added. If lesson is being edited, it is OK for the title to be the same as before.
  		if (disallowDuplicateTitle) {
  			//check title doesn't already exist for this level if level has been specified
 	 		if (lessonPlan.getAssignedSubscription() != null) {
@@ -64,7 +64,7 @@ public class LessonPlanServiceImpl implements LessonPlanService {
 	 					.map(lp -> lp.getTitle()).anyMatch(title -> title.replaceAll("\\s", "").toLowerCase().equals(titleNoSpace));
 	 			
 	 			if (titleExists) {
-	 				errors.add("Title already exists for this level. Please choose a title which is unique from any other for the level specified");				
+	 				errors.add("Title already exists for this level. Please choose a title which is unique from any other for the level specified.");				
 	 			}
 	 		} 			
  		}
@@ -82,7 +82,7 @@ public class LessonPlanServiceImpl implements LessonPlanService {
  			errors.add("Please add the lesson time.");
  		}
  		if (lessonPlan.getType() == null) {
- 			errors.add("Please specifiy the type.");
+ 			errors.add("Please specify the type.");
  		}
  		
  		//ensure no other conflicting fields are selected if "speaking only" is selected
@@ -120,6 +120,8 @@ public class LessonPlanServiceImpl implements LessonPlanService {
  		
  		return errors;
  	}
+	
+	
 	
 	/**
 	 * Filters the lesson plans according to the parameters set on LessonPlan searchParamas. 
