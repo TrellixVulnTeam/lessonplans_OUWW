@@ -120,6 +120,13 @@ public class UnitTestsValidation {
 			topicRepository.save(topicToEdit.get());
 		}
 		
+		Optional<Tag> tagToEdit = tagRepository.findByName("CampingEdited");
+		if (tagToEdit.isPresent()) {
+			tagToEdit.get().setName("Camping");
+			tagRepository.save(tagToEdit.get());
+		}	
+		
+		
 		Optional<Grammar> grammarToEdit = grammarRepository.findByGrammarPoint("AdjectivesEdited");
 		if (grammarToEdit.isPresent()) {
 			grammarToEdit.get().setGrammarPoint("Adjectives");
@@ -414,6 +421,78 @@ public class UnitTestsValidation {
 		verify(redirectAttributes).addFlashAttribute("messagetopiceditsuccess",
 				"Topic edited successfully.");	
 	}
+	
+	
+	@Test
+	public void shouldReturnTagTooShortWhenEdited() throws Exception{
+		//ARRANGE
+		List<Tag> tags = tagRepository.findAll();
+		String newTag = "a";
+		
+		//ACT
+		AdminValidator.validateEditTag(redirectAttributes, 55, newTag, tagRepository, tags);
+		
+		//ASSERT
+		verify(redirectAttributes).addFlashAttribute("messagetageditfailure",
+				"Tag name must be at least 2 characters. Tag not edited.");		
+	
+	}
+	
+	@Test
+	public void shouldReturnTagTooShortWhenEditedWithExtraSpaces() throws Exception{
+		//ARRANGE
+		List<Tag> tags = tagRepository.findAll();
+		String newTag = "  a ";
+		
+		//ACT
+		AdminValidator.validateEditTag(redirectAttributes, 55, newTag, tagRepository, tags);
+		
+		//ASSERT
+		verify(redirectAttributes).addFlashAttribute("messagetageditfailure",
+				"Tag name must be at least 2 characters. Tag not edited.");		
+	}
+	
+	@Test
+	public void shouldReturnTagAlreadyExistsWhenEdited() throws Exception{
+		//ARRANGE
+		List<Tag> tags = tagRepository.findAll();
+		String newTag = "Beach";
+		
+		//ACT
+		AdminValidator.validateEditTag(redirectAttributes, 55, newTag, tagRepository, tags);
+		
+		//ASSERT
+		verify(redirectAttributes).addFlashAttribute("messagetageditfailure",
+				"This tag already exists. Tag not edited.");
+	}
+	
+	@Test
+	public void shouldReturnTagAlreadyExistsWithExtraSpacesAndDiffCaseWhenEdited() throws Exception{
+		//ARRANGE
+		List<Tag> tags = tagRepository.findAll();
+		String newTag = "  BEAch ";
+		
+		//ACT
+		AdminValidator.validateEditTag(redirectAttributes, 55, newTag, tagRepository, tags);
+		
+		//ASSERT
+		verify(redirectAttributes).addFlashAttribute("messagetageditfailure",
+				"This tag already exists. Tag not edited.");
+	}
+	
+	@Test
+	public void shouldReturnSuccessWhenTagEdited() throws Exception{
+		//ARRANGE
+		List<Tag> tags = tagRepository.findAll();
+		String newTag = "CampingEdited";
+		
+		//ACT
+		AdminValidator.validateEditTag(redirectAttributes, 54, newTag, tagRepository, tags);
+		
+		//ASSERT
+		verify(redirectAttributes).addFlashAttribute("messagetageditsuccess", "Tag edited successfully.");
+	}
+	
 	
 	@Test
 	public void shouldReturnGrammarTooShortWhenEdited() throws Exception{
