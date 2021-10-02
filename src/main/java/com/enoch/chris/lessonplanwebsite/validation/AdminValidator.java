@@ -18,8 +18,26 @@ import com.enoch.chris.lessonplanwebsite.service.TopicService;
 
 
 public class AdminValidator {
-	public static void validateAddTopic(RedirectAttributes attributes, String newTopic
-			, TopicRepository topicRepository, List<Topic> topics) {
+	private TagRepository tagRepository;
+	private GrammarRepository grammarRepository;
+	private TopicRepository topicRepository;
+	private TopicService topicService;
+	private LessonPlanRepository lessonPlanRepository;
+	private LessonPlanService lessonPlanService;
+	
+	public AdminValidator(TagRepository tagRepository, GrammarRepository grammarRepository, TopicRepository topicRepository
+			, TopicService topicService,  LessonPlanRepository lessonPlanRepository, LessonPlanService lessonPlanService) {
+		super();
+		this.topicRepository = topicRepository;
+		this.topicService = topicService;
+		this.tagRepository = tagRepository;
+		this.grammarRepository = grammarRepository;
+		this.lessonPlanRepository = lessonPlanRepository;
+		this.lessonPlanService = lessonPlanService;
+	}
+
+	public void validateAddTopic(RedirectAttributes attributes, String newTopic
+			 ,List<Topic> topics) {
 		 
 		//remove extra spaces
 		String trimmedNewTopic = newTopic.trim();
@@ -44,8 +62,8 @@ public class AdminValidator {
 	     return;
 	}
 	
-	public static void validateAddTag(RedirectAttributes attributes,String newTag
-			,TagRepository tagRepository, List<Tag> tags) {
+	public void validateAddTag(RedirectAttributes attributes,String newTag
+			, List<Tag> tags) {
 		//remove extra spaces
 		String trimmedNewTag = newTag.trim();
 			 
@@ -69,8 +87,8 @@ public class AdminValidator {
 	     return;
 	}
 	
-	public static void validateAddGrammar(RedirectAttributes attributes, String newGrammar
-			,GrammarRepository grammarRepository, List<Grammar> grammar) {
+	public void validateAddGrammar(RedirectAttributes attributes, String newGrammar
+			, List<Grammar> grammar) {
 			//remove extra spaces
 			String trimmedNewGrammar = newGrammar.trim();
 		
@@ -94,8 +112,8 @@ public class AdminValidator {
 		     return;
 	}
 	
-	public static void validateEditTopic(RedirectAttributes attributes, Integer topicId, String newEditedTopic
-			,TopicRepository topicRepository, List<Topic> topics) {
+	public void validateEditTopic(RedirectAttributes attributes, Integer topicId, String newEditedTopic
+			, List<Topic> topics) {
 		 //remove extra spaces
 		 String trimmedNewEditedTopic = newEditedTopic.trim();
 		
@@ -134,7 +152,7 @@ public class AdminValidator {
 	     return;
 	}
 	
-	public static void validateEditTag(RedirectAttributes attributes, Integer tagId, String newEditedTag, TagRepository tagRepository
+	public void validateEditTag(RedirectAttributes attributes, Integer tagId, String newEditedTag
 			, List<Tag> tags) {		
 		//remove extra spaces
 		String trimemdNewEditedTag = newEditedTag.trim();
@@ -174,8 +192,8 @@ public class AdminValidator {
 	     return;
 	}
 	
-	public static void validateEditGrammar(RedirectAttributes attributes, Integer grammarId, String newEditedGrammar 
-			, GrammarRepository grammarRepository, List<Grammar> grammar) {
+	public void validateEditGrammar(RedirectAttributes attributes, Integer grammarId, String newEditedGrammar 
+			, List<Grammar> grammar) {
 		 
 		 //remove extra spaces
 		 String trimmedNewEditedGrammar = newEditedGrammar.trim();
@@ -215,8 +233,7 @@ public class AdminValidator {
 	}
 
 	
-	public static void validateDeleteTopic(RedirectAttributes attributes, Integer topicId
-			, TopicRepository topicRepository) {		 
+	public void validateDeleteTopic(RedirectAttributes attributes, Integer topicId) {		 
 		//get current topic
 		Topic topicOriginal;
 		try {
@@ -234,9 +251,7 @@ public class AdminValidator {
 	     return;
 	}
 	
-	public static void validateDeleteTag(RedirectAttributes attributes, Integer tagId, TagRepository tagRepository
-			, TopicRepository topicRepository, LessonPlanRepository lessonPlanRepository
-			,TopicService topicService, LessonPlanService lessonPlanService) {		 
+	public void validateDeleteTag(RedirectAttributes attributes, Integer tagId) {		 
 		//get current tag
 		Tag tagOriginal;
 		try {
@@ -264,7 +279,7 @@ public class AdminValidator {
 	     return;
 	}
 	
-	public static void validateDeleteGrammar(RedirectAttributes attributes, Integer grammarId, GrammarRepository grammarRepository) {
+	public void validateDeleteGrammar(RedirectAttributes attributes, Integer grammarId) {
 		//get current topic
 		Grammar grammarOriginal;
 		try {

@@ -157,7 +157,9 @@ public class UnitTestsValidation {
 		String newTopic = "a";
 		
 		//ACT
-		AdminValidator.validateAddTopic(redirectAttributes, newTopic, topicRepository, topics);
+		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
+				, lessonPlanRepository, lessonPlanService);
+		adminValidator.validateAddTopic(redirectAttributes, newTopic, topics);
 		
 		//ASSERT
 		verify(redirectAttributes).addFlashAttribute("messagetopicfailure",
@@ -172,7 +174,10 @@ public class UnitTestsValidation {
 		String newTopic = " a  ";
 		
 		//ACT
-		AdminValidator.validateAddTopic(redirectAttributes, newTopic, topicRepository, topics);
+		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
+				, lessonPlanRepository, lessonPlanService);
+				
+				adminValidator.validateAddTopic(redirectAttributes, newTopic, topics);
 		
 		//ASSERT
 		verify(redirectAttributes).addFlashAttribute("messagetopicfailure",
@@ -187,7 +192,9 @@ public class UnitTestsValidation {
 		String newTopic = "Travel";
 		
 		//ACT
-		AdminValidator.validateAddTopic(redirectAttributes, newTopic, topicRepository, topics);
+		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
+				, lessonPlanRepository, lessonPlanService);
+		adminValidator.validateAddTopic(redirectAttributes, newTopic, topics);
 		
 		//ASSERT
 		verify(redirectAttributes).addFlashAttribute("messagetopicfailure",
@@ -201,7 +208,9 @@ public class UnitTestsValidation {
 		String newTopic = "  TraVEl  ";
 		
 		//ACT
-		AdminValidator.validateAddTopic(redirectAttributes, newTopic, topicRepository, topics);
+		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
+				, lessonPlanRepository, lessonPlanService);
+		adminValidator.validateAddTopic(redirectAttributes, newTopic, topics);
 		
 		//ASSERT
 		verify(redirectAttributes).addFlashAttribute("messagetopicfailure",
@@ -215,7 +224,9 @@ public class UnitTestsValidation {
 		String newTopic = "Philosophy";
 		
 		//ACT
-		AdminValidator.validateAddTopic(redirectAttributes, newTopic, topicRepository, topics);
+		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
+				, lessonPlanRepository, lessonPlanService);
+		adminValidator.validateAddTopic(redirectAttributes, newTopic, topics);
 		
 		//ASSERT
 		verify(redirectAttributes).addFlashAttribute("messagetopicsuccess", "Topic added successfully.");
@@ -230,7 +241,9 @@ public class UnitTestsValidation {
 		String newTag = "a";
 		
 		//ACT
-		AdminValidator.validateAddTag(redirectAttributes, newTag, tagRepository, tags);
+		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
+				, lessonPlanRepository, lessonPlanService);
+		adminValidator.validateAddTag(redirectAttributes, newTag, tags);
 		
 		//ASSERT
 		verify(redirectAttributes).addFlashAttribute("messagetagfailure",
@@ -245,7 +258,9 @@ public class UnitTestsValidation {
 		String newTag = " a  ";
 		
 		//ACT
-		AdminValidator.validateAddTag(redirectAttributes, newTag, tagRepository, tags);
+		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
+				, lessonPlanRepository, lessonPlanService);
+		adminValidator.validateAddTag(redirectAttributes, newTag, tags);
 		
 		//ASSERT
 		verify(redirectAttributes).addFlashAttribute("messagetagfailure",
@@ -260,7 +275,9 @@ public class UnitTestsValidation {
 		String newTag = "Beach";
 		
 		//ACT
-		AdminValidator.validateAddTag(redirectAttributes, newTag, tagRepository, tags);
+		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
+				, lessonPlanRepository, lessonPlanService);
+		adminValidator.validateAddTag(redirectAttributes, newTag, tags);
 		
 		//ASSERT
 		verify(redirectAttributes).addFlashAttribute("messagetagfailure",
@@ -274,7 +291,9 @@ public class UnitTestsValidation {
 		String newTag = "  BeACh ";
 		
 		//ACT
-		AdminValidator.validateAddTag(redirectAttributes, newTag, tagRepository, tags);
+		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
+				, lessonPlanRepository, lessonPlanService);
+		adminValidator.validateAddTag(redirectAttributes, newTag, tags);
 		
 		//ASSERT
 		verify(redirectAttributes).addFlashAttribute("messagetagfailure",
@@ -288,7 +307,9 @@ public class UnitTestsValidation {
 		String newTag = "DIY";
 		
 		//ACT
-		AdminValidator.validateAddTag(redirectAttributes, newTag, tagRepository, tags);
+		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
+				, lessonPlanRepository, lessonPlanService);
+		adminValidator.validateAddTag(redirectAttributes, newTag, tags);
 		
 		//ASSERT
 		verify(redirectAttributes).addFlashAttribute("messagetagsuccess", "Tag added successfully.");
@@ -301,7 +322,9 @@ public class UnitTestsValidation {
 		String newGrammar = "a";
 		
 		//ACT
-		AdminValidator.validateAddGrammar(redirectAttributes, newGrammar, grammarRepository, grammar);
+		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
+				, lessonPlanRepository, lessonPlanService);
+		adminValidator.validateAddGrammar(redirectAttributes, newGrammar, grammar);
 		
 		//ASSERT
 		verify(redirectAttributes).addFlashAttribute("messagegrammarfailure",
@@ -316,7 +339,9 @@ public class UnitTestsValidation {
 		String newGrammar = "  a ";
 		
 		//ACT
-		AdminValidator.validateAddGrammar(redirectAttributes, newGrammar, grammarRepository, grammar);
+		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
+				, lessonPlanRepository, lessonPlanService);
+		adminValidator.validateAddGrammar(redirectAttributes, newGrammar, grammar);
 		
 		//ASSERT
 		verify(redirectAttributes).addFlashAttribute("messagegrammarfailure",
@@ -331,7 +356,9 @@ public class UnitTestsValidation {
 		String newGrammar = "First conditional";
 		
 		//ACT
-		AdminValidator.validateAddGrammar(redirectAttributes, newGrammar, grammarRepository, grammar);
+		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
+				, lessonPlanRepository, lessonPlanService);
+		adminValidator.validateAddGrammar(redirectAttributes, newGrammar, grammar);
 		
 		//ASSERT
 		verify(redirectAttributes).addFlashAttribute("messagegrammarfailure",
@@ -345,7 +372,9 @@ public class UnitTestsValidation {
 		String newGrammar = "  First CONditional ";
 		
 		//ACT
-		AdminValidator.validateAddGrammar(redirectAttributes, newGrammar, grammarRepository, grammar);
+		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
+				, lessonPlanRepository, lessonPlanService);
+		adminValidator.validateAddGrammar(redirectAttributes, newGrammar, grammar);
 		
 		//ASSERT
 		verify(redirectAttributes).addFlashAttribute("messagegrammarfailure",
@@ -359,7 +388,9 @@ public class UnitTestsValidation {
 		String newGrammar = "Participle clauses";
 		
 		//ACT
-		AdminValidator.validateAddGrammar(redirectAttributes, newGrammar, grammarRepository, grammar);
+		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
+				, lessonPlanRepository, lessonPlanService);
+		adminValidator.validateAddGrammar(redirectAttributes, newGrammar, grammar);
 		
 		//ASSERT
 		verify(redirectAttributes).addFlashAttribute("messagegrammarsuccess", "Grammar point added successfully.");
@@ -372,7 +403,9 @@ public class UnitTestsValidation {
 		String newTopic = "a";
 		
 		//ACT
-		AdminValidator.validateEditTopic(redirectAttributes, 37, newTopic, topicRepository, topics);
+		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
+				, lessonPlanRepository, lessonPlanService);
+		adminValidator.validateEditTopic(redirectAttributes, 37, newTopic, topics);
 		
 		//ASSERT
 		verify(redirectAttributes).addFlashAttribute("messagetopiceditfailure",
@@ -387,7 +420,9 @@ public class UnitTestsValidation {
 		String newTopic = "  a ";
 		
 		//ACT
-		AdminValidator.validateEditTopic(redirectAttributes, 37, newTopic, topicRepository, topics);
+		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
+				, lessonPlanRepository, lessonPlanService);
+		adminValidator.validateEditTopic(redirectAttributes, 37, newTopic, topics);
 		
 		//ASSERT
 		verify(redirectAttributes).addFlashAttribute("messagetopiceditfailure",
@@ -402,7 +437,9 @@ public class UnitTestsValidation {
 		String newTopic = "Travel";
 		
 		//ACT
-		AdminValidator.validateEditTopic(redirectAttributes, 37, newTopic, topicRepository, topics);
+		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
+				, lessonPlanRepository, lessonPlanService);
+		adminValidator.validateEditTopic(redirectAttributes, 37, newTopic, topics);
 		
 		//ASSERT
 		verify(redirectAttributes).addFlashAttribute("messagetopiceditfailure",
@@ -416,7 +453,9 @@ public class UnitTestsValidation {
 		String newTopic = "  TraVEl ";
 		
 		//ACT
-		AdminValidator.validateEditTopic(redirectAttributes, 37, newTopic, topicRepository, topics);
+		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
+				, lessonPlanRepository, lessonPlanService);
+		adminValidator.validateEditTopic(redirectAttributes, 37, newTopic, topics);
 		
 		//ASSERT
 		verify(redirectAttributes).addFlashAttribute("messagetopiceditfailure",
@@ -430,7 +469,9 @@ public class UnitTestsValidation {
 		String newTopic = "Arty";
 		
 		//ACT
-		AdminValidator.validateEditTopic(redirectAttributes, 37, newTopic, topicRepository, topics);
+		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
+				, lessonPlanRepository, lessonPlanService);
+		adminValidator.validateEditTopic(redirectAttributes, 37, newTopic, topics);
 		
 		//ASSERT
 		verify(redirectAttributes).addFlashAttribute("messagetopiceditsuccess",
@@ -445,7 +486,9 @@ public class UnitTestsValidation {
 		String newTag = "a";
 		
 		//ACT
-		AdminValidator.validateEditTag(redirectAttributes, 55, newTag, tagRepository, tags);
+		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
+				, lessonPlanRepository, lessonPlanService);
+		adminValidator.validateEditTag(redirectAttributes, 55, newTag, tags);
 		
 		//ASSERT
 		verify(redirectAttributes).addFlashAttribute("messagetageditfailure",
@@ -460,7 +503,9 @@ public class UnitTestsValidation {
 		String newTag = "  a ";
 		
 		//ACT
-		AdminValidator.validateEditTag(redirectAttributes, 55, newTag, tagRepository, tags);
+		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
+				, lessonPlanRepository, lessonPlanService);
+		adminValidator.validateEditTag(redirectAttributes, 55, newTag, tags);
 		
 		//ASSERT
 		verify(redirectAttributes).addFlashAttribute("messagetageditfailure",
@@ -474,7 +519,9 @@ public class UnitTestsValidation {
 		String newTag = "Beach";
 		
 		//ACT
-		AdminValidator.validateEditTag(redirectAttributes, 55, newTag, tagRepository, tags);
+		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
+				, lessonPlanRepository, lessonPlanService);
+		adminValidator.validateEditTag(redirectAttributes, 55, newTag, tags);
 		
 		//ASSERT
 		verify(redirectAttributes).addFlashAttribute("messagetageditfailure",
@@ -488,7 +535,9 @@ public class UnitTestsValidation {
 		String newTag = "  BEAch ";
 		
 		//ACT
-		AdminValidator.validateEditTag(redirectAttributes, 55, newTag, tagRepository, tags);
+		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
+				, lessonPlanRepository, lessonPlanService);
+		adminValidator.validateEditTag(redirectAttributes, 55, newTag, tags);
 		
 		//ASSERT
 		verify(redirectAttributes).addFlashAttribute("messagetageditfailure",
@@ -502,7 +551,9 @@ public class UnitTestsValidation {
 		String newTag = "CampingEdited";
 		
 		//ACT
-		AdminValidator.validateEditTag(redirectAttributes, 54, newTag, tagRepository, tags);
+		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
+				, lessonPlanRepository, lessonPlanService);
+		adminValidator.validateEditTag(redirectAttributes, 54, newTag, tags);
 		
 		//ASSERT
 		verify(redirectAttributes).addFlashAttribute("messagetageditsuccess", "Tag edited successfully.");
@@ -516,7 +567,9 @@ public class UnitTestsValidation {
 		String newGrammar = "a";
 		
 		//ACT
-		AdminValidator.validateEditGrammar(redirectAttributes, 36, newGrammar, grammarRepository, grammar);
+		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
+				, lessonPlanRepository, lessonPlanService);
+		adminValidator.validateEditGrammar(redirectAttributes, 36, newGrammar, grammar);
 		
 		//ASSERT
 		verify(redirectAttributes).addFlashAttribute("messagegrammareditfailure",
@@ -531,7 +584,9 @@ public class UnitTestsValidation {
 		String newGrammar = "  a ";
 		
 		//ACT
-		AdminValidator.validateEditGrammar(redirectAttributes, 36, newGrammar, grammarRepository, grammar);
+		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
+				, lessonPlanRepository, lessonPlanService);
+		adminValidator.validateEditGrammar(redirectAttributes, 36, newGrammar, grammar);
 		
 		//ASSERT
 		verify(redirectAttributes).addFlashAttribute("messagegrammareditfailure",
@@ -546,7 +601,9 @@ public class UnitTestsValidation {
 		String newGrammar = "First conditional";
 		
 		//ACT
-		AdminValidator.validateEditGrammar(redirectAttributes, 36, newGrammar, grammarRepository, grammar);
+		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
+				, lessonPlanRepository, lessonPlanService);
+		adminValidator.validateEditGrammar(redirectAttributes, 36, newGrammar, grammar);
 		
 		//ASSERT
 		verify(redirectAttributes).addFlashAttribute("messagegrammareditfailure",
@@ -560,7 +617,9 @@ public class UnitTestsValidation {
 		String newGrammar = "  First CONditional ";
 		
 		//ACT
-		AdminValidator.validateEditGrammar(redirectAttributes, 36, newGrammar, grammarRepository, grammar);
+		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
+				, lessonPlanRepository, lessonPlanService);
+		adminValidator.validateEditGrammar(redirectAttributes, 36, newGrammar, grammar);
 		
 		//ASSERT
 		verify(redirectAttributes).addFlashAttribute("messagegrammareditfailure",
@@ -574,7 +633,9 @@ public class UnitTestsValidation {
 		String newGrammar = "AdjectivesEdited";
 		
 		//ACT
-		AdminValidator.validateEditGrammar(redirectAttributes, 36, newGrammar, grammarRepository, grammar);
+		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
+				, lessonPlanRepository, lessonPlanService);
+		adminValidator.validateEditGrammar(redirectAttributes, 36, newGrammar, grammar);
 		
 		//ASSERT
 		verify(redirectAttributes).addFlashAttribute("messagegrammareditsuccess", "Grammar point edited successfully.");
@@ -583,7 +644,9 @@ public class UnitTestsValidation {
 	@Test
 	public void shouldReturnNotFoundWhenTopicDeleted() throws Exception{	
 		//ACT
-		AdminValidator.validateDeleteTopic(redirectAttributes, 1000, topicRepository);
+		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
+				, lessonPlanRepository, lessonPlanService);
+		adminValidator.validateDeleteTopic(redirectAttributes, 1000);
 		
 		//ASSERT
 		verify(redirectAttributes).addFlashAttribute("messagetopicdeletefailure", "Unable to delete topic because topic couldn't be found.");
@@ -595,7 +658,9 @@ public class UnitTestsValidation {
 		Topic music = topicRepository.findByName("Music").get();
 		
 		//ACT
-		AdminValidator.validateDeleteTopic(redirectAttributes, music.getId(), topicRepository);
+		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
+				, lessonPlanRepository, lessonPlanService);
+		adminValidator.validateDeleteTopic(redirectAttributes, music.getId());
 		
 		//ASSERT
 		verify(redirectAttributes).addFlashAttribute("messagetopicdeletesuccess", "Topic deleted successfully.");
@@ -604,8 +669,9 @@ public class UnitTestsValidation {
 	@Test
 	public void shouldReturnNotFoundWhenTagDeleted() throws Exception{	
 		//ACT
-		AdminValidator.validateDeleteTag(redirectAttributes, 1000, tagRepository, topicRepository
-				,lessonPlanRepository, topicService, lessonPlanService);
+		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
+				, lessonPlanRepository, lessonPlanService);
+		adminValidator.validateDeleteTag(redirectAttributes, 1000);
 		
 		//ASSERT
 		verify(redirectAttributes).addFlashAttribute("messagetagdeletefailure", "Unable to delete tag because tag couldn't be found.");
@@ -617,7 +683,9 @@ public class UnitTestsValidation {
 		Tag driverless = tagRepository.findByName("Driverless").get();
 		
 		//ACT
-		AdminValidator.validateDeleteTag(redirectAttributes, driverless .getId(), tagRepository, topicRepository, lessonPlanRepository, topicService, lessonPlanService);
+		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
+				, lessonPlanRepository, lessonPlanService);
+		adminValidator.validateDeleteTag(redirectAttributes, driverless.getId());
 		
 		//ASSERT
 		verify(redirectAttributes).addFlashAttribute("messagetagdeletesuccess", "Tag deleted successfully.");
