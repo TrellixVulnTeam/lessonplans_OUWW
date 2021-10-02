@@ -95,7 +95,7 @@ public class UnitTestsValidation {
 	@Spy
 	RedirectAttributes redirectAttributes;
 	
-	@BeforeAll
+	@AfterAll
 	public void deleteAddedValuesFromDatabase() throws Exception{ 
 		//delete values that were added during tests
 		Optional<Topic> topicToDelete = topicRepository.findByName("Philosophy");
@@ -132,6 +132,10 @@ public class UnitTestsValidation {
 			grammarToEdit.get().setGrammarPoint("Adjectives");
 			grammarRepository.save(grammarToEdit.get());
 		}
+		
+		//readd values that were deleted in the tests
+		
+		
 		
 	}
 	
@@ -564,6 +568,8 @@ public class UnitTestsValidation {
 		//ASSERT
 		verify(redirectAttributes).addFlashAttribute("messagegrammareditsuccess", "Grammar point edited successfully.");
 	}
+	
+	
 	
 	
 	
