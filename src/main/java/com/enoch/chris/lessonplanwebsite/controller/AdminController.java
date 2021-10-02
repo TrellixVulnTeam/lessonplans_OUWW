@@ -324,7 +324,7 @@ public class AdminController {
 		 String newTopic = request.getParameter("topic");
 		 AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository
 					, topicRepository, topicService, lessonPlanRepository, lessonPlanService);
-		 adminValidator.validateAddTopic(attributes, newTopic, populateTopics());
+		 adminValidator.validateAndAddTopic(attributes, newTopic, populateTopics());
 		 return "redirect:/admin/upload";
 	  }
 	 
@@ -333,7 +333,7 @@ public class AdminController {
 		 String newTag = request.getParameter("tag");
 		 AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository
 					, topicRepository, topicService, lessonPlanRepository, lessonPlanService);
-		 adminValidator.validateAddTag(attributes, newTag, populateTags());
+		 adminValidator.validateAndAddTag(attributes, newTag, populateTags());
 		 return "redirect:/admin/upload";
 	  }
 
@@ -343,7 +343,7 @@ public class AdminController {
 		 String newGrammar = request.getParameter("grammar");
 		 AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository
 					, topicRepository, topicService, lessonPlanRepository, lessonPlanService);
-	     adminValidator.validateAddGrammar(attributes, newGrammar, populateGrammar());
+	     adminValidator.validateAndAddGrammar(attributes, newGrammar, populateGrammar());
 	     return "redirect:/admin/upload";
 	  }
 	 
@@ -353,7 +353,7 @@ public class AdminController {
 		 String newEditedTopic = request.getParameter("editedtopic");
 		 AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository
 					, topicRepository, topicService, lessonPlanRepository, lessonPlanService);
-		 adminValidator.validateEditTopic(attributes, topicId, newEditedTopic, populateTopics());
+		 adminValidator.validateAndEditTopic(attributes, topicId, newEditedTopic, populateTopics());
 		 return "redirect:/admin/upload";
 	  }
 
@@ -364,7 +364,7 @@ public class AdminController {
 		 String newEditedTag = request.getParameter("editedtag");
 		 AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository
 					, topicRepository, topicService, lessonPlanRepository, lessonPlanService);
-		 adminValidator.validateEditTag(attributes, tagId, newEditedTag, populateTags());
+		 adminValidator.validateAndEditTag(attributes, tagId, newEditedTag, populateTags());
 		 return "redirect:/admin/upload";
 	  }
 
@@ -375,7 +375,7 @@ public class AdminController {
 		 String newEditedGrammar = request.getParameter("editedgrammar");
 		 AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository
 					, topicRepository, topicService, lessonPlanRepository, lessonPlanService);
-		 adminValidator.validateEditGrammar(attributes, grammarId, newEditedGrammar, populateGrammar());
+		 adminValidator.validateAndEditGrammar(attributes, grammarId, newEditedGrammar, populateGrammar());
 		 return "redirect:/admin/upload";
 	  }
 	 
@@ -384,7 +384,7 @@ public class AdminController {
 		 Integer topicId = Integer.parseInt(request.getParameter("topicToDelete"));
 		 AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository
 					, topicRepository, topicService, lessonPlanRepository, lessonPlanService);
-		 adminValidator.validateDeleteTopic(attributes, topicId);
+		 adminValidator.validateAndDeleteTopic(attributes, topicId);
 		 return "redirect:/admin/upload";
 	  }
 	 
@@ -393,7 +393,7 @@ public class AdminController {
 		Integer tagId = Integer.parseInt(request.getParameter("tagToDelete"));
 		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository
 				, topicRepository, topicService, lessonPlanRepository, lessonPlanService);
-		 adminValidator.validateDeleteTag(attributes, tagId);
+		 adminValidator.validateAndDeleteTag(attributes, tagId);
 		 return "redirect:/admin/upload";
 	  }
 
@@ -403,7 +403,7 @@ public class AdminController {
 		 Integer grammarId = Integer.parseInt(request.getParameter("grammarToDelete"));	 
 		 AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository
 					, topicRepository, topicService, lessonPlanRepository, lessonPlanService);
-		adminValidator.validateDeleteGrammar(attributes, grammarId);
+		adminValidator.validateAndDeleteGrammar(attributes, grammarId);
 		return "redirect:/admin/upload";
 	  }
 

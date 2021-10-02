@@ -36,7 +36,7 @@ public class AdminValidator {
 		this.lessonPlanService = lessonPlanService;
 	}
 
-	public void validateAddTopic(RedirectAttributes attributes, String newTopic
+	public void validateAndAddTopic(RedirectAttributes attributes, String newTopic
 			 ,List<Topic> topics) {
 		 
 		//remove extra spaces
@@ -62,7 +62,7 @@ public class AdminValidator {
 	     return;
 	}
 	
-	public void validateAddTag(RedirectAttributes attributes,String newTag
+	public void validateAndAddTag(RedirectAttributes attributes,String newTag
 			, List<Tag> tags) {
 		//remove extra spaces
 		String trimmedNewTag = newTag.trim();
@@ -87,7 +87,7 @@ public class AdminValidator {
 	     return;
 	}
 	
-	public void validateAddGrammar(RedirectAttributes attributes, String newGrammar
+	public void validateAndAddGrammar(RedirectAttributes attributes, String newGrammar
 			, List<Grammar> grammar) {
 			//remove extra spaces
 			String trimmedNewGrammar = newGrammar.trim();
@@ -112,7 +112,7 @@ public class AdminValidator {
 		     return;
 	}
 	
-	public void validateEditTopic(RedirectAttributes attributes, Integer topicId, String newEditedTopic
+	public void validateAndEditTopic(RedirectAttributes attributes, Integer topicId, String newEditedTopic
 			, List<Topic> topics) {
 		 //remove extra spaces
 		 String trimmedNewEditedTopic = newEditedTopic.trim();
@@ -152,7 +152,7 @@ public class AdminValidator {
 	     return;
 	}
 	
-	public void validateEditTag(RedirectAttributes attributes, Integer tagId, String newEditedTag
+	public void validateAndEditTag(RedirectAttributes attributes, Integer tagId, String newEditedTag
 			, List<Tag> tags) {		
 		//remove extra spaces
 		String trimemdNewEditedTag = newEditedTag.trim();
@@ -192,7 +192,7 @@ public class AdminValidator {
 	     return;
 	}
 	
-	public void validateEditGrammar(RedirectAttributes attributes, Integer grammarId, String newEditedGrammar 
+	public void validateAndEditGrammar(RedirectAttributes attributes, Integer grammarId, String newEditedGrammar 
 			, List<Grammar> grammar) {
 		 
 		 //remove extra spaces
@@ -233,7 +233,7 @@ public class AdminValidator {
 	}
 
 	
-	public void validateDeleteTopic(RedirectAttributes attributes, Integer topicId) {		 
+	public void validateAndDeleteTopic(RedirectAttributes attributes, Integer topicId) {		 
 		//get current topic
 		Topic topicOriginal;
 		try {
@@ -256,7 +256,7 @@ public class AdminValidator {
 	     return;
 	}
 	
-	public void validateDeleteTag(RedirectAttributes attributes, Integer tagId) {		 
+	public void validateAndDeleteTag(RedirectAttributes attributes, Integer tagId) {		 
 		//get current tag
 		Tag tagOriginal;
 		try {
@@ -284,7 +284,7 @@ public class AdminValidator {
 	     return;
 	}
 	
-	public void validateDeleteGrammar(RedirectAttributes attributes, Integer grammarId) {
+	public void validateAndDeleteGrammar(RedirectAttributes attributes, Integer grammarId) {
 		//get current topic
 		Grammar grammarOriginal;
 		try {
