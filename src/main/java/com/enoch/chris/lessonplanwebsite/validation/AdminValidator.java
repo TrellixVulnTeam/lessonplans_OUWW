@@ -244,6 +244,11 @@ public class AdminValidator {
 		    return;
 		}
 		
+		//remove topic from every lesson plan
+		List<LessonPlan> lessonPlans = lessonPlanService.findAllEagerTopics();
+		lessonPlans.stream().forEach(lp-> lp.getTopics().remove(topicOriginal));
+		lessonPlanRepository.saveAll(lessonPlans);
+		
 		//delete from
 		topicRepository.delete(topicOriginal);
 		
@@ -262,23 +267,18 @@ public class AdminValidator {
 		    return;
 		}
 		
-		System.out.println("BEFORE FINDALLEAGERTAGS");
 		//remove tag from all lesson plans
 		List<LessonPlan> lessonPlans = lessonPlanService.findAllEagerTags();
 		lessonPlans.stream().forEach(lp-> lp.getTags().remove(tagOriginal));
 		lessonPlanRepository.saveAll(lessonPlans);
 		
-		System.out.println("BEFORE FINDALLEAGER_RELATED_TAGS");
 		//remove tag from all topics
 		List<Topic> topics = topicService.findAllEagerRelatedTags();
 		topics.stream().forEach(lp-> lp.getRelatedTags().remove(tagOriginal));
 		topicRepository.saveAll(topics);
 		
-		System.out.println("BEFORE DELETE");
 		//delete from
 		tagRepository.delete(tagOriginal);
-		
-		System.out.println("AFTER DELETE");
 		
 		attributes.addFlashAttribute("messagetagdeletesuccess", "Tag deleted successfully.");
 	     return;
@@ -294,6 +294,11 @@ public class AdminValidator {
 			attributes.addFlashAttribute("messagegrammardeletefailure", "Unable to delete grammar point because grammar point couldn't be found.");
 		    return;
 		}
+		
+		//remove grammar point to be deleted from all lesson plans
+		List<LessonPlan> lessonPlans = lessonPlanService.findAllEagerGrammar();
+		lessonPlans.stream().forEach(lp-> lp.getGrammar().remove(grammarOriginal));
+		lessonPlanRepository.saveAll(lessonPlans);
 		
 		//delete from
 		grammarRepository.delete(grammarOriginal);

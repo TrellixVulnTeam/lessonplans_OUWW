@@ -18,4 +18,6 @@ public interface LessonPlanService {
 
 	List<LessonPlan> findAllEagerTags() throws NoResultException;
 
+	List<LessonPlan> findAllEagerGrammar() throws NoResultException;
+
 }

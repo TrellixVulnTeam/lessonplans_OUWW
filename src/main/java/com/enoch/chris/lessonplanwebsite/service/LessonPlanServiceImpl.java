@@ -51,6 +51,18 @@ public class LessonPlanServiceImpl implements LessonPlanService {
 	}
 	
 	@Override
+	public List<LessonPlan> findAllEagerGrammar() throws NoResultException {			
+			String sqlQuery = "SELECT lp FROM LessonPlan AS lp JOIN FETCH lp.grammar"; 		
+			TypedQuery<LessonPlan> theQuery = 
+					entityManager.createQuery(sqlQuery, LessonPlan.class);
+			
+			List<LessonPlan> lessonPlans = theQuery.getResultList();
+	
+			return lessonPlans;			
+	}
+	
+	
+	@Override
 	public List<LessonPlan> findAllEagerTopics() throws NoResultException {			
 			String sqlQuery = "SELECT lp FROM LessonPlan AS lp JOIN FETCH lp.topics"; 		
 			TypedQuery<LessonPlan> theQuery = 
