@@ -262,18 +262,23 @@ public class AdminValidator {
 		    return;
 		}
 		
+		System.out.println("BEFORE FINDALLEAGERTAGS");
 		//remove tag from all lesson plans
 		List<LessonPlan> lessonPlans = lessonPlanService.findAllEagerTags();
 		lessonPlans.stream().forEach(lp-> lp.getTags().remove(tagOriginal));
 		lessonPlanRepository.saveAll(lessonPlans);
 		
+		System.out.println("BEFORE FINDALLEAGER_RELATED_TAGS");
 		//remove tag from all topics
 		List<Topic> topics = topicService.findAllEagerRelatedTags();
 		topics.stream().forEach(lp-> lp.getRelatedTags().remove(tagOriginal));
 		topicRepository.saveAll(topics);
 		
+		System.out.println("BEFORE DELETE");
 		//delete from
 		tagRepository.delete(tagOriginal);
+		
+		System.out.println("AFTER DELETE");
 		
 		attributes.addFlashAttribute("messagetagdeletesuccess", "Tag deleted successfully.");
 	     return;

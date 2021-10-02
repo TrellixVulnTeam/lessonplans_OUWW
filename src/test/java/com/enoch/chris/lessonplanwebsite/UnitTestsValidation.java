@@ -88,6 +88,7 @@ public class UnitTestsValidation {
 	private TagRepository tagRepository;
 	private LessonPlanService lessonPlanService;
 	private LessonPlanRepository lessonPlanRepository;
+	private AdminValidator adminValidator;
 	
 	@Autowired
 	public UnitTestsValidation(GrammarRepository grammarRepository, TopicRepository topicRepository, TopicService topicService
@@ -103,6 +104,12 @@ public class UnitTestsValidation {
 
 	@Spy
 	RedirectAttributes redirectAttributes;
+	
+	@BeforeAll
+	public void init(){ 
+		this.adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
+				, lessonPlanRepository, lessonPlanService);
+	}
 	
 	@AfterAll
 	public void deleteAddedValuesFromDatabase() throws Exception{ 
@@ -157,8 +164,6 @@ public class UnitTestsValidation {
 		String newTopic = "a";
 		
 		//ACT
-		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
-				, lessonPlanRepository, lessonPlanService);
 		adminValidator.validateAddTopic(redirectAttributes, newTopic, topics);
 		
 		//ASSERT
@@ -173,11 +178,8 @@ public class UnitTestsValidation {
 		List<Topic> topics = topicRepository.findAll();
 		String newTopic = " a  ";
 		
-		//ACT
-		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
-				, lessonPlanRepository, lessonPlanService);
-				
-				adminValidator.validateAddTopic(redirectAttributes, newTopic, topics);
+		//ACT	
+		adminValidator.validateAddTopic(redirectAttributes, newTopic, topics);
 		
 		//ASSERT
 		verify(redirectAttributes).addFlashAttribute("messagetopicfailure",
@@ -192,8 +194,6 @@ public class UnitTestsValidation {
 		String newTopic = "Travel";
 		
 		//ACT
-		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
-				, lessonPlanRepository, lessonPlanService);
 		adminValidator.validateAddTopic(redirectAttributes, newTopic, topics);
 		
 		//ASSERT
@@ -208,8 +208,6 @@ public class UnitTestsValidation {
 		String newTopic = "  TraVEl  ";
 		
 		//ACT
-		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
-				, lessonPlanRepository, lessonPlanService);
 		adminValidator.validateAddTopic(redirectAttributes, newTopic, topics);
 		
 		//ASSERT
@@ -224,8 +222,6 @@ public class UnitTestsValidation {
 		String newTopic = "Philosophy";
 		
 		//ACT
-		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
-				, lessonPlanRepository, lessonPlanService);
 		adminValidator.validateAddTopic(redirectAttributes, newTopic, topics);
 		
 		//ASSERT
@@ -241,8 +237,6 @@ public class UnitTestsValidation {
 		String newTag = "a";
 		
 		//ACT
-		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
-				, lessonPlanRepository, lessonPlanService);
 		adminValidator.validateAddTag(redirectAttributes, newTag, tags);
 		
 		//ASSERT
@@ -258,8 +252,6 @@ public class UnitTestsValidation {
 		String newTag = " a  ";
 		
 		//ACT
-		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
-				, lessonPlanRepository, lessonPlanService);
 		adminValidator.validateAddTag(redirectAttributes, newTag, tags);
 		
 		//ASSERT
@@ -275,8 +267,6 @@ public class UnitTestsValidation {
 		String newTag = "Beach";
 		
 		//ACT
-		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
-				, lessonPlanRepository, lessonPlanService);
 		adminValidator.validateAddTag(redirectAttributes, newTag, tags);
 		
 		//ASSERT
@@ -291,8 +281,6 @@ public class UnitTestsValidation {
 		String newTag = "  BeACh ";
 		
 		//ACT
-		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
-				, lessonPlanRepository, lessonPlanService);
 		adminValidator.validateAddTag(redirectAttributes, newTag, tags);
 		
 		//ASSERT
@@ -307,8 +295,6 @@ public class UnitTestsValidation {
 		String newTag = "DIY";
 		
 		//ACT
-		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
-				, lessonPlanRepository, lessonPlanService);
 		adminValidator.validateAddTag(redirectAttributes, newTag, tags);
 		
 		//ASSERT
@@ -322,8 +308,6 @@ public class UnitTestsValidation {
 		String newGrammar = "a";
 		
 		//ACT
-		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
-				, lessonPlanRepository, lessonPlanService);
 		adminValidator.validateAddGrammar(redirectAttributes, newGrammar, grammar);
 		
 		//ASSERT
@@ -339,8 +323,6 @@ public class UnitTestsValidation {
 		String newGrammar = "  a ";
 		
 		//ACT
-		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
-				, lessonPlanRepository, lessonPlanService);
 		adminValidator.validateAddGrammar(redirectAttributes, newGrammar, grammar);
 		
 		//ASSERT
@@ -356,8 +338,6 @@ public class UnitTestsValidation {
 		String newGrammar = "First conditional";
 		
 		//ACT
-		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
-				, lessonPlanRepository, lessonPlanService);
 		adminValidator.validateAddGrammar(redirectAttributes, newGrammar, grammar);
 		
 		//ASSERT
@@ -372,8 +352,6 @@ public class UnitTestsValidation {
 		String newGrammar = "  First CONditional ";
 		
 		//ACT
-		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
-				, lessonPlanRepository, lessonPlanService);
 		adminValidator.validateAddGrammar(redirectAttributes, newGrammar, grammar);
 		
 		//ASSERT
@@ -388,8 +366,6 @@ public class UnitTestsValidation {
 		String newGrammar = "Participle clauses";
 		
 		//ACT
-		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
-				, lessonPlanRepository, lessonPlanService);
 		adminValidator.validateAddGrammar(redirectAttributes, newGrammar, grammar);
 		
 		//ASSERT
@@ -403,8 +379,6 @@ public class UnitTestsValidation {
 		String newTopic = "a";
 		
 		//ACT
-		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
-				, lessonPlanRepository, lessonPlanService);
 		adminValidator.validateEditTopic(redirectAttributes, 37, newTopic, topics);
 		
 		//ASSERT
@@ -420,8 +394,6 @@ public class UnitTestsValidation {
 		String newTopic = "  a ";
 		
 		//ACT
-		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
-				, lessonPlanRepository, lessonPlanService);
 		adminValidator.validateEditTopic(redirectAttributes, 37, newTopic, topics);
 		
 		//ASSERT
@@ -437,8 +409,6 @@ public class UnitTestsValidation {
 		String newTopic = "Travel";
 		
 		//ACT
-		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
-				, lessonPlanRepository, lessonPlanService);
 		adminValidator.validateEditTopic(redirectAttributes, 37, newTopic, topics);
 		
 		//ASSERT
@@ -453,8 +423,6 @@ public class UnitTestsValidation {
 		String newTopic = "  TraVEl ";
 		
 		//ACT
-		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
-				, lessonPlanRepository, lessonPlanService);
 		adminValidator.validateEditTopic(redirectAttributes, 37, newTopic, topics);
 		
 		//ASSERT
@@ -469,8 +437,6 @@ public class UnitTestsValidation {
 		String newTopic = "Arty";
 		
 		//ACT
-		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
-				, lessonPlanRepository, lessonPlanService);
 		adminValidator.validateEditTopic(redirectAttributes, 37, newTopic, topics);
 		
 		//ASSERT
@@ -486,8 +452,6 @@ public class UnitTestsValidation {
 		String newTag = "a";
 		
 		//ACT
-		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
-				, lessonPlanRepository, lessonPlanService);
 		adminValidator.validateEditTag(redirectAttributes, 55, newTag, tags);
 		
 		//ASSERT
@@ -503,8 +467,6 @@ public class UnitTestsValidation {
 		String newTag = "  a ";
 		
 		//ACT
-		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
-				, lessonPlanRepository, lessonPlanService);
 		adminValidator.validateEditTag(redirectAttributes, 55, newTag, tags);
 		
 		//ASSERT
@@ -519,8 +481,6 @@ public class UnitTestsValidation {
 		String newTag = "Beach";
 		
 		//ACT
-		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
-				, lessonPlanRepository, lessonPlanService);
 		adminValidator.validateEditTag(redirectAttributes, 55, newTag, tags);
 		
 		//ASSERT
@@ -535,8 +495,6 @@ public class UnitTestsValidation {
 		String newTag = "  BEAch ";
 		
 		//ACT
-		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
-				, lessonPlanRepository, lessonPlanService);
 		adminValidator.validateEditTag(redirectAttributes, 55, newTag, tags);
 		
 		//ASSERT
@@ -551,8 +509,6 @@ public class UnitTestsValidation {
 		String newTag = "CampingEdited";
 		
 		//ACT
-		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
-				, lessonPlanRepository, lessonPlanService);
 		adminValidator.validateEditTag(redirectAttributes, 54, newTag, tags);
 		
 		//ASSERT
@@ -567,8 +523,6 @@ public class UnitTestsValidation {
 		String newGrammar = "a";
 		
 		//ACT
-		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
-				, lessonPlanRepository, lessonPlanService);
 		adminValidator.validateEditGrammar(redirectAttributes, 36, newGrammar, grammar);
 		
 		//ASSERT
@@ -584,8 +538,6 @@ public class UnitTestsValidation {
 		String newGrammar = "  a ";
 		
 		//ACT
-		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
-				, lessonPlanRepository, lessonPlanService);
 		adminValidator.validateEditGrammar(redirectAttributes, 36, newGrammar, grammar);
 		
 		//ASSERT
@@ -601,8 +553,6 @@ public class UnitTestsValidation {
 		String newGrammar = "First conditional";
 		
 		//ACT
-		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
-				, lessonPlanRepository, lessonPlanService);
 		adminValidator.validateEditGrammar(redirectAttributes, 36, newGrammar, grammar);
 		
 		//ASSERT
@@ -617,8 +567,6 @@ public class UnitTestsValidation {
 		String newGrammar = "  First CONditional ";
 		
 		//ACT
-		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
-				, lessonPlanRepository, lessonPlanService);
 		adminValidator.validateEditGrammar(redirectAttributes, 36, newGrammar, grammar);
 		
 		//ASSERT
@@ -633,8 +581,6 @@ public class UnitTestsValidation {
 		String newGrammar = "AdjectivesEdited";
 		
 		//ACT
-		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
-				, lessonPlanRepository, lessonPlanService);
 		adminValidator.validateEditGrammar(redirectAttributes, 36, newGrammar, grammar);
 		
 		//ASSERT
@@ -644,8 +590,6 @@ public class UnitTestsValidation {
 	@Test
 	public void shouldReturnNotFoundWhenTopicDeleted() throws Exception{	
 		//ACT
-		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
-				, lessonPlanRepository, lessonPlanService);
 		adminValidator.validateDeleteTopic(redirectAttributes, 1000);
 		
 		//ASSERT
@@ -658,8 +602,6 @@ public class UnitTestsValidation {
 		Topic music = topicRepository.findByName("Music").get();
 		
 		//ACT
-		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
-				, lessonPlanRepository, lessonPlanService);
 		adminValidator.validateDeleteTopic(redirectAttributes, music.getId());
 		
 		//ASSERT
@@ -669,8 +611,6 @@ public class UnitTestsValidation {
 	@Test
 	public void shouldReturnNotFoundWhenTagDeleted() throws Exception{	
 		//ACT
-		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
-				, lessonPlanRepository, lessonPlanService);
 		adminValidator.validateDeleteTag(redirectAttributes, 1000);
 		
 		//ASSERT
@@ -683,8 +623,6 @@ public class UnitTestsValidation {
 		Tag driverless = tagRepository.findByName("Driverless").get();
 		
 		//ACT
-		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
-				, lessonPlanRepository, lessonPlanService);
 		adminValidator.validateDeleteTag(redirectAttributes, driverless.getId());
 		
 		//ASSERT

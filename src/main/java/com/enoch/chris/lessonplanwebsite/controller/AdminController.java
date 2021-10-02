@@ -51,6 +51,7 @@ import com.enoch.chris.lessonplanwebsite.entity.Topic;
 import com.enoch.chris.lessonplanwebsite.entity.utils.LessonPlanFiles;
 import com.enoch.chris.lessonplanwebsite.entity.utils.LessonPlanUtils;
 import com.enoch.chris.lessonplanwebsite.service.LessonPlanService;
+import com.enoch.chris.lessonplanwebsite.service.TopicService;
 import com.enoch.chris.lessonplanwebsite.utils.FileUtils;
 import com.enoch.chris.lessonplanwebsite.validation.AdminValidator;
 
@@ -63,6 +64,7 @@ public class AdminController {
 	private PictureRepository pictureRepository;
 	private GrammarRepository grammarRepository;
 	private TopicRepository topicRepository;
+	private TopicService topicService;
 	private TagRepository tagRepository;
 	private SubscriptionRepository subscriptionRepository;
 	private DeletedLessonPlanRepository deletedLessonPlanRepository;
@@ -70,7 +72,7 @@ public class AdminController {
 	@Autowired
 	public AdminController(LessonPlanRepository lessonPlanRepository, LessonPlanService lessonPlanService
 			,PictureRepository pictureRepository, GrammarRepository grammarRepository, TopicRepository topicRepository
-			,TagRepository tagRepository, SubscriptionRepository subscriptionRepository
+			,TopicService topicService, TagRepository tagRepository, SubscriptionRepository subscriptionRepository
 			, DeletedLessonPlanRepository deletedLessonPlanRepository
 			) {
 		super();
@@ -79,6 +81,7 @@ public class AdminController {
 		this.pictureRepository = pictureRepository;
 		this.grammarRepository = grammarRepository;
 		this.topicRepository = topicRepository;
+		this.topicService = topicService;
 		this.tagRepository = tagRepository;
 		this.subscriptionRepository = subscriptionRepository;
 		this.deletedLessonPlanRepository = deletedLessonPlanRepository;
@@ -319,14 +322,18 @@ public class AdminController {
 	 @PostMapping("/admin/uploadtopic")
 	    public String addTopic(HttpServletRequest request, RedirectAttributes attributes) {
 		 String newTopic = request.getParameter("topic");
-		 AdminValidator.validateAddTopic(attributes, newTopic, topicRepository, populateTopics());
+		 AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository
+					, topicRepository, topicService, lessonPlanRepository, lessonPlanService);
+		 adminValidator.validateAddTopic(attributes, newTopic, populateTopics());
 		 return "redirect:/admin/upload";
 	  }
 	 
 	 @PostMapping("/admin/uploadtag")
 	    public String addTag(HttpServletRequest request, RedirectAttributes attributes) {
 		 String newTag = request.getParameter("tag");
-		 AdminValidator.validateAddTag(attributes, newTag, tagRepository, populateTags());
+		 AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository
+					, topicRepository, topicService, lessonPlanRepository, lessonPlanService);
+		 adminValidator.validateAddTag(attributes, newTag, populateTags());
 		 return "redirect:/admin/upload";
 	  }
 
@@ -334,7 +341,9 @@ public class AdminController {
 	 @PostMapping("/admin/uploadgrammar")
 	    public String addGrammar(HttpServletRequest request, RedirectAttributes attributes) {
 		 String newGrammar = request.getParameter("grammar");
-	     AdminValidator.validateAddGrammar(attributes, newGrammar, grammarRepository, populateGrammar());
+		 AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository
+					, topicRepository, topicService, lessonPlanRepository, lessonPlanService);
+	     adminValidator.validateAddGrammar(attributes, newGrammar, populateGrammar());
 	     return "redirect:/admin/upload";
 	  }
 	 
@@ -342,7 +351,9 @@ public class AdminController {
 	    public String editTopic(HttpServletRequest request, RedirectAttributes attributes) {
 		 Integer topicId = Integer.parseInt(request.getParameter("topicToEdit"));
 		 String newEditedTopic = request.getParameter("editedtopic");
-		 AdminValidator.validateEditTopic(attributes, topicId, newEditedTopic, topicRepository, populateTopics());
+		 AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository
+					, topicRepository, topicService, lessonPlanRepository, lessonPlanService);
+		 adminValidator.validateEditTopic(attributes, topicId, newEditedTopic, populateTopics());
 		 return "redirect:/admin/upload";
 	  }
 
@@ -351,7 +362,9 @@ public class AdminController {
 	    public String editTag(HttpServletRequest request, RedirectAttributes attributes) {
 		 Integer tagId = Integer.parseInt(request.getParameter("tagToEdit"));
 		 String newEditedTag = request.getParameter("editedtag");
-		 AdminValidator.validateEditTag(attributes, tagId, newEditedTag, tagRepository, populateTags());
+		 AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository
+					, topicRepository, topicService, lessonPlanRepository, lessonPlanService);
+		 adminValidator.validateEditTag(attributes, tagId, newEditedTag, populateTags());
 		 return "redirect:/admin/upload";
 	  }
 
@@ -360,21 +373,27 @@ public class AdminController {
 	    public String editGrammar(HttpServletRequest request, RedirectAttributes attributes) {	 
 		 Integer grammarId = Integer.parseInt(request.getParameter("grammarToEdit"));
 		 String newEditedGrammar = request.getParameter("editedgrammar");
-		 AdminValidator.validateEditGrammar(attributes, grammarId, newEditedGrammar, grammarRepository, populateGrammar());
+		 AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository
+					, topicRepository, topicService, lessonPlanRepository, lessonPlanService);
+		 adminValidator.validateEditGrammar(attributes, grammarId, newEditedGrammar, populateGrammar());
 		 return "redirect:/admin/upload";
 	  }
 	 
 	 @PostMapping("/admin/deletetopic")
 	    public String deleteTopic(HttpServletRequest request, RedirectAttributes attributes) {	
 		 Integer topicId = Integer.parseInt(request.getParameter("topicToDelete"));
-		 AdminValidator.validateDeleteTopic(attributes, topicId, topicRepository);
+		 AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository
+					, topicRepository, topicService, lessonPlanRepository, lessonPlanService);
+		 adminValidator.validateDeleteTopic(attributes, topicId);
 		 return "redirect:/admin/upload";
 	  }
 	 
 	 @PostMapping("/admin/deletetag")
 	    public String deleteTag(HttpServletRequest request, RedirectAttributes attributes) {	
 		Integer tagId = Integer.parseInt(request.getParameter("tagToDelete"));
-		 AdminValidator.validateDeleteTag(attributes, tagId, tagRepository);
+		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository
+				, topicRepository, topicService, lessonPlanRepository, lessonPlanService);
+		 adminValidator.validateDeleteTag(attributes, tagId);
 		 return "redirect:/admin/upload";
 	  }
 
@@ -382,7 +401,9 @@ public class AdminController {
 	 @PostMapping("/admin/deletegrammar")
 	    public String deleteGrammar(HttpServletRequest request, RedirectAttributes attributes) {	
 		 Integer grammarId = Integer.parseInt(request.getParameter("grammarToDelete"));	 
-		AdminValidator.validateDeleteGrammar(attributes, grammarId, grammarRepository);
+		 AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository
+					, topicRepository, topicService, lessonPlanRepository, lessonPlanService);
+		adminValidator.validateDeleteGrammar(attributes, grammarId);
 		return "redirect:/admin/upload";
 	  }
 
