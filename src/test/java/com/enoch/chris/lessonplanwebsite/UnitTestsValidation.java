@@ -9,12 +9,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.enoch.chris.lessonplanwebsite.dao.GrammarRepository;
+import com.enoch.chris.lessonplanwebsite.dao.LessonPlanRepository;
 import com.enoch.chris.lessonplanwebsite.dao.TagRepository;
 import com.enoch.chris.lessonplanwebsite.dao.TopicRepository;
 import com.enoch.chris.lessonplanwebsite.entity.Grammar;
 import com.enoch.chris.lessonplanwebsite.entity.Tag;
 import com.enoch.chris.lessonplanwebsite.entity.Topic;
 import com.enoch.chris.lessonplanwebsite.entity.utils.LessonPlanFiles;
+import com.enoch.chris.lessonplanwebsite.service.LessonPlanService;
+import com.enoch.chris.lessonplanwebsite.service.TopicService;
 import com.enoch.chris.lessonplanwebsite.validation.AdminValidator;
 
 
@@ -81,15 +84,21 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class UnitTestsValidation {
 	private GrammarRepository grammarRepository;
 	private TopicRepository topicRepository;
+	private TopicService topicService;
 	private TagRepository tagRepository;
+	private LessonPlanService lessonPlanService;
+	private LessonPlanRepository lessonPlanRepository;
 	
 	@Autowired
-	public UnitTestsValidation(GrammarRepository grammarRepository, TopicRepository topicRepository,
-			TagRepository tagRepository) {
+	public UnitTestsValidation(GrammarRepository grammarRepository, TopicRepository topicRepository, TopicService topicService
+			,TagRepository tagRepository, LessonPlanRepository lessonPlanRepository, LessonPlanService lessonPlanService) {
 		super();
 		this.grammarRepository = grammarRepository;
 		this.topicRepository = topicRepository;
 		this.tagRepository = tagRepository;
+		this.lessonPlanService = lessonPlanService;
+		this.lessonPlanRepository = lessonPlanRepository;
+		this.topicService = topicService;
 	}
 
 	@Spy
@@ -134,6 +143,8 @@ public class UnitTestsValidation {
 		}
 		
 		//readd values that were deleted in the tests
+		topicRepository.save(new Topic("Music", null));
+		tagRepository.save(new Tag("Driverless"));
 		
 		
 		
@@ -567,6 +578,49 @@ public class UnitTestsValidation {
 		
 		//ASSERT
 		verify(redirectAttributes).addFlashAttribute("messagegrammareditsuccess", "Grammar point edited successfully.");
+	}
+	
+	@Test
+	public void shouldReturnNotFoundWhenTopicDeleted() throws Exception{	
+		//ACT
+		AdminValidator.validateDeleteTopic(redirectAttributes, 1000, topicRepository);
+		
+		//ASSERT
+		verify(redirectAttributes).addFlashAttribute("messagetopicdeletefailure", "Unable to delete topic because topic couldn't be found.");
+	}
+	
+	@Test
+	public void shouldReturnSuccessWhenTopicDeleted() throws Exception{	
+		//ARRANGE
+		Topic music = topicRepository.findByName("Music").get();
+		
+		//ACT
+		AdminValidator.validateDeleteTopic(redirectAttributes, music.getId(), topicRepository);
+		
+		//ASSERT
+		verify(redirectAttributes).addFlashAttribute("messagetopicdeletesuccess", "Topic deleted successfully.");
+	}
+	
+	@Test
+	public void shouldReturnNotFoundWhenTagDeleted() throws Exception{	
+		//ACT
+		AdminValidator.validateDeleteTag(redirectAttributes, 1000, tagRepository, topicRepository
+				,lessonPlanRepository, topicService, lessonPlanService);
+		
+		//ASSERT
+		verify(redirectAttributes).addFlashAttribute("messagetagdeletefailure", "Unable to delete tag because tag couldn't be found.");
+	}
+	
+	@Test
+	public void shouldReturnSuccessWhenTagDeleted() throws Exception{	
+		//ARRANGE
+		Tag driverless = tagRepository.findByName("Driverless").get();
+		
+		//ACT
+		AdminValidator.validateDeleteTag(redirectAttributes, driverless .getId(), tagRepository, topicRepository, lessonPlanRepository, topicService, lessonPlanService);
+		
+		//ASSERT
+		verify(redirectAttributes).addFlashAttribute("messagetagdeletesuccess", "Tag deleted successfully.");
 	}
 	
 	

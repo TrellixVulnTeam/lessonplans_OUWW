@@ -8,6 +8,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.TypedQuery;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,11 +41,35 @@ import com.enoch.chris.lessonplanwebsite.utils.FileUtils;
 @Service
 public class LessonPlanServiceImpl implements LessonPlanService {
 
-	private LessonPlanRepository lessonPlanRepository;
+	private LessonPlanRepository lessonPlanRepository;	
+	private EntityManager entityManager;
 
 	@Autowired
-	public LessonPlanServiceImpl(LessonPlanRepository lessonPlanRepository) {
+	public LessonPlanServiceImpl(LessonPlanRepository lessonPlanRepository, EntityManager entityManager) {
 		this.lessonPlanRepository = lessonPlanRepository;
+		this.entityManager = entityManager;
+	}
+	
+	@Override
+	public List<LessonPlan> findAllEagerTopics() throws NoResultException {			
+			String sqlQuery = "SELECT lp FROM LessonPlan AS lp JOIN FETCH lp.topics"; 		
+			TypedQuery<LessonPlan> theQuery = 
+					entityManager.createQuery(sqlQuery, LessonPlan.class);
+			
+			List<LessonPlan> lessonPlans = theQuery.getResultList();
+	
+			return lessonPlans;			
+	}
+	
+	@Override
+	public List<LessonPlan> findAllEagerTags() throws NoResultException {			
+			String sqlQuery = "SELECT lp FROM LessonPlan AS lp JOIN FETCH lp.tags"; 		
+			TypedQuery<LessonPlan> theQuery = 
+					entityManager.createQuery(sqlQuery, LessonPlan.class);
+			
+			List<LessonPlan> lessonPlans = theQuery.getResultList();
+	
+			return lessonPlans;			
 	}
 	
 	@Override
