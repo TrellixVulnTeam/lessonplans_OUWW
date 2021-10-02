@@ -71,7 +71,7 @@ import com.enoch.chris.lessonplanwebsite.utils.FileUtils;
 
 @SpringBootTest
 @TestMethodOrder(OrderAnnotation.class)
-public class UnitTests {
+public class UnitTestsFiles {
 	
 	@Mock
 	DeletedLessonPlanRepository deletedLessonPlanRepository;

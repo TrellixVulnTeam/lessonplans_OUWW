@@ -17,14 +17,17 @@ public class AdminValidator {
 	public static void validateAddTopic(RedirectAttributes attributes, String newTopic
 			, TopicRepository topicRepository, List<Topic> topics) {
 		 
+		//remove extra spaces
+		String trimmedNewTopic = newTopic.trim();
+		
 		//check topic is longer than two characters
-		 if (newTopic.length() < 2) {
+		 if (trimmedNewTopic.length() < 2) {
 			 attributes.addFlashAttribute("messagetopicfailure", "Topic name must be at least 2 characters. Topic not added.");
 				return;
 		 }
 		 
 		//check topic doesn't already exist
-		 String newTopicLowerCase = newTopic.toLowerCase();
+		 String newTopicLowerCase = trimmedNewTopic.toLowerCase();
 		 List<String> topicsLowercase = topics.stream().map(Topic::getName)
 				 .map(String::toLowerCase).collect(Collectors.toList());
 		if(topicsLowercase.contains(newTopicLowerCase)) {
@@ -32,22 +35,24 @@ public class AdminValidator {
 			return;
 		} 	 
 		 //save in database
-		topicRepository.save(new Topic(newTopic, null));
+		topicRepository.save(new Topic(trimmedNewTopic, null));
 		attributes.addFlashAttribute("messagetopicsuccess", "Topic added successfully.");
 	     return;
 	}
 	
 	public static void validateAddTag(RedirectAttributes attributes,String newTag
 			,TagRepository tagRepository, List<Tag> tags) {
+		//remove extra spaces
+		String trimmedNewTag = newTag.trim();
 			 
 		//check tag is longer than two characters
-		 if (newTag.length() < 2) {
+		 if (trimmedNewTag.length() < 2) {
 			 attributes.addFlashAttribute("messagetagfailure", "Tag name must be at least 2 characters. Tag not added.");
 				return;
 		 }
 		 
 		 //check tag doesn't already exist
-		 String newTagLowerCase = newTag.toLowerCase();	 
+		 String newTagLowerCase = trimmedNewTag.toLowerCase();	 
 		 List<String> tagsLowercase = tags.stream().map(Tag::getName)
 				 .map(String::toLowerCase).collect(Collectors.toList());
 		if(tagsLowercase.contains(newTagLowerCase)) {
@@ -55,22 +60,24 @@ public class AdminValidator {
 			return;
 		} 	 
 		 //save in database
-		tagRepository.save(new Tag(newTag));
+		tagRepository.save(new Tag(trimmedNewTag));
 		attributes.addFlashAttribute("messagetagsuccess", "Tag added successfully.");
 	     return;
 	}
 	
 	public static void validateAddGrammar(RedirectAttributes attributes, String newGrammar
 			,GrammarRepository grammarRepository, List<Grammar> grammar) {
+			//remove extra spaces
+			String trimmedNewGrammar = newGrammar.trim();
 		
 			//check grammar is longer than two characters
-			 if (newGrammar.length() < 2) {
+			 if (trimmedNewGrammar.length() < 2) {
 				 attributes.addFlashAttribute("messagegrammarfailure", "Grammar point must be at least 2 characters. Grammar point not added.");
 					return;
 			 }
 			 
 			 //check tag doesn't already exist
-			 String newGrammarLowerCase = newGrammar.toLowerCase();
+			 String newGrammarLowerCase = trimmedNewGrammar.toLowerCase();
 			 List<String> grammarLowerCase = grammar.stream().map(Grammar::getGrammarPoint)
 					 .map(String::toLowerCase).collect(Collectors.toList());
 			if(grammarLowerCase.contains(newGrammarLowerCase)) {
@@ -78,7 +85,7 @@ public class AdminValidator {
 				return;
 			} 	 
 			 //save in database
-			grammarRepository.save(new Grammar(newGrammar));
+			grammarRepository.save(new Grammar(trimmedNewGrammar));
 			attributes.addFlashAttribute("messagegrammarsuccess", "Grammar point added successfully.");
 		     return;
 	}
@@ -86,6 +93,7 @@ public class AdminValidator {
 	public static void validateEditTopic(RedirectAttributes attributes, Integer topicId, String newEditedTopic
 			,TopicRepository topicRepository, List<Topic> topics) {
 		 
+		
 		 //check topic is longer than two characters
 		 if (newEditedTopic.length() < 2) {
 			 attributes.addFlashAttribute("messagetopiceditfailure", "Topic name must be at least 2 characters. Topic not edited.");
@@ -161,14 +169,16 @@ public class AdminValidator {
 	public static void validateEditGrammar(RedirectAttributes attributes, Integer grammarId, String newEditedGrammar 
 			, GrammarRepository grammarRepository, List<Grammar> grammar) {
 		 
+		 //remove extra spaces
+		 String trimmedNewEditedGrammar = newEditedGrammar.trim();
 		 //check grammar is longer than two characters
-		 if (newEditedGrammar.length() < 2) {
+		 if (trimmedNewEditedGrammar .length() < 2) {
 			 attributes.addFlashAttribute("messagegrammareditfailure", "Grammar point must be at least 2 characters. Grammar point not edited.");
 				return;
 		 }
 		 
 		 //check grammar doesn't already exist
-		 String newEditedGrammarLowerCase = newEditedGrammar.toLowerCase();
+		 String newEditedGrammarLowerCase = trimmedNewEditedGrammar.toLowerCase();
 		 List<String> grammarLowerCase = grammar.stream().map(Grammar::getGrammarPoint)
 				 .map(String::toLowerCase).collect(Collectors.toList());
 			if(grammarLowerCase.contains(newEditedGrammarLowerCase)) {
@@ -187,7 +197,7 @@ public class AdminValidator {
 		}
 		
 		//update grammar
-		grammarOriginal.setGrammarPoint(newEditedGrammar);
+		grammarOriginal.setGrammarPoint(trimmedNewEditedGrammar);
 		
 		//save in database
 		grammarRepository.save(grammarOriginal);
