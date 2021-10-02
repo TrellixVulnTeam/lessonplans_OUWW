@@ -96,7 +96,8 @@ public class UnitTestsValidation {
 	RedirectAttributes redirectAttributes;
 	
 	@BeforeAll
-	public void deleteAddedValuesFromDatabase() throws Exception{
+	public void deleteAddedValuesFromDatabase() throws Exception{ 
+		//delete values that were added during tests
 		Optional<Topic> topicToDelete = topicRepository.findByName("Philosophy");
 		if ( topicToDelete.isPresent()) {
 			topicRepository.delete(topicToDelete.get());
@@ -106,6 +107,25 @@ public class UnitTestsValidation {
 		if ( tagToDelete.isPresent()) {
 			tagRepository.delete(tagToDelete.get());
 		}
+		
+		Optional<Grammar> grammarToDelete = grammarRepository.findByGrammarPoint("Participle clauses");
+		if ( grammarToDelete.isPresent()) {
+			grammarRepository.delete(grammarToDelete.get());
+		}
+		
+		//reset values that were added edited during tests
+		Optional<Topic> topicToEdit = topicRepository.findByName("Arty");
+		if (topicToEdit.isPresent()) {
+			topicToEdit.get().setName("Art");
+			topicRepository.save(topicToEdit.get());
+		}
+		
+		Optional<Grammar> grammarToEdit = grammarRepository.findByGrammarPoint("AdjectivesEdited");
+		if (grammarToEdit.isPresent()) {
+			grammarToEdit.get().setGrammarPoint("Adjectives");
+			grammarRepository.save(grammarToEdit.get());
+		}
+		
 	}
 	
 	@Test
@@ -322,5 +342,151 @@ public class UnitTestsValidation {
 		//ASSERT
 		verify(redirectAttributes).addFlashAttribute("messagegrammarsuccess", "Grammar point added successfully.");
 	}
+	
+	@Test
+	public void shouldReturnTopicTooShortWhenEdited() throws Exception{
+		//ARRANGE
+		List<Topic> topics = topicRepository.findAll();
+		String newTopic = "a";
+		
+		//ACT
+		AdminValidator.validateEditTopic(redirectAttributes, 37, newTopic, topicRepository, topics);
+		
+		//ASSERT
+		verify(redirectAttributes).addFlashAttribute("messagetopiceditfailure",
+				"Topic name must be at least 2 characters. Topic not edited.");		
+	
+	}
+	
+	@Test
+	public void shouldReturnTopicTooShortWhenEditedWithExtraSpaces() throws Exception{
+		//ARRANGE
+		List<Topic> topics = topicRepository.findAll();
+		String newTopic = "  a ";
+		
+		//ACT
+		AdminValidator.validateEditTopic(redirectAttributes, 37, newTopic, topicRepository, topics);
+		
+		//ASSERT
+		verify(redirectAttributes).addFlashAttribute("messagetopiceditfailure",
+				"Topic name must be at least 2 characters. Topic not edited.");		
+	
+	}
+	
+	@Test
+	public void shouldReturnTopicAlreadyExistsWhenEdited() throws Exception{
+		//ARRANGE
+		List<Topic> topics = topicRepository.findAll();
+		String newTopic = "Travel";
+		
+		//ACT
+		AdminValidator.validateEditTopic(redirectAttributes, 37, newTopic, topicRepository, topics);
+		
+		//ASSERT
+		verify(redirectAttributes).addFlashAttribute("messagetopiceditfailure",
+				"This topic already exists. Topic not edited.");		
+	}
+	
+	@Test
+	public void shouldReturnTopicAlreadyExistsWithExtraSpacesAndDiffCaseWhenEdited() throws Exception{
+		//ARRANGE
+		List<Topic> topics = topicRepository.findAll();
+		String newTopic = "  TraVEl ";
+		
+		//ACT
+		AdminValidator.validateEditTopic(redirectAttributes, 37, newTopic, topicRepository, topics);
+		
+		//ASSERT
+		verify(redirectAttributes).addFlashAttribute("messagetopiceditfailure",
+				"This topic already exists. Topic not edited.");	
+	}
+	
+	@Test
+	public void shouldReturnSuccessWhenTopicEdited() throws Exception{
+		//ARRANGE
+		List<Topic> topics = topicRepository.findAll();
+		String newTopic = "Arty";
+		
+		//ACT
+		AdminValidator.validateEditTopic(redirectAttributes, 37, newTopic, topicRepository, topics);
+		
+		//ASSERT
+		verify(redirectAttributes).addFlashAttribute("messagetopiceditsuccess",
+				"Topic edited successfully.");	
+	}
+	
+	@Test
+	public void shouldReturnGrammarTooShortWhenEdited() throws Exception{
+		//ARRANGE
+		List<Grammar> grammar = grammarRepository.findAll();
+		String newGrammar = "a";
+		
+		//ACT
+		AdminValidator.validateEditGrammar(redirectAttributes, 36, newGrammar, grammarRepository, grammar);
+		
+		//ASSERT
+		verify(redirectAttributes).addFlashAttribute("messagegrammareditfailure",
+				"Grammar point must be at least 2 characters. Grammar point not edited.");		
+	
+	}
+	
+	@Test
+	public void shouldReturnGrammarTooShortWhenEditedWithExtraSpaces() throws Exception{
+		//ARRANGE
+		List<Grammar> grammar = grammarRepository.findAll();
+		String newGrammar = "  a ";
+		
+		//ACT
+		AdminValidator.validateEditGrammar(redirectAttributes, 36, newGrammar, grammarRepository, grammar);
+		
+		//ASSERT
+		verify(redirectAttributes).addFlashAttribute("messagegrammareditfailure",
+				"Grammar point must be at least 2 characters. Grammar point not edited.");			
+	
+	}
+	
+	@Test
+	public void shouldReturnGrammarAlreadyExistsWhenEdited() throws Exception{
+		//ARRANGE
+		List<Grammar> grammar = grammarRepository.findAll();
+		String newGrammar = "First conditional";
+		
+		//ACT
+		AdminValidator.validateEditGrammar(redirectAttributes, 36, newGrammar, grammarRepository, grammar);
+		
+		//ASSERT
+		verify(redirectAttributes).addFlashAttribute("messagegrammareditfailure",
+				 "This grammar point already exists. Grammar point not edited.");
+	}
+	
+	@Test
+	public void shouldReturnGrammarAlreadyExistsWithExtraSpacesAndDiffCaseWhenEdited() throws Exception{
+		//ARRANGE
+		List<Grammar> grammar = grammarRepository.findAll();
+		String newGrammar = "  First CONditional ";
+		
+		//ACT
+		AdminValidator.validateEditGrammar(redirectAttributes, 36, newGrammar, grammarRepository, grammar);
+		
+		//ASSERT
+		verify(redirectAttributes).addFlashAttribute("messagegrammareditfailure",
+				 "This grammar point already exists. Grammar point not edited.");
+	}
+	
+	@Test
+	public void shouldReturnSuccessWhenGrammarEdited() throws Exception{
+		//ARRANGE
+		List<Grammar> grammar = grammarRepository.findAll();
+		String newGrammar = "AdjectivesEdited";
+		
+		//ACT
+		AdminValidator.validateEditGrammar(redirectAttributes, 36, newGrammar, grammarRepository, grammar);
+		
+		//ASSERT
+		verify(redirectAttributes).addFlashAttribute("messagegrammareditsuccess", "Grammar point edited successfully.");
+	}
+	
+	
+	
 
 }

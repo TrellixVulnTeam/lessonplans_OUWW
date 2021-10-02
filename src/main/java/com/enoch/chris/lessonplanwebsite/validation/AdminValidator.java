@@ -92,16 +92,17 @@ public class AdminValidator {
 	
 	public static void validateEditTopic(RedirectAttributes attributes, Integer topicId, String newEditedTopic
 			,TopicRepository topicRepository, List<Topic> topics) {
-		 
+		 //remove extra spaces
+		 String trimmedNewEditedTopic = newEditedTopic.trim();
 		
 		 //check topic is longer than two characters
-		 if (newEditedTopic.length() < 2) {
+		 if (trimmedNewEditedTopic.length() < 2) {
 			 attributes.addFlashAttribute("messagetopiceditfailure", "Topic name must be at least 2 characters. Topic not edited.");
 				return;
 		 }
 		 
 		 //check topic doesn't already exist
-		 String newEditedTopicLowerCase = newEditedTopic.toLowerCase();
+		 String newEditedTopicLowerCase = trimmedNewEditedTopic.toLowerCase();
 		 List<String> topicsLowercase = topics.stream().map(Topic::getName)
 				 .map(String::toLowerCase).collect(Collectors.toList());
 			if(topicsLowercase.contains(newEditedTopicLowerCase)) {
@@ -120,7 +121,7 @@ public class AdminValidator {
 		}
 		
 		//update topic
-		topicOriginal.setName(newEditedTopic);
+		topicOriginal.setName(trimmedNewEditedTopic);
 		
 		//save in database
 		topicRepository.save(topicOriginal);
@@ -130,15 +131,18 @@ public class AdminValidator {
 	}
 	
 	public static void validateEditTag(RedirectAttributes attributes, Integer tagId, String newEditedTag, TagRepository tagRepository
-			, List<Tag> tags) {		 
+			, List<Tag> tags) {		
+		//remove extra spaces
+		String trimemdNewEditedTag = newEditedTag.trim();
+		
 		 //check tag is longer than two characters
-		 if (newEditedTag.length() < 2) {
+		 if (trimemdNewEditedTag.length() < 2) {
 			 attributes.addFlashAttribute("messagetageditfailure", "Tag name must be at least 2 characters. Tag not edited.");
 				return;
 		 }
 		 
 		 //check tag doesn't already exist
-		 String newEditedTagLowerCase = newEditedTag.toLowerCase();
+		 String newEditedTagLowerCase = trimemdNewEditedTag.toLowerCase();
 		 List<String> tagsLowercase = tags.stream().map(Tag::getName)
 				 .map(String::toLowerCase).collect(Collectors.toList());
 			if(tagsLowercase.contains(newEditedTagLowerCase)) {
@@ -157,7 +161,7 @@ public class AdminValidator {
 		}
 		
 		//update tag
-		tagOriginal.setName(newEditedTag);
+		tagOriginal.setName(trimemdNewEditedTag);
 		
 		//save in database
 		tagRepository.save(tagOriginal);
@@ -182,7 +186,7 @@ public class AdminValidator {
 		 List<String> grammarLowerCase = grammar.stream().map(Grammar::getGrammarPoint)
 				 .map(String::toLowerCase).collect(Collectors.toList());
 			if(grammarLowerCase.contains(newEditedGrammarLowerCase)) {
-				attributes.addFlashAttribute("messagegrammareditfailure", "This grammar point  already exists. Grammar point not edited.");
+				attributes.addFlashAttribute("messagegrammareditfailure", "This grammar point already exists. Grammar point not edited.");
 				return;
 			}
 			 
