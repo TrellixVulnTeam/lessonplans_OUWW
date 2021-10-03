@@ -1,4 +1,4 @@
-package com.enoch.chris.lessonplanwebsite.controller.processor;
+package com.enoch.chris.lessonplanwebsite.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,19 +23,19 @@ import com.enoch.chris.lessonplanwebsite.service.TopicService;
 import com.enoch.chris.lessonplanwebsite.utils.StringTools;
 
 /**
- * Responsible for the validation, editing, adding and deletion of LessonPlan fields.
+ * Helper class for {@link com.enoch.chris.lessonplanwebsite.controller.AdminController}. Responsible for the validation, editing, adding and deletion of LessonPlan fields.
  * @author chris
  *
  */
-public class AdminProcessor {
-	private TagRepository tagRepository;
-	private GrammarRepository grammarRepository;
-	private TopicRepository topicRepository;
-	private TopicService topicService;
-	private LessonPlanRepository lessonPlanRepository;
-	private LessonPlanService lessonPlanService;
+public class AdminControllerProcessor {
+	protected TagRepository tagRepository;
+	protected GrammarRepository grammarRepository;
+	protected TopicRepository topicRepository;
+	protected TopicService topicService;
+	protected LessonPlanRepository lessonPlanRepository;
+	protected LessonPlanService lessonPlanService;
 	
-	public AdminProcessor(TagRepository tagRepository, GrammarRepository grammarRepository, TopicRepository topicRepository
+	public AdminControllerProcessor(TagRepository tagRepository, GrammarRepository grammarRepository, TopicRepository topicRepository
 			, TopicService topicService,  LessonPlanRepository lessonPlanRepository, LessonPlanService lessonPlanService) {
 		super();
 		this.topicRepository = topicRepository;
@@ -53,7 +53,7 @@ public class AdminProcessor {
 	 * @param newTopic
 	 * @param topics
 	 */
-	public void validateAndAddTopic(RedirectAttributes attributes, String newTopic
+	protected final void validateAndAddTopic(RedirectAttributes attributes, String newTopic
 			 ,List<Topic> topics) {
 		String trimmedNewTopic = StringTools.trimMaxOneSpaceBetweenWords(newTopic);	
 		
@@ -84,7 +84,7 @@ public class AdminProcessor {
 	 * @param newTag
 	 * @param tags
 	 */
-	public void validateAndAddTag(RedirectAttributes attributes,String newTag
+	protected final void validateAndAddTag(RedirectAttributes attributes,String newTag
 			, List<Tag> tags) {
 		//remove extra spaces
 		String trimmedNewTag = StringTools.trimMaxOneSpaceBetweenWords(newTag);
@@ -116,7 +116,7 @@ public class AdminProcessor {
 	 * @param newGrammar
 	 * @param grammar
 	 */
-	public void validateAndAddGrammar(RedirectAttributes attributes, String newGrammar
+	protected final void validateAndAddGrammar(RedirectAttributes attributes, String newGrammar
 			, List<Grammar> grammar) {
 			//remove extra spaces
 			String trimmedNewGrammar = StringTools.trimMaxOneSpaceBetweenWords(newGrammar);	
@@ -149,7 +149,7 @@ public class AdminProcessor {
 	 * @param newEditedTopic
 	 * @param topics
 	 */
-	public void validateAndEditTopic(RedirectAttributes attributes, Integer topicId, String newEditedTopic
+	protected final void validateAndEditTopic(RedirectAttributes attributes, Integer topicId, String newEditedTopic
 			, List<Topic> topics) {
 		 //remove extra spaces
 		 String trimmedNewEditedTopic = StringTools.trimMaxOneSpaceBetweenWords(newEditedTopic);	
@@ -197,7 +197,7 @@ public class AdminProcessor {
 	 * @param newEditedTag
 	 * @param tags
 	 */
-	public void validateAndEditTag(RedirectAttributes attributes, Integer tagId, String newEditedTag
+	protected final void validateAndEditTag(RedirectAttributes attributes, Integer tagId, String newEditedTag
 			, List<Tag> tags) {		
 		//remove extra spaces
 		String trimemdNewEditedTag = StringTools.trimMaxOneSpaceBetweenWords(newEditedTag);	
@@ -245,7 +245,7 @@ public class AdminProcessor {
 	 * @param newEditedGrammar
 	 * @param grammar
 	 */
-	public void validateAndEditGrammar(RedirectAttributes attributes, Integer grammarId, String newEditedGrammar 
+	protected final void validateAndEditGrammar(RedirectAttributes attributes, Integer grammarId, String newEditedGrammar 
 			, List<Grammar> grammar) {
 		 
 		 //remove extra spaces
@@ -290,7 +290,7 @@ public class AdminProcessor {
 	 * @param attributes
 	 * @param topicId
 	 */
-	public void validateAndDeleteTopic(RedirectAttributes attributes, Integer topicId) {		 
+	protected final void validateAndDeleteTopic(RedirectAttributes attributes, Integer topicId) {		 
 		//get current topic
 		Topic topicOriginal;
 		try {
@@ -318,7 +318,7 @@ public class AdminProcessor {
 	 * @param attributes
 	 * @param tagId
 	 */
-	public void validateAndDeleteTag(RedirectAttributes attributes, Integer tagId) {		 
+	protected final void validateAndDeleteTag(RedirectAttributes attributes, Integer tagId) {		 
 		//get current tag
 		Tag tagOriginal;
 		try {
@@ -351,7 +351,7 @@ public class AdminProcessor {
 	 * @param attributes
 	 * @param grammarId
 	 */
-	public void validateAndDeleteGrammar(RedirectAttributes attributes, Integer grammarId) {
+	protected final void validateAndDeleteGrammar(RedirectAttributes attributes, Integer grammarId) {
 		//get current topic
 		Grammar grammarOriginal;
 		try {
