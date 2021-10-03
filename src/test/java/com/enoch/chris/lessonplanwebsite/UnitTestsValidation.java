@@ -150,10 +150,15 @@ public class UnitTestsValidation {
 		}
 		
 		//readd values that were deleted in the tests
-		topicRepository.save(new Topic("Music", null));
-		tagRepository.save(new Tag("Driverless"));
+		Optional<Topic> topicToSave = topicRepository.findByName("Music");
+		if (topicToSave.isEmpty()) {
+			topicRepository.save(new Topic("Music", null));
+		}
 		
-		
+		Optional<Tag> tagToSave = tagRepository.findByName("Driverless");
+		if (tagToSave.isEmpty()) {
+			tagRepository.save(new Tag("Driverless"));
+		}
 		
 	}
 	
@@ -206,6 +211,20 @@ public class UnitTestsValidation {
 		//ARRANGE
 		List<Topic> topics = topicRepository.findAll();
 		String newTopic = "  TraVEl  ";
+		
+		//ACT
+		adminValidator.validateAndAddTopic(redirectAttributes, newTopic, topics);
+		
+		//ASSERT
+		verify(redirectAttributes).addFlashAttribute("messagetopicfailure",
+				"This topic already exists. Topic not added.");
+	}
+	
+	@Test
+	public void shouldReturnTopicAlreadyExistsWithManyExtraSpacesAndDiffCase() throws Exception{
+		//ARRANGE
+		List<Topic> topics = topicRepository.findAll();
+		String newTopic = "  CurrENT     AFFairs  ";
 		
 		//ACT
 		adminValidator.validateAndAddTopic(redirectAttributes, newTopic, topics);
@@ -289,6 +308,20 @@ public class UnitTestsValidation {
 	}
 	
 	@Test
+	public void shouldReturnTagAlreadyExistsWithManyExtraSpacesAndDiffCase() throws Exception{
+		//ARRANGE
+		List<Tag> tags = tagRepository.findAll();
+		String newTag = "  soCIAL     MEDIa ";
+		
+		//ACT
+		adminValidator.validateAndAddTag(redirectAttributes, newTag, tags);
+		
+		//ASSERT
+		verify(redirectAttributes).addFlashAttribute("messagetagfailure",
+				"This tag already exists. Tag not added.");
+	}
+	
+	@Test
 	public void shouldReturnSuccessWhenTagAdded() throws Exception{
 		//ARRANGE
 		List<Tag> tags = tagRepository.findAll();
@@ -360,6 +393,20 @@ public class UnitTestsValidation {
 	}
 	
 	@Test
+	public void shouldReturnGrammarAlreadyExistsWithManyExtraSpacesAndDiffCase() throws Exception{
+		//ARRANGE
+		List<Grammar> grammar = grammarRepository.findAll();
+		String newGrammar = "  First       CONditional ";
+		
+		//ACT
+		adminValidator.validateAndAddGrammar(redirectAttributes, newGrammar, grammar);
+		
+		//ASSERT
+		verify(redirectAttributes).addFlashAttribute("messagegrammarfailure",
+				 "This grammar point already exists. Grammar point not added.");
+	}
+	
+	@Test
 	public void shouldReturnSuccessWhenGrammarAdded() throws Exception{
 		//ARRANGE
 		List<Grammar> grammar = grammarRepository.findAll();
@@ -421,6 +468,20 @@ public class UnitTestsValidation {
 		//ARRANGE
 		List<Topic> topics = topicRepository.findAll();
 		String newTopic = "  TraVEl ";
+		
+		//ACT
+		adminValidator.validateAndEditTopic(redirectAttributes, 37, newTopic, topics);
+		
+		//ASSERT
+		verify(redirectAttributes).addFlashAttribute("messagetopiceditfailure",
+				"This topic already exists. Topic not edited.");	
+	}
+	
+	@Test
+	public void shouldReturnTopicAlreadyExistsWithManyExtraSpacesAndDiffCaseWhenEdited() throws Exception{
+		//ARRANGE
+		List<Topic> topics = topicRepository.findAll();
+		String newTopic = "  currenT     AFFairs ";
 		
 		//ACT
 		adminValidator.validateAndEditTopic(redirectAttributes, 37, newTopic, topics);
@@ -503,6 +564,20 @@ public class UnitTestsValidation {
 	}
 	
 	@Test
+	public void shouldReturnTagAlreadyExistsWithManyExtraSpacesAndDiffCaseWhenEdited() throws Exception{
+		//ARRANGE
+		List<Tag> tags = tagRepository.findAll();
+		String newTag = "  sociAL         MEDia ";
+		
+		//ACT
+		adminValidator.validateAndEditTag(redirectAttributes, 55, newTag, tags);
+		
+		//ASSERT
+		verify(redirectAttributes).addFlashAttribute("messagetageditfailure",
+				"This tag already exists. Tag not edited.");
+	}
+	
+	@Test
 	public void shouldReturnSuccessWhenTagEdited() throws Exception{
 		//ARRANGE
 		List<Tag> tags = tagRepository.findAll();
@@ -565,6 +640,20 @@ public class UnitTestsValidation {
 		//ARRANGE
 		List<Grammar> grammar = grammarRepository.findAll();
 		String newGrammar = "  First CONditional ";
+		
+		//ACT
+		adminValidator.validateAndEditGrammar(redirectAttributes, 36, newGrammar, grammar);
+		
+		//ASSERT
+		verify(redirectAttributes).addFlashAttribute("messagegrammareditfailure",
+				 "This grammar point already exists. Grammar point not edited.");
+	}
+	
+	@Test
+	public void shouldReturnGrammarAlreadyExistsWithManyExtraSpacesAndDiffCaseWhenEdited() throws Exception{
+		//ARRANGE
+		List<Grammar> grammar = grammarRepository.findAll();
+		String newGrammar = "  First                      CONditional ";
 		
 		//ACT
 		adminValidator.validateAndEditGrammar(redirectAttributes, 36, newGrammar, grammar);
