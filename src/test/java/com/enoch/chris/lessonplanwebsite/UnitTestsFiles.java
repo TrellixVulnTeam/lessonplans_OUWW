@@ -67,6 +67,7 @@ import com.enoch.chris.lessonplanwebsite.entity.utils.LessonPlanFiles;
 import com.enoch.chris.lessonplanwebsite.entity.utils.LessonPlanUtils;
 import com.enoch.chris.lessonplanwebsite.entity.utils.SubscriptionUtils;
 import com.enoch.chris.lessonplanwebsite.utils.FileUtils;
+import com.enoch.chris.lessonplanwebsite.utils.StringTools;
 
 
 @SpringBootTest
@@ -270,7 +271,7 @@ public class UnitTestsFiles {
 	@Test
 	public void shouldReturnStringInLowerCaseWithNoSpaces(){
 		String originalContent = " This Should Be Converted To LowerCase ";
-		String newContent = FileUtils.stripSpacesConvertToLower(originalContent);
+		String newContent = StringTools.stripSpacesConvertToLower(originalContent);
 		String expected = "thisshouldbeconvertedtolowercase";
 		assertEquals(expected, newContent);
 		

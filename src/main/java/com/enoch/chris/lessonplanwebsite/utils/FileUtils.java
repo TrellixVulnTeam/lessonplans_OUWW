@@ -2,14 +2,7 @@ package com.enoch.chris.lessonplanwebsite.utils;
 
 public class FileUtils {
 	
-	/**
-	 * Strip all spaces from parameter {@code title} and covert to lower case.
-	 * @param title
-	 * @return 
-	 */
-	public static String stripSpacesConvertToLower(String contentToStrip) {
-		return contentToStrip.replaceAll("\\s", "").toLowerCase();		
-	}
+
 	
 	/**
 	 * 

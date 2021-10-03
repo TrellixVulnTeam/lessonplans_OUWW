@@ -20,7 +20,7 @@ import com.enoch.chris.lessonplanwebsite.entity.Tag;
 import com.enoch.chris.lessonplanwebsite.entity.Topic;
 import com.enoch.chris.lessonplanwebsite.service.LessonPlanService;
 import com.enoch.chris.lessonplanwebsite.service.TopicService;
-import com.enoch.chris.lessonplanwebsite.utils.StringUtils;
+import com.enoch.chris.lessonplanwebsite.utils.StringTools;
 
 
 public class AdminValidator {
@@ -44,7 +44,7 @@ public class AdminValidator {
 
 	public void validateAndAddTopic(RedirectAttributes attributes, String newTopic
 			 ,List<Topic> topics) {
-		String trimmedNewTopic = StringUtils.trimMaxOneSpaceBetweenWords(newTopic);	
+		String trimmedNewTopic = StringTools.trimMaxOneSpaceBetweenWords(newTopic);	
 		
 		//check topic is longer than two characters
 		 if (trimmedNewTopic.length() < 2) {
@@ -69,7 +69,7 @@ public class AdminValidator {
 	public void validateAndAddTag(RedirectAttributes attributes,String newTag
 			, List<Tag> tags) {
 		//remove extra spaces
-		String trimmedNewTag = StringUtils.trimMaxOneSpaceBetweenWords(newTag);
+		String trimmedNewTag = StringTools.trimMaxOneSpaceBetweenWords(newTag);
 			 
 		//check tag is longer than two characters
 		 if (trimmedNewTag.length() < 2) {
@@ -94,7 +94,7 @@ public class AdminValidator {
 	public void validateAndAddGrammar(RedirectAttributes attributes, String newGrammar
 			, List<Grammar> grammar) {
 			//remove extra spaces
-			String trimmedNewGrammar = StringUtils.trimMaxOneSpaceBetweenWords(newGrammar);	
+			String trimmedNewGrammar = StringTools.trimMaxOneSpaceBetweenWords(newGrammar);	
 		
 			//check grammar is longer than two characters
 			 if (trimmedNewGrammar.length() < 2) {
@@ -119,7 +119,7 @@ public class AdminValidator {
 	public void validateAndEditTopic(RedirectAttributes attributes, Integer topicId, String newEditedTopic
 			, List<Topic> topics) {
 		 //remove extra spaces
-		 String trimmedNewEditedTopic = StringUtils.trimMaxOneSpaceBetweenWords(newEditedTopic);	
+		 String trimmedNewEditedTopic = StringTools.trimMaxOneSpaceBetweenWords(newEditedTopic);	
 		
 		 //check topic is longer than two characters
 		 if (trimmedNewEditedTopic.length() < 2) {
@@ -159,7 +159,7 @@ public class AdminValidator {
 	public void validateAndEditTag(RedirectAttributes attributes, Integer tagId, String newEditedTag
 			, List<Tag> tags) {		
 		//remove extra spaces
-		String trimemdNewEditedTag = StringUtils.trimMaxOneSpaceBetweenWords(newEditedTag);	
+		String trimemdNewEditedTag = StringTools.trimMaxOneSpaceBetweenWords(newEditedTag);	
 		
 		 //check tag is longer than two characters
 		 if (trimemdNewEditedTag.length() < 2) {
@@ -200,7 +200,7 @@ public class AdminValidator {
 			, List<Grammar> grammar) {
 		 
 		 //remove extra spaces
-		 String trimmedNewEditedGrammar = StringUtils.trimMaxOneSpaceBetweenWords(newEditedGrammar);	
+		 String trimmedNewEditedGrammar = StringTools.trimMaxOneSpaceBetweenWords(newEditedGrammar);	
 		 //check grammar is longer than two characters
 		 if (trimmedNewEditedGrammar .length() < 2) {
 			 attributes.addFlashAttribute("messagegrammareditfailure", "Grammar point must be at least 2 characters. Grammar point not edited.");

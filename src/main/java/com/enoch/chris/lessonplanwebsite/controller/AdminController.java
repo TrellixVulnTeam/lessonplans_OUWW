@@ -53,6 +53,7 @@ import com.enoch.chris.lessonplanwebsite.entity.utils.LessonPlanUtils;
 import com.enoch.chris.lessonplanwebsite.service.LessonPlanService;
 import com.enoch.chris.lessonplanwebsite.service.TopicService;
 import com.enoch.chris.lessonplanwebsite.utils.FileUtils;
+import com.enoch.chris.lessonplanwebsite.utils.StringTools;
 import com.enoch.chris.lessonplanwebsite.validation.AdminValidator;
 
 @Controller
@@ -457,7 +458,7 @@ public class AdminController {
 	 				lessonPlan.getAssignedSubscription()) {  //means assignedSubscription has been changed
 	 			
 	 			//Strip title of spaces and convert to lowercase to produce filename
-	 			String titleNoSpace = FileUtils.stripSpacesConvertToLower(lessonPlan.getTitle());
+	 			String titleNoSpace = StringTools.stripSpacesConvertToLower(lessonPlan.getTitle());
 	 					
 	 			//build source path
 	 			String source = "src/main/resources/templates/lessonplans/"+ lessonPlanOriginal.getAssignedSubscription().getName() 

@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.enoch.chris.lessonplanwebsite.dao.DeletedLessonPlanRepository;
 import com.enoch.chris.lessonplanwebsite.entity.DeletedLessonPlan;
 import com.enoch.chris.lessonplanwebsite.utils.FileUtils;
+import com.enoch.chris.lessonplanwebsite.utils.StringTools;
 
 public class LessonPlanFiles {
 	
@@ -41,7 +42,7 @@ public class LessonPlanFiles {
 		
 		//build file destination path
 		//Strip title of spaces and convert to lowercase to produce filename
-		String titleNoSpace = FileUtils.stripSpacesConvertToLower(fileName);				
+		String titleNoSpace = StringTools.stripSpacesConvertToLower(fileName);				
 		
 		String subscriptionName = subscription; //change this
 		 
