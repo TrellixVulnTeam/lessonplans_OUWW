@@ -23,8 +23,8 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 @Controller
 public class ErrorConfiguration implements ErrorController  {
 	
-	  @Autowired
-	  private ErrorAttributes errorAttributes;
+//	@Autowired
+//	private ErrorAttributes errorAttributes;
 
     @RequestMapping("/error")
     public String handleError(HttpServletRequest request) {  	
@@ -32,11 +32,4 @@ public class ErrorConfiguration implements ErrorController  {
         return "error";
     }
     
-//    @RequestMapping("/showerror")
-//    public String handleError() {
-//    
-//    	System.out.println("debugging - inside show Error - ErrorConfiguration");
-//
-//        return "error";
-//    }
 }

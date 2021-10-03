@@ -37,6 +37,7 @@ import com.enoch.chris.lessonplanwebsite.entity.Topic;
 import com.enoch.chris.lessonplanwebsite.entity.User;
 import com.enoch.chris.lessonplanwebsite.registration.user.RegistrationUser;
 import com.enoch.chris.lessonplanwebsite.utils.FileUtils;
+import com.enoch.chris.lessonplanwebsite.utils.StringTools;
 
 @Service
 public class LessonPlanServiceImpl implements LessonPlanService {
@@ -96,7 +97,7 @@ public class LessonPlanServiceImpl implements LessonPlanService {
  		if (disallowDuplicateTitle) {
  			//check title doesn't already exist for this level if level has been specified
 	 		if (lessonPlan.getAssignedSubscription() != null) {
-	 			String titleNoSpace = FileUtils.stripSpacesConvertToLower(lessonPlan.getTitle());
+	 			String titleNoSpace = StringTools.stripSpacesConvertToLower(lessonPlan.getTitle());
 	 								
 	 			boolean titleExists = lessonPlanRepository.findAll().stream()
 	 					.filter(lp -> lp.getAssignedSubscription().equals(lessonPlan.getAssignedSubscription()))
@@ -142,7 +143,7 @@ public class LessonPlanServiceImpl implements LessonPlanService {
  		if (lessonPlan.getAssignedSubscription() != null) { 
  			//check lesson plan html file exists for the lesson plan details added
  			//Strip title of spaces and convert to lowercase to produce filename
- 			String titleNoSpace = FileUtils.stripSpacesConvertToLower(lessonPlan.getTitle());
+ 			String titleNoSpace = StringTools.stripSpacesConvertToLower(lessonPlan.getTitle());
  								
  			//build source path
  			String destination = "src/main/resources/templates/lessonplans/"+ lessonPlan.getAssignedSubscription().getName() 

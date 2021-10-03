@@ -113,6 +113,12 @@ public class AdminController {
 		return pictureRepository.findAll();
 	}
 
+	/**
+	 * Ensures that the lesson plan received in the post request is displayed on the page together with all its fields
+	 * @param theModel
+	 * @param lessonPlanId
+	 * @return the name of the page to be rendered
+	 */
 	@PostMapping("/admin")
 	public String displayLessonPlanInfo(Model theModel, @RequestParam(name = "lessonPlan", required = false)String lessonPlanId) {
 		LessonPlan lessonPlan = lessonPlanRepository.findById(Integer.parseInt(lessonPlanId)).get();
@@ -130,7 +136,7 @@ public class AdminController {
 	}
 	
 	/**
-	 * A page where a new lesson plan can be added.
+	 * A page where the details of a lesson plan can be edited. 
 	 * @param theModel
 	 * @return the name of the page to be rendered
 	 */
@@ -148,18 +154,20 @@ public class AdminController {
 			theModel.addAttribute("lessonPlan", firstLessonPlan);
 			theModel.addAttribute("lessonTitle", firstLessonPlan.getTitle());
 		} 
-			
-		//populate checkboxes for first lesson plan in the list
-//		LessonPlan firstLessonPlan = lessonPlans.get(0);
-//		theModel.addAttribute("lessonPlan", firstLessonPlan);
-//		theModel.addAttribute("lessonTitle", firstLessonPlan.getTitle());
-//	
 		return "admin";
 	}
 	
 	/**
-	 * Handles both the adding and editing of lesson plans. If the dateAdded field of the LessonPlan object is null, a new lesson plan is added
-	 * and dateAdded will be equivalent to the date when the lesson plan is added. If dateAdded is not present, the lesson plan is edited.
+	 * <p>Handles both the adding and editing of lesson plan details. If <i>addlessonplan</i> is set as a 
+	 * parameter of {@link javax.servlet.http.HttpServletRequest}, the lesson plan will be added. 
+	 * If not, the lesson plan will be edited.</p> <p>Once added/edited, the lesson plan will be live on the website. Consequently, the corresponding html file must
+	 * exist in the corresponding lesson plan level folder before undergoing this operation. The name of the html file should be all lowercase with no spaces. 
+	 * The lesson plan title must match the name of the html file after spaces have been erased and the title has been converted to lowercase. For instance,
+	 * LessonPlan title: "Famous People" should have a html file named "famouspeople.html"</p>
+	 * <p> If the html file does not exist, the operation will fail.</p>
+	 * <p>If the lesson plan is being edited and the level is changed then the lesson plan html file is moved from the original level folder to the
+      * updated level folder. Should a file with the same name exist in the new level folder, the existing file is moved to {@code src/main/resources/templates/deletedlessonplan} and the new file 
+      * replaces the existing one.</p>
 	 * @param lessonPlan
 	 * @param theModel
 	 * @return the name of the page to be rendered
@@ -181,7 +189,12 @@ public class AdminController {
 	}
 
 	
-	
+	/**
+	 * A page where the details of a lesson plan can be edited. Details include all information related to the lesson plan but not the 
+	 * lesson plan html file itself.
+	 * @param theModel
+	 * @return the name of the page to be rendered
+	 */
 	@GetMapping("/admin/add")
 	public String addLessonPlan(Model theModel) {
 		if (theModel.getAttribute("lessonPlan") == null) {
@@ -194,6 +207,12 @@ public class AdminController {
 		return "admin";
 	}
 	
+	/**
+	 * A page where the information associated with the lesson plan can be deleted. The html file itself will not be deleted but on
+	 * completion of this operation, the lesson plan will cease to be live on the website.
+	 * @param theModel
+	 * @return the name of the page to be rendered
+	 */
 	@GetMapping("/admin/delete")
 	public String deleteLessonPlanDisplay(Model theModel) {
 		List<LessonPlan> lessonPlans = lessonPlanRepository.findAll();
@@ -201,6 +220,13 @@ public class AdminController {
 		return "admin_deletelessonplan";
 	}
 	
+	/**
+	 * Deletes all the information associated with the lesson plan except for the html file itself.
+	 * @param theModel
+	 * @param request
+	 * @param attributes
+	 * @return
+	 */
 	@PostMapping("/admin/delete")
 	public String deleteLessonPlan(Model theModel, HttpServletRequest request, RedirectAttributes attributes) {
 		Integer lessonPlanId = Integer.parseInt(request.getParameter("lessonPlan"));
@@ -216,7 +242,11 @@ public class AdminController {
 	}
 	
 
-
+	/**
+	 * Displays a page where fields for the lesson plan can be added, deleted and edited. Deleted lesson plans can also be downloaded.
+	 * @param theModel
+	 * @return the name of the page to be rendered
+	 */
 	 @GetMapping("/admin/upload")
 	    public String uploadFileHome(Model theModel) {	 
 		 List<DeletedLessonPlan> deletedLessonPlans = deletedLessonPlanRepository.findAll();
@@ -227,6 +257,12 @@ public class AdminController {
 	        return "adddata";
 	  }
 	 
+	 /**
+	  * The maximum file size is 1MB. This is a restriction by Spring and thus may be changed in {@code application.properties}
+	  * @param file
+	  * @param attributes
+	  * @return the name of the page to be rendered
+	  */
 	 @PostMapping("/admin/uploadpicture")
 	    public String uploadFile(@RequestParam("file") MultipartFile file, RedirectAttributes attributes) {
 		 System.out.println("in post uploadFile");
@@ -269,7 +305,17 @@ public class AdminController {
 	        return "redirect:/admin/upload";
 	    }
 
-	 
+	 /**
+	  * <p>Handles the uploading of lesson plan html files. If a html file with the same already exists in the destination folder,
+	  * the current file will be moved to the {@code src/main/resources/templates/deletedlessonplans/} and the new uploaded html file
+	  * will take itself. Only files of type html are permitted and the operation will fail if other file types are uploaded.</p>
+	  * <p>The maximum file size is 1MB. This is a restriction by Spring and thus may be changed in {@code application.properties}</p>
+	  * @param file
+	  * @param attributes
+	  * @param request
+	  * @param subscription
+	  * @return the name of the page to be rendered
+	  */
 	 @PostMapping("/admin/uploadlessonplan/{subscription}")
 	    public String uploadLessonPlanFile(@RequestParam("file") MultipartFile file, RedirectAttributes attributes
 	    		,HttpServletRequest request, @PathVariable String subscription) {
@@ -319,7 +365,12 @@ public class AdminController {
 		 	return "redirect:/admin/upload";	       
 	  }
 
-	 
+	 /**
+	  * Validates the new topic and adds it if validation is successful.
+	  * @param request
+	  * @param attributes
+	  * @return the name of the page to be rendered
+	  */
 	 @PostMapping("/admin/uploadtopic")
 	    public String addTopic(HttpServletRequest request, RedirectAttributes attributes) {
 		 String newTopic = request.getParameter("topic");
@@ -329,6 +380,12 @@ public class AdminController {
 		 return "redirect:/admin/upload";
 	  }
 	 
+	 /**
+	  * Validates the new tag and adds it if validation is successful.
+	  * @param request
+	  * @param attributes
+	  * @return the name of the page to be rendered
+	  */
 	 @PostMapping("/admin/uploadtag")
 	    public String addTag(HttpServletRequest request, RedirectAttributes attributes) {
 		 String newTag = request.getParameter("tag");
@@ -338,7 +395,12 @@ public class AdminController {
 		 return "redirect:/admin/upload";
 	  }
 
-	 
+	 /**
+	  * Validates the new grammar point and adds it if validation is successful.
+	  * @param request
+	  * @param attributes
+	  * @return the name of the page to be rendered
+	  */
 	 @PostMapping("/admin/uploadgrammar")
 	    public String addGrammar(HttpServletRequest request, RedirectAttributes attributes) {
 		 String newGrammar = request.getParameter("grammar");
@@ -348,6 +410,12 @@ public class AdminController {
 	     return "redirect:/admin/upload";
 	  }
 	 
+	 /**
+	  * Validates the edited topic and updates it if validation is successful.
+	  * @param request
+	  * @param attributes
+	  * @return the name of the page to be rendered
+	  */
 	 @PostMapping("/admin/edittopic")
 	    public String editTopic(HttpServletRequest request, RedirectAttributes attributes) {
 		 Integer topicId = Integer.parseInt(request.getParameter("topicToEdit"));
@@ -358,7 +426,12 @@ public class AdminController {
 		 return "redirect:/admin/upload";
 	  }
 
-	 
+	 /**
+	  * Validates the edited tag and updates it if validation is successful.
+	  * @param request
+	  * @param attributes
+	  * @return the name of the page to be rendered
+	  */
 	 @PostMapping("/admin/edittag")
 	    public String editTag(HttpServletRequest request, RedirectAttributes attributes) {
 		 Integer tagId = Integer.parseInt(request.getParameter("tagToEdit"));
@@ -369,7 +442,12 @@ public class AdminController {
 		 return "redirect:/admin/upload";
 	  }
 
-	 
+	 /**
+	  * Validates the edited grammar point and updates it if validation is successful.
+	  * @param request
+	  * @param attributes
+	  * @return the name of the page to be rendered
+	  */
 	 @PostMapping("/admin/editgrammar")
 	    public String editGrammar(HttpServletRequest request, RedirectAttributes attributes) {	 
 		 Integer grammarId = Integer.parseInt(request.getParameter("grammarToEdit"));
@@ -380,6 +458,14 @@ public class AdminController {
 		 return "redirect:/admin/upload";
 	  }
 	 
+	 /**
+	  * Validates the deleted topic and deletes it if validation is successful. Furthermore, it removes all
+	  * associations the topic has with other classes. If a topic is deleted and readded all associations with
+	  * {@link com.enoch.chris.lessonplanwebsite.entity.LessonPlan} will have to be readded manually.
+	  * @param request
+	  * @param attributes
+	  * @return the name of the page to be rendered
+	  */
 	 @PostMapping("/admin/deletetopic")
 	    public String deleteTopic(HttpServletRequest request, RedirectAttributes attributes) {	
 		 Integer topicId = Integer.parseInt(request.getParameter("topicToDelete"));
@@ -389,6 +475,14 @@ public class AdminController {
 		 return "redirect:/admin/upload";
 	  }
 	 
+	 /**
+	  * Validates the deleted tag and deletes it if validation is successful. Furthermore, it removes all
+	  * associations it has with other classes. If a tag is deleted and readded, all associations with
+	  * {@link com.enoch.chris.lessonplanwebsite.entity.LessonPlan} and {@link com.enoch.chris.lessonplanwebsite.entity.Topic} will have to be readded manually.
+	  * @param request
+	  * @param attributes
+	  * @return the name of the page to be rendered
+	  */
 	 @PostMapping("/admin/deletetag")
 	    public String deleteTag(HttpServletRequest request, RedirectAttributes attributes) {	
 		Integer tagId = Integer.parseInt(request.getParameter("tagToDelete"));
@@ -398,7 +492,14 @@ public class AdminController {
 		 return "redirect:/admin/upload";
 	  }
 
-	 
+	 /**
+	  * Validates the deleted grammar point and deletes it if validation is successful. Furthermore, it removes all
+	  * associations it has with other classes. If a grammar point is deleted and readded, all associations with
+	  * {@link com.enoch.chris.lessonplanwebsite.entity.LessonPlan} will have to be readded manually.
+	  * @param request
+	  * @param attributes
+	  * @return the name of the page to be rendered
+	  */
 	 @PostMapping("/admin/deletegrammar")
 	    public String deleteGrammar(HttpServletRequest request, RedirectAttributes attributes) {	
 		 Integer grammarId = Integer.parseInt(request.getParameter("grammarToDelete"));	 
@@ -435,7 +536,15 @@ public class AdminController {
          
         // return "redirect:/admin/upload";
      }
-	 
+	 	
+     /**
+      * Validates the lesson plan and updates it if validation is successful. If the level is changed then the lesson plan html file is moved from the original level folder to the
+      * updated level folder. Should a file with the same name exist in the new level folder, the existing file is moved to {@code src/main/resources/templates/deletedlessonplan} and the new file 
+      * replaces the existing one.
+      * @param lessonPlan
+      * @param attributes
+      * @return the name of the page to be rendered
+      */
 	     private String editLessonPlan(final LessonPlan lessonPlan, RedirectAttributes attributes) {
 	    	//always display lesson plan that the user was just editing so fields remain checked if an error and for convenience if no errors
 	    	attributes.addFlashAttribute("lessonPlan", lessonPlan);
@@ -451,7 +560,7 @@ public class AdminController {
 	 				
 	 		//If get to here, no errors so far.	
 	 		
-	 		//check to see if level has been changed. If so, check if the lesson planhtml file already exists in level folder. If so, move current lesson plan file to deletedlessonplans and add the new one
+	 		//check to see if level has been changed. If so, check if the lesson plan html file already exists in level folder. If so, move current lesson plan file to deletedlessonplans and add the new one
 	 		LessonPlan lessonPlanOriginal = lessonPlanRepository.findById(lessonPlan.getId()).get();
 	 		Subscription originalAssignedSubscription = lessonPlanOriginal.getAssignedSubscription();
 	 		if (originalAssignedSubscription  != 
