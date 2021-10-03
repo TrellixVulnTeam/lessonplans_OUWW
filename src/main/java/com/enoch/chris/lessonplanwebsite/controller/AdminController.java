@@ -33,6 +33,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.enoch.chris.lessonplanwebsite.controller.processor.AdminProcessor;
 import com.enoch.chris.lessonplanwebsite.dao.DeletedLessonPlanRepository;
 import com.enoch.chris.lessonplanwebsite.dao.GrammarRepository;
 import com.enoch.chris.lessonplanwebsite.dao.LessonPlanRepository;
@@ -54,7 +55,6 @@ import com.enoch.chris.lessonplanwebsite.service.LessonPlanService;
 import com.enoch.chris.lessonplanwebsite.service.TopicService;
 import com.enoch.chris.lessonplanwebsite.utils.FileUtils;
 import com.enoch.chris.lessonplanwebsite.utils.StringTools;
-import com.enoch.chris.lessonplanwebsite.validation.AdminValidator;
 
 @Controller
 public class AdminController {
@@ -374,7 +374,7 @@ public class AdminController {
 	 @PostMapping("/admin/uploadtopic")
 	    public String addTopic(HttpServletRequest request, RedirectAttributes attributes) {
 		 String newTopic = request.getParameter("topic");
-		 AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository
+		 AdminProcessor adminValidator = new AdminProcessor(tagRepository, grammarRepository
 					, topicRepository, topicService, lessonPlanRepository, lessonPlanService);
 		 adminValidator.validateAndAddTopic(attributes, newTopic, populateTopics());
 		 return "redirect:/admin/upload";
@@ -389,7 +389,7 @@ public class AdminController {
 	 @PostMapping("/admin/uploadtag")
 	    public String addTag(HttpServletRequest request, RedirectAttributes attributes) {
 		 String newTag = request.getParameter("tag");
-		 AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository
+		 AdminProcessor adminValidator = new AdminProcessor(tagRepository, grammarRepository
 					, topicRepository, topicService, lessonPlanRepository, lessonPlanService);
 		 adminValidator.validateAndAddTag(attributes, newTag, populateTags());
 		 return "redirect:/admin/upload";
@@ -404,7 +404,7 @@ public class AdminController {
 	 @PostMapping("/admin/uploadgrammar")
 	    public String addGrammar(HttpServletRequest request, RedirectAttributes attributes) {
 		 String newGrammar = request.getParameter("grammar");
-		 AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository
+		 AdminProcessor adminValidator = new AdminProcessor(tagRepository, grammarRepository
 					, topicRepository, topicService, lessonPlanRepository, lessonPlanService);
 	     adminValidator.validateAndAddGrammar(attributes, newGrammar, populateGrammar());
 	     return "redirect:/admin/upload";
@@ -420,7 +420,7 @@ public class AdminController {
 	    public String editTopic(HttpServletRequest request, RedirectAttributes attributes) {
 		 Integer topicId = Integer.parseInt(request.getParameter("topicToEdit"));
 		 String newEditedTopic = request.getParameter("editedtopic");
-		 AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository
+		 AdminProcessor adminValidator = new AdminProcessor(tagRepository, grammarRepository
 					, topicRepository, topicService, lessonPlanRepository, lessonPlanService);
 		 adminValidator.validateAndEditTopic(attributes, topicId, newEditedTopic, populateTopics());
 		 return "redirect:/admin/upload";
@@ -436,7 +436,7 @@ public class AdminController {
 	    public String editTag(HttpServletRequest request, RedirectAttributes attributes) {
 		 Integer tagId = Integer.parseInt(request.getParameter("tagToEdit"));
 		 String newEditedTag = request.getParameter("editedtag");
-		 AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository
+		 AdminProcessor adminValidator = new AdminProcessor(tagRepository, grammarRepository
 					, topicRepository, topicService, lessonPlanRepository, lessonPlanService);
 		 adminValidator.validateAndEditTag(attributes, tagId, newEditedTag, populateTags());
 		 return "redirect:/admin/upload";
@@ -452,7 +452,7 @@ public class AdminController {
 	    public String editGrammar(HttpServletRequest request, RedirectAttributes attributes) {	 
 		 Integer grammarId = Integer.parseInt(request.getParameter("grammarToEdit"));
 		 String newEditedGrammar = request.getParameter("editedgrammar");
-		 AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository
+		 AdminProcessor adminValidator = new AdminProcessor(tagRepository, grammarRepository
 					, topicRepository, topicService, lessonPlanRepository, lessonPlanService);
 		 adminValidator.validateAndEditGrammar(attributes, grammarId, newEditedGrammar, populateGrammar());
 		 return "redirect:/admin/upload";
@@ -469,7 +469,7 @@ public class AdminController {
 	 @PostMapping("/admin/deletetopic")
 	    public String deleteTopic(HttpServletRequest request, RedirectAttributes attributes) {	
 		 Integer topicId = Integer.parseInt(request.getParameter("topicToDelete"));
-		 AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository
+		 AdminProcessor adminValidator = new AdminProcessor(tagRepository, grammarRepository
 					, topicRepository, topicService, lessonPlanRepository, lessonPlanService);
 		 adminValidator.validateAndDeleteTopic(attributes, topicId);
 		 return "redirect:/admin/upload";
@@ -486,7 +486,7 @@ public class AdminController {
 	 @PostMapping("/admin/deletetag")
 	    public String deleteTag(HttpServletRequest request, RedirectAttributes attributes) {	
 		Integer tagId = Integer.parseInt(request.getParameter("tagToDelete"));
-		AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository
+		AdminProcessor adminValidator = new AdminProcessor(tagRepository, grammarRepository
 				, topicRepository, topicService, lessonPlanRepository, lessonPlanService);
 		 adminValidator.validateAndDeleteTag(attributes, tagId);
 		 return "redirect:/admin/upload";
@@ -503,7 +503,7 @@ public class AdminController {
 	 @PostMapping("/admin/deletegrammar")
 	    public String deleteGrammar(HttpServletRequest request, RedirectAttributes attributes) {	
 		 Integer grammarId = Integer.parseInt(request.getParameter("grammarToDelete"));	 
-		 AdminValidator adminValidator = new AdminValidator(tagRepository, grammarRepository
+		 AdminProcessor adminValidator = new AdminProcessor(tagRepository, grammarRepository
 					, topicRepository, topicService, lessonPlanRepository, lessonPlanService);
 		adminValidator.validateAndDeleteGrammar(attributes, grammarId);
 		return "redirect:/admin/upload";

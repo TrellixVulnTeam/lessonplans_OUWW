@@ -91,7 +91,7 @@ public class Subscription {
 	
 	/**
 	 * Formats the price to two decimal places.
-	 * @return
+	 * @return formatted price as a String
 	 */
 	public String getPriceFormatted() {
 		NumberFormat nF = NumberFormat.getInstance();

@@ -17,9 +17,28 @@ import com.enoch.chris.lessonplanwebsite.dao.DeletedLessonPlanRepository;
 import com.enoch.chris.lessonplanwebsite.entity.DeletedLessonPlan;
 import com.enoch.chris.lessonplanwebsite.utils.FileUtils;
 import com.enoch.chris.lessonplanwebsite.utils.StringTools;
-
+/**
+ * Utility class responsible for file operations on the html lesson plan files used together with {@link com.enoch.chris.lessonplanwebsite.entity.LessonPlan}
+ * @author chris
+ *
+ */
 public class LessonPlanFiles {
 	
+	/**
+	 * <p>Uploads a file to the destination folder specified with the argument {@code String newDestinationFolder}.
+	 * If a file with the same name exists in the destination folder, the existing file is moved to the folder
+	 * specified with argument {@code String deletedLessonPlansFolder} and saved in the database as a deleted lesson plan.</p>
+	 * <p>Only html files are permitted with a maximum file size of 1MB as per the default restriction by Spring. This may be changed in {@code application.properties}</p>
+	 * 
+	 * Only 
+	 * @param file
+	 * @param attributes
+	 * @param subscription
+	 * @param newDestinationFolder
+	 * @param deletedLessonPlanRepository
+	 * @param deletedLessonPlansFolder
+	 * @return
+	 */
 	public static String uploadLessonPlan(MultipartFile file, RedirectAttributes attributes, String subscription
  			,String newDestinationFolder, DeletedLessonPlanRepository deletedLessonPlanRepository
  			, String deletedLessonPlansFolder) {
@@ -96,6 +115,18 @@ public class LessonPlanFiles {
 		return "redirect:/admin/upload";
 	}
 	
+	/**
+	 * Moves the html lesson plan file from {@code String destination} to {@code String newDestinationFolder} and changes the 
+	 * name of the file. The new name of the file includes the name of the subscription folder it was in before moved,
+	 * the title and the current date and time.
+
+	 * @param source
+	 * @param destination
+	 * @param subscriptionNameOfSource
+	 * @param newDestinationFolder
+	 * @param deletedLessonPlanRepository
+	 * @throws Exception
+	 */
 	public static void moveLessonPlanFile(String source, String destination, String subscriptionNameOfSource
 			, String newDestinationFolder, DeletedLessonPlanRepository deletedLessonPlanRepository) throws Exception {
 		System.out.println("Inside move leson planb file");
@@ -107,7 +138,6 @@ public class LessonPlanFiles {
 			if (fileDestination.exists()) {
 				
 				String fileEnding = destination.substring(destination.lastIndexOf("."));
-				System.out.println("debugging filending " + fileEnding);
 
 				//get file name
 				int lastIndex = destination.lastIndexOf('/');
@@ -116,9 +146,6 @@ public class LessonPlanFiles {
 						LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd--hh-mm-s")) + fileEnding;
 				//cut off filename
 				//fileNameWithoutEnding = fileNameWithoutEnding.substring(0, fileNameWithoutEnding.lastIndexOf("."));
-				
-				System.out.println("debugging calculated file name " + fileNameWithoutEnding);
-				System.out.println("debugging calculated file ending " + fileNameWithoutEnding);
 							
 				//save current file to new destination folder			
 				String newDestination = newDestinationFolder + newFilename;			

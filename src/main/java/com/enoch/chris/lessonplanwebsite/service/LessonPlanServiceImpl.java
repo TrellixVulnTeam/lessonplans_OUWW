@@ -85,6 +85,23 @@ public class LessonPlanServiceImpl implements LessonPlanService {
 			return lessonPlans;			
 	}
 	
+	/**
+	 * Ensures that an edited or added LessonPlan adheres to the following rules:
+	 * <ul>
+	 * <li>The title is at least two characters long.</li>
+	 * <li>If the argument {@code disallowDuplicateTitle} is set to {@code true}, the title must not already exist and vice-versa. </li>
+	 * <li>The title is at least two characters long.</li>
+	 * <li>At least one topic, along with the Subscription, the LessonTime, and the Type are set.</li>
+	 * <li>If {@link com.enoch.chris.lessonplanwebsite.entity.SpeakingAmount#SPEAKING_ONLY} is set, LessonPlan#getVocabulary , LessonPlan#getListening
+	 * LessonPlan#getReading, LessonPlan#getWriting, LessonPlan#getVideo, LessonPlan#getSong must all be {@code false}, and no grammar point may be added. </li>
+	 * <li>A html file with a file name which corresponds to the level and title exists in the file system.</li>
+	 * </ul>
+	 * 
+	 * <p>The name of the html file should be all lowercase with no spaces and be in the correct lesson plan level folder.
+	 * The lesson plan title must match the name of the html file after spaces have been erased and the title has been converted to lowercase. For instance,
+	 * LessonPlan title: "Famous People" should have a html file named "famouspeople.html"</p>
+	 * 
+	 */
 	@Override
  	public List<String> validateLessonPlan(final LessonPlan lessonPlan, boolean disallowDuplicateTitle) {
  		List<String> errors = new ArrayList<>();

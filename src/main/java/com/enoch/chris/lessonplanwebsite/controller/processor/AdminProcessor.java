@@ -1,4 +1,4 @@
-package com.enoch.chris.lessonplanwebsite.validation;
+package com.enoch.chris.lessonplanwebsite.controller.processor;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,8 +22,12 @@ import com.enoch.chris.lessonplanwebsite.service.LessonPlanService;
 import com.enoch.chris.lessonplanwebsite.service.TopicService;
 import com.enoch.chris.lessonplanwebsite.utils.StringTools;
 
-
-public class AdminValidator {
+/**
+ * Responsible for the validation, editing, adding and deletion of LessonPlan fields.
+ * @author chris
+ *
+ */
+public class AdminProcessor {
 	private TagRepository tagRepository;
 	private GrammarRepository grammarRepository;
 	private TopicRepository topicRepository;
@@ -31,7 +35,7 @@ public class AdminValidator {
 	private LessonPlanRepository lessonPlanRepository;
 	private LessonPlanService lessonPlanService;
 	
-	public AdminValidator(TagRepository tagRepository, GrammarRepository grammarRepository, TopicRepository topicRepository
+	public AdminProcessor(TagRepository tagRepository, GrammarRepository grammarRepository, TopicRepository topicRepository
 			, TopicService topicService,  LessonPlanRepository lessonPlanRepository, LessonPlanService lessonPlanService) {
 		super();
 		this.topicRepository = topicRepository;
@@ -42,6 +46,13 @@ public class AdminValidator {
 		this.lessonPlanService = lessonPlanService;
 	}
 
+	/**
+	 * Ensures the topic name is at least two characters long and that it doesn't already exist. If validation is successful,
+	 * the new topic is saved in the database. If not, no error is thrown. Appropriate success/failure messages are added to the argument {@code attributes}
+	 * @param attributes
+	 * @param newTopic
+	 * @param topics
+	 */
 	public void validateAndAddTopic(RedirectAttributes attributes, String newTopic
 			 ,List<Topic> topics) {
 		String trimmedNewTopic = StringTools.trimMaxOneSpaceBetweenWords(newTopic);	
@@ -66,6 +77,13 @@ public class AdminValidator {
 	     return;
 	}
 	
+	/**
+	 * Ensures the tag name is at least two characters long and that it doesn't already exist. If validation is successful,
+	 * the new tag is saved in the database. If not, no error is thrown. Appropriate success/failure messages are added to the argument {@code attributes}
+	 * @param attributes
+	 * @param newTag
+	 * @param tags
+	 */
 	public void validateAndAddTag(RedirectAttributes attributes,String newTag
 			, List<Tag> tags) {
 		//remove extra spaces
@@ -91,6 +109,13 @@ public class AdminValidator {
 	     return;
 	}
 	
+	/**
+	 * Ensures the grammar point name is at least two characters long and that it doesn't already exist. If validation is successful,
+	 * the new grammar point  is saved in the database. If not, no error is thrown. Appropriate success/failure messages are added to the argument {@code attributes}
+	 * @param attributes
+	 * @param newGrammar
+	 * @param grammar
+	 */
 	public void validateAndAddGrammar(RedirectAttributes attributes, String newGrammar
 			, List<Grammar> grammar) {
 			//remove extra spaces
@@ -116,6 +141,14 @@ public class AdminValidator {
 		     return;
 	}
 	
+	/**
+	 * Ensures the topic name is at least two characters long and that it doesn't already exist. If validation is successful,
+	 * the edited topic is saved in the database. If not, no error is thrown. Appropriate success/failure messages are added to the argument {@code attributes}
+	 * @param attributes
+	 * @param topicId
+	 * @param newEditedTopic
+	 * @param topics
+	 */
 	public void validateAndEditTopic(RedirectAttributes attributes, Integer topicId, String newEditedTopic
 			, List<Topic> topics) {
 		 //remove extra spaces
@@ -156,6 +189,14 @@ public class AdminValidator {
 	     return;
 	}
 	
+	/**
+	 * Ensures the tag name is at least two characters long and that it doesn't already exist. If validation is successful,
+	 * the edited tag is saved in the database. If not, no error is thrown. Appropriate success/failure messages are added to the argument {@code attributes}
+	 * @param attributes
+	 * @param tagId
+	 * @param newEditedTag
+	 * @param tags
+	 */
 	public void validateAndEditTag(RedirectAttributes attributes, Integer tagId, String newEditedTag
 			, List<Tag> tags) {		
 		//remove extra spaces
@@ -196,6 +237,14 @@ public class AdminValidator {
 	     return;
 	}
 	
+	/**
+	 * Ensures the grammar point name is at least two characters long and that it doesn't already exist. If validation is successful,
+	 * the edited grammar point is saved in the database. If not, no error is thrown. Appropriate success/failure messages are added to the argument {@code attributes}
+	 * @param attributes
+	 * @param grammarId
+	 * @param newEditedGrammar
+	 * @param grammar
+	 */
 	public void validateAndEditGrammar(RedirectAttributes attributes, Integer grammarId, String newEditedGrammar 
 			, List<Grammar> grammar) {
 		 
@@ -236,7 +285,11 @@ public class AdminValidator {
 	     return;
 	}
 
-	
+	/**
+	 * Topic is deleted from database and all associations with other classes are removed.
+	 * @param attributes
+	 * @param topicId
+	 */
 	public void validateAndDeleteTopic(RedirectAttributes attributes, Integer topicId) {		 
 		//get current topic
 		Topic topicOriginal;
@@ -260,6 +313,11 @@ public class AdminValidator {
 	     return;
 	}
 	
+	/**
+	 * Tag is deleted from database and all associations with other classes are removed.
+	 * @param attributes
+	 * @param tagId
+	 */
 	public void validateAndDeleteTag(RedirectAttributes attributes, Integer tagId) {		 
 		//get current tag
 		Tag tagOriginal;
@@ -288,6 +346,11 @@ public class AdminValidator {
 	     return;
 	}
 	
+	/**
+	 * Tag is deleted from database and all associations with other classes are removed.
+	 * @param attributes
+	 * @param grammarId
+	 */
 	public void validateAndDeleteGrammar(RedirectAttributes attributes, Integer grammarId) {
 		//get current topic
 		Grammar grammarOriginal;

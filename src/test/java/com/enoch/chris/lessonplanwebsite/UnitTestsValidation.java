@@ -8,6 +8,7 @@ import org.mockito.Spy;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.enoch.chris.lessonplanwebsite.controller.processor.AdminProcessor;
 import com.enoch.chris.lessonplanwebsite.dao.GrammarRepository;
 import com.enoch.chris.lessonplanwebsite.dao.LessonPlanRepository;
 import com.enoch.chris.lessonplanwebsite.dao.TagRepository;
@@ -18,8 +19,6 @@ import com.enoch.chris.lessonplanwebsite.entity.Topic;
 import com.enoch.chris.lessonplanwebsite.entity.utils.LessonPlanFiles;
 import com.enoch.chris.lessonplanwebsite.service.LessonPlanService;
 import com.enoch.chris.lessonplanwebsite.service.TopicService;
-import com.enoch.chris.lessonplanwebsite.validation.AdminValidator;
-
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mockitoSession;
@@ -88,7 +87,7 @@ public class UnitTestsValidation {
 	private TagRepository tagRepository;
 	private LessonPlanService lessonPlanService;
 	private LessonPlanRepository lessonPlanRepository;
-	private AdminValidator adminValidator;
+	private AdminProcessor adminValidator;
 	
 	@Autowired
 	public UnitTestsValidation(GrammarRepository grammarRepository, TopicRepository topicRepository, TopicService topicService
@@ -107,7 +106,7 @@ public class UnitTestsValidation {
 	
 	@BeforeAll
 	public void init(){ 
-		this.adminValidator = new AdminValidator(tagRepository, grammarRepository, topicRepository, topicService
+		this.adminValidator = new AdminProcessor(tagRepository, grammarRepository, topicRepository, topicService
 				, lessonPlanRepository, lessonPlanService);
 	}
 	

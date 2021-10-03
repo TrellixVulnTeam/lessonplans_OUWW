@@ -10,6 +10,13 @@ import com.enoch.chris.lessonplanwebsite.entity.Purchase;
 import com.enoch.chris.lessonplanwebsite.entity.Subscription;
 import com.enoch.chris.lessonplanwebsite.entity.User;
 
+/**
+ * This class can be used as a DTO when working with template engines such as Thymeleaf. It facilitates the 
+ * calculating of dates based on a user's purchase history. 
+ * 
+ * @author chris
+ *
+ */
 public class SubscriptionUtils {
 	
 	private Subscription subscription;
@@ -25,7 +32,11 @@ public class SubscriptionUtils {
 		this.currentDateTime = currentDateTime;
 	}
 
-	
+	/**
+	 * Finds the date that the {@link com.enoch.chris.lessonplanwebsite.entity.Subscription} should start if a 
+	 * user purchases the {@link com.enoch.chris.lessonplanwebsite.entity.Subscription} 
+	 * @return
+	 */
 	public LocalDateTime getNextSubscriptionStartDate() {
 		//check to see if already purchased this subscription. In this case, subscription start date should start immediately after
 		//finish date. 

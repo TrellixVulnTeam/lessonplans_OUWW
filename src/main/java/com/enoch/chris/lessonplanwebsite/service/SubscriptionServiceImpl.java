@@ -21,7 +21,7 @@ import com.enoch.chris.lessonplanwebsite.entity.utils.SubscriptionUtils;
 public class SubscriptionServiceImpl implements SubscriptionService {
 	
 	/**
-	 * Returns all subscriptions except for those present in the method parameter LinkedHashSet<Subscription> activeSubscriptions.
+	 * Returns all subscriptions except for those present in the method parameter {@code LinkedHashSet<Subscription> activeSubscriptions}.
 	 * @return nonActive subscriptions sorted by name in ascending order.
 	 */
 	@Override
