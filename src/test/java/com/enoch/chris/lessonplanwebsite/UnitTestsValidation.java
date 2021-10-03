@@ -628,10 +628,6 @@ public class UnitTestsValidation {
 		//ASSERT
 		verify(redirectAttributes).addFlashAttribute("messagetagdeletesuccess", "Tag deleted successfully.");
 	}
-	
-	
-	
-	
-	
+
 
 }

@@ -1,7 +1,12 @@
 package com.enoch.chris.lessonplanwebsite.validation;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
+
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -38,9 +43,16 @@ public class AdminValidator {
 
 	public void validateAndAddTopic(RedirectAttributes attributes, String newTopic
 			 ,List<Topic> topics) {
-		 
-		//remove extra spaces
-		String trimmedNewTopic = newTopic.trim();
+		String trimmedNewTopic;
+		//ensure no more than one space between each word in newTopic if more than one word	
+//		if (newTopic.contains(" ")) { //only check if contains space
+//			trimmedNewTopic = newTopic.replaceAll("(\s){2,}", " ").trim();	
+//		} else {
+//			trimmedNewTopic = newTopic.trim();
+//			System.out.println("trimmedNewTopic simple " + trimmedNewTopic);
+//		}
+		
+		trimmedNewTopic = newTopic.replaceAll("(\s){2,}", " ").trim();	
 		
 		//check topic is longer than two characters
 		 if (trimmedNewTopic.length() < 2) {
