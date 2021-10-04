@@ -340,8 +340,8 @@
 
 				<form method="post" th:action="@{/admin/downloaddeletedlessonplan}" class="form__outline">
 					<h2 class="md-header">Download deleted lesson plan</h2>
-					<div class="form__stack form__stack--v-med">
-						<div class="form__inline-label form__inline-label--lg-1">
+					<div class="form__stack form__stack--v-med form__stack--hr-med">
+						<div class="form__inline-label form__inline-label--med">
 							<label for="lpToDownload">Lesson plan</label>
 							<select name="lessonPlanToDownload" id="lpToDownload">
 								<option th:each="dlp : ${deletedLessonPlans}" th:value="${dlp.filename}"
