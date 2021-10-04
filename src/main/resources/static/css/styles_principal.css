@@ -498,10 +498,12 @@ body {
   border: 0.1rem solid rgba(0, 0, 0, 0.125);
   background-color: white;
   min-width: 30rem;
-  max-width: 37rem;
   margin: 0rem 4rem 1rem 0rem;
   padding: 2rem 4rem;
   border-bottom: 0.2rem solid rgba(255, 140, 0, 0.5); }
+  @media only screen and (max-width: 37.5em) {
+    .form__outline {
+      max-width: 37rem; } }
 
 .card {
   width: 30rem;

@@ -156,11 +156,14 @@
 	&__outline {
 		border: .1rem solid rgba(0, 0, 0, .125);
 		background-color: rgb(255, 255, 255);
-		min-width: 30rem;
-		max-width: 37rem;
+		min-width: 30rem;	
 		margin: 0rem 4rem 1rem 0rem;
 		padding: 2rem 4rem;
 		border-bottom: .2rem solid rgba(255, 140, 0, 0.5);
+
+		@include respond(sm-1) {
+			max-width: 37rem;
+		}
 
 	}
 
