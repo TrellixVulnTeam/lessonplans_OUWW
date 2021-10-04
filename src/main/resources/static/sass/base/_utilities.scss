@@ -54,12 +54,24 @@
 	display:inline-block;
 }
 
+
 .gutter-bottom-sm{
 	margin-bottom: 2rem;
 }
 
 .gutter-bottom-med{
 	margin-bottom: 3rem;
+}
+
+.gutter-top-tiny{
+	margin-top: 1rem;
+
+	&--only-sm1-screen{
+		margin-top: 0rem;
+		@include respond(sm-1) {
+			margin-top: 1rem;
+		}
+	}
 }
 
 .gutter-top-sm{
