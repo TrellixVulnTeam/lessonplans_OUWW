@@ -154,11 +154,6 @@ body {
   justify-content: center;
   align-items: flex-start; }
 
-.center-flex {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start; }
-
 .center-flex--vertical {
   display: flex;
   flex-direction: column;
@@ -183,24 +178,24 @@ body {
   padding-right: 8rem;
   display: inline-block; }
 
-.gutter-bottom-sm {
+.gutter-bottom-2 {
   margin-bottom: 2rem; }
 
-.gutter-bottom-med {
+.gutter-bottom-3 {
   margin-bottom: 3rem; }
 
-.gutter-top-tiny {
+.gutter-top-1 {
   margin-top: 1rem; }
-  .gutter-top-tiny--only-sm1-screen {
+  .gutter-top-1--only-sm1-screen {
     margin-top: 0rem; }
     @media only screen and (max-width: 37.5em) {
-      .gutter-top-tiny--only-sm1-screen {
+      .gutter-top-1--only-sm1-screen {
         margin-top: 1rem; } }
 
-.gutter-top-sm {
+.gutter-top-2 {
   margin-top: 2rem; }
 
-.gutter-top-med {
+.gutter-top-3 {
   margin-top: 3rem; }
 
 .mt-0 {
@@ -373,7 +368,7 @@ body {
     font-size: 1.4rem; }
   .btn--med {
     font-size: 1.6rem; }
-  .btn--med-2 {
+  .btn--1-7 {
     font-size: 1.7rem; }
   .btn--big {
     font-size: 2.2rem; }
@@ -455,11 +450,11 @@ body {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1rem; }
-  .form__inline-label--sm-3 {
+  .form__inline-label--sm {
     width: 25rem; }
   .form__inline-label--med {
     width: 30rem; }
-  .form__inline-label--lg-1 {
+  .form__inline-label--lg {
     width: 42rem; }
 
 .form__stack {
@@ -470,10 +465,10 @@ body {
   justify-content: center;
   background-color: white;
   margin: 0rem 1rem 1rem 0rem; }
-  .form__stack--hr-med select, .form__stack--hr-med input {
+  .form__stack--w-med select, .form__stack--w-med input {
     min-width: 20rem;
     max-width: 20rem; }
-  .form__stack--v-med select, .form__stack--v-med input {
+  .form__stack--h-med select, .form__stack--h-med input {
     height: 3rem; }
 
 .form__group {

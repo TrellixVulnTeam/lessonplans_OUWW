@@ -16,12 +16,6 @@
 	align-items: flex-start;
 }
 
-.center-flex{
-	display: flex;
-	justify-content: center;
-	align-items: flex-start;
-}
-
 .center-flex--vertical{
 	display:flex;
 	flex-direction: column;
@@ -55,15 +49,15 @@
 }
 
 
-.gutter-bottom-sm{
+.gutter-bottom-2{
 	margin-bottom: 2rem;
 }
 
-.gutter-bottom-med{
+.gutter-bottom-3{
 	margin-bottom: 3rem;
 }
 
-.gutter-top-tiny{
+.gutter-top-1{
 	margin-top: 1rem;
 
 	&--only-sm1-screen{
@@ -74,11 +68,11 @@
 	}
 }
 
-.gutter-top-sm{
+.gutter-top-2{
 	margin-top: 2rem;;
 }
 
-.gutter-top-med{
+.gutter-top-3{
 	margin-top: 3rem;;
 }
 
