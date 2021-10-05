@@ -25,15 +25,6 @@ body {
     body {
       font-size: calc(1.6rem - .2rem); } }
 
-.h2 {
-  text-align: center;
-  background-color: rgba(255, 140, 0, 0.8);
-  color: white;
-  padding: 1rem 0rem;
-  border-bottom: 1px solid white; }
-  .h2--secondary {
-    background-color: rgba(0, 115, 255, 0.7); }
-
 .main-content {
   margin: 0% 15% 0% 15%;
   background-color: #f9f4f4;
@@ -44,6 +35,15 @@ body {
   @media only screen and (max-width: 66em) {
     .main-content {
       margin: 0% 5% 0% 5%; } }
+
+.h2 {
+  text-align: center;
+  background-color: rgba(255, 140, 0, 0.8);
+  color: white;
+  padding: 1rem 0rem;
+  border-bottom: 1px solid white; }
+  .h2--secondary {
+    background-color: rgba(0, 115, 255, 0.7); }
 
 .large-header {
   font-size: 8.8rem;
@@ -76,6 +76,10 @@ body {
       font-size: 4.3rem;
       line-height: 5.7rem; } }
 
+.basic-header {
+  text-decoration: underline;
+  margin-bottom: 3rem; }
+
 .font {
   font-weight: 400; }
   .font--med {
@@ -84,18 +88,6 @@ body {
   .font--big {
     font-size: 4rem;
     line-height: 5.3rem; }
-
-.alert {
-  color: #dc3545; }
-
-.success {
-  color: #28a745; }
-
-.message--medium {
-  font-size: 4.4rem; }
-
-.message--large {
-  font-size: 6.6rem; }
 
 .list-plain {
   list-style-type: none; }
@@ -106,6 +98,27 @@ body {
   min-width: 31.6rem;
   margin: .3rem 0rem;
   padding: .7rem; }
+
+.alert {
+  color: #dc3545; }
+
+.success {
+  color: #28a745; }
+
+.basic-msg {
+  margin-bottom: 1rem; }
+  .basic-msg--alert {
+    color: #dc3545; }
+  .basic-msg--success {
+    color: #28a745; }
+
+.basic-container {
+  display: flex;
+  flex-wrap: wrap; }
+  @media only screen and (max-width: 48.75em) {
+    .basic-container {
+      flex-direction: column;
+      align-items: flex-start; } }
 
 .lp-container {
   display: flex;
@@ -622,22 +635,3 @@ body {
     .lp-btn-container {
       text-align: center;
       margin-left: 0rem; } }
-
-.md-header {
-  text-decoration: underline;
-  margin-bottom: 3rem; }
-
-.md-msg {
-  margin-bottom: 1rem; }
-  .md-msg--alert {
-    color: #dc3545; }
-  .md-msg--success {
-    color: #28a745; }
-
-.md-container {
-  display: flex;
-  flex-wrap: wrap; }
-  @media only screen and (max-width: 48.75em) {
-    .md-container {
-      flex-direction: column;
-      align-items: flex-start; } }
