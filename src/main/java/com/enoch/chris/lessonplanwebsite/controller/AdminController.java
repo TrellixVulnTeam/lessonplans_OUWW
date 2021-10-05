@@ -269,7 +269,7 @@ public class AdminController {
 	        // check if file is empty
 	        if (file.isEmpty()) {
 	            attributes.addFlashAttribute("messagepicturefailure", "Please select a file to upload.");
-	            return "redirect:/admin/upload";
+	            return "redirect:/admin/upload#addPic";
 	        }
 	            
 	        // normalize the file path
@@ -280,7 +280,7 @@ public class AdminController {
 	        if (!FileUtils.restrictUploadedFiles(fileName, fileExtentions)) {
 	        	 attributes.addFlashAttribute("messagepicturefailure", "We only support files with "
 	 					+ "jpg, jpeg, png and gif extensions.");
-	        	 return "redirect:/admin/upload";
+	        	 return "redirect:/admin/upload#addPic";
 	        }
 	        
 	        // save the file on the local file system
@@ -301,7 +301,7 @@ public class AdminController {
 	            attributes.addFlashAttribute("messagepicturefailure", "Sorry but there was a problem uploading"
 	            		+ " " + fileName + " . Please try again.");       
 	        }
-	        return "redirect:/admin/upload";
+	        return "redirect:/admin/upload#addPic";
 	    }
 
 	 /**
@@ -376,7 +376,7 @@ public class AdminController {
 		 AdminControllerProcessor adminValidator = new AdminControllerProcessor(tagRepository, grammarRepository
 					, topicRepository, topicService, lessonPlanRepository, lessonPlanService);
 		 adminValidator.validateAndAddTopic(attributes, newTopic, populateTopics());
-		 return "redirect:/admin/upload";
+		 return "redirect:/admin/upload#addTopic";
 	  }
 	 
 	 /**
@@ -391,7 +391,7 @@ public class AdminController {
 		 AdminControllerProcessor adminValidator = new AdminControllerProcessor(tagRepository, grammarRepository
 					, topicRepository, topicService, lessonPlanRepository, lessonPlanService);
 		 adminValidator.validateAndAddTag(attributes, newTag, populateTags());
-		 return "redirect:/admin/upload";
+		 return "redirect:/admin/upload#addTag";
 	  }
 
 	 /**
@@ -406,7 +406,7 @@ public class AdminController {
 		 AdminControllerProcessor adminValidator = new AdminControllerProcessor(tagRepository, grammarRepository
 					, topicRepository, topicService, lessonPlanRepository, lessonPlanService);
 	     adminValidator.validateAndAddGrammar(attributes, newGrammar, populateGrammar());
-	     return "redirect:/admin/upload";
+	     return "redirect:/admin/upload#addGrammar";
 	  }
 	 
 	 /**
@@ -422,7 +422,7 @@ public class AdminController {
 		 AdminControllerProcessor adminValidator = new AdminControllerProcessor(tagRepository, grammarRepository
 					, topicRepository, topicService, lessonPlanRepository, lessonPlanService);
 		 adminValidator.validateAndEditTopic(attributes, topicId, newEditedTopic, populateTopics());
-		 return "redirect:/admin/upload";
+		 return "redirect:/admin/upload#editTopic";
 	  }
 
 	 /**
@@ -438,7 +438,7 @@ public class AdminController {
 		 AdminControllerProcessor adminValidator = new AdminControllerProcessor(tagRepository, grammarRepository
 					, topicRepository, topicService, lessonPlanRepository, lessonPlanService);
 		 adminValidator.validateAndEditTag(attributes, tagId, newEditedTag, populateTags());
-		 return "redirect:/admin/upload";
+		 return "redirect:/admin/upload#editTag";
 	  }
 
 	 /**
@@ -454,7 +454,7 @@ public class AdminController {
 		 AdminControllerProcessor adminValidator = new AdminControllerProcessor(tagRepository, grammarRepository
 					, topicRepository, topicService, lessonPlanRepository, lessonPlanService);
 		 adminValidator.validateAndEditGrammar(attributes, grammarId, newEditedGrammar, populateGrammar());
-		 return "redirect:/admin/upload";
+		 return "redirect:/admin/upload#editGrammar";
 	  }
 	 
 	 /**
@@ -471,7 +471,7 @@ public class AdminController {
 		 AdminControllerProcessor adminValidator = new AdminControllerProcessor(tagRepository, grammarRepository
 					, topicRepository, topicService, lessonPlanRepository, lessonPlanService);
 		 adminValidator.validateAndDeleteTopic(attributes, topicId);
-		 return "redirect:/admin/upload";
+		 return "redirect:/admin/upload#deleteTopic";
 	  }
 	 
 	 /**
@@ -488,7 +488,7 @@ public class AdminController {
 		AdminControllerProcessor adminValidator = new AdminControllerProcessor(tagRepository, grammarRepository
 				, topicRepository, topicService, lessonPlanRepository, lessonPlanService);
 		 adminValidator.validateAndDeleteTag(attributes, tagId);
-		 return "redirect:/admin/upload";
+		 return "redirect:/admin/upload#deleteTag";
 	  }
 
 	 /**
@@ -505,7 +505,7 @@ public class AdminController {
 		 AdminControllerProcessor adminValidator = new AdminControllerProcessor(tagRepository, grammarRepository
 					, topicRepository, topicService, lessonPlanRepository, lessonPlanService);
 		adminValidator.validateAndDeleteGrammar(attributes, grammarId);
-		return "redirect:/admin/upload";
+		return "redirect:/admin/upload#deleteGrammar";
 	  }
 
      @PostMapping("/admin/downloaddeletedlessonplan")

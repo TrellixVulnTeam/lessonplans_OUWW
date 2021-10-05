@@ -22,7 +22,7 @@
 			<div class="basic-container">
 
 				<form method="post" th:action="@{/admin/uploadlessonplan/A1}" enctype="multipart/form-data"
-					class="form__outline">
+					class="form__outline" id="addA1">
 					<h2 class="basic-header">Upload A1 lesson plan</h2>
 					<p th:text="${messagelessonplansuccessA1}" th:if="${messagelessonplansuccessA1 ne null}"
 						class="basic-msg basic-msg--success"></p>
@@ -38,7 +38,7 @@
 				</form>
 
 				<form method="post" th:action="@{/admin/uploadlessonplan/A2}" enctype="multipart/form-data"
-					class="form__outline">
+					class="form__outline" id="addA2">
 					<h2 class="basic-header">Upload A2 lesson plan</h2>
 					<p th:text="${messagelessonplansuccessA2}" th:if="${messagelessonplansuccessA2 ne null}"
 						class="basic-msg basic-msg--success"></p>
@@ -57,7 +57,7 @@
 
 
 				<form method="post" th:action="@{/admin/uploadlessonplan/B1}" enctype="multipart/form-data"
-					class="form__outline">
+					class="form__outline" id="addB1">
 					<h2 class="basic-header">Upload B1 lesson plan</h2>
 					<p th:text="${messagelessonplansuccessB1}" th:if="${messagelessonplansuccessB1 ne null}"
 						class="basic-msg basic-msg--success"></p>
@@ -74,7 +74,7 @@
 
 
 				<form method="post" th:action="@{/admin/uploadlessonplan/B2}" enctype="multipart/form-data"
-					class="form__outline">
+					class="form__outline" id="addB2">
 					<h2 class="basic-header">Upload B2 lesson plan</h2>
 					<p th:text="${messagelessonplansuccessB2}" th:if="${messagelessonplansuccessB2 ne null}"
 						class="basic-msg basic-msg--success"></p>
@@ -91,7 +91,7 @@
 
 
 				<form method="post" th:action="@{/admin/uploadlessonplan/B2PLUS}" enctype="multipart/form-data"
-					class="form__outline">
+					class="form__outline" id="addB2PLUS">
 					<h2 class="basic-header">Upload B2+ lesson plan</h2>
 					<p th:text="${messagelessonplansuccessB2PLUS}" th:if="${messagelessonplansuccessB2PLUS ne null}"
 						class="basic-msg basic-msg--success"></p>
@@ -108,7 +108,7 @@
 
 
 				<form method="post" th:action="@{/admin/uploadlessonplan/C1}" enctype="multipart/form-data"
-					class="form__outline">
+					class="form__outline" id="addC1">
 					<h2 class="basic-header">Upload C1 lesson plan</h2>
 					<p th:text="${messagelessonplansuccessC1}" th:if="${messagelessonplansuccessC1 ne null}"
 						class="basic-msg basic-msg--success"></p>
@@ -125,7 +125,7 @@
 
 
 				<form method="post" th:action="@{/admin/uploadlessonplan/C1PLUS}" enctype="multipart/form-data"
-					class="form__outline">
+					class="form__outline" id="addC1PLUS">
 					<h2 class="basic-header">Upload C1+ lesson plan</h2>
 					<p th:text="${messagelessonplansuccessC1PLUS}" th:if="${messagelessonplansuccessC1PLUS ne null}"
 						class="basic-msg basic-msg--success"></p>
@@ -143,7 +143,7 @@
 
 
 				<form method="post" th:action="@{/admin/uploadlessonplan/C2}" enctype="multipart/form-data"
-					class="form__outline">
+					class="form__outline" id="addC2">
 					<h2 class="basic-header">Upload C2 lesson plan</h2>
 					<p th:text="${messagelessonplansuccessC2}" th:if="${messagelessonplansuccessC2 ne null}"
 						class="basic-msg basic-msg--success"></p>
@@ -158,8 +158,9 @@
 
 
 				<form method="post" th:action="@{/admin/uploadpicture}" enctype="multipart/form-data"
-					class="form__outline">
-					<h2 class="basic-header">Upload picture</h2>
+					class="form__outline" id="addPic">
+					<h2 class="basic-header mb-1">Upload picture</h2>
+					<p class="mb-2"><small>[Max file size: 1MB]</small></p>
 					<p th:text="${messagepicturesuccess}" th:if="${messagepicturesuccess ne null}"
 						class="basic-msg basic-msg--success"></p>
 					<p th:text="${messagepicturefailure}" th:if="${messagepicturefailure ne null}"
@@ -172,7 +173,7 @@
 				</form>
 
 
-				<form method="post" th:action="@{/admin/uploadtopic}" class="form__outline">
+				<form method="post" th:action="@{/admin/uploadtopic}" class="form__outline" id="addTopic">
 					<h2 class="basic-header">Upload topic</h2>
 					<p th:text="${messagetopicsuccess}" th:if="${messagetopicsuccess ne null}"
 						class="basic-msg basic-msg--success">
@@ -187,7 +188,7 @@
 
 
 
-				<form method="post" th:action="@{/admin/uploadtag}" class="form__outline">
+				<form method="post" th:action="@{/admin/uploadtag}" class="form__outline" id="addTag">
 					<h2 class="basic-header">Upload tag</h2>
 					<p th:text="${messagetagsuccess}" th:if="${messagetagsuccess ne null}"
 						class="basic-msg basic-msg--success"></p>
@@ -201,7 +202,7 @@
 
 
 
-				<form method="post" th:action="@{/admin/uploadgrammar}" class="form__outline">
+				<form method="post" th:action="@{/admin/uploadgrammar}" class="form__outline" id="addGrammar">
 					<h2 class="basic-header">Upload grammar point</h2>
 					<p th:text="${messagegrammarsuccess}" th:if="${messagegrammarsuccess ne null}"
 						class="basic-msg basic-msg--success"></p>
@@ -216,7 +217,7 @@
 
 
 
-				<form method="post" th:action="@{/admin/edittopic}" class="form__outline">
+				<form method="post" th:action="@{/admin/edittopic}" class="form__outline" id="editTopic">
 					<h2 class="basic-header">Edit topic</h2>
 					<p th:text="${messagetopiceditsuccess}" th:if="${messagetopiceditsuccess ne null}"
 						class="basic-msg basic-msg--success"></p>
@@ -239,7 +240,7 @@
 
 
 
-				<form method="post" th:action="@{/admin/edittag}" class="form__outline">
+				<form method="post" th:action="@{/admin/edittag}" class="form__outline" id="editTag">
 					<h2 class="basic-header">Edit tag</h2>
 					<p th:text="${messagetageditsuccess}" th:if="${messagetageditsuccess ne null}"
 						class="basic-msg basic-msg--success"></p>
@@ -262,7 +263,7 @@
 
 
 
-				<form method="post" th:action="@{/admin/editgrammar}" class="form__outline">
+				<form method="post" th:action="@{/admin/editgrammar}" class="form__outline" id="editGrammar">
 					<h2 class="basic-header">Edit grammar point</h2>
 					<p th:text="${messagegrammareditsuccess}" th:if="${messagegrammareditsuccess ne null}"
 						class="basic-msg basic-msg--success"></p>
@@ -286,7 +287,7 @@
 
 
 
-				<form method="post" th:action="@{/admin/deletetopic}" class="form__outline">
+				<form method="post" th:action="@{/admin/deletetopic}" class="form__outline" id="deleteTopic">
 					<h2 class="basic-header">Delete topic</h2>
 					<p th:text="${messagetopicdeletesuccess}" th:if="${messagetopicdeletesuccess ne null}"
 						class="basic-msg basic-msg--success"></p>
@@ -306,7 +307,7 @@
 
 
 
-				<form method="post" th:action="@{/admin/deletetag}" class="form__outline">
+				<form method="post" th:action="@{/admin/deletetag}" class="form__outline" id="deleteTag">
 					<h2 class="basic-header">Delete tag</h2>
 					<p th:text="${messagetagdeletesuccess}" th:if="${messagetagdeletesuccess ne null}"
 						class="basic-msg basic-msg--success"></p>
@@ -326,7 +327,7 @@
 
 
 
-				<form method="post" th:action="@{/admin/deletegrammar}" class="form__outline">
+				<form method="post" th:action="@{/admin/deletegrammar}" class="form__outline" id="deleteGrammar">
 					<h2 class="basic-header">Delete grammar point</h2>
 					<p th:text="${messagegrammardeletesuccess}" th:if="${messagegrammardeletesuccess ne null}"
 						class="basic-msg basic-msg--success"></p>
@@ -346,7 +347,7 @@
 				</form>
 
 
-				<form method="post" th:action="@{/admin/downloaddeletedlessonplan}" class="form__outline">
+				<form method="post" th:action="@{/admin/downloaddeletedlessonplan}" class="form__outline" id="download">
 					<h2 class="basic-header">Download deleted lesson plan</h2>
 					<div class="form__stack form__stack--h-med form__stack--w-med">
 						<div class="form__inline-label form__inline-label--med">
