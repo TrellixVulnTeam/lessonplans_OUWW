@@ -1,30 +1,14 @@
 package com.enoch.chris.lessonplanwebsite.controller;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.servlet.http.HttpSession;
 
-import org.hibernate.engine.jdbc.spi.TypeSearchability;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
@@ -46,18 +30,12 @@ import com.enoch.chris.lessonplanwebsite.dao.TopicRepository;
 import com.enoch.chris.lessonplanwebsite.entity.Grammar;
 import com.enoch.chris.lessonplanwebsite.entity.LessonPlan;
 import com.enoch.chris.lessonplanwebsite.entity.LessonTime;
-import com.enoch.chris.lessonplanwebsite.entity.Picture;
-import com.enoch.chris.lessonplanwebsite.entity.PreparationTime;
 import com.enoch.chris.lessonplanwebsite.entity.SpeakingAmount;
 import com.enoch.chris.lessonplanwebsite.entity.Subscription;
 import com.enoch.chris.lessonplanwebsite.entity.Tag;
 import com.enoch.chris.lessonplanwebsite.entity.Topic;
-import com.enoch.chris.lessonplanwebsite.entity.Type;
 import com.enoch.chris.lessonplanwebsite.entity.User;
-import com.enoch.chris.lessonplanwebsite.entity.utils.LessonPlanUtils;
 import com.enoch.chris.lessonplanwebsite.service.LessonPlanService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 @RequestMapping("/lessonplans")

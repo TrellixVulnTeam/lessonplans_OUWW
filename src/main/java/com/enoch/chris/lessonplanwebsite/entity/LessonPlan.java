@@ -1,7 +1,6 @@
 package com.enoch.chris.lessonplanwebsite.entity;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -18,8 +17,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import org.springframework.data.annotation.CreatedDate;
 
 
 /**

@@ -1,13 +1,8 @@
 package com.enoch.chris.lessonplanwebsite.controller;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
-import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.enoch.chris.lessonplanwebsite.dao.GrammarRepository;

@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 
 import com.enoch.chris.lessonplanwebsite.dao.UserRepository;
 import com.enoch.chris.lessonplanwebsite.entity.User;
-import com.enoch.chris.lessonplanwebsite.service.UsersService;
 
 
 @Component

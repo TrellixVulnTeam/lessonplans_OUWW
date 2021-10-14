@@ -2,8 +2,6 @@ package com.enoch.chris.lessonplanwebsite.service;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -11,32 +9,17 @@ import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.enoch.chris.lessonplanwebsite.dao.LessonPlanRepository;
-import com.enoch.chris.lessonplanwebsite.dao.RoleRepository;
-import com.enoch.chris.lessonplanwebsite.dao.UserRepository;
 import com.enoch.chris.lessonplanwebsite.entity.Grammar;
 import com.enoch.chris.lessonplanwebsite.entity.LessonPlan;
-import com.enoch.chris.lessonplanwebsite.entity.LessonTime;
-import com.enoch.chris.lessonplanwebsite.entity.PreparationTime;
-import com.enoch.chris.lessonplanwebsite.entity.Role;
 import com.enoch.chris.lessonplanwebsite.entity.SpeakingAmount;
 import com.enoch.chris.lessonplanwebsite.entity.Tag;
 import com.enoch.chris.lessonplanwebsite.entity.Topic;
-import com.enoch.chris.lessonplanwebsite.entity.User;
-import com.enoch.chris.lessonplanwebsite.registration.user.RegistrationUser;
-import com.enoch.chris.lessonplanwebsite.utils.FileUtils;
 import com.enoch.chris.lessonplanwebsite.utils.StringTools;
 
 @Service

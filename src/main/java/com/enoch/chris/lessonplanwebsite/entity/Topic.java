@@ -1,6 +1,5 @@
 package com.enoch.chris.lessonplanwebsite.entity;
 
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;

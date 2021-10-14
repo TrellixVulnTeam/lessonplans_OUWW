@@ -1,27 +1,17 @@
 package com.enoch.chris.lessonplanwebsite.controller;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.CopyOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.type.filter.AbstractClassTestingTypeFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -44,12 +34,10 @@ import com.enoch.chris.lessonplanwebsite.entity.DeletedLessonPlan;
 import com.enoch.chris.lessonplanwebsite.entity.Grammar;
 import com.enoch.chris.lessonplanwebsite.entity.LessonPlan;
 import com.enoch.chris.lessonplanwebsite.entity.Picture;
-import com.enoch.chris.lessonplanwebsite.entity.SpeakingAmount;
 import com.enoch.chris.lessonplanwebsite.entity.Subscription;
 import com.enoch.chris.lessonplanwebsite.entity.Tag;
 import com.enoch.chris.lessonplanwebsite.entity.Topic;
 import com.enoch.chris.lessonplanwebsite.entity.utils.LessonPlanFiles;
-import com.enoch.chris.lessonplanwebsite.entity.utils.LessonPlanUtils;
 import com.enoch.chris.lessonplanwebsite.service.LessonPlanService;
 import com.enoch.chris.lessonplanwebsite.service.TopicService;
 import com.enoch.chris.lessonplanwebsite.utils.FileUtils;

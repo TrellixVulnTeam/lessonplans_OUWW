@@ -5,8 +5,6 @@ import java.util.List;
 import javax.persistence.NoResultException;
 
 import com.enoch.chris.lessonplanwebsite.entity.LessonPlan;
-import com.enoch.chris.lessonplanwebsite.entity.LessonTime;
-import com.enoch.chris.lessonplanwebsite.entity.PreparationTime;
 
 public interface LessonPlanService {
 

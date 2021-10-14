@@ -1,7 +1,6 @@
 package com.enoch.chris.lessonplanwebsite.security.config;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -12,8 +11,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 import com.enoch.chris.lessonplanwebsite.dao.UserRepository;
-import com.enoch.chris.lessonplanwebsite.entity.User;
-import com.enoch.chris.lessonplanwebsite.service.UsersService;
 
 public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
 	

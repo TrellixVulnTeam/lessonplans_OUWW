@@ -9,8 +9,6 @@ import javax.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.enoch.chris.lessonplanwebsite.dao.LessonPlanRepository;
-import com.enoch.chris.lessonplanwebsite.entity.LessonPlan;
 import com.enoch.chris.lessonplanwebsite.entity.Topic;
 
 @Service
