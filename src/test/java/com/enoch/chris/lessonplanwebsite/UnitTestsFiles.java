@@ -327,7 +327,7 @@ public class UnitTestsFiles {
 			
 
 		//ACT
-		LessonPlan searchParams = new LessonPlan.LessonPlanBuilder(null, null, new Subscription("B2"), Type.BUSINESS, 0, SpeakingAmount.SPEAKING_ONLY, null, null)
+		LessonPlan searchParams = new LessonPlan.LessonPlanBuilder(null, null, new Subscription("B2"), Type.BUSINESS, SpeakingAmount.SPEAKING_ONLY, null, null)
 				.isFunClass(true).isGames(true).isJigsaw(true).isListening(true).isTranslation(true)
 				.isNoPrintedMaterialsNeeded(true).isReading(true).isSong(true).isVideo(true).isVocabulary(true)
 				.isWriting(true)
@@ -366,7 +366,7 @@ public class UnitTestsFiles {
 		grammar.add(new Grammar("First conditional"));
 
 		//ACT
-		LessonPlan searchParams = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+		LessonPlan searchParams = new LessonPlan.LessonPlanBuilder(null, null, null, null, null, null, null)
 				.isGames(true).isNoPrintedMaterialsNeeded(true).isReading(true)
 				.topics(topics).grammar(grammar).lessonTime(null).preparationTime(null)
                 .build();
@@ -409,7 +409,7 @@ public class UnitTestsFiles {
 		tags.add(new Tag("Camping"));
 
 		//ACT
-		LessonPlan searchParams = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+		LessonPlan searchParams = new LessonPlan.LessonPlanBuilder(null, null, null, null, null, null, null)
 				.isVocabulary(true).isListening(true).isReading(true).isWriting(true).isFunClass(true)
 				.topics(topics).grammar(grammar).tags(tags).lessonTime(null).preparationTime(null)
                 .build();

@@ -176,7 +176,7 @@ public class LessonPlanServiceImpl implements LessonPlanService {
 				.filter(lp -> searchParameters.getTitle() == null ? true
 						: searchParameters.getTitle().equals(lp.getTitle()))
 
-				//I ask for 6th Jan 2002 . I want dates equal to and after
+				//Returns true if dateAdded is equal to and after the requested date.
 				.filter(lp -> searchParameters.getDateAdded() == null ? true
 						: searchParameters.getDateAdded().isBefore(lp.getDateAdded()) || searchParameters.getDateAdded().isEqual(lp.getDateAdded()) ? true : false)
 //			
@@ -184,15 +184,19 @@ public class LessonPlanServiceImpl implements LessonPlanService {
 				.filter(lp -> searchParameters.getAssignedSubscription() == null ? true	
 						: searchParameters.getAssignedSubscription().equals(lp.getAssignedSubscription()))
 				
+				.filter(lp -> searchParameters.getType() == null ? true : searchParameters.getType() == lp.getType())
 				
+				
+				
+				.filter(lp -> searchParameters.getSpeakingAmount() == null ? true
+						: searchParameters.getSpeakingAmount() == lp.getSpeakingAmount())
 //
 				.filter(lp -> searchParameters.getLessonTime() == null ? true
 						: searchParameters.getLessonTime() == lp.getLessonTime())
 //
-				.filter(lp -> searchParameters.getType() == null ? true : searchParameters.getType() == lp.getType())
+				
 //
-				.filter(lp -> searchParameters.getSpeakingAmount() == null ? true
-						: searchParameters.getSpeakingAmount() == lp.getSpeakingAmount())
+				
 //
 				.filter(lp -> searchParameters.getListening() == false? true			
 						:searchParameters.getListening() == lp.getListening())

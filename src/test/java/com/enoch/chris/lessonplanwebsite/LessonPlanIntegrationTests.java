@@ -59,7 +59,7 @@ public class LessonPlanIntegrationTests {
 	@DisplayName("Should return the following errors: Title too small, topic, level, lesson time, type.")
 	public void shouldReturnTitleTooSmallTopicLevelLessonTimeTypeError(){
 		//ARRANGE
-		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder("O", null, null, null, 0, null, null, null)
+		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder("O", null, null, null, null, null, null)
 				.lessonTime(null).preparationTime(null).build();
 		
 		//ACT
@@ -74,7 +74,7 @@ public class LessonPlanIntegrationTests {
 	@Test
 	public void shouldReturnDuplicateTitleError(){
 		//ARRANGE
-		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder("Famous People", null, new Subscription("C1PLUS"), null, 0, null, null, null)
+		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder("Famous People", null, new Subscription("C1PLUS"), null, null, null, null)
 				.lessonTime(null).preparationTime(null).build();
 		String duplicateTitleError = "Title already exists for this level. Please choose a title which is unique from any other"
 				+ " for the level specified.";
@@ -97,7 +97,7 @@ public class LessonPlanIntegrationTests {
 		Set<Grammar> grammar = new HashSet<Grammar>();
 		grammar.add(new Grammar("First Conditional"));
 		
-		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder("New title", null, new Subscription("C1PLUS"), Type.BUSINESS, 0, SpeakingAmount.SPEAKING_ONLY
+		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder("New title", null, new Subscription("C1PLUS"), Type.BUSINESS, SpeakingAmount.SPEAKING_ONLY
 				, topics, null).grammar(grammar).build();
 		
 		//ACT
@@ -113,7 +113,7 @@ public class LessonPlanIntegrationTests {
 		Set<Topic> topics = new HashSet<Topic>();
 		topics.add(new Topic("Sport", null));
 			
-		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder("New title", null, new Subscription("C1PLUS"), Type.BUSINESS, 0, SpeakingAmount.SPEAKING_ONLY
+		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder("New title", null, new Subscription("C1PLUS"), Type.BUSINESS,  SpeakingAmount.SPEAKING_ONLY
 				, topics, null).isListening(true).build();
 		
 		//ACT
@@ -129,7 +129,7 @@ public class LessonPlanIntegrationTests {
 		Set<Topic> topics = new HashSet<Topic>();
 		topics.add(new Topic("Sport", null));
 			
-		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder("New title", null, new Subscription("C1PLUS"), Type.BUSINESS, 0, SpeakingAmount.SPEAKING_ONLY
+		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder("New title", null, new Subscription("C1PLUS"), Type.BUSINESS,  SpeakingAmount.SPEAKING_ONLY
 				, topics, null).isReading(true).build();
 		
 		//ACT
@@ -145,7 +145,7 @@ public class LessonPlanIntegrationTests {
 		Set<Topic> topics = new HashSet<Topic>();
 		topics.add(new Topic("Sport", null));
 			
-		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder("New title", null, new Subscription("C1PLUS"), Type.BUSINESS, 0, SpeakingAmount.SPEAKING_ONLY
+		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder("New title", null, new Subscription("C1PLUS"), Type.BUSINESS,  SpeakingAmount.SPEAKING_ONLY
 				, topics, null).isWriting(true).build();
 		
 		//ACT
@@ -161,7 +161,7 @@ public class LessonPlanIntegrationTests {
 		Set<Topic> topics = new HashSet<Topic>();
 		topics.add(new Topic("Sport", null));
 			
-		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder("New title", null, new Subscription("C1PLUS"), Type.BUSINESS, 0, SpeakingAmount.SPEAKING_ONLY
+		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder("New title", null, new Subscription("C1PLUS"), Type.BUSINESS,  SpeakingAmount.SPEAKING_ONLY
 				, topics, null).isVideo(true).build();
 		
 		//ACT
@@ -177,7 +177,7 @@ public class LessonPlanIntegrationTests {
 		Set<Topic> topics = new HashSet<Topic>();
 		topics.add(new Topic("Sport", null));
 			
-		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder("New title", null, new Subscription("C1PLUS"), Type.BUSINESS, 0, SpeakingAmount.SPEAKING_ONLY
+		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder("New title", null, new Subscription("C1PLUS"), Type.BUSINESS,  SpeakingAmount.SPEAKING_ONLY
 				, topics, null).isSong(true).build();
 		
 		//ACT
@@ -193,7 +193,7 @@ public class LessonPlanIntegrationTests {
 		Set<Topic> topics = new HashSet<Topic>();
 		topics.add(new Topic("Sport", null));
 			
-		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder("New title", null, new Subscription("C1PLUS"), Type.BUSINESS, 0, SpeakingAmount.SPEAKING_ONLY
+		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder("New title", null, new Subscription("C1PLUS"), Type.BUSINESS,  SpeakingAmount.SPEAKING_ONLY
 				, topics, null).isSong(true).build();
 		
 		//ACT
@@ -211,7 +211,7 @@ public class LessonPlanIntegrationTests {
 		topics.add(new Topic("Sport", null));
 			
 		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder("Unit_test_deleting_affects_tests", null
-				, new Subscription("C1PLUS"), Type.BUSINESS, 0, null, topics, null).isSong(true).build();
+				, new Subscription("C1PLUS"), Type.BUSINESS,  null, topics, null).isSong(true).build();
 		
 		//ACT
 		List<String> errors = lessonPlanService.validateLessonPlan(lp1, true);
@@ -225,15 +225,15 @@ public class LessonPlanIntegrationTests {
 	public void shouldReturnThreePlansThatMatchTitle(){
 		//ARRANGE
 		List<LessonPlan> expectedValues = new ArrayList<>();
-		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder("Olympic Village", null, null, null, 0, null, null, null)
+		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder("Olympic Village", null, null, null,  null, null, null)
 				.lessonTime(null).preparationTime(null).build();
 		lp1.setId(48);
 		
-		LessonPlan lp2 = new LessonPlan.LessonPlanBuilder("Olympic Village", null, null, null, 0, null, null, null)
+		LessonPlan lp2 = new LessonPlan.LessonPlanBuilder("Olympic Village", null, null, null, null, null, null)
 				.lessonTime(null).preparationTime(null).build();
 		lp2.setId(49);
 		
-		LessonPlan lp3 = new LessonPlan.LessonPlanBuilder("Olympic Village", null, null, null, 0, null, null, null)
+		LessonPlan lp3 = new LessonPlan.LessonPlanBuilder("Olympic Village", null, null, null, null, null, null)
 				.lessonTime(null).preparationTime(null).build();
 		lp3.setId(50);
 		
@@ -243,7 +243,7 @@ public class LessonPlanIntegrationTests {
 	
 		
 		//ACT
-		LessonPlan lpSearchParams = new LessonPlan.LessonPlanBuilder("Olympic Village", null, null, null, 0, null, null, null)
+		LessonPlan lpSearchParams = new LessonPlan.LessonPlanBuilder("Olympic Village", null, null, null, null, null, null)
 				.lessonTime(null).preparationTime(null).build();
 		List<LessonPlan> lessonPlans = lessonPlanService.findSearchedLessonPlans(lpSearchParams);
 		
@@ -260,13 +260,13 @@ public class LessonPlanIntegrationTests {
 	public void shouldReturnOnePlanThatMatchesTitle(){
 		//ARRANGE
 		List<LessonPlan> expectedValues = new ArrayList<>();
-		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder("Daredevils", null, null, null, 0, null, null, null)
+		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder("Daredevils", null, null, null, null, null, null)
 				.lessonTime(null).preparationTime(null).build();
 		lp1.setId(51);		
 		expectedValues.add(lp1);
 
 		//ACT
-		LessonPlan lpSearchParams = new LessonPlan.LessonPlanBuilder("Daredevils", null, null, null, 0, null, null, null)
+		LessonPlan lpSearchParams = new LessonPlan.LessonPlanBuilder("Daredevils", null, null, null, null, null, null)
 				.lessonTime(null).preparationTime(null).build();
 		List<LessonPlan> lessonPlans = lessonPlanService.findSearchedLessonPlans(lpSearchParams);
 		
@@ -279,11 +279,11 @@ public class LessonPlanIntegrationTests {
 	@Test
 	public void shouldReturnPlansEqualToAndLessThanPrepTimeStated(){		
 		//ARRANGE		
-		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder("Electric Car Conspiracy", null, null, null, 0, null, null, null).lessonTime(null).build();
+		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder("Electric Car Conspiracy", null, null, null, null, null, null).lessonTime(null).build();
 		lp1.setId(46);
 
 		
-		LessonPlan lpSearchParams = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null
+		LessonPlan lpSearchParams = new LessonPlan.LessonPlanBuilder(null, null, null, null, null
 				, null, null).preparationTime(PreparationTime.TEN).lessonTime(null).build();	
 		System.out.println("Actual lesson plan " + lpSearchParams.getPreparationTime());	
 		
@@ -309,7 +309,7 @@ public class LessonPlanIntegrationTests {
 	public void shouldReturnLessonPlansWithSpeakingOnly(){
 		//ARRANGE
 		List<LessonPlan> expectedValues = new ArrayList<>();
-		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder(null, null, null, null, null, null, null)
 				.lessonTime(null).preparationTime(null).build();
 		lp1.setId(51);
 			
@@ -317,7 +317,7 @@ public class LessonPlanIntegrationTests {
 
 
 		//ACT
-		LessonPlan lpSearchParams = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, SpeakingAmount.SPEAKING_ONLY, null, null)
+		LessonPlan lpSearchParams = new LessonPlan.LessonPlanBuilder(null, null, null, null, SpeakingAmount.SPEAKING_ONLY, null, null)
 				.lessonTime(null).preparationTime(null).build();
 		List<LessonPlan> lessonPlans = lessonPlanService.findSearchedLessonPlans(lpSearchParams);
 		
@@ -330,15 +330,15 @@ public class LessonPlanIntegrationTests {
 	public void shouldReturnLpsWithVocabAndListening(){
 		//ARRANGE
 		List<LessonPlan> expectedValues = new ArrayList<>();
-		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder(null, null, null, null, null, null, null)
 				.lessonTime(null).preparationTime(null).build();
 		lp1.setId(45);	
 					
-		LessonPlan lp2 = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+		LessonPlan lp2 = new LessonPlan.LessonPlanBuilder(null, null, null, null, null, null, null)
 				.lessonTime(null).preparationTime(null).build();
 		lp2.setId(53);	
 		
-		LessonPlan lp3 = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+		LessonPlan lp3 = new LessonPlan.LessonPlanBuilder(null, null, null, null,  null, null, null)
 				.lessonTime(null).preparationTime(null).build();
 		lp3.setId(54);		
 
@@ -348,7 +348,7 @@ public class LessonPlanIntegrationTests {
 		
 
 		//ACT
-		LessonPlan lpSearchParams = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+		LessonPlan lpSearchParams = new LessonPlan.LessonPlanBuilder(null, null, null, null, null, null, null)
 				.lessonTime(null).preparationTime(null).isVocabulary(true).isListening(true).build();
 		List<LessonPlan> lessonPlans = lessonPlanService.findSearchedLessonPlans(lpSearchParams);
 		
@@ -363,11 +363,11 @@ public class LessonPlanIntegrationTests {
 	public void shouldReturnLpsWithReadingAndWriting(){
 		//ARRANGE
 		List<LessonPlan> expectedValues = new ArrayList<>();
-		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder(null, null, null, null, null, null, null)
 				.lessonTime(null).preparationTime(null).build();
 		lp1.setId(50);	
 		
-		LessonPlan lp2 = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+		LessonPlan lp2 = new LessonPlan.LessonPlanBuilder(null, null, null, null, null, null, null)
 				.lessonTime(null).preparationTime(null).build();
 		lp2.setId(52);	
 				
@@ -377,7 +377,7 @@ public class LessonPlanIntegrationTests {
 		
 
 		//ACT
-		LessonPlan lpSearchParams = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+		LessonPlan lpSearchParams = new LessonPlan.LessonPlanBuilder(null, null, null, null, null, null, null)
 				.lessonTime(null).preparationTime(null).isReading(true).isWriting(true).build();
 		List<LessonPlan> lessonPlans = lessonPlanService.findSearchedLessonPlans(lpSearchParams);
 		
@@ -394,7 +394,7 @@ public class LessonPlanIntegrationTests {
 	public void shouldReturnLpsWithFunAndGames(){
 		//ARRANGE
 		List<LessonPlan> expectedValues = new ArrayList<>();
-		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder(null, null, null, null, null, null, null)
 				.lessonTime(null).preparationTime(null).build();
 		lp1.setId(53);	
 			
@@ -402,7 +402,7 @@ public class LessonPlanIntegrationTests {
 
 		
 		//ACT
-		LessonPlan lpSearchParams = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+		LessonPlan lpSearchParams = new LessonPlan.LessonPlanBuilder(null, null, null, null, null, null, null)
 				.lessonTime(null).preparationTime(null).isFunClass(true).isGames(true).build();
 		List<LessonPlan> lessonPlans = lessonPlanService.findSearchedLessonPlans(lpSearchParams);
 		
@@ -419,7 +419,7 @@ public class LessonPlanIntegrationTests {
 	public void shouldReturnLpsWithJigsawAndTranslation(){
 		//ARRANGE
 		List<LessonPlan> expectedValues = new ArrayList<>();
-		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder(null, null, null, null, null, null, null)
 				.lessonTime(null).preparationTime(null).build();
 		lp1.setId(46);	
 			
@@ -427,7 +427,7 @@ public class LessonPlanIntegrationTests {
 
 		
 		//ACT
-		LessonPlan lpSearchParams = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+		LessonPlan lpSearchParams = new LessonPlan.LessonPlanBuilder(null, null, null, null, null, null, null)
 				.lessonTime(null).preparationTime(null).isJigsaw(true).isTranslation(true).build();
 		List<LessonPlan> lessonPlans = lessonPlanService.findSearchedLessonPlans(lpSearchParams);
 		
@@ -444,14 +444,14 @@ public class LessonPlanIntegrationTests {
 	public void shouldReturnLpsWithSongAndNoPrintedMaterials(){
 		//ARRANGE
 		List<LessonPlan> expectedValues = new ArrayList<>();
-		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder(null, null, null, null, null, null, null)
 				.lessonTime(null).preparationTime(null).build();
 		lp1.setId(49);	
 			
 		expectedValues.add(lp1);
 		
 		//ACT
-		LessonPlan lpSearchParams = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+		LessonPlan lpSearchParams = new LessonPlan.LessonPlanBuilder(null, null, null, null, null, null, null)
 				.lessonTime(null).preparationTime(null).isSong(true).isNoPrintedMaterialsNeeded(true).build();
 		List<LessonPlan> lessonPlans = lessonPlanService.findSearchedLessonPlans(lpSearchParams);
 		
@@ -467,7 +467,7 @@ public class LessonPlanIntegrationTests {
 	public void shouldReturnLpsWithAdjectivesAndAdverbs(){
 		//ARRANGE
 		List<LessonPlan> expectedValues = new ArrayList<>();
-		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder(null, null, null, null, null, null, null)
 				.lessonTime(null).preparationTime(null).build();
 		lp1.setId(44);				
 		expectedValues.add(lp1);
@@ -477,7 +477,7 @@ public class LessonPlanIntegrationTests {
 		grammar.add(new Grammar("Adverbs"));
 		
 		//ACT
-		LessonPlan lpSearchParams = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+		LessonPlan lpSearchParams = new LessonPlan.LessonPlanBuilder(null, null, null, null, null, null, null)
 				.lessonTime(null).preparationTime(null).grammar(grammar).build();
 		List<LessonPlan> lessonPlans = lessonPlanService.findSearchedLessonPlans(lpSearchParams);
 		
@@ -493,7 +493,7 @@ public class LessonPlanIntegrationTests {
 	public void shouldReturnLpsWithFirstConditional(){
 		//ARRANGE
 		List<LessonPlan> expectedValues = new ArrayList<>();
-		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder(null, null, null, null, null, null, null)
 				.lessonTime(null).preparationTime(null).build();
 		lp1.setId(52);				
 		expectedValues.add(lp1);
@@ -502,7 +502,7 @@ public class LessonPlanIntegrationTests {
 		grammar.add(new Grammar("First conditional"));
 		
 		//ACT
-		LessonPlan lpSearchParams = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+		LessonPlan lpSearchParams = new LessonPlan.LessonPlanBuilder(null, null, null, null,  null, null, null)
 				.lessonTime(null).preparationTime(null).grammar(grammar).build();
 		List<LessonPlan> lessonPlans = lessonPlanService.findSearchedLessonPlans(lpSearchParams);
 		
@@ -519,11 +519,11 @@ public class LessonPlanIntegrationTests {
 		//ARRANGE
 		List<LessonPlan> expectedValues = new ArrayList<>();
 		
-		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder(null, null, null, null,  null, null, null)
 				.lessonTime(null).preparationTime(null).build();
 		lp1.setId(45);	
 		
-		LessonPlan lp2 = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+		LessonPlan lp2 = new LessonPlan.LessonPlanBuilder(null, null, null, null,  null, null, null)
 				.lessonTime(null).preparationTime(null).build();
 		lp2.setId(46);		
 
@@ -535,7 +535,7 @@ public class LessonPlanIntegrationTests {
 		topics.add(new Topic("Transport", null));
 		
 		//ACT
-		LessonPlan lpSearchParams = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+		LessonPlan lpSearchParams = new LessonPlan.LessonPlanBuilder(null, null, null, null, null, null, null)
 				.lessonTime(null).preparationTime(null).topics(topics).build();
 		List<LessonPlan> lessonPlans = lessonPlanService.findSearchedLessonPlans(lpSearchParams);
 		
@@ -550,7 +550,7 @@ public class LessonPlanIntegrationTests {
 		//ARRANGE
 		List<LessonPlan> expectedValues = new ArrayList<>();
 		
-		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder(null, null, null, null, null, null, null)
 				.lessonTime(null).preparationTime(null).build();
 		lp1.setId(47);	
 		
@@ -562,7 +562,7 @@ public class LessonPlanIntegrationTests {
 
 		
 		//ACT
-		LessonPlan lpSearchParams = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+		LessonPlan lpSearchParams = new LessonPlan.LessonPlanBuilder(null, null, null, null, null, null, null)
 				.lessonTime(null).preparationTime(null).topics(topics).build();
 		List<LessonPlan> lessonPlans = lessonPlanService.findSearchedLessonPlans(lpSearchParams);
 		
@@ -577,7 +577,7 @@ public class LessonPlanIntegrationTests {
 		//ARRANGE
 		List<LessonPlan> expectedValues = new ArrayList<>();
 		
-		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder(null, null, null, null, null, null, null)
 				.lessonTime(null).preparationTime(null).build();
 		lp1.setId(44);	
 		
@@ -589,7 +589,7 @@ public class LessonPlanIntegrationTests {
 
 		
 		//ACT
-		LessonPlan lpSearchParams = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+		LessonPlan lpSearchParams = new LessonPlan.LessonPlanBuilder(null, null, null, null, null, null, null)
 				.lessonTime(null).preparationTime(null).tags(tags).build();
 		List<LessonPlan> lessonPlans = lessonPlanService.findSearchedLessonPlans(lpSearchParams);
 		
@@ -605,7 +605,7 @@ public class LessonPlanIntegrationTests {
 		//ARRANGE
 		List<LessonPlan> expectedValues = new ArrayList<>();
 		
-		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder(null, null, null, null, null, null, null)
 				.lessonTime(null).preparationTime(null).build();
 		lp1.setId(47);	
 		
@@ -616,7 +616,7 @@ public class LessonPlanIntegrationTests {
 
 		
 		//ACT
-		LessonPlan lpSearchParams = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+		LessonPlan lpSearchParams = new LessonPlan.LessonPlanBuilder(null, null, null, null, null, null, null)
 				.lessonTime(null).preparationTime(null).tags(tags).build();
 		List<LessonPlan> lessonPlans = lessonPlanService.findSearchedLessonPlans(lpSearchParams);
 		
@@ -630,7 +630,7 @@ public class LessonPlanIntegrationTests {
 		//ARRANGE
 		List<LessonPlan> expectedValues = new ArrayList<>();
 		
-		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder(null, null, null, null, null, null, null)
 				.lessonTime(null).preparationTime(null).build();
 		lp1.setId(47);		
 		expectedValues.add(lp1);
@@ -647,7 +647,7 @@ public class LessonPlanIntegrationTests {
 
 		
 		//ACT
-		LessonPlan lpSearchParams = new LessonPlan.LessonPlanBuilder(null, null, new Subscription("C1PLUS"), null, 0, null, null, null)
+		LessonPlan lpSearchParams = new LessonPlan.LessonPlanBuilder(null, null, new Subscription("C1PLUS"), null,  null, null, null)
 				.grammar(grammar).topics(topics).tags(tags)
 				.isVideo(true).isVocabulary(true).isSong(true).isJigsaw(true)
 				.lessonTime(LessonTime.SIXTY).preparationTime(PreparationTime.FIVE).build();

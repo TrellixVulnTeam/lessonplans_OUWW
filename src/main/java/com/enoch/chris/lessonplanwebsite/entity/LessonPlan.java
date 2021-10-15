@@ -49,9 +49,6 @@ public class LessonPlan {
 	@Enumerated(EnumType.STRING)
     private Type type; // required
 	
-	@Column(name="age")
-    private int age; // required  
-	
 	@Column(name="speaking_amount")
 	@Enumerated(EnumType.STRING)
     private SpeakingAmount speakingAmount; // required  
@@ -158,7 +155,6 @@ public class LessonPlan {
 		this.dateAdded = lessonPlanBuilder.dateAdded;
 		this.assignedSubscription = lessonPlanBuilder.assignedSubscription;
 		this.type = lessonPlanBuilder.type;
-		this.age = lessonPlanBuilder.age;
 		this.speakingAmount = lessonPlanBuilder.speakingAmount;
 		this.topics =lessonPlanBuilder.topics;
 		this.tags = lessonPlanBuilder.tags;
@@ -223,13 +219,6 @@ public class LessonPlan {
 		this.type = type;
 	}
 
-	public int getAge() {
-		return age;
-	}
-
-	public void setAge(int age) {
-		this.age = age;
-	}
 
 	public SpeakingAmount getSpeakingAmount() {
 		return speakingAmount;
@@ -394,7 +383,6 @@ public class LessonPlan {
 	    private LocalDate dateAdded; //required
 	    private Subscription assignedSubscription; // required    
 	    private Type type; // required
-	    private int age; // required  
 	    private SpeakingAmount speakingAmount; // required  
 		public Set<Topic> topics; // required 
 		public Set<Tag> tags; //required
@@ -417,12 +405,11 @@ public class LessonPlan {
  
 	    
         public LessonPlanBuilder(String title, LocalDate dateAdded,Subscription assignedSubscription, Type type
-        		,int age,SpeakingAmount speakingAmount, Set<Topic> topics, Set<Tag> tags) {
+        		,SpeakingAmount speakingAmount, Set<Topic> topics, Set<Tag> tags) {
             this.title = title;
             this.dateAdded = dateAdded;
             this.assignedSubscription = assignedSubscription;
             this.type = type;
-            this.age = age;
             this.speakingAmount = speakingAmount;
             this.topics = topics;
             this.tags = tags;

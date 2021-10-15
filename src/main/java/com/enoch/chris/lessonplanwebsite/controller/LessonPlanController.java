@@ -115,7 +115,7 @@ public class LessonPlanController {
 					 
 			//add to model
 			theModel.addAttribute("lessonPlans", lessonPlans);
-			LessonPlan lessonPlan = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null).build();
+			LessonPlan lessonPlan = new LessonPlan.LessonPlanBuilder(null, null, null, null, null, null, null).build();
 			
 			initCheckboxes(lessonPlan);
 
@@ -490,7 +490,7 @@ public class LessonPlanController {
 	public String displaylessonPlansWithSubscriptionSelected(Model theModel)  {
 		if (Arrays.asList(env.getActiveProfiles()).contains("test")){
 			
-			LessonPlan lessonPlan = new LessonPlan.LessonPlanBuilder(null, null, new Subscription("B2"), null, 0, null, null, null).build();		
+			LessonPlan lessonPlan = new LessonPlan.LessonPlanBuilder(null, null, new Subscription("B2"), null, null, null, null).build();		
 			initCheckboxes(lessonPlan); //ensure preparation time and lesson time radio buttons start unselected
 			processFilteredLessonPlans(theModel, lessonPlan);
 			
@@ -508,7 +508,7 @@ public class LessonPlanController {
 			
 			Set<Topic> topics = new HashSet<>();
 			topics.add(new Topic("Technology", null));
-			LessonPlan lessonPlan = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, topics, null).build();		
+			LessonPlan lessonPlan = new LessonPlan.LessonPlanBuilder(null, null, null, null, null, topics, null).build();		
 			initCheckboxes(lessonPlan); //ensure preparation time and lesson time radio buttons start unselected
 			
 			processFilteredLessonPlans(theModel, lessonPlan);
@@ -528,7 +528,7 @@ public class LessonPlanController {
 			Set<Topic> topics = new HashSet<>();
 			topics.add(new Topic("Technology", null));
 			topics.add(new Topic("Transport", null));
-			LessonPlan lessonPlan = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, topics, null).build();		
+			LessonPlan lessonPlan = new LessonPlan.LessonPlanBuilder(null, null, null, null, null, topics, null).build();		
 			initCheckboxes(lessonPlan); //ensure preparation time and lesson time radio buttons start unselected
 			
 			processFilteredLessonPlans(theModel, lessonPlan);
@@ -547,7 +547,7 @@ public class LessonPlanController {
 			
 			Set<Grammar> grammar = new HashSet<>();
 			grammar.add(new Grammar("First conditional"));
-			LessonPlan lessonPlan = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+			LessonPlan lessonPlan = new LessonPlan.LessonPlanBuilder(null, null, null, null, null, null, null)
 					.build();
 			lessonPlan.setGrammar(grammar);
 			
@@ -570,7 +570,7 @@ public class LessonPlanController {
 			Set<Grammar> grammar = new HashSet<>();
 			grammar.add(new Grammar("Adjectives"));
 			grammar.add(new Grammar("Adverbs"));
-			LessonPlan lessonPlan = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+			LessonPlan lessonPlan = new LessonPlan.LessonPlanBuilder(null, null, null, null, null, null, null)
 					.build();
 			lessonPlan.setGrammar(grammar);
 			
@@ -590,7 +590,7 @@ public class LessonPlanController {
 	public String displaylessonPlansWithListeningSelected(Model theModel)  {
 		if (Arrays.asList(env.getActiveProfiles()).contains("test")){
 			
-			LessonPlan lessonPlan = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+			LessonPlan lessonPlan = new LessonPlan.LessonPlanBuilder(null, null, null, null,null, null, null)
 					.build();
 			lessonPlan.setListening(true);
 			
@@ -610,7 +610,7 @@ public class LessonPlanController {
 	public String displaylessonPlansWithSongSelected(Model theModel)  {
 		if (Arrays.asList(env.getActiveProfiles()).contains("test")){
 			
-			LessonPlan lessonPlan = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+			LessonPlan lessonPlan = new LessonPlan.LessonPlanBuilder(null, null, null, null, null, null, null)
 					.build();
 			lessonPlan.setSong(true);
 			
@@ -630,7 +630,7 @@ public class LessonPlanController {
 	public String displaylessonPlansWithSpeakingOnlyAndNoPrintedSelected(Model theModel)  {
 		if (Arrays.asList(env.getActiveProfiles()).contains("test")){
 			
-			LessonPlan lessonPlan = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+			LessonPlan lessonPlan = new LessonPlan.LessonPlanBuilder(null, null, null, null, null, null, null)
 					.build();
 			lessonPlan.setSpeakingAmount(SpeakingAmount.SPEAKING_ONLY);
 			lessonPlan.setNoPrintedMaterialsNeeded(true);
@@ -651,7 +651,7 @@ public class LessonPlanController {
 	public String displaylessonPlansWithLessonTime90minsSelected(Model theModel)  {
 		if (Arrays.asList(env.getActiveProfiles()).contains("test")){
 			
-			LessonPlan lessonPlan = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null)
+			LessonPlan lessonPlan = new LessonPlan.LessonPlanBuilder(null, null, null, null, null, null, null)
 					.build();
 			lessonPlan.setPreparationTime(null);
 			lessonPlan.setLessonTime(LessonTime.NINETY);

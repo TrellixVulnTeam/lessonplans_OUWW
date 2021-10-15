@@ -185,7 +185,7 @@ public class AdminController {
 	@GetMapping("/admin/add")
 	public String addLessonPlan(Model theModel) {
 		if (theModel.getAttribute("lessonPlan") == null) {
-			LessonPlan templateLessonPlan = new LessonPlan.LessonPlanBuilder(null, null, null, null, 0, null, null, null).build();
+			LessonPlan templateLessonPlan = new LessonPlan.LessonPlanBuilder(null, null, null, null, null, null, null).build();
 			theModel.addAttribute("lessonPlan", templateLessonPlan);
 		} else {
 			System.out.println("Debugging lesson plan present");
@@ -603,6 +603,7 @@ public class AdminController {
 	 				attributes.addFlashAttribute("success", "The lesson plan was added successfully.");
 	 			} catch (Exception e) {
 	 				attributes.addFlashAttribute("error", "There was an error attempting to save the lesson plan to the database. Please contact the system administrator.");
+	 				e.printStackTrace();
 	 			}
 	 		
 	 		
