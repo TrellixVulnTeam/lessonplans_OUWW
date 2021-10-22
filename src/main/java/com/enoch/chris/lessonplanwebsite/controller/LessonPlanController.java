@@ -66,10 +66,6 @@ public class LessonPlanController {
 
 	@ModelAttribute("allTopics")
 	public List<Topic> populateTopics() {
-//		List<Topic> topics = topicRepository.findAll();
-////		topics.stream().forEach(Topic::getRelatedTags);
-////		return topics;
-		
 		return topicRepository.findAll();
 	}
 

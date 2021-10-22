@@ -23,7 +23,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 	private UserRepository userRepository;
 
 	/**
-	 * If previousPage request parameter is set, redirect user to the page he/she was on before login. If not, redirect user to "/lessonplans"
+	 * If the {@code previousPage} request parameter is set, redirect user to the page he/she was on before login. If not, redirect user to "/lessonplans"
 	 */
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,

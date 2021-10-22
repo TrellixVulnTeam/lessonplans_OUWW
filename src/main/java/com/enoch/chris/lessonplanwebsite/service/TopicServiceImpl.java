@@ -21,6 +21,9 @@ public class TopicServiceImpl implements TopicService{
 		this.entityManager = entityManager;
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<Topic> findAllEagerRelatedTags() throws NoResultException {			
 			String sqlQuery = "SELECT t FROM Topic AS t JOIN FETCH t.relatedTags"; 		

@@ -34,6 +34,9 @@ public class LessonPlanServiceImpl implements LessonPlanService {
 		this.entityManager = entityManager;
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<LessonPlan> findAllEagerGrammar() throws NoResultException {			
 			String sqlQuery = "SELECT lp FROM LessonPlan AS lp JOIN FETCH lp.grammar"; 		
@@ -45,7 +48,9 @@ public class LessonPlanServiceImpl implements LessonPlanService {
 			return lessonPlans;			
 	}
 	
-	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<LessonPlan> findAllEagerTopics() throws NoResultException {			
 			String sqlQuery = "SELECT lp FROM LessonPlan AS lp JOIN FETCH lp.topics"; 		
@@ -57,6 +62,9 @@ public class LessonPlanServiceImpl implements LessonPlanService {
 			return lessonPlans;			
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<LessonPlan> findAllEagerTags() throws NoResultException {			
 			String sqlQuery = "SELECT lp FROM LessonPlan AS lp JOIN FETCH lp.tags"; 		
@@ -84,11 +92,8 @@ public class LessonPlanServiceImpl implements LessonPlanService {
 	 * The lesson plan title must match the name of the html file after spaces have been erased and the title has been converted to lowercase. For instance,
 	 * LessonPlan title: "Famous People" should have a html file named "famouspeople.html"</p>
 	 * 
-	 * @param lessonPlan - the lesson plan to be validated
-	 * @param disallowDuplicateTitle - If set to true, the database will be checked to see if the title already exists and will return a validation error if there is a matching title. This behaviour is useful when adding a new lesson plan.
-	 * 								 If set to false, no error message will be produced if there is a duplicate title. 
-	 * @return a list of all the validation errors. If there are no validation errors, an empty list is returned. This behaviour is useful when editing a preexisting leson plan.
-	 * 
+	 * @param {@inheritDoc}
+	 * @return {@inheritDoc}
 	 */
 	@Override
  	public List<String> validateLessonPlan(final LessonPlan lessonPlan, boolean disallowDuplicateTitle) {
@@ -171,7 +176,7 @@ public class LessonPlanServiceImpl implements LessonPlanService {
 	/**
 	 * Filters the lesson plans according to the parameters set on the argument {@code searchParamas}. If fields are set to {@code false} or {@code null} then these fields will not be taken into account when filtering takes place.
 	 * The lesson plan id is not taken into account either.
-	 * @param searchParameters - a LessonPlan object. Each field set will represent a search parameter. 
+	 * @param searchParameters - a LessonPlan object. Each field represents a search parameter. 
 	 * @return a list of lesson plans that match the search parameters of argument {@code searchParameters}. Only lesson plans that fully match will be returned.
 	 */
 	@Override

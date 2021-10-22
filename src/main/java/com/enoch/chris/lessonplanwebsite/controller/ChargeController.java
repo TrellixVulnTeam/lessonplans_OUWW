@@ -61,26 +61,6 @@ public class ChargeController {
 		}
 	}
 	
-//	@GetMapping("/resulttest/success")
-//	public String testResultSuccess(Model theModel) {
-//		theModel.addAttribute("paymentSuccess", "paymentSucceeded");
-//		
-//		return "result";	
-//	}
-//	
-//	@GetMapping("/resulttest/failed")
-//	public String testResultFailed(Model theModel) {
-//		theModel.addAttribute("paymentSuccess", "paymentFailed");
-//		
-//		return "result";	
-//	}
-//	
-//	@GetMapping("/resulttest/successnotsaved")
-//	public String paymentSucceededButCheckoutNotSaved(Model theModel) {
-//		theModel.addAttribute("paymentSuccess", "paymentSucceededButCheckoutNotSaved");
-//		
-//		return "result";	
-//	}
 
 	/**
 	 * Processes the user payment using Stripe integration and saves the purchase information in the database so the newly-bought user subscription will come into effect.
@@ -165,42 +145,8 @@ public class ChargeController {
 		}
 	}
 	
-//	@GetMapping("/startdatetest")
-//	public String testStartDate(Model theModel, HttpSession session) {
-//		User user = (User) session.getAttribute("user");
-//		Subscription subscription = subscriptionRepository.findById(2).get();
-//		LocalDateTime startDate = new SubscriptionUtils(subscription, user, purchaseRepository, LocalDateTime.now())
-//				.getNextSubscriptionStartDate();
-//		System.out.println("Debugging startDate | ChargeController " + startDate);
-//		
-//		return "redirect:lessonplans";
-//		
-//	}
 
-//	private LocalDateTime getSubscriptionStartDate(User user, Subscription subscription) {
-//		//check to see if already purchased this subscription. In this case, subscription start date should start immediately after
-//		//finish date. 
-//					
-//		//get susbcription with latest finish date
-//		List<Purchase> purchases = purchaseRepository.findAll().stream()
-//				.filter(p-> p.getUser().equals(user))
-//				.filter(p-> p.getSubscription().equals(subscription))
-//				.filter(p-> p.getDateSubscriptionEnds().isAfter(LocalDateTime.now()))
-//		.sorted(Comparator.comparing(Purchase::getDateSubscriptionEnds))
-//		.collect(Collectors.toList());		
-//		
-//		//get greatest finishing date
-//		LocalDateTime startingDate = purchases.size() > 0? purchases.get(purchases.size() - 1).getDateSubscriptionEnds()
-//				: LocalDateTime.now();
-//		
-//		if (purchases.size() > 0) {
-//			System.out.println("Debugging first item list - dateSubscriptionEnds| ChargeController " + purchases.get(0).getDateSubscriptionEnds());
-//			System.out.println("Debugging last item list - dateSubscriptionEnds| ChargeController " + purchases.get(purchases.size() - 1).getDateSubscriptionEnds());
-//		}
-//		
-//		
-//		return startingDate;
-//	}
+
 
 	/**
 	 * If a user purchases all subscriptions, each subscription is inserted into the purchase table in the database individually.
