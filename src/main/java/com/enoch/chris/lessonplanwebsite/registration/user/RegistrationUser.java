@@ -18,8 +18,6 @@ public class RegistrationUser {
 	@Size(min = 1, message = "is required")
 	private String userName;
 
-	//@NotNull(message = "")
-	//@Size(min = 1)
 	@NotNull(message = "")
 	@Size(min = 1, message = "")
 	@ValidPassword

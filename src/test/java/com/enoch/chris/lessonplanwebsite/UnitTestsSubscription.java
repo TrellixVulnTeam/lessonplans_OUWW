@@ -25,7 +25,7 @@ import com.enoch.chris.lessonplanwebsite.service.SubscriptionService;
 import com.enoch.chris.lessonplanwebsite.service.UsersService;
 
 @SpringBootTest
-public class SubscriptionIntegrationTests {
+public class UnitTestsSubscription {
 	
 	private PurchaseRepository purchaseRepository;
 	private UserRepository userRepository;
@@ -34,7 +34,7 @@ public class SubscriptionIntegrationTests {
 	private SubscriptionService subscriptionService;
 	
 	@Autowired
-	public SubscriptionIntegrationTests(PurchaseRepository purchaseRepository, UserRepository userRepository
+	public UnitTestsSubscription(PurchaseRepository purchaseRepository, UserRepository userRepository
 			, UsersService usersService, SubscriptionService subscriptionService, SubscriptionRepository subscriptionRepository) {
 		this.purchaseRepository = purchaseRepository;
 		this.userRepository = userRepository;

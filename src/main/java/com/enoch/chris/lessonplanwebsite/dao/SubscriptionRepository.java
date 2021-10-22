@@ -42,8 +42,4 @@ public interface SubscriptionRepository extends JpaRepository<Subscription, Inte
 			+ "and p.dateSubscriptionEnds > :date ORDER BY s.name")
 	LinkedHashSet<Subscription> findActiveSubscriptionsOrderByName(@Param("user") User user, @Param("date") LocalDateTime date);
 	
-	
-	
-
-
 }

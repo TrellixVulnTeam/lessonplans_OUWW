@@ -1,8 +1,11 @@
 package com.enoch.chris.lessonplanwebsite.controller;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +18,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.enoch.chris.lessonplanwebsite.dao.PurchaseRepository;
 import com.enoch.chris.lessonplanwebsite.dao.SubscriptionRepository;
+import com.enoch.chris.lessonplanwebsite.entity.LessonPlan;
+import com.enoch.chris.lessonplanwebsite.entity.SpeakingAmount;
 import com.enoch.chris.lessonplanwebsite.entity.Subscription;
+import com.enoch.chris.lessonplanwebsite.entity.Tag;
+import com.enoch.chris.lessonplanwebsite.entity.Topic;
+import com.enoch.chris.lessonplanwebsite.entity.Type;
 import com.enoch.chris.lessonplanwebsite.entity.User;
 import com.enoch.chris.lessonplanwebsite.entity.utils.SubscriptionUtils;
 import com.enoch.chris.lessonplanwebsite.service.SubscriptionService;

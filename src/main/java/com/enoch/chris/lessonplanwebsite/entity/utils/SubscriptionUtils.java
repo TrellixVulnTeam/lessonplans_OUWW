@@ -43,7 +43,7 @@ public class SubscriptionUtils {
 			
 		System.out.println("In getNextSubscriptionStartDate");
 		
-		//get susbcription with latest finish date
+		//get subscription with latest finish date
 		List<Purchase> purchases = purchaseRepository.findAll().stream()
 				.filter(p-> p.getUser().equals(user))
 				.filter(p-> p.getSubscription().equals(subscription))

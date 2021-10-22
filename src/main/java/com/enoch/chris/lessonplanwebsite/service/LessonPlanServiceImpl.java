@@ -84,6 +84,11 @@ public class LessonPlanServiceImpl implements LessonPlanService {
 	 * The lesson plan title must match the name of the html file after spaces have been erased and the title has been converted to lowercase. For instance,
 	 * LessonPlan title: "Famous People" should have a html file named "famouspeople.html"</p>
 	 * 
+	 * @param lessonPlan - the lesson plan to be validated
+	 * @param disallowDuplicateTitle - If set to true, the database will be checked to see if the title already exists and will return a validation error if there is a matching title. This behaviour is useful when adding a new lesson plan.
+	 * 								 If set to false, no error message will be produced if there is a duplicate title. 
+	 * @return a list of all the validation errors. If there are no validation errors, an empty list is returned. This behaviour is useful when editing a preexisting leson plan.
+	 * 
 	 */
 	@Override
  	public List<String> validateLessonPlan(final LessonPlan lessonPlan, boolean disallowDuplicateTitle) {
@@ -164,7 +169,10 @@ public class LessonPlanServiceImpl implements LessonPlanService {
 	
 	
 	/**
-	 * Filters the lesson plans according to the parameters set on LessonPlan searchParamas. 
+	 * Filters the lesson plans according to the parameters set on the argument {@code searchParamas}. If fields are set to {@code false} or {@code null} then these fields will not be taken into account when filtering takes place.
+	 * The lesson plan id is not taken into account either.
+	 * @param searchParameters - a LessonPlan object. Each field set will represent a search parameter. 
+	 * @return a list of lesson plans that match the search parameters of argument {@code searchParameters}. Only lesson plans that fully match will be returned.
 	 */
 	@Override
 	@Transactional
@@ -176,28 +184,16 @@ public class LessonPlanServiceImpl implements LessonPlanService {
 				.filter(lp -> searchParameters.getTitle() == null ? true
 						: searchParameters.getTitle().equals(lp.getTitle()))
 
-				//Returns true if dateAdded is equal to and after the requested date.
+				//Returns true if dateAdded is equal to or after the requested date.
 				.filter(lp -> searchParameters.getDateAdded() == null ? true
-						: searchParameters.getDateAdded().isBefore(lp.getDateAdded()) || searchParameters.getDateAdded().isEqual(lp.getDateAdded()) ? true : false)
-//			
-				
+						: searchParameters.getDateAdded().isBefore(lp.getDateAdded()) || searchParameters.getDateAdded().isEqual(lp.getDateAdded()) ? true : false)							
 				.filter(lp -> searchParameters.getAssignedSubscription() == null ? true	
-						: searchParameters.getAssignedSubscription().equals(lp.getAssignedSubscription()))
-				
-				.filter(lp -> searchParameters.getType() == null ? true : searchParameters.getType() == lp.getType())
-				
-				
-				
+						: searchParameters.getAssignedSubscription().equals(lp.getAssignedSubscription()))				
+				.filter(lp -> searchParameters.getType() == null ? true : searchParameters.getType() == lp.getType())		
 				.filter(lp -> searchParameters.getSpeakingAmount() == null ? true
 						: searchParameters.getSpeakingAmount() == lp.getSpeakingAmount())
-//
 				.filter(lp -> searchParameters.getLessonTime() == null ? true
-						: searchParameters.getLessonTime() == lp.getLessonTime())
-//
-				
-//
-				
-//
+						: searchParameters.getLessonTime() == lp.getLessonTime())		
 				.filter(lp -> searchParameters.getListening() == false? true			
 						:searchParameters.getListening() == lp.getListening())
 

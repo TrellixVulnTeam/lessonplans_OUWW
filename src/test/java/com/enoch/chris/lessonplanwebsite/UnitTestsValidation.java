@@ -134,7 +134,7 @@ public class UnitTestsValidation extends AdminControllerProcessor {
 		}
 		
 		//reset values that were added edited during tests
-		Optional<Topic> topicToEdit = topicRepository.findByName("Arty");
+		Optional<Topic> topicToEdit = topicRepository.findByName("ArtEdited");
 		if (topicToEdit.isPresent()) {
 			topicToEdit.get().setName("Art");
 			topicRepository.save(topicToEdit.get());
@@ -499,7 +499,7 @@ public class UnitTestsValidation extends AdminControllerProcessor {
 	public void shouldReturnSuccessWhenTopicEdited() throws Exception{
 		//ARRANGE
 		List<Topic> topics = topicRepository.findAll();
-		String newTopic = "Arty";
+		String newTopic = "ArtEdited";
 		
 		//ACT
 		validateAndEditTopic(redirectAttributes, 37, newTopic, topics);

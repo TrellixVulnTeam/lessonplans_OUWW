@@ -1,4 +1,4 @@
-package com.enoch.chris.lessonplanwebsite;
+	package com.enoch.chris.lessonplanwebsite;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mockitoSession;
@@ -152,7 +152,7 @@ public class UnitTestsFiles {
 	
 	@Test
 	@Order(1)
-	public void shouldAddCorrectFlashAttributesAndInvokeFilesMoveUponSuccess() throws IOException {
+	public void shouldAddCorrectFlashAttributesUponSuccess() throws IOException {
 		System.out.println("test order 1");
 		
 		//ARRANGE
@@ -171,13 +171,14 @@ public class UnitTestsFiles {
 	   
 	   String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 	   verify(redirectAttributes).addFlashAttribute("messagelessonplansuccess" + subscription, "You successfully uploaded " + fileName);
+	   System.out.println("You successfully uploaded " + fileName);
 	   assertEquals("redirect:/admin/upload", returnPath);
 	   verifyNoMoreInteractions(redirectAttributes);
 	}
 	
 	@Test
 	@Order(2)
-	public void shouldReturnSuccessfulAndMoveoldFileToDeletedLessonPlansTestWhenFileAlreadyExistsInFolder() throws IOException, InterruptedException {
+	public void shouldReturnSuccessfulAndMoveOldFileToDeletedLessonPlansTestWhenFileAlreadyExistsInFolder() throws IOException, InterruptedException {
 		System.out.println("test order 2");
 		// ARRANGE
 		String subscription = "B2test";
