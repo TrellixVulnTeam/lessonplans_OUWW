@@ -164,6 +164,11 @@ public class UnitTestsValidation extends AdminControllerProcessor {
 			tagRepository.save(new Tag("Driverless"));
 		}
 		
+		Optional<Grammar> grammarToSave = grammarRepository.findByGrammarPoint("Adverbs");
+		if (grammarToSave.isEmpty()) {
+			grammarRepository.save(new Grammar("Adverbs"));
+		}
+		
 	}
 	
 	@Test
@@ -720,6 +725,27 @@ public class UnitTestsValidation extends AdminControllerProcessor {
 		
 		//ASSERT
 		verify(redirectAttributes).addFlashAttribute("messagetagdeletesuccess", "Tag deleted successfully.");
+	}
+	
+	@Test
+	public void shouldReturnNotFoundWhenGrammarDeleted() throws Exception{	
+		//ACT
+		validateAndDeleteGrammar(redirectAttributes, 1000);
+		
+		//ASSERT
+		verify(redirectAttributes).addFlashAttribute("messagegrammardeletefailure", "Unable to delete grammar point because grammar point couldn't be found.");
+	}
+	
+	@Test
+	public void shouldReturnSuccessWhenGrammarDeleted() throws Exception{	
+		//ARRANGE
+		Grammar adverbs = grammarRepository.findByGrammarPoint("Adverbs").get();
+		
+		//ACT
+		validateAndDeleteGrammar(redirectAttributes, adverbs.getId());
+		
+		//ASSERT
+		verify(redirectAttributes).addFlashAttribute("messagegrammardeletesuccess", "Grammar point deleted successfully.");
 	}
 
 
