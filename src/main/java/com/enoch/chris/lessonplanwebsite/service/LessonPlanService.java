@@ -44,4 +44,21 @@ public interface LessonPlanService {
 	 */
 	List<LessonPlan> findAllEagerGrammar() throws NoResultException;
 
+	/**
+	 * 
+	 * @param lessonPlan
+	 * @param errors - a list of errors which may or may not be empty
+	 * @param the error to return if no lesson plan html file exists in the destination directory
+	 * @param the destination directory - this argument must end with a forward slash. E.g. "src/main/resources/templates/lessonplans/"
+	 * @return a {@code List<String>} with the error message defined in the {@code error} method argument if the lesson plan html file does not exist in the destination directory.
+	 * Alternatively, it returns an empty list if no errors are present and the lesson plan html file does exist in the destination directory.
+	 * The destination directory is the lesson plan directory whose name is equal to the subscription set on the 
+	 * {@code lessonPlan} argument.
+	 * @throws Exception - if the subscription is set to null on the {@code lessonPlan} argument
+	 */
+	List<String> ensureLessonFileExistsInDestination(LessonPlan lessonPlan, List<String> errors, String errorMessage, String destination) throws Exception;
+
+
+
+
 }

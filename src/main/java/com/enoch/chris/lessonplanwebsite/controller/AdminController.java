@@ -42,6 +42,7 @@ import com.enoch.chris.lessonplanwebsite.service.LessonPlanService;
 import com.enoch.chris.lessonplanwebsite.service.TopicService;
 import com.enoch.chris.lessonplanwebsite.utils.FileUtils;
 import com.enoch.chris.lessonplanwebsite.utils.StringTools;
+import com.stripe.model.PaymentIntent.PaymentMethodOptions.Card.Installments.Plan;
 
 @Controller
 public class AdminController {
@@ -547,6 +548,8 @@ public class AdminController {
 	 				
 	 		//If get to here, no errors so far.	
 	 		
+	 		System.out.println("debugging: lesson plan id " + lessonPlan.getId());
+	 		
 	 		//check to see if level has been changed. If so, check if the lesson plan html file already exists in level folder. If so, move current lesson plan file to deletedlessonplans and add the new one
 	 		LessonPlan lessonPlanOriginal = lessonPlanRepository.findById(lessonPlan.getId()).get();
 	 		Subscription originalAssignedSubscription = lessonPlanOriginal.getAssignedSubscription();
@@ -588,6 +591,16 @@ public class AdminController {
 	 		//Must include date as date cannot be set to null in database.
 	 		lessonPlan.setDateAdded(LocalDate.now());	
 	 		List<String> errors = lessonPlanService.validateLessonPlan(lessonPlan, true);
+	 		
+	 		//ensure lesson plan html file has already been created in destination folder
+	 		try {
+				lessonPlanService.ensureLessonFileExistsInDestination(lessonPlan, errors, "No html file for this title and level exists. "
+						+ "When the lesson plan details are added, the lesson plan goes live on the website. Therefore, a corresponding"
+						+ " html file must be uploaded before the lesson plan details can be added.", "src/main/resources/templates/lessonplans/");
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+	 		
 	 		
 	 		if (errors.size() > 0) {
 	 			//send the lesson plan so fields remain checked

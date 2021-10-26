@@ -150,7 +150,35 @@ public class LessonPlanServiceImpl implements LessonPlanService {
  		}
  		
  		
- 		if (lessonPlan.getAssignedSubscription() != null) { 
+// 		if (lessonPlan.getAssignedSubscription() != null) { 
+// 			//check lesson plan html file exists for the lesson plan details added
+// 			//Strip title of spaces and convert to lowercase to produce filename
+// 			String titleNoSpace = StringTools.stripSpacesConvertToLower(lessonPlan.getTitle());
+// 								
+// 			//build source path
+// 			String destination = "src/main/resources/templates/lessonplans/"+ lessonPlan.getAssignedSubscription().getName() 
+// 					+ "/" + titleNoSpace + ".html";
+// 					
+// 			//check if file already exists in destination folder
+// 			File correspondingHTMlFile = new File(destination);
+// 			if (!correspondingHTMlFile.exists()) {
+// 				errors.add("No html file for this title and level exists. When the lesson plan details are added, the lesson plan goes live on the website. Therefore, "
+// 						+ "a corresponding html file must be uploaded before the lesson plan details can be added.");	
+// 			}		
+// 		}
+// 		
+ 		
+ 		return errors;
+ 	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+ 	public List<String> ensureLessonFileExistsInDestination(final LessonPlan lessonPlan, List<String> errors, String errorMessage, String destinationDirectory) throws Exception {
+		if (lessonPlan.getAssignedSubscription() == null) { 
+			throw new Exception("Subscription for the LessonPlan is null. This method only works if the subscription is set and is not equal to null.");		
+		}
  			//check lesson plan html file exists for the lesson plan details added
  			//Strip title of spaces and convert to lowercase to produce filename
  			String titleNoSpace = StringTools.stripSpacesConvertToLower(lessonPlan.getTitle());
@@ -162,14 +190,13 @@ public class LessonPlanServiceImpl implements LessonPlanService {
  			//check if file already exists in destination folder
  			File correspondingHTMlFile = new File(destination);
  			if (!correspondingHTMlFile.exists()) {
- 				errors.add("No html file for this title and level exists. When the lesson plan details are added, the lesson plan goes live on the website. Therefore, "
- 						+ "a corresponding html file must be uploaded before the lesson plan details can be added.");	
+ 				errors.add(errorMessage);
+ 				//errors.add("No html file for this title and level exists. When the lesson plan details are added, the lesson plan goes live on the website. Therefore, "
+ 						//+ "a corresponding html file must be uploaded before the lesson plan details can be added.");	
  			}		
- 		}
- 		
- 		
- 		return errors;
- 	}
+ 			
+		return errors;
+	}
 	
 	
 	
