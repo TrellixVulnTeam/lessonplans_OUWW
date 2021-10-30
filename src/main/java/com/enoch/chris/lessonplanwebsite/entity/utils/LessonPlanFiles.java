@@ -132,7 +132,7 @@ public class LessonPlanFiles {
 	 * @param newDestinationFolder
 	 * @param deletedLessonPlanRepository
 	 * @throws Exception
-	 * @return A list of errors if any exist. if the method completed successfully, the list will be empty. If there was was an error, the error will be in the list. There will be a maximum of one error in the list.
+	 * @return a list of errors if any exist. if the method completed successfully, the list will be empty. If there was was an error, the error will be in the list. There will be a maximum of one error in the list.
 	 */
 	public static List<String> moveLessonPlanFile(String source, String destination, String subscriptionNameOfSource
 			, String newDestinationFolder, DeletedLessonPlanRepository deletedLessonPlanRepository) {
@@ -202,6 +202,12 @@ public class LessonPlanFiles {
 	
 	//indicate lesson plan html file resolved according to title name
 	//new title should include html file extension?, no leading slash
+	/**
+	 * 
+	 * @param source - the lesson plan html file to be renamed
+	 * @param newName - the new name of the lesson plan html file. E.g. motivationaltips.html
+	 * @return - a list of errors if any exist. if the method completed successfully, the list will be empty. If there was was an error, the error will be in the list. There will be a maximum of one error in the list.
+	 */
 	public static List<String> renameLessonPlan(String source, String newName) {
 		System.out.println("Inside renameLessonPlanTitle");
 		List<String> errors = new ArrayList<>();

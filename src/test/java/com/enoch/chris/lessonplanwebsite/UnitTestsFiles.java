@@ -99,7 +99,27 @@ public class UnitTestsFiles {
 		
 	}
 	
-
+	@Test
+	public void shouldReturnErrorBecauseFileAlreadyExistsWithSameNameAsUpdatedName() throws Exception{
+		//ARRANGE
+		String titleToRename = "renameme.html";
+				
+		//build source path
+		String source = "src/main/resources/templates/unittests/lessonplanstest/C1test/" + titleToRename;
+		assertEquals(true, new File(source).exists());
+		
+		String updatedName = "renamed.html";
+		
+		//ACT
+		List<String> errors = LessonPlanFiles.renameLessonPlan(source, updatedName);
+	
+		//ASSERT
+		assertEquals(1, errors.size());
+		assertEquals("Could not rename title. A lesson plan html file with the same name as the " 
+				+ "lesson plan html file calculated from the updated lesson plan name already exists.", errors.get(0));
+	}
+	
+	
 	
 	@Test
 	@Order(1)
