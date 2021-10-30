@@ -202,41 +202,39 @@ public class LessonPlanFiles {
 	
 	//indicate lesson plan html file resolved according to title name
 	//new title should include html file extension?, no leading slash
-	public static void renameLessonPlan(String source, String newName) throws Exception {
+	public static List<String> renameLessonPlan(String source, String newName) {
 		System.out.println("Inside renameLessonPlanTitle");
+		List<String> errors = new ArrayList<>();
 		
 			//check if file already exists in source folder
 			File fileSource = new File(source);
 			
 			//if exists, move to new destination folder
 			if (fileSource.exists()) {
-				System.out.println("debugging file source exists");
 				
 				Path sourcePath = Paths.get(source);
 				
 				//check to see if renamed already exists in the directory
 				File newFile = new File(sourcePath.resolveSibling(newName).toString());
 				
-				System.out.println("debufgging new file name: " + newFile.getAbsolutePath());
-				
 				if (newFile.exists()) {
-					throw new Exception("Could not rename title. A lesson plan html file with the same name as the "
+					errors.add("Could not rename title. A lesson plan html file with the same name as the "
 							+ "lesson plan html file calculated from the updated lesson plan name already exists.");
+					return errors;
 				}
 				
 				try{
-					System.out.println("debugging inside rename try block");
 				    // rename the file
 				    Files.move(sourcePath, sourcePath.resolveSibling(newName));
-				    System.out.println("debugging file moved successfully");
-
 				  } catch (IOException e) {
 				    e.printStackTrace();
-				    throw new Exception("Unable to rename title.");
+				    errors.add("Unable to rename title.");
+				    return errors;
 				  }												
 			}	
 
 			//if get to here, file was renamed successfully
+			return errors;
 	}
 	
 	

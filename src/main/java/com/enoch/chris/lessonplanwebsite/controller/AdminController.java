@@ -568,14 +568,11 @@ public class AdminController {
  			if (!titleNoSpace.equals(titleNoSpaceOriginal)) {
  				String updatedLessonPLanHTMLFileName = titleNoSpace + ".html";
  				 		
- 				 		try {
-							LessonPlanFiles.renameLessonPlan(source, updatedLessonPLanHTMLFileName);
-						} catch (Exception e) {
-							e.printStackTrace();
-							attributes.addFlashAttribute("error", e.getMessage());
+				List<String> errorsFromRenameLessonPlanFile = LessonPlanFiles.renameLessonPlan(source, updatedLessonPLanHTMLFileName);
+						if (errorsFromRenameLessonPlanFile.size() > 0) {
+							attributes.addFlashAttribute("error", errorsFromRenameLessonPlanFile.get(0));
 							return "redirect:/admin/";	
-						}		 		 
- 				 		 //update lesson plan title? - probably do not need				
+						}		 		 			
  			}
 	
  			//check to see if level has been changed. If so, check if the lesson plan html file already exists in level folder. If so, move current lesson plan file to deletedlessonplans and add the new one
