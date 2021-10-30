@@ -9,14 +9,18 @@ import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import org.hibernate.query.criteria.internal.predicate.ExistsPredicate;
+import org.springframework.dao.IncorrectUpdateSemanticsDataAccessException;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.enoch.chris.lessonplanwebsite.dao.DeletedLessonPlanRepository;
 import com.enoch.chris.lessonplanwebsite.entity.DeletedLessonPlan;
+import com.enoch.chris.lessonplanwebsite.entity.Subscription;
 import com.enoch.chris.lessonplanwebsite.utils.FileUtils;
 import com.enoch.chris.lessonplanwebsite.utils.StringTools;
+import com.fasterxml.jackson.core.sym.Name;
 /**
  * Utility class responsible for file operations on the html lesson plan files used together with {@link com.enoch.chris.lessonplanwebsite.entity.LessonPlan}
  * @author chris
@@ -181,6 +185,44 @@ public class LessonPlanFiles {
 			//if get to here, file was moved successfully
 	}
 	
+	//indicate lesson plan html file resolved according to title name
+	//new title should include html file extension?, no leading slash
+	public static void renameLessonPlan(String source, String newName) throws Exception {
+		System.out.println("Inside renameLessonPlanTitle");
+		
+			//check if file already exists in source folder
+			File fileSource = new File(source);
+			
+			//if exists, move to new destination folder
+			if (fileSource.exists()) {
+				System.out.println("debugging file source exists");
+				
+				Path sourcePath = Paths.get(source);
+				
+				//check to see if renamed already exists in the directory
+				File newFile = new File(sourcePath.resolveSibling(newName).toString());
+				
+				System.out.println("debufgging new file name: " + newFile.getAbsolutePath());
+				
+				if (newFile.exists()) {
+					throw new Exception("Could not rename title. A lesson plan html file with the same name as the "
+							+ "lesson plan html file calculated from the updated lesson plan name already exists.");
+				}
+				
+				try{
+					System.out.println("debugging inside rename try block");
+				    // rename the file
+				    Files.move(sourcePath, sourcePath.resolveSibling(newName));
+				    System.out.println("debugging file moved successfully");
+
+				  } catch (IOException e) {
+				    e.printStackTrace();
+				    throw new Exception("Unable to rename title.");
+				  }												
+			}	
+
+			//if get to here, file was renamed successfully
+	}
 	
 	
 	

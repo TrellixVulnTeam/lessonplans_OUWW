@@ -550,20 +550,47 @@ public class AdminController {
 	 		
 	 		System.out.println("debugging: lesson plan id " + lessonPlan.getId());
 	 		
-	 		//check to see if level has been changed. If so, check if the lesson plan html file already exists in level folder. If so, move current lesson plan file to deletedlessonplans and add the new one
+	 		
 	 		LessonPlan lessonPlanOriginal = lessonPlanRepository.findById(lessonPlan.getId()).get();
+	 		
+	 		//add rename method here. Must ensure that rename will be taken into account for next method if level change as well.
+	 		//Strip title of spaces and convert to lowercase to produce filename
+ 			String titleNoSpace = StringTools.stripSpacesConvertToLower(lessonPlan.getTitle());
+ 			String titleNoSpaceOriginal = StringTools.stripSpacesConvertToLower(lessonPlanOriginal.getTitle());
+ 					
+ 			//build source path
+ 			String source = "src/main/resources/templates/lessonplans/"+ lessonPlanOriginal.getAssignedSubscription().getName() 
+ 					+ "/" + titleNoSpaceOriginal + ".html";
+ 			
+ 			System.out.println("debugging Source file " + source);
+ 			
+ 			//if new title is different to existing title then must rename lesson plan html file
+ 			if (!titleNoSpace.equals(titleNoSpaceOriginal)) {
+ 				String updatedLessonPLanHTMLFileName = titleNoSpace + ".html";
+ 				 		
+ 				 		try {
+							LessonPlanFiles.renameLessonPlan(source, updatedLessonPLanHTMLFileName);
+						} catch (Exception e) {
+							e.printStackTrace();
+							attributes.addFlashAttribute("error", e.getMessage());
+						}
+ 				 		 
+ 				 		 //update lesson plan title? - probably do not need				
+ 			}
+	
+ 			//check to see if level has been changed. If so, check if the lesson plan html file already exists in level folder. If so, move current lesson plan file to deletedlessonplans and add the new one
 	 		Subscription originalAssignedSubscription = lessonPlanOriginal.getAssignedSubscription();
 	 		if (originalAssignedSubscription  != 
 	 				lessonPlan.getAssignedSubscription()) {  //means assignedSubscription has been changed
 	 			
-	 			//Strip title of spaces and convert to lowercase to produce filename
-	 			String titleNoSpace = StringTools.stripSpacesConvertToLower(lessonPlan.getTitle());
-	 					
-	 			//build source path
-	 			String source = "src/main/resources/templates/lessonplans/"+ lessonPlanOriginal.getAssignedSubscription().getName() 
-	 					+ "/" + titleNoSpace + ".html";
-	 			
-	 			System.out.println("debugging Source file " + source);
+//	 			//Strip title of spaces and convert to lowercase to produce filename
+//	 			String titleNoSpace = StringTools.stripSpacesConvertToLower(lessonPlan.getTitle());
+//	 					
+//	 			//build source path
+//	 			String source = "src/main/resources/templates/lessonplans/"+ lessonPlanOriginal.getAssignedSubscription().getName() 
+//	 					+ "/" + titleNoSpace + ".html";
+//	 			
+//	 			System.out.println("debugging Source file " + source);
 	 			
 	 			//build destination path
 	 			String destination = "src/main/resources/templates/lessonplans/"+ lessonPlan.getAssignedSubscription().getName() 
