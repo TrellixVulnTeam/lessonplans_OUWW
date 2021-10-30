@@ -184,7 +184,7 @@ public class LessonPlanServiceImpl implements LessonPlanService {
  			String titleNoSpace = StringTools.stripSpacesConvertToLower(lessonPlan.getTitle());
  								
  			//build source path
- 			String destination = "src/main/resources/templates/lessonplans/"+ lessonPlan.getAssignedSubscription().getName() 
+ 			String destination = destinationDirectory + lessonPlan.getAssignedSubscription().getName() 
  					+ "/" + titleNoSpace + ".html";
  					
  			//check if file already exists in destination folder

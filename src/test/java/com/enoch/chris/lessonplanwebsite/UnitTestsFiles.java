@@ -39,12 +39,14 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.mockito.Mock;
+import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.mockito.Spy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.scheduling.support.SimpleTriggerContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.util.StringUtils;
@@ -66,19 +68,29 @@ import com.enoch.chris.lessonplanwebsite.entity.User;
 import com.enoch.chris.lessonplanwebsite.entity.utils.LessonPlanFiles;
 import com.enoch.chris.lessonplanwebsite.entity.utils.LessonPlanUtils;
 import com.enoch.chris.lessonplanwebsite.entity.utils.SubscriptionUtils;
+import com.enoch.chris.lessonplanwebsite.service.LessonPlanService;
 import com.enoch.chris.lessonplanwebsite.utils.FileUtils;
 import com.enoch.chris.lessonplanwebsite.utils.StringTools;
+import com.stripe.model.PaymentIntent.PaymentMethodOptions.Card.Installments.Plan;
+import com.sun.source.tree.AssertTree;
 
 
 @SpringBootTest
 @TestMethodOrder(OrderAnnotation.class)
 public class UnitTestsFiles {
 	
+	private LessonPlanService lessonPlanService;
+
 	@Mock
 	DeletedLessonPlanRepository deletedLessonPlanRepository;
 	
 	@Spy
 	RedirectAttributes redirectAttributes;
+	
+	@Autowired
+	public UnitTestsFiles(LessonPlanService lessonPlanService) {
+		this.lessonPlanService = lessonPlanService;
+	}
 	
 	@BeforeAll
 	public static void deleteDeletedlessonPlansFolder() throws Exception {	
@@ -119,6 +131,75 @@ public class UnitTestsFiles {
 				+ "lesson plan html file calculated from the updated lesson plan name already exists.", errors.get(0));
 	}
 	
+	
+	@Test
+	public void shouldReturnListSizeZeroUponSuccess() throws Exception{
+		//ARRANGE
+		LessonPlan lessonPlan = new LessonPlan.LessonPlanBuilder("Environment Strike", null, new Subscription("C1test"), null, null, null, null).build();
+		List<String> errors = new ArrayList<>();
+		String errorMessage = "This is the custom error message.";
+		String destinationDirectory = "src/main/resources/templates/unittests/lessonplanstest/";
+		
+		//ACT
+		List<String> errorsAfterMethodCall = lessonPlanService.ensureLessonFileExistsInDestination(lessonPlan, errors
+				, errorMessage, destinationDirectory);
+		
+		//ASSERT
+		assertEquals(0, errorsAfterMethodCall.size());
+		
+	}
+	
+	@Test
+	public void shouldReturnListSizeOneUponSuccessWhenErrorListPopulatedBeforeMethodCall() throws Exception{
+		//ARRANGE
+		LessonPlan lessonPlan = new LessonPlan.LessonPlanBuilder("Environment Strike", null, new Subscription("C1test"), null, null, null, null).build();
+		List<String> errors = new ArrayList<>();
+		errors.add("Any error");
+		String errorMessage = "This is the custom error message.";
+		String destinationDirectory = "src/main/resources/templates/unittests/lessonplanstest/";
+		
+		//ACT
+		List<String> errorsAfterMethodCall = lessonPlanService.ensureLessonFileExistsInDestination(lessonPlan, errors
+				, errorMessage, destinationDirectory);
+		
+		//ASSERT
+		assertEquals(1, errorsAfterMethodCall.size());	
+	}
+	
+	@Test
+	public void shouldThrowExceptionIfSubscriptionIsNull() throws Exception{
+		//ARRANGE
+		LessonPlan lessonPlan = new LessonPlan.LessonPlanBuilder("Environment Strike", null, null, null, null, null, null).build();
+		List<String> errors = new ArrayList<>();
+		String errorMessage = "This is the custom error message.";
+		String destinationDirectory = "src/main/resources/templates/unittests/lessonplanstest/C1test/ensureiexist.html";
+		
+		//ACT
+		Exception exc = assertThrows(Exception.class, ()-> lessonPlanService.ensureLessonFileExistsInDestination(lessonPlan, errors
+				, errorMessage, destinationDirectory));
+		
+		//ASSERT
+		assertEquals("Subscription for the LessonPlan is null. This method only works if the subscription is set and is not equal to null.", exc.getMessage());
+		
+	}
+	
+	@Test
+	public void shouldReturnPassedMessageIfLessonFileDoesNotExist() throws Exception{
+		//ARRANGE
+		LessonPlan lessonPlan = new LessonPlan.LessonPlanBuilder("Theme parks", null, new Subscription("C1test"), null, null, null, null).build();
+		List<String> errors = new ArrayList<>();
+		String errorMessage = "This is the custom error message.";
+		String destinationDirectory = "src/main/resources/templates/unittests/lessonplanstest/C1test/ensureiexist.html";
+		
+		//ACT
+		List<String> errorsAfterMethodCall = lessonPlanService.ensureLessonFileExistsInDestination(lessonPlan, errors
+				, errorMessage, destinationDirectory);
+		
+		//ASSERT
+		assertEquals("This is the custom error message.", errorsAfterMethodCall.get(0));
+		
+	}
+
 	
 	
 	@Test
