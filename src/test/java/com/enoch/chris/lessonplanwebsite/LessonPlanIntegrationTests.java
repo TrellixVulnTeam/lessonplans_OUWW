@@ -187,22 +187,6 @@ public class LessonPlanIntegrationTests {
 		assertThat(errors).containsAnyOf("When selecting \"Speaking Only,\" grammar,  vocabulary, listening, reading, writing, video and song must not be selected.  ");
 	}
 	
-	@Test
-	public void shouldReturnNoHTMLFileError(){
-		//ARRANGE
-		Set<Topic> topics = new HashSet<Topic>();
-		topics.add(new Topic("Sport", null));
-			
-		LessonPlan lp1 = new LessonPlan.LessonPlanBuilder("New title", null, new Subscription("C1PLUS"), Type.BUSINESS,  SpeakingAmount.SPEAKING_ONLY
-				, topics, null).isSong(true).build();
-		
-		//ACT
-		List<String> errors = lessonPlanService.validateLessonPlan(lp1, false);
-		
-		//ASSERT
-		assertThat(errors).contains("No html file for this title and level exists. When the lesson plan details are added, the lesson plan goes live on the website. Therefore, "
-				+ "a corresponding html file must be uploaded before the lesson plan details can be added.");
-	}
 	
 	@Test
 	public void shouldReturnNoErrorrs(){

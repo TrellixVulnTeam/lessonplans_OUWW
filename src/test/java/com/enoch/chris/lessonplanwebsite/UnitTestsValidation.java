@@ -147,7 +147,7 @@ public class UnitTestsValidation extends AdminControllerProcessor {
 		
 		Optional<Grammar> grammarToEdit = grammarRepository.findByGrammarPoint("AdjectivesEdited");
 		if (grammarToEdit.isPresent()) {
-			grammarToEdit.get().setGrammarPoint("Adjectives");
+			grammarToEdit.get().setGrammarPoint("Conditionals with should");
 			grammarRepository.save(grammarToEdit.get());
 		}
 		
@@ -162,9 +162,9 @@ public class UnitTestsValidation extends AdminControllerProcessor {
 			tagRepository.save(new Tag("Driverless"));
 		}
 		
-		Optional<Grammar> grammarToSave = grammarRepository.findByGrammarPoint("Adverbs");
+		Optional<Grammar> grammarToSave = grammarRepository.findByGrammarPoint("Adjectives of frequency");
 		if (grammarToSave.isEmpty()) {
-			grammarRepository.save(new Grammar("Adverbs"));
+			grammarRepository.save(new Grammar("Adjectives of frequency"));
 		}
 		
 	}
@@ -677,7 +677,7 @@ public class UnitTestsValidation extends AdminControllerProcessor {
 		String newGrammar = "AdjectivesEdited";
 		
 		//ACT
-		validateAndEditGrammar(redirectAttributes, 36, newGrammar, grammar);
+		validateAndEditGrammar(redirectAttributes, 128, newGrammar, grammar);
 		
 		//ASSERT
 		verify(redirectAttributes).addFlashAttribute("messagegrammareditsuccess", "Grammar point edited successfully.");
@@ -737,10 +737,10 @@ public class UnitTestsValidation extends AdminControllerProcessor {
 	@Test
 	public void shouldReturnSuccessWhenGrammarDeleted() throws Exception{	
 		//ARRANGE
-		Grammar adverbs = grammarRepository.findByGrammarPoint("Adverbs").get();
+		Grammar adjectivesOfFrequency = grammarRepository.findByGrammarPoint("Adjectives of frequency").get();
 		
 		//ACT
-		validateAndDeleteGrammar(redirectAttributes, adverbs.getId());
+		validateAndDeleteGrammar(redirectAttributes, adjectivesOfFrequency.getId());
 		
 		//ASSERT
 		verify(redirectAttributes).addFlashAttribute("messagegrammardeletesuccess", "Grammar point deleted successfully.");

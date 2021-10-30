@@ -253,11 +253,20 @@ public class AdminControllerProcessor {
 		 
 		 //check grammar doesn't already exist
 		 String newEditedGrammarLowerCase = trimmedNewEditedGrammar.toLowerCase();
+		 System.out.println("debugging: newEditedGrammarLowerCase) " + newEditedGrammarLowerCase);
+		 
 		 List<String> grammarLowerCase = grammar.stream().map(Grammar::getGrammarPoint)
 				 .map(String::toLowerCase).collect(Collectors.toList());
+		 
+		 System.out.println("debugging grammarLowerCase list");
+		 grammarLowerCase.forEach(a -> System.out.println(a));
+		 
+		 
 			if(grammarLowerCase.contains(newEditedGrammarLowerCase)) {
 				attributes.addFlashAttribute("messagegrammareditfailure", "This grammar point already exists. Grammar point not edited.");
 				return;
+			} else {
+				System.out.println("debugging grammarLowerCase does not contain newEditedGrammarLowerCase");
 			}
 			 
 		//get current grammar

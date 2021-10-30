@@ -164,6 +164,7 @@ public class UnitTestsFiles {
 		
 		//ASSERT
 		assertEquals(1, errorsAfterMethodCall.size());	
+		assertEquals("Any error", errorsAfterMethodCall.get(0));
 	}
 	
 	@Test
