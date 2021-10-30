@@ -1,7 +1,5 @@
 package com.enoch.chris.lessonplanwebsite;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.io.File;
 
 import org.mockito.Spy;
@@ -16,7 +14,7 @@ import com.enoch.chris.lessonplanwebsite.dao.TopicRepository;
 import com.enoch.chris.lessonplanwebsite.entity.Grammar;
 import com.enoch.chris.lessonplanwebsite.entity.Tag;
 import com.enoch.chris.lessonplanwebsite.entity.Topic;
-import com.enoch.chris.lessonplanwebsite.entity.utils.LessonPlanFiles;
+
 import com.enoch.chris.lessonplanwebsite.service.LessonPlanService;
 import com.enoch.chris.lessonplanwebsite.service.TopicService;
 

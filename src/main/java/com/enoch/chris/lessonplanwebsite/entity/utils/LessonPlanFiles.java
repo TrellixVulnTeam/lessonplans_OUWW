@@ -133,7 +133,7 @@ public class LessonPlanFiles {
 	 */
 	public static void moveLessonPlanFile(String source, String destination, String subscriptionNameOfSource
 			, String newDestinationFolder, DeletedLessonPlanRepository deletedLessonPlanRepository) throws Exception {
-		System.out.println("Inside move leson planb file");
+		System.out.println("Inside move leson plan file");
 		
 			//check if file already exists in destination folder
 			File fileDestination = new File(destination);
