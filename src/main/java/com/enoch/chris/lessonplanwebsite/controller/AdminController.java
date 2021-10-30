@@ -573,8 +573,8 @@ public class AdminController {
 						} catch (Exception e) {
 							e.printStackTrace();
 							attributes.addFlashAttribute("error", e.getMessage());
-						}
- 				 		 
+							return "redirect:/admin/";	
+						}		 		 
  				 		 //update lesson plan title? - probably do not need				
  			}
 	
