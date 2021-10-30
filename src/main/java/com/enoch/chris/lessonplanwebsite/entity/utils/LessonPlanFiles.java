@@ -8,6 +8,8 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.hibernate.query.criteria.internal.predicate.ExistsPredicate;
 import org.springframework.dao.IncorrectUpdateSemanticsDataAccessException;
@@ -130,10 +132,13 @@ public class LessonPlanFiles {
 	 * @param newDestinationFolder
 	 * @param deletedLessonPlanRepository
 	 * @throws Exception
+	 * @return A list of errors if any exist. if the method completed successfully, the list will be empty. If there was was an error, the error will be in the list. There will be a maximum of one error in the list.
 	 */
-	public static void moveLessonPlanFile(String source, String destination, String subscriptionNameOfSource
-			, String newDestinationFolder, DeletedLessonPlanRepository deletedLessonPlanRepository) throws Exception {
+	public static List<String> moveLessonPlanFile(String source, String destination, String subscriptionNameOfSource
+			, String newDestinationFolder, DeletedLessonPlanRepository deletedLessonPlanRepository) {
 		System.out.println("Inside move leson plan file");
+		
+			List<String> errors = new ArrayList<>();
 		
 			//check if file already exists in destination folder
 			File fileDestination = new File(destination);
@@ -159,9 +164,10 @@ public class LessonPlanFiles {
 					deletedLessonPlanRepository.save(new DeletedLessonPlan(newFilename));
 				} catch (IOException e1) {
 					e1.printStackTrace();
-					throw new Exception("Sorry but there was a problem moving"
+					errors.add("Sorry but there was a problem moving"
 		            		+ "the html file for the lesson. The file already exists in the subscription "
-		            		+ "folder you selected and the current file wasn't able to be moved to the recycle bin.");						  
+		            		+ "folder you selected and the current file wasn't able to be moved to the recycle bin.");	
+					return errors;
 				}					
 			}
 			
@@ -170,19 +176,28 @@ public class LessonPlanFiles {
 			
 			//if does not exist, throw exception
 			if (!fileSource.exists()) {
-				throw new Exception ("Unable to find source file for the lesson plan you edited. Changes not saved.");
+				errors.add("Unable to find source file for the lesson plan you edited. Changes not saved.");
+				return errors;
 			}
 			
 			//attempt move
-			Files.move(Paths.get(source), Paths.get(destination), StandardCopyOption.REPLACE_EXISTING);
+			try {
+				Files.move(Paths.get(source), Paths.get(destination), StandardCopyOption.REPLACE_EXISTING);
+			} catch (IOException e) {
+				e.printStackTrace();
+				errors.add("Unable to move the file to the new level folder. Changes not saved.");
+			}
 					
 			//check move
 			File newFile = new File(destination);		
 			if (!newFile.exists()) {
-				throw new Exception ("Unable to move the file to the new level folder. Changes not saved.");
-			}	
+				errors.add("Unable to move the file to the new level folder. Changes not saved.");
+			}
 			
 			//if get to here, file was moved successfully
+			return errors;
+			
+
 	}
 	
 	//indicate lesson plan html file resolved according to title name

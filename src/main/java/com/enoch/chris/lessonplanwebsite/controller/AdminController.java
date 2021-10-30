@@ -596,13 +596,12 @@ public class AdminController {
 	 			String destination = "src/main/resources/templates/lessonplans/"+ lessonPlan.getAssignedSubscription().getName() 
 	 			+ "/" + titleNoSpace + ".html";
 	 			
-	 			try {
-	 				LessonPlanFiles.moveLessonPlanFile(source, destination, lessonPlanOriginal.getAssignedSubscription().getName()
+
+	 			List<String> errorsFromMoveLessonPlanFile =	LessonPlanFiles.moveLessonPlanFile(source, destination, lessonPlanOriginal.getAssignedSubscription().getName()
 	 						, "src/main/resources/templates/deletedlessonplans/", deletedLessonPlanRepository);
-	 			} catch (Exception e) {
-	 				e.printStackTrace();
-	 				attributes.addFlashAttribute("error", e.getMessage());
-	 				
+
+	 			if (errorsFromMoveLessonPlanFile.size() > 0) {
+	 				attributes.addFlashAttribute("error", errorsFromMoveLessonPlanFile.get(0));		
 	 				return "redirect:/admin/";
 	 			}
 	 			
