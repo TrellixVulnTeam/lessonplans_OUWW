@@ -93,14 +93,14 @@ public class RegistrationController {
 		// check the database if user already exists
 		 List<String> registrationErrors = new ArrayList<>();
 		 boolean errorExists = false;
-		 User existing;
+		 User existingUserToTestForUsername;
 		 try {
-			   existing = userRepository.findByUsername(username);
+			 existingUserToTestForUsername = userRepository.findByUsername(username);
 		 } catch(Exception exc){
-			 existing = null;
+			 existingUserToTestForUsername = null;
 		 }
  
-        if (existing != null){
+        if (existingUserToTestForUsername != null){
         	theModel.addAttribute("regUser", regUser);
         	registrationErrors.add("*User name already exists.");
 			//theModel.addAttribute("registrationError", "User name already exists.");
@@ -108,22 +108,28 @@ public class RegistrationController {
 			errorExists = true;
         }
         
+        User existingUserToTestForEmail;
         String email = regUser.getEmail();
         try {
-        	existing = userRepository.findByEmail(email);
-        	registrationErrors.add("*Email already exists"); //If get to here, email already exists so an error is added.
+        	existingUserToTestForEmail = userRepository.findByEmail(email);     	
         } catch (Exception exc) {
-        	existing = null;
+        	existingUserToTestForEmail = null;
         }
 
-        if (existing != null || errorExists) {
+        if (existingUserToTestForEmail != null) {
         	theModel.addAttribute("regUser", regUser);
+        	registrationErrors.add("*Email already exists"); 
         	//registrationErrors.add("*Email already exists");
-        	//theModel.addAttribute("registrationError", registrationErrors);
-        	redirectAttributes.addFlashAttribute("registrationError", registrationErrors);
+        	//theModel.addAttribute("registrationError", registrationErrors);    	
         	logger.warning("Email already exists.");
         	errorExists = true;
-        	return "redirect:/register/showRegistrationForm";
+        	//return "redirect:/register/showRegistrationForm";
+        }
+        
+        if (errorExists) {
+        	redirectAttributes.addFlashAttribute("registrationError", registrationErrors);
+        	//return "redirect:/register/showRegistrationForm";
+        	return "registration-form";
         }
         
         
